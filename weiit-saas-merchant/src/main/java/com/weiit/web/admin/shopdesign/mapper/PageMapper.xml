@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.shopdesign.mapper.PageMapper">
+
+    <!-- 装修微页面  -->
+    <select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            page_id AS validate_id,
+            page_name,
+            page_desc,
+            page_cover,
+            bgcolor,
+            create_time,
+            update_time,
+            is_default,
+            shop_id
+        FROM
+        weiit_page
+        WHERE
+        is_deleted = 0
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+        <if test="page_name !=null and page_name !='' ">
+            and page_name  like concat('%', #{page_name}, '%')
+        </if>
+        ORDER BY FIELD(is_default,1,2,0),update_time DESC
+    </select>
+
+    <select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            page_id AS validate_id,
+            page_name,
+            page_desc,
+            bgcolor,
+            create_time,
+            update_time,
+            shop_id,
+            page_layout
+        FROM
+        weiit_page
+        where page_id = #{validate_id}
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+    </select>
+
+    <select id="getTemplatePageJson" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+           template_name,
+           template_json,
+           template_img
+        FROM
+        weiit_init_template
+        where template_id = #{0}
+    </select>
+
+    <update id="edit" parameterType="map">
+        UPDATE weiit_page
+        SET
+            page_name = #{page_name},
+            page_desc = #{page_desc},
+            bgcolor = #{bgcolor},
+            update_time = now(),
+            <if test="page_cover!=null and page_cover!=''">
+                page_cover=#{page_cover},
+            </if>
+            page_layout=#{page_layout}
+        WHERE
+        page_id = #{validate_id}
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+    </update>
+
+    <insert id="insert" parameterType="map" useGeneratedKeys="true" keyProperty="page_id">
+        INSERT INTO weiit_page (
+        page_name,
+        page_desc,
+        bgcolor,
+        is_deleted,
+        create_time,
+        update_time,
+        shop_id,
+        page_layout,
+        page_cover
+        )
+        VALUES
+        (
+        #{page_name}, #{page_desc},#{bgcolor},0,now(),now(),#{shop_id},#{page_layout},#{page_cover}
+        )
+    </insert>
+
+    <update id="remove" parameterType="map">
+        update weiit_page
+        SET is_deleted=-1
+        where  page_id=#{validate_id}
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+    </update>
+
+    <update id="clearDefault" parameterType="map">
+        update weiit_page
+        SET is_default=0
+        where is_default=1 AND
+            shop_id = #{shop_id}
+    </update>
+
+    <update id="pageDefault" parameterType="map">
+        update weiit_page
+        SET is_default=1,update_time=now()
+        where  page_id=#{validate_id}
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+    </update>
+    <select id="pageView" parameterType="map" resultType="java.lang.Integer" >
+        select count(*) from weiit_user_page_log where type_id=#{validate_id} AND ( page_type=0 OR page_type=2);
+    </select>
+
+    <select id="selectTemplateCate" parameterType="map" resultType="com.weiit.core.entity.E">
+        select
+          *
+        from
+          weiit_init_template_cate
+    </select>
+
+    <select id="selectTemplatePage" parameterType="map" resultType="com.weiit.core.entity.E" >
+        select
+            template_id,
+            template_name,
+            template_img,
+            template_cate_id
+        from
+          weiit_init_template where state=0
+          <if test="template_cate_id!=null and template_id !=''">
+              AND template_cate_id=#{template_cate_id}
+          </if>
+    </select>
+
+    <select id="selectNavInfoByShopId" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+        wp.*,wi.mini_path,wi.public_path
+        FROM
+        weiit_page_navs wp
+        LEFT JOIN weiit_init_icon wi ON wp.nav_icon_id = wi.id
+        WHERE
+        shop_id =#{shop_id}
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

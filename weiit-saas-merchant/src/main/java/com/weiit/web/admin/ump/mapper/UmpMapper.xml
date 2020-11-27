@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.weiit.web.admin.ump.mapper.UmpMapper">
+ 
+	<!-- 查询所有的营销活动 -->
+	<select id="selectServiceList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			*
+		FROM
+			weiit_init_service
+		where 1=1
+		<if test="type != null and type !=''">
+		 	and type=#{type}
+		</if> 
+		order by sort_num desc
+	</select> 
+ 
+ 	<!-- 查询服务详情-单个 -->
+	<select id="selectServiceByServiceNum" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			*
+		FROM
+			weiit_init_service
+		where 
+			service_num=#{service_num} limit 1
+	</select> 
+
+	<!-- 查询订购时长 -->
+	<select id="selectOrderTimeList" resultType="com.weiit.core.entity.E"  parameterType="map">   
+        SELECT 
+       		*
+    	FROM weiit_init_order_time
+     </select> 
+     
+     <!-- 按照名称查询订购时长的信息，比如折扣 -->
+     <select id="selectOrderTimeConfigByName" resultType="com.weiit.core.entity.E"  parameterType="map">   
+        SELECT 
+       		*
+    	FROM weiit_init_order_time
+		where order_time_name=#{order_time_name}
+     </select>  
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

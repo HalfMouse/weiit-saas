@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.weiit.web.admin.dashboard.mapper.DashBoardMapper">
+
+	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT aa.address_id, aa.contact_name, aa.province, aa.city, aa.district, aa.address, aa.zip_code, 
+			 dd.region_name proName, cc.region_name cityName, bb.region_name disName , 
+    		 aa.phone, aa.tel,  aa.create_time, aa.update_time ,  
+    		 aa.shipping_type ,aa.return_type  
+		FROM weiit_shop_address aa  , weiit_init_region bb, weiit_init_region  cc, 
+				weiit_init_region dd  
+		where aa.district=bb.id  and aa.city=cc.id and aa.province=dd.id 
+			and aa.is_deleted =0  
+		<if test=" shop_id !=null and shop_id !='' ">
+			and aa.shop_id = #{shop_id} 
+		</if> 
+        <if test="contact_name !=null and contact_name !='' ">     
+           and  aa.contact_name  like concat('%', #{contact_name}, '%') 
+        </if>
+        order by aa.create_time desc  
+	</select> 
+ 
+	<select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT address_id, contact_name, province, city, district, address, zip_code, remark, phone, tel, 
+			is_deleted, create_time, update_time, create_id, update_id, shipping_type, return_type, shop_id 
+		FROM weiit_shop_address 
+		 where is_deleted =0  and address_id=#{address_id} 
+		<if test=" shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id} 
+		</if> 
+	</select>
+	
+	<update id="edit" parameterType="map">
+		update  weiit_shop_address set 
+			contact_name=#{contact_name} , province=#{province} , city=#{city} , district=#{district} , 
+			address=#{address} , zip_code=#{zip_code} , 
+    		remark=#{remark}, phone=#{phone} , tel=#{tel} , 
+    		update_time=now()  
+		where  address_id=#{address_id}  
+		<if test=" shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id} 
+		</if> 
+	</update> 
+
+	<update id="remove" parameterType="map">
+		update weiit_shop_address set is_deleted=-1  
+		where  address_id=#{address_id} 
+		<if test=" shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id} 
+		</if>
+	</update>
+	
+    <insert id="insert" parameterType="map">
+		insert into weiit_shop_address
+		(
+			contact_name, province, city, district, address, zip_code, remark, phone, tel, 
+			is_deleted, create_time, update_time, 
+			shipping_type, return_type, shop_id 
+		)
+		values
+		(
+			#{contact_name},#{province},#{city},#{district},#{address},#{zip_code},
+			#{remark},#{phone},#{tel}, 0 ,now(),now(), 
+			#{shipping_type},#{return_type},#{shop_id} 
+		)
+	</insert>	
+
+	<select id="selectBrowseList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select * from ( 
+		select page_type,type_id,  '店铺主页(默认)' page_name , count(*) userCount ,sum(browse) browseCount
+			from 
+			( select page_type,type_id, user_id ,count(*) browse from weiit_user_page_log  
+				where  page_type=0 
+				<if test=" shop_id !=null and shop_id !='' ">
+					and shop_id = #{shop_id} 
+				</if>
+				<if test="startTime !=null and startTime != '' ">
+					<![CDATA[ and  date(create_time) >= date(#{startTime}) ]]> 
+				</if>
+				<if test="endTime !=null and endTime != '' ">
+					<![CDATA[ and  date(create_time) <= date(#{endTime}) ]]> 
+				</if>
+				group by  user_id 
+			) temp having userCount>0
+		union all 
+		select  page_type,type_id, '会员主页(默认)' page_name , count(*) userCount ,sum(browse) browseCount
+			from 
+			( select page_type,type_id,user_id ,count(*) browse from weiit_user_page_log 
+				where  page_type=1 
+				<if test=" shop_id !=null and shop_id !='' ">
+					and shop_id = #{shop_id} 
+				</if>
+				<if test="startTime !=null and startTime != '' ">
+					<![CDATA[ and  date(create_time) >= date(#{startTime}) ]]> 
+				</if>
+				<if test="endTime !=null and endTime != '' ">
+					<![CDATA[ and  date(create_time) <= date(#{endTime}) ]]> 
+				</if>
+				group by  user_id 
+			) temp having userCount>0
+		union all 
+		select  page_type,type_id, page_name , count(user_id) userCount ,sum(browse) browseCount
+			from 
+			( select p1.page_type,p1.type_id,c1.page_name  as page_name,p1.user_id ,count(*) browse from weiit_user_page_log p1, weiit_page c1
+				where p1.type_id=c1.page_id and p1.page_type=2 
+				<if test=" shop_id !=null and shop_id !='' ">
+					and p1.shop_id = #{shop_id} 
+				</if>
+				<if test="startTime !=null and startTime != '' ">
+					<![CDATA[ and  date(p1.create_time) >= date(#{startTime}) ]]> 
+				</if>
+				<if test="endTime !=null and endTime != '' ">
+					<![CDATA[ and  date(p1.create_time) <= date(#{endTime}) ]]> 
+				</if>
+				group by  p1.user_id,c1.page_name
+			) temp 	
+	        group by page_name 		 
+		union all
+		select page_type,type_id,  page_name , count(user_id) userCount ,sum(browse) browseCount
+			from 
+			( select p1.page_type,p1.type_id,c1.product_name  as page_name ,p1.user_id ,count(*) browse from weiit_user_page_log p1, weiit_product c1
+				where p1.type_id=c1.product_id and p1.page_type=3 
+				<if test=" shop_id !=null and shop_id !='' ">
+					and p1.shop_id = #{shop_id} 
+				</if>
+				<if test="startTime !=null and startTime != '' ">
+					<![CDATA[ and  date(p1.create_time) >= date(#{startTime}) ]]> 
+				</if>
+				<if test="endTime !=null and endTime != '' ">
+					<![CDATA[ and  date(p1.create_time) <= date(#{endTime}) ]]> 
+				</if>
+				group by  p1.user_id,c1.product_name
+			) temp 	
+	        group by page_name  
+		union all
+		select page_type,type_id, page_name , count(user_id) userCount ,sum(browse) browseCount
+			from 
+			( select p1.page_type,p1.type_id,c1.group_name  as page_name ,p1.user_id ,count(*) browse from weiit_user_page_log p1, weiit_product_group c1
+				where p1.type_id=c1.group_id and p1.page_type=4 
+				<if test=" shop_id !=null and shop_id !='' ">
+					and p1.shop_id = #{shop_id} 
+				</if>
+				<if test="startTime !=null and startTime != '' ">
+					<![CDATA[ and  date(p1.create_time) >= date(#{startTime}) ]]> 
+				</if>
+				<if test="endTime !=null and endTime != '' ">
+					<![CDATA[ and  date(p1.create_time) <= date(#{endTime}) ]]> 
+				</if>
+				group by  p1.user_id,c1.group_name
+			) temp 	
+        	group by page_name ) temp1 order by browseCount desc 
+	</select>
+
+	<select id="selectBrowseCountList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			months,
+			count(*) userCount ,
+			sum(browse) browseCount
+		from 
+		(
+			select
+				DATE_FORMAT(create_time,'%Y%m%d') months,user_id ,count(*) browse
+			from weiit_user_page_log 
+			where 1=1 
+				<if test=" shop_id !=null and shop_id !='' ">
+					and shop_id = #{shop_id}
+				</if>
+				<if test=" page_type !=null and page_type !='' ">
+					and page_type = #{page_type}
+				</if>
+				<if test="startTime !=null and startTime != '' ">
+					<![CDATA[ and  date(create_time) >= date(#{startTime}) ]]>
+				</if>
+				<if test="endTime !=null and endTime != '' ">
+					<![CDATA[ and  date(create_time) <= date(#{endTime}) ]]>
+				</if>
+			group by months,user_id
+		) temp 
+			group by months  order by months asc 
+	</select>
+
+	<!-- 查询微页面总数  -->
+	<select id="selectPageCount" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT count(*) mCount
+		FROM weiit_page 
+		where is_deleted=0 
+		<if test=" shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id} 
+		</if>
+	</select>
+	
+	<!-- 查询商品总数  -->
+	<select id="selectProductCount" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			count(*) mCount
+		FROM
+			weiit_product
+		where
+			is_deleted=0 and is_on_sale=0
+			<if test=" shop_id !=null and shop_id !='' ">
+				and shop_id = #{shop_id}
+			</if>
+	</select> 
+	
+	
+	<!-- 查询订单报表指标,待付款订单、待发货订单、售后订单、7日销售额、7日订单 -->
+	<select id="selectOrderSurveyCount"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        select
+	       (
+			select
+				count(1)
+			from
+				weiit_order
+			where
+				state=0
+				<if test="shop_id>0">
+					and shop_id=#{shop_id}
+				</if>
+		    )	no_pay_order_count,
+	       (
+			select
+				count(1)
+			from
+				weiit_order
+			where
+				state=1
+				<if test="shop_id>0">
+					and shop_id=#{shop_id}
+				</if>
+	        ) no_send_order_count,
+	       (
+			select
+				count(1)
+			from
+				weiit_order_refund
+			WHERE
+				is_deleted=0  and state in (0,1)
+				<if test="shop_id>0">
+					and shop_id=#{shop_id}
+				</if>
+	       ) after_sale_order_count,
+	       (
+	       select
+				ifnull(sum(round(pay_price,2)),0)
+		   from
+				weiit_order
+		   where
+				state &gt;0
+				<if test="shop_id>0">
+					and shop_id=#{shop_id}
+				</if>
+				AND(<![CDATA[to_days(now())-to_days(pay_time)<=7 ]]> )
+	       ) day_total ,
+	       (
+	       select
+				count(*)
+		   from
+				weiit_order
+		   where
+				state &gt;0
+				<if test="shop_id>0">
+					and shop_id=#{shop_id}
+				</if>
+				AND(<![CDATA[to_days(now())-to_days(pay_time)<=7 ]]> )
+		) day_count
+         from 
+         dual
+    </select>
+    
+    <!-- 查询订单报表, 付款订单 和 金额 的折线图 -->
+    <select id="selectOrderSurveyList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select DATE_FORMAT(create_time,'%Y%m%d') months , count(*) payCount, sum(pay_price) paySum
+		from weiit_order  
+			where 1=1 
+		<if test=" shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id} 
+		</if>
+		<if test="startTime !=null and startTime != '' ">
+			<![CDATA[ and  date(create_time) >= date(#{startTime}) ]]> 
+		</if>
+		<if test="endTime !=null and endTime != '' ">
+			<![CDATA[ and  date(create_time) <= date(#{endTime}) ]]> 
+		</if>
+			group by months  order by months asc 
+	</select>
+	
+	
+	<select id="selectUserCount" resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			(	select
+					count(*) mcount
+				from (
+	       			select
+						user_id
+					from weiit_user_page_log
+					where 1=1 
+					<if test=" shop_id !=null and shop_id !='' ">
+						and shop_id = #{shop_id}
+					</if>
+					<if test="startTime !=null and startTime != '' ">
+						<![CDATA[ and  date(create_time) >= date(#{startTime}) ]]>
+					</if>
+					<if test="endTime !=null and endTime != '' ">
+						<![CDATA[ and  date(create_time) <= date(#{endTime}) ]]>
+					</if>
+						group by user_id
+				) temp 
+			)	log_user_count,
+			(
+				select
+					count(*) mcount
+				from
+				weiit_user
+				where 1=1
+		   		<if test=" shop_id !=null and shop_id !='' ">
+					and shop_id = #{shop_id} 
+				</if>
+				<if test="endTime !=null and endTime != '' ">
+					<![CDATA[ and  date(create_time) <= date(#{endTime}) ]]> 
+				</if>
+	      	) all_user_count,
+	      	(
+				select
+					count(*) mcount
+				from
+					weiit_user
+				where 1=1
+		   		<if test=" shop_id !=null and shop_id !='' ">
+					and shop_id = #{shop_id} 
+				</if>
+				<if test="startTime !=null and startTime != '' ">
+					<![CDATA[ and  date(create_time) >= date(#{startTime}) ]]> 
+				</if>
+				<if test="endTime !=null and endTime != '' ">
+					<![CDATA[ and  date(create_time) <= date(#{endTime}) ]]> 
+				</if>
+	      	) user_count,
+	      	(
+				select
+					count(*) mcount
+				from
+					weiit_user
+				where user_level_id>0
+		   		<if test=" shop_id !=null and shop_id !='' ">
+					and shop_id = #{shop_id} 
+				</if>
+				<if test="endTime !=null and endTime != '' ">
+					<![CDATA[ and  date(create_time) <= date(#{endTime}) ]]> 
+				</if>
+	      	) all_card_user_count,
+	      	(
+				select
+					count(*) mcount
+				from
+				weiit_user
+				where user_level_id>0
+		   		<if test=" shop_id !=null and shop_id !='' ">
+					and shop_id = #{shop_id} 
+				</if>
+				<if test="startTime !=null and startTime != '' ">
+					<![CDATA[ and  date(create_time) >= date(#{startTime}) ]]> 
+				</if>
+				<if test="endTime !=null and endTime != '' ">
+					<![CDATA[ and  date(create_time) <= date(#{endTime}) ]]> 
+				</if>
+	      	) card_user_count,
+	       	(
+				select
+					count(*) mcount
+				from
+	       			(
+					select
+						count(*)
+					from
+						weiit_order
+					where 1=1
+					<if test=" shop_id !=null and shop_id !='' ">
+						and shop_id = #{shop_id}
+					</if>
+					<if test="startTime !=null and startTime != '' ">
+						<![CDATA[ and  date(pay_time) >= date(#{startTime}) ]]>
+					</if>
+					<if test="endTime !=null and endTime != '' ">
+						<![CDATA[ and  date(pay_time) <= date(#{endTime}) ]]>
+					</if>
+					group by user_id
+	         	) temp 
+	       	) pay_user_count 
+         from  dual 
+	</select>
+	
+	<select id="selectUserCountList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			hours,
+			count(*) userCount ,
+			sum(browse) browseCount
+		from 
+		(
+			select
+				DATE_FORMAT(create_time,'%H') hours,
+				user_id ,
+			    count(*) browse
+			from
+			weiit_user_page_log
+			where 1=1 
+				<if test=" shop_id !=null and shop_id !='' ">
+					and shop_id = #{shop_id}
+				</if>
+				<if test="startTime !=null and startTime != '' ">
+					<![CDATA[ and  date(create_time) >= date(#{startTime}) ]]>
+				</if>
+				<if test="endTime !=null and endTime != '' ">
+					<![CDATA[ and  date(create_time) <= date(#{endTime}) ]]>
+				</if>
+			group by hours,user_id
+		) temp 
+			group by hours  order by hours asc
+	</select>
+	
+</mapper>
+

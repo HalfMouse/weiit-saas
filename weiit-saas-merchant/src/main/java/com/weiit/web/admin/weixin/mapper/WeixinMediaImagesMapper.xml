@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.weiit.web.admin.weixin.mapper.WeixinMediaImagesMapper">
+
+	<!-- 查询所有图片信息 -->
+	<select id="selectWeixinMediaImageList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			image_id,
+			image_url,
+			media_id,
+			create_time,
+			update_time,
+			authorizer_id
+		FROM
+			weiit_weixin_public_media_image 
+		Where 
+			authorizer_id=#{authorizer_id}
+		ORDER BY
+			create_time DESC
+	</select>
+
+	<!-- 图片新增 -->
+	<insert id="insertWeixinMediaImage" parameterType="map">
+		insert into weiit_weixin_public_media_image
+		(
+		 image_url,
+		 <if test="media_id!=null and media_id!=''">
+		 media_id, 
+		 </if>
+		 create_time, 
+		 update_time, 
+		 authorizer_id 
+		)
+		values
+		(
+		#{image_url},
+		<if test="media_id!=null and media_id!=''">
+		#{media_id},
+		</if>
+		now(),
+		now(),
+		#{authorizer_id}
+		)
+	</insert>
+
+	<!-- 根据media_id查询图片 -->
+	<select id="selectWeixinMediaImageByMediaId" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			image_id,
+			image_url,
+			media_id,
+			create_time,
+			update_time,
+			authorizer_id
+		FROM
+			weiit_weixin_public_media_image where 1=1
+			and media_id=#{media_id}
+			and authorizer_id=#{authorizer_id}
+	</select>
+	
+	
+	<!-- 删除图片 -->
+	<delete id="removeWeixinMediaImage" parameterType="map">
+		delete from
+		weiit_weixin_public_media_image where media_id=#{media_id}
+		and authorizer_id=#{authorizer_id}
+	</delete>
+
+
+	<!-- 查询所有公共素材图片的分类 -->
+	<select id="selectAllCommonImageCateList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			*
+		FROM
+			weiit_init_weixin_media_image_cate
+		ORDER BY
+			sort_num DESC
+	</select>
+	
+	<!-- 查询所有的公共图片素材，可以按照分类进行筛选 -->
+	<select id="selectAllCommonImageList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			*
+		FROM
+			weiit_init_weixin_media_image
+			where 1=1
+			<if test="media_cate_id!=null and media_cate_id!=''">
+			and media_cate_id=#{media_cate_id}
+			</if>
+		ORDER BY
+			sort_num DESC
+	</select>
+	
+	<select id="selectCommonImageByImageId" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			*
+		FROM
+			weiit_init_weixin_media_image
+			where 1=1
+			and image_id=#{image_id}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

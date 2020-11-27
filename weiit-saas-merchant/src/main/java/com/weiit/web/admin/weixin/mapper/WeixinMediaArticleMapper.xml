@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.weiit.web.admin.weixin.mapper.WeixinMediaArticleMapper">
+
+	<!-- 查询所有图片信息 -->
+	<select id="selectWeixinMediaArticleList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			id as validate_id,
+			a.*
+		FROM
+			weiit_weixin_public_media_article a
+		WHERE
+			 authorizer_id=#{authorizer_id}
+		ORDER BY
+			create_time DESC
+	</select>
+
+	<select id="selectWeixinMediaArticleListByIds" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			id as validate_id,
+			a.*
+		FROM
+			weiit_weixin_public_media_article a
+		WHERE
+			 authorizer_id=#{authorizer_id}
+			 and id in (${ids})
+	</select>
+	
+	<!-- 图片新增 -->
+	<insert id="insertWeixinMediaArtile" parameterType="map">
+		insert into weiit_weixin_public_media_article
+		(
+			title,
+			author,
+			cover_img,
+			<if test="cover_media_id!=null and cover_media_id!=''">
+			cover_media_id,
+			</if>
+			model,
+			main_body,
+			create_time,
+			update_time,
+			start_time,
+			end_time,
+			<if test="original_link!=null and original_link!=''">
+			original_link,
+			</if>
+			<if test="is_original_link!=null and is_original_link!=''">
+			is_original_link,
+			</if>
+			<if test="media_id!=null and media_id!=''">
+			media_id,
+			</if>
+			<if test="is_open_comment!=null and is_open_comment!=''">
+			is_open_comment,
+			is_only_fans_comment,
+			</if>
+			url,
+			authorizer_id
+
+		)
+		values
+		(
+			#{title},
+			#{author},
+			#{cover_img},
+			<if test="cover_media_id!=null and cover_media_id!=''">
+			#{cover_media_id},
+			</if>
+			#{model},
+			#{editorValue},
+			now(),
+			now(),
+			now(),
+			now(),
+			<if test="original_link!=null and original_link!=''">
+			#{original_link},
+			</if>
+			<if test="is_original_link!=null and is_original_link!=''">
+			#{is_original_link},
+			</if>
+			<if test="media_id!=null and media_id!=''">
+			#{media_id},
+			</if>
+			<if test="is_open_comment!=null and is_open_comment!=''">
+			#{is_open_comment},
+			#{is_only_fans_comment},
+			</if>
+			#{url},
+			#{authorizer_id}
+		)
+	</insert>
+
+	<!-- 根据media_id查询图片 -->
+	<select id="selectWeixinMediaArticleByMediaId" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			id as validate_id,
+			a.*
+		FROM
+			weiit_weixin_public_media_article a
+		WHERE
+			media_id=#{media_id}
+			and id=#{validate_id}
+			and authorizer_id=#{authorizer_id}
+	</select>
+	
+	<!-- 修改图文 -->
+	<update id="editWeixinMediaArticle" parameterType="map">
+		UPDATE 
+			weiit_weixin_public_media_article 
+		SET 
+			title=#{title},
+			author=#{author},
+			cover_img=#{cover_img},
+			model=#{model},
+			main_body=#{editorValue},
+			<if test="cover_media_id!=null and cover_media_id!=''">
+			cover_media_id=#{cover_media_id},
+			</if>
+			<if test="original_link!=null and original_link!=''">
+			original_link=#{original_link},
+			</if>
+			<if test="is_original_link!=null and is_original_link!=''">
+			is_original_link=#{is_original_link},
+			</if>
+			<if test="media_id!=null and media_id!=''">
+			media_id=#{media_id},
+			</if>
+			<if test="is_open_comment!=null and is_open_comment!=''">
+			is_open_comment=#{is_open_comment},
+			is_only_fans_comment=#{is_only_fans_comment},
+			</if>
+			update_time=now()
+		WHERE 
+		    id=#{validate_id}
+		and authorizer_id=#{authorizer_id}
+	</update>
+	
+	<!-- 删除图片 -->
+	<delete id="removeWeixinMediaArticle" parameterType="map">
+		DELETE FROM
+			weiit_weixin_public_media_article 
+		WHERE media_id=#{media_id}
+		and id=#{validate_id}
+		and authorizer_id=#{authorizer_id}
+	</delete>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

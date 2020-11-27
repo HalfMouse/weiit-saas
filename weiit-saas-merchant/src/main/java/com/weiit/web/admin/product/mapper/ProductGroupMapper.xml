@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.product.mapper.ProductGroupMapper">
+ 
+     <select id="selectList" resultType="com.weiit.core.entity.E"  parameterType="map">
+		 SELECT
+			 group_id,
+			 group_id AS validate_id,
+			 group_name,
+			 state,
+			 create_time,
+			 update_time,
+			 shop_id
+		 FROM
+		 	weiit_product_group
+		where 1=1 
+		<if test="shop_id !=null and shop_id !='' ">
+			and shop_id =#{shop_id}
+		</if> 
+		<if test="group_name !=null and group_name !='' ">
+			and group_name like concat('%', #{group_name}, '%')
+		</if> 
+		order by group_id desc 
+     </select>
+
+
+
+     <select id="productGroupList" resultType="com.weiit.core.entity.E"  parameterType="map">
+		 SELECT
+			 group_id,
+			 group_id AS validate_id,
+			 group_name,
+			 state,
+			 create_time,
+			 update_time,
+			 shop_id
+		 FROM
+		 	weiit_product_group
+		 where 1=1
+		 <if test="shop_id !=null and shop_id !='' ">
+			 and shop_id =#{shop_id}
+		 </if>
+		 <if test="group_name !=null and group_name !='' ">
+			 and group_name like concat('%', #{group_name}, '%')
+		 </if>
+		 order by group_id desc
+	 </select>
+
+
+
+
+     <select id="selectOne" resultType="com.weiit.core.entity.E"  parameterType="map">
+		 SELECT
+			 group_id,
+			 group_id AS validate_id,
+			 group_name,
+			 state,
+			 create_time,
+			 update_time,
+			 shop_id
+		 FROM
+		 	weiit_product_group
+		where 1=1 
+		<if test="shop_id !=null and shop_id !='' ">
+			and shop_id =#{shop_id} 
+		</if> 
+		and group_id=#{validate_id}   
+     </select>
+      
+      <!-- 新增 -->
+	 <insert id="insert"  parameterType="map">
+        insert into weiit_product_group
+        (
+			group_name, state, create_time, update_time, shop_id
+        )
+        values
+        (
+			#{group_name},#{state}, now(), now(), #{shop_id}
+        )
+     </insert>
+     <!-- 删除 -->
+     <delete id="remove"   parameterType="map">
+        delete from weiit_product_group
+        where  group_id=#{validate_id}  
+        <if test="shop_id !=null and shop_id !='' ">
+			and shop_id =#{shop_id} 
+		</if> 
+     </delete>
+     <!-- 修改 -->
+     <update id="edit"   parameterType="map">
+        update weiit_product_group  
+        set 
+        	update_time=now() 
+         <if test="group_name !=null and group_name !=''">
+       	 	,group_name=#{group_name}
+        </if>
+        <if test="state !=null and state !=''">
+       	 	,state=#{state}
+        </if> 
+        where group_id=#{validate_id}  
+        <if test="shop_id !=null and shop_id !='' ">
+			and shop_id =#{shop_id} 
+		</if> 
+     </update>
+     
+          
+     <select id="selectDetailList" resultType="com.weiit.core.entity.E"  parameterType="map">
+		 SELECT
+			 id,
+			 group_id,
+			 product_id,
+			 create_time,
+			 shop_id
+		 FROM
+		 	weiit_product_group_item
+		where 1=1 
+		<if test="group_id !=null and group_id !='' ">
+			and group_id=#{group_id} 
+		</if>
+		<if test="product_id !=null and product_id !='' ">
+			and product_id=#{product_id} 
+		</if>
+		<if test="shop_id !=null and shop_id !='' ">
+			and shop_id =#{shop_id} 
+		</if> 
+		order by id asc 
+     </select>
+     
+          <!-- 新增 -->
+	 <insert id="insertDetail"  parameterType="map">
+        insert into weiit_product_group_item
+        (
+			group_id, product_id ,create_time, shop_id 
+        )
+        values
+        (
+			#{group_id},#{product_id}, now(), #{shop_id} 
+        )
+     </insert>
+     <!-- 删除 -->
+     <delete id="removeDetail"   parameterType="map">
+        delete from weiit_product_group_item   
+        where  1=1 
+        <if test="validate_id !=null and validate_id !='' ">
+			and group_id =#{validate_id} 
+		</if>
+		<if test="product_id !=null and product_id !='' ">
+			and product_id =#{product_id} 
+		</if>
+        <if test="shop_id !=null and shop_id !='' ">
+			and shop_id =#{shop_id} 
+		</if> 
+     </delete>
+
+
+	<select id="getProductByGroupId" resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			gg.group_name,
+			wp.product_img,
+			wp.product_name,
+			wp.sale_price,
+			wp.sale_count,
+			wp.smarket_price,
+			pg.group_id,
+			wp.is_on_sale,
+			wp.is_deleted,
+			wp.is_disabled,
+			wp.product_id
+		FROM
+		weiit_product_group_item pg
+		LEFT JOIN weiit_product_group gg ON gg.group_id = pg.group_id
+		LEFT JOIN weiit_product wp ON pg.product_id = wp.product_id
+		WHERE
+		gg.state =0
+		<if test="shop_id !=null and shop_id !='' ">
+			and gg.shop_id =#{shop_id}
+		</if>
+		<if test="group_id !=null and group_id !='' ">
+			and pg.group_id =#{group_id}
+		</if>
+	</select>
+     
+</mapper>

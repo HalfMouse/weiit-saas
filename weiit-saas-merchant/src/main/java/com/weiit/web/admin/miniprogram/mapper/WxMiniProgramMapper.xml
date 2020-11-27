@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.miniprogram.mapper.WxMiniProgramMapper">
+	 <select id="selectTestUserList" parameterType="map" resultType="com.weiit.core.entity.E">
+         SELECT
+          id,
+          id AS validate_id,
+          wechat_id,
+          nick_name,
+          create_time
+          FROM weiit_weixin_mini_testuser
+          WHERE shop_id=#{shop_id}
+           AND is_delete=0
+
+     </select>
+
+	 <select id="selectMiniVersionInfo" parameterType="map" resultType="com.weiit.core.entity.E">
+         SELECT
+         	template_id,
+          version_no,
+          create_time
+          FROM weiit_weixin_mini_version
+     </select>
+
+	 <select id="selectMiniCurrentAuthInfo" parameterType="map" resultType="com.weiit.core.entity.E">
+         SELECT
+         	*
+          FROM weiit_weixin_mini_audit_log
+          WHERE
+          authorizer_app_id=#{authorizer_app_id}
+          AND is_current_version=0
+          AND shop_id=#{shop_id}
+     </select>
+
+    <insert id="addTestUser" parameterType="map">
+        INSERT INTO weiit_weixin_mini_testuser (
+			wechat_id,
+
+			create_time,
+			update_time,
+			is_delete,
+			shop_id
+		)
+		VALUES
+		(
+			#{wechat_id},
+
+			now(),
+			now(),
+			0,
+			#{shop_id}
+		)
+
+    </insert>
+
+
+    <insert id="addMiniAuth" parameterType="map">
+        INSERT INTO weiit_weixin_mini_audit_log (
+			audit_id,
+			authorizer_app_id,
+			origin_id,
+			status,
+			create_time,
+			update_time,
+			version_no,
+			template_id,
+			shop_id
+		)
+		VALUES
+		(
+			#{audit_id},
+			#{authorizer_app_id},
+			#{origin_id},
+			2,
+			now(),
+			now(),
+			#{version_no},
+			#{template_id},
+			#{shop_id}
+		)
+
+    </insert>
+
+    <update id="delTestUser" parameterType="map">
+        update  weiit_weixin_mini_testuser set
+			is_delete=-1,
+    		update_time=now()
+		where shop_id = #{shop_id} AND id=#{validate_id}
+    </update>
+
+    <update id="updateMiniAuth" parameterType="map">
+        update  weiit_weixin_mini_audit_log set
+			is_current_version=-1,
+    		update_time=now()
+		where shop_id = #{shop_id} AND authorizer_app_id=#{authorizer_app_id} AND is_current_version=0
+    </update>
+
+</mapper>

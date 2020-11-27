@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.shopdesign.mapper.PageNavMapper">
+
+    <!-- 店铺导航页面  -->
+    <select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+        id,
+        id AS validate_id,
+        state,
+        nav_name,
+        nav_page,
+        nav_type,
+        nav_bgcolor,
+        create_time,
+        update_time,
+        shop_id
+        FROM
+        weiit_page_nav
+        WHERE
+        1 = 1
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+        order by id asc
+    </select>
+
+    <select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+        id,
+        id AS validate_id,
+        state,
+        nav_name,
+        nav_page,
+        nav_type,
+        nav_bgcolor,
+        create_time,
+        update_time,
+        shop_id
+        FROM
+        weiit_page_nav
+        WHERE
+        id = #{validate_id}
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+    </select>
+
+    <update id="edit" parameterType="map">
+        update weiit_page_nav set
+        nav_name=#{nav_name},
+        nav_page=#{nav_page},
+        nav_bgcolor=#{nav_bgcolor},
+        update_time=now()
+        where id = #{validate_id}
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+    </update>
+
+    <update id="editState" parameterType="map">
+        update weiit_page_nav set
+        state=#{state}
+        where 1=1
+        <if test=" validate_id !=null and validate_id !='' ">
+            and id = #{validate_id}
+        </if>
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+    </update>
+
+    <insert id="insert" parameterType="map">
+        insert into weiit_page_nav
+        (
+        state, nav_name, nav_page, nav_type, nav_bgcolor, create_time, update_time, shop_id
+        )
+        values
+        (
+        #{state}, #{nav_name},#{nav_page},#{nav_type},#{nav_bgcolor},now(),now(),#{shop_id}
+        );
+        <selectKey resultType="int" keyProperty="nav_id">
+            select LAST_INSERT_ID() nav_id
+        </selectKey>
+    </insert>
+
+    <delete id="remove" parameterType="map">
+        delete from weiit_page_nav
+        where id=#{validate_id}
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+    </delete>
+
+    <!-- 装修微页面  -->
+    <select id="selectItemList" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+        item_id,
+        nav_id,
+        item_name,
+        item_img1,
+        item_img2,
+        item_target_type,
+        item_target_id,
+        item_target_url,
+        parent_id,
+        sort_num,
+        create_time,
+        update_time,
+        shop_id,
+        (
+        SELECT
+        nav_type
+        FROM
+        weiit_page_nav na
+        WHERE
+        na.id = it.nav_id
+        ) AS nav_type
+        FROM
+        weiit_page_nav_item it
+        WHERE
+        1 = 1
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+        <if test=" validate_id !=null and validate_id !='' ">
+            and nav_id = #{validate_id}
+        </if>
+        order by item_id asc
+    </select>
+
+    <insert id="insertItem" parameterType="map">
+        insert into weiit_page_nav_item
+        (
+        nav_id ,item_name, item_img1, item_img2, item_target_type,
+        item_target_id, item_target_url, parent_id, sort_num, create_time, update_time, shop_id
+        )
+        values
+        (
+        #{nav_id}, #{item_name},#{item_img1},#{item_img2},#{item_target_type},
+        #{item_target_id},#{item_target_url},#{parent_id},#{sort_num}, now(),now(),#{shop_id}
+        );
+        <selectKey resultType="int" keyProperty="item_id">
+            select LAST_INSERT_ID() item_id
+        </selectKey>
+    </insert>
+
+    <update id="removeItem" parameterType="map">
+        delete from weiit_page_nav_item
+        where nav_id=#{validate_id}
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+    </update>
+
+    <!-- 底部菜单   -->
+    <select id="selectButtonList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			id,
+			id AS validate_id,
+			nav_name,
+			target_type,
+			target_id,
+			target_url,
+			state,
+			create_time,
+			update_time,
+			shop_id
+		FROM weiit_page_bottom_menu 
+		where shop_id = #{shop_id} 
+        order by id asc 
+	</select>
+
+
+    <select id="navIconList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			*
+		FROM weiit_init_icon
+        order by id asc
+	</select>
+
+    <select id="navOptionalUrl" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			*
+		FROM weiit_init_url
+        WHERE is_open &lt;2
+	</select>
+
+
+    <select id="navInfo" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			wp.nav_url url,
+			wp.nav_icon_id,
+			wp.nav_value,
+			wp.nav_name,
+			wi.url img
+		FROM
+			weiit_page_navs wp
+		LEFT JOIN weiit_init_icon wi ON wp.nav_icon_id = wi.id
+        WHERE shop_id = #{shop_id}
+	</select>
+
+    <insert id="insertButton" parameterType="map">
+		insert into weiit_page_bottom_menu  
+		(
+			nav_name, target_type, target_id, target_url, 
+			state, create_time, update_time, shop_id 
+		)
+		values
+		(
+			#{nav_name}, #{target_type},#{target_id},#{target_url},#{state}, 
+			 now(),now(),#{shop_id} 
+		)
+	</insert>
+
+    <insert id="saveNav" parameterType="map">
+		insert into weiit_page_navs
+		(
+			nav_name, nav_value, nav_url, nav_icon_id,
+			shop_id
+		)
+		values
+		(
+			#{nav_name}, #{nav_value},#{nav_url},#{nav_icon_id},
+			#{shop_id}
+		)
+	</insert>
+
+    <update id="removeButton" parameterType="map">
+		delete from weiit_page_bottom_menu   
+		where  shop_id = #{shop_id} 
+	</update>
+
+
+    <delete id="delNav" parameterType="map">
+        DELETE FROM weiit_page_navs  WHERE shop_id=#{shop_id}
+    </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

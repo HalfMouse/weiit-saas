@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.weiit.web.admin.setting.mapper.ExpressMapper">
+ 
+	<!-- 查询商户常用快递-->
+	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			se.id,
+			se.express_name,
+			se.express_logo,
+			se.type,
+			se.create_time,
+			se.express_id,
+			ie.express_name
+		FROM
+			weiit_shop_express se
+		LEFT JOIN weiit_init_express_ali ie ON se.express_id = ie.express_id
+		WHERE
+			se.is_deleted = 0
+		AND se.shop_id = #{shop_id}
+        order by  se.create_time desc
+	</select> 
+	
+	<select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			se.id,
+			se.express_name,
+			se.express_logo,
+			se.type,
+			se.create_time,
+			se.express_id,
+			ie.express_name
+		FROM
+			weiit_shop_express se
+		LEFT JOIN weiit_init_express_ali ie ON se.express_id = ie.express_id
+		WHERE
+			se.is_deleted = 0
+		AND se.express_id=#{express_id}
+		AND se.shop_id = #{shop_id}
+        order by  se.create_time desc
+	</select> 
+
+	<!-- 查询所有的快递公司 -->
+	<select id="selectAllExpressList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			*
+		FROM
+			weiit_init_express_ali where express_id not in 
+		(select express_id from weiit_shop_express where shop_id=#{shop_id})
+	</select> 
+	
+	<!-- 根据express_id查询物流公司信息 -->
+	<select id="selectExpressAliByExpressId" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			*
+		FROM
+			weiit_init_express_ali
+		WHERE
+			express_id=#{express_id}
+	</select>
+	
+	<delete id="remove" parameterType="map">
+		delete from  weiit_shop_express where express_id=#{express_id} and shop_id = #{shop_id} 
+	</delete>
+	
+    <insert id="insert" parameterType="map">
+		INSERT INTO weiit_shop_express (
+			express_name,
+			express_logo,
+			type,
+			create_time,
+			is_deleted,
+			shop_id,
+			express_id
+		)
+		VALUES
+		(
+			#{express_name},
+			#{express_logo},
+			#{type},
+			now(),
+			0,
+			#{shop_id},
+			#{express_id}
+		)
+	</insert>	  
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

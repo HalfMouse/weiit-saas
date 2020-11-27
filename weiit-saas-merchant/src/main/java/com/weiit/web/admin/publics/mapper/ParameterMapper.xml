@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.weiit.web.admin.publics.mapper.ParameterMapper">
+ 	
+	<!-- 基础设置参数表 -->
+	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT id, id as validate_id , 
+			item_code, item_name, item_value, state, item_desc, shop_id 
+		FROM weiit_shop_parameter 
+  		where 1=1 
+  		<if test=" shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id} 
+		</if> 
+  		<if test=" validate_id !=null and validate_id !='' ">
+			and id = #{validate_id} 
+		</if>
+		<if test=" validate_ids !=null and validate_ids !='' ">
+			and id in (${validate_ids}) 
+		</if>
+  		<if test=" item_code !=null and item_code !='' ">
+			and item_code = #{item_code} 
+		</if>
+		order by id asc  
+	</select> 
+ 
+	<select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT id, id as validate_id,
+			item_code, item_name, item_value, state, item_desc, shop_id 
+		FROM weiit_shop_parameter 
+  		where  id=#{validate_id} 
+  		<if test=" shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id} 
+		</if>
+	</select>
+
+	<select id="selectShopParamByName" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT id, id as validate_id,
+			item_code, item_name, item_value, state, item_desc, shop_id
+		FROM weiit_shop_parameter
+  		where  item_name=#{item_name}
+  		<if test=" shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id}
+		</if>
+	</select>
+
+	<update id="edit" parameterType="map">
+		update weiit_shop_parameter    
+		set update_time=now() 
+		<if test=" item_code !=null and item_code !='' ">
+			, item_code=#{item_code}
+		</if>
+		<if test=" item_name !=null and item_name !='' ">
+			, item_name=#{item_name} 
+		</if>
+		<if test=" item_value !=null and item_value !='' ">
+			, item_value=#{item_value} 
+		</if>
+		<if test=" state !=null and state !='' ">
+			, state = #{state} 
+		</if>
+		<if test=" item_desc !=null and item_desc !='' ">
+			, item_desc = #{item_desc} 
+		</if>
+		where  id=#{validate_id} 
+		<if test=" shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id} 
+		</if>
+	</update>
+
+	<delete id="remove" parameterType="map">
+		delete  from weiit_shop_parameter  
+		where id=#{validate_id} 
+		<if test=" shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id} 
+		</if>
+	</delete>
+	
+	<delete id="removeBatch" parameterType="map">
+		delete from weiit_shop_parameter  
+		where id in (${validate_ids}) 
+		<if test=" shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id} 
+		</if>
+	</delete>
+	
+    <insert id="insert" parameterType="map">
+		insert into weiit_shop_parameter 
+		( 
+			item_code, item_name, item_value, state, item_desc, shop_id ,create_time,update_time
+		 ) values ( 
+		 	#{item_code},#{item_name},#{item_value},#{state},#{item_desc},#{shop_id},now(),now()
+		 )
+	</insert>
+ 
+</mapper>

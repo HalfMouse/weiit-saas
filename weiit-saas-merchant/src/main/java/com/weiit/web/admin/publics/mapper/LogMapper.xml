@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.publics.mapper.LogMapper">
+	 
+	<!-- 公共查询条件 -->
+	<sql id="query_common_where">
+		<if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if>
+		<if test="app_id != null and app_id !=''">
+		 	and app_id=#{app_id}
+		</if>
+	</sql>
+	
+	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+ 	     select 
+ 	     	log_id, 
+ 	     	log_level, 
+ 	     	content, 
+ 	     	service_module, 
+ 	     	log_name, status, 
+ 	     	create_time, 
+ 	     	update_time, 
+ 	     	shop_id, 
+ 	     	app_id 
+ 	     from 
+ 	     	system_common_logs  
+ 	     where 1=1 
+ 	     <include refid="query_common_where"></include>
+         <if test="log_name != null and log_name != ''">
+         	and log_name like concat('%',#{log_name},'%') 
+         </if>
+         <if test="log_level != null and log_level != ''">
+         	and log_level=#{log_level} 
+         </if>
+         <if test="startTime !=null and startTime != '' ">
+			<![CDATA[ and  date(create_time) >= date(#{startTime}) ]]> 
+		</if>
+		<if test="endTime !=null and endTime != '' ">
+			<![CDATA[ and  date(create_time) <= date(#{endTime}) ]]> 
+		</if>
+         order by create_time desc 
+	</select>
+ 	 
+ 	 <insert id="insert" parameterType="map">
+ 	     insert into system_common_logs
+ 	     (
+ 	     	 log_level, 
+ 	     	 content, 
+ 	     	 service_module, 
+ 	     	 log_name, 
+ 	     	 status, 
+ 	     	 create_time, 
+ 	     	 update_time, 
+ 	     	 shop_id, 
+ 	     	 app_id 
+ 	     )
+ 	     
+ 	     values
+ 	     (
+ 	     	#{log_level},
+ 	     	#{content},
+ 	     	#{service_module},
+ 	     	#{log_name},
+ 	     	0,
+ 	     	now(),
+ 	     	now(),
+ 	     	#{shop_id},
+ 	     	#{app_id}
+ 	     )
+ 	 </insert>
+</mapper>

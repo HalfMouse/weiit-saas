@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.weiit.web.admin.publics.mapper.ExcelExportMapper">
+	
+	<insert id="insert" parameterType="map">
+ 	     insert into weiit_open_files
+ 	     (
+			file_name,
+			file_url,
+			parent_id,
+			type,
+			is_icon,
+			is_deleted,
+			create_time,
+			update_time,
+			shop_id,
+			app_id
+
+ 	     )
+ 	     values
+ 	     (
+ 	     	#{file_name},
+			#{file_url},
+			#{parent_id},
+			#{type},
+			#{is_icon},
+			0,
+			now(),
+			now(),
+			#{shop_id},
+			#{app_id}
+ 	     )
+ 	 </insert>
+</mapper>
+

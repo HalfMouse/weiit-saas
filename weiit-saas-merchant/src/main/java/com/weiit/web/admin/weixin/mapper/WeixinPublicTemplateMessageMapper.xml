@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.weiit.web.admin.weixin.mapper.WeixinPublicTemplateMessageMapper">
+	
+	<!-- 查询所有可配的模板列表 -->
+	<select id="selectAllTemplateTypeList" resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			*
+		FROM weiit_weixin_public_template_type
+		WHERE template_type=#{template_type}
+		
+     </select>
+	
+	<!-- 查询我的公众号的模板消息列表 -->
+	<select id="selectMyTemplateList" resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			m.*,
+			t.template_type_content
+		FROM weiit_weixin_public_template_msg m inner join weiit_weixin_public_template_type t on m.template_type_id=t.template_type_id
+		WHERE 
+			authorizer_id=#{authorizer_id}
+     </select>
+
+	<!-- 创建模板消息 -->
+	<insert id="insertTemplateMsg" parameterType="map">
+		insert into weiit_weixin_public_template_msg
+		(
+			template_type_id,
+			template_type_num,
+			template_msg_name,
+			wx_template_id,
+			state,
+			create_time,
+			update_time,
+			authorizer_id,
+			business_type
+		)
+		values
+		(
+			#{template_type_id},
+			#{template_type_num},
+			#{template_msg_name},
+			#{wx_template_id},
+			#{state},
+			now(),
+			now(),
+			#{authorizer_id},
+			#{business_type}
+		)
+	</insert>
+
+   <!-- 修改模板消息开启、关闭状态 -->
+	<update id="editTemplateMsgState" parameterType="map">
+		UPDATE 
+			weiit_weixin_public_template_msg 
+		SET 
+			state=#{state}
+		WHERE 
+		    template_msg_id=#{template_msg_id}
+		and authorizer_id=#{authorizer_id}
+	</update>
+	
+	<!-- 删除模板消息,删除所有该公众号的模板消息-->
+	<delete id="removeTemplateMsg" parameterType="map">
+		DELETE FROM
+			weiit_weixin_public_template_msg 
+		WHERE 
+		authorizer_id=#{authorizer_id}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

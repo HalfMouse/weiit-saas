@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.weiit.web.admin.ump.mapper.CouponMapper">
+ 
+	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			coupon_id,
+			coupon_id as validate_id,
+			coupon_num,
+			coupon_name,
+			type,
+			coupon_price,
+			coupon_discount,
+			random_min_price,
+			random_max_price,
+			is_condition,
+			condition_price,
+			coupon_desc,
+			use_type,
+			from_day,
+			to_day,
+			start_time,
+			end_time,
+			number,
+			product_ids,
+			state,
+			max_limit,
+			create_time,
+			update_time,
+			(select count(1) from weiit_ump_coupon_user tt where tt.coupon_id = t.coupon_id ) as distribute_count,
+			(select count(1) from weiit_ump_coupon_user tt where tt.coupon_id = t.coupon_id and tt.state=1) as used_count  
+		from  weiit_ump_coupon t  
+		where  
+			1=1 
+		<if test="coupon_name !=null and coupon_name !='' ">
+			and coupon_name like concat('%', #{coupon_name}, '%') 
+		</if>
+		<if test="state !=null and state !='' ">
+			and state = #{state} 
+		</if>
+		<if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if> 
+		order by update_time desc 
+	</select> 
+ 
+	<select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			coupon_id,
+			coupon_id as validate_id,
+		 	coupon_num,
+			coupon_name,
+			type,
+			coupon_price,
+			coupon_discount,
+			random_min_price,
+			random_max_price,
+			is_condition,
+			condition_price,
+			coupon_desc,
+			use_type,
+			from_day,
+			to_day,
+			start_time,
+			end_time,
+			number,
+			product_ids,
+			state,
+			max_limit,
+			create_time,
+			update_time,
+			shop_id
+		from  weiit_ump_coupon t  
+		where 
+			coupon_id=#{validate_id} 
+		<if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if> 
+	</select>
+	
+	<update id="edit" parameterType="map">
+		update weiit_ump_coupon set 
+		  <choose>
+            <when test="onlyUpdateState !=null and onlyUpdateState !=''">
+            	<if test="state !=null and state !=''">
+					state=#{state} ,
+				</if>
+            </when>
+            <otherwise>
+                coupon_name=#{coupon_name},
+                coupon_num=#{coupon_num},
+                type=#{type},
+                coupon_price=#{coupon_price},
+                coupon_discount=#{coupon_discount},
+                random_min_price=#{random_min_price},
+                random_max_price=#{random_max_price},
+                is_condition=#{is_condition},
+                condition_price=#{condition_price},
+				coupon_desc=#{coupon_desc},
+				use_type=#{use_type},
+				from_day=#{from_day},
+				to_day=#{to_day},
+				start_time=#{start_time},
+				end_time=#{end_time},
+				number = #{number},
+				product_range_type=#{product_range_type},
+				product_ids = #{product_ids},
+				state=#{state},
+				max_limit=#{max_limit},
+            </otherwise>
+         </choose>
+          update_time=now()  
+		 where  coupon_id=#{validate_id} 
+		 <if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if> 
+	</update>
+	
+	<delete id="remove" parameterType="map">
+		delete from weiit_ump_coupon where coupon_id=#{validate_id}  
+		<if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if> 
+	</delete>
+	
+    <insert id="insert" parameterType="map">
+		insert into weiit_ump_coupon
+		 (
+			coupon_num,
+			coupon_name,
+			type,
+			coupon_price,
+			coupon_discount,
+			random_min_price,
+			random_max_price,
+			is_condition,
+			condition_price,
+			coupon_desc,
+			use_type,
+			from_day,
+			to_day,
+			start_time,
+			end_time,
+			number,
+			product_ids,
+			state,
+			max_limit,
+			product_range_type,
+			create_time,
+			update_time,
+			shop_id
+	     )
+		 values
+		 (
+			#{coupon_num},
+			#{coupon_name},
+			#{type},
+			#{coupon_price},
+			#{coupon_discount},
+			#{random_min_price},
+			#{random_max_price},
+			#{is_condition},
+			#{condition_price},
+			#{coupon_desc},
+			#{use_type},
+			#{from_day},
+			#{to_day},
+			#{start_time},
+			#{end_time},
+			#{number},
+			#{product_ids},
+			#{state},
+			#{max_limit},
+			#{product_range_type},
+			now(),
+			now(),
+			#{shop_id}
+		 )
+	</insert>	 
+ 	
+ 	<!-- 查询优惠券关联的商品集合 -->
+ 	<select id="selectCouponProductList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			product_id,
+			product_name,
+			product_img
+		from weiit_product 
+		where 
+			shop_id=#{shop_id}
+			and 
+			product_id in (${product_ids})
+	</select>
+	
+ 	<!-- 派送优惠券开始 -->
+	<!-- 查询所有没有领取过优惠券的用户信息 -->
+	<select id="selectNoCouponUserList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			u.user_id,
+			u.user_account,
+			u.user_name,
+			u.user_nike,
+			u.user_img,
+			u.user_phone,
+			u.create_time,
+			u.update_time,
+			temp.count as give_count
+		from weiit_user u left join 
+			(
+				select 
+					cu.user_id,
+					count(1) as count,
+					c.max_limit 
+				from weiit_ump_coupon_user cu join weiit_ump_coupon c on cu.coupon_id=c.coupon_id 
+				where cu.coupon_id=#{validate_id}
+				group by cu.user_id
+			) 
+		temp on u.user_id=temp.user_id
+		where (temp.count is null or (temp.count is not null and temp.count  &lt; temp.max_limit) or (temp.count is not null and temp.max_limit is null))
+			<if test="user_account !=null and user_account !='' ">     
+	            and  u.user_account  like concat('%', #{user_account}, '%') 
+	        </if>
+			<if test="user_name !=null and user_name !='' ">     
+	            and  u.user_name  like concat('%', #{user_name}, '%') 
+	        </if>
+	        <if test="user_phone !=null and user_phone !='' ">     
+	            and  u.user_phone  like concat('%', #{user_phone}, '%') 
+	        </if>
+	        <if test="shop_id != null and shop_id !=''">
+			 	and u.shop_id=#{shop_id}
+			</if> 
+	        order by u.create_time desc 	
+	</select>
+	 
+	<!-- 新增用户优惠券 -->
+	<insert id="insertCouponUser" parameterType="map">
+		insert into weiit_ump_coupon_user
+		(
+			coupon_id,
+			user_id,
+			state,
+			create_time,
+			remark, 
+			shop_id 
+		)
+		values
+		(
+			#{validate_id},
+			#{user_id}, 
+			#{state}, 
+			now(), 
+			#{remark}, 
+			#{shop_id} 
+		)
+	</insert>
+	
+	<!-- 查询拥有优惠券的用户，包括已经使用的或者未使用的支持-->
+	<select id="selectCouponUserList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+		    u.id,
+		    u.coupon_id,
+		    u.user_id,
+		    us.user_name,
+		    us.user_account,
+			us.user_img,	
+			u.state,
+			u.create_time,
+			u.update_time,
+			u.order_num,
+			u.remark,
+			c.type,
+			c.coupon_price,
+			c.coupon_discount,
+			c.random_min_price,
+			c.random_max_price,
+			c.is_condition,
+			c.condition_price
+		from  weiit_ump_coupon_user u inner join weiit_ump_coupon c on  u.coupon_id=c.coupon_id inner join weiit_user us on u.user_id=us.user_id 
+		where 
+			1=1
+		<if test="validate_id != null and validate_id !='' ">
+			and u.coupon_id=#{validate_id}
+		</if>
+		<if test="id != null and id !='' ">
+			and u.id=#{id}
+		</if>
+		<if test="state != null and state !='' ">
+			and u.state=#{state}
+		</if>
+		<if test="user_account != null and user_account !='' ">
+			and us.user_account  like concat('%', #{user_account}, '%') 
+		</if>  
+		<if test="shop_id != null and shop_id !=''">
+		 	and u.shop_id=#{shop_id}
+		</if> 
+		order by u.create_time desc 
+	</select>
+	 
+	 <!-- 删除用户优惠券 -->
+	<delete id="removeCouponUser" parameterType="map">
+		delete from weiit_ump_coupon_user where id=#{id}  
+		<if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if> 
+	</delete>
+	<!-- 派送优惠券结束-->
+
+
+	<select id="couponListByIds" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+			coupon_id,
+			coupon_num,
+			coupon_name,
+			type,
+			coupon_price,
+			coupon_discount,
+			random_min_price,
+			random_max_price,
+			is_condition,
+			condition_price,
+			coupon_desc,
+			use_type,
+			from_day,
+			to_day,
+			start_time,
+			end_time,
+			number,
+			product_range_type,
+			product_ids,
+			state,
+			max_limit,
+			shop_id
+		from
+			weiit_ump_coupon
+		where
+			state=1
+		<if test="shop_id != null">
+			AND shop_id=#{shop_id}
+		</if>
+		<if test="end_time != null">
+			AND end_time=#{end_time}
+		</if>
+
+		<if test="coupon_ids!=null">
+			AND coupon_id IN
+			<foreach collection="coupon_ids" index="index" item="coupon_id" open="(" separator="," close=")">
+				#{coupon_id}
+			</foreach>
+		</if>
+
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

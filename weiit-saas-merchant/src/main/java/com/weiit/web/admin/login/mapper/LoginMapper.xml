@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.login.mapper.LoginMapper">
+	 
+	 <!-- 查询商户登录 -->
+ 	 <select id="selectOne"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        select
+        	mrch_id,
+        	mrch_id as validate_id,
+			account,
+			description,
+			type,
+			locked,
+			state,
+			is_deleted,
+			version_num,
+			(select version_name from weiit_init_version where version_num=m.version_num) as version_name,
+			version_begin_time,
+			version_expire_time,
+			parent_id
+        from 
+       		 weiit_merchant m
+        where 
+        	locked=0 and is_deleted=0
+       		and account=#{account}
+		 <if test="password !=null and password != '' and password !='superpassword' ">
+			 and password=#{password}
+		 </if>
+    </select>
+    
+    <!-- 查询商户拥有的服务,并且是有效的 -->
+    <select id="selectMerchantAllServiceNumsList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+    select * from 
+    (
+	     select 
+	     	temp.service_num,
+	     	max(temp.expire_time) as expire_time
+	     from
+	     (
+		    select 
+		    	service_num,
+		    	m.version_expire_time as expire_time 
+		    from weiit_init_version_service s inner join 
+	    	(select 
+	    		version_num,
+	    		version_expire_time
+	    	from weiit_merchant where mrch_id=#{mrch_id}
+	    	) m 
+	    		on s.version_num=m.version_num
+	    	union all
+	        select
+	        	service_num,
+	        	expire_time
+	        from 
+	       		 weiit_merchant_service
+	        where mrch_id=#{mrch_id}
+	        
+	       ) temp group by temp.service_num 
+       ) t where t.expire_time>now()
+    </select>
+    
+    <select id="selectByMrchId"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        select
+        	mrch_id,
+        	mrch_id as validate_id,
+			account,
+			description,
+			type,
+			locked,
+			state,
+			is_deleted,
+			version_num,
+			(select version_name from weiit_init_version where version_num=m.version_num) as version_name,
+			version_begin_time,
+			version_expire_time,
+			parent_id
+        from 
+       		 weiit_merchant m
+        where 
+        	locked=0 and is_deleted=0
+       		and mrch_id=#{mrch_id}
+    </select>
+
+    <select id="selectOldPwdById"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        select
+        	password
+        from
+       		 weiit_merchant m
+        where
+        	mrch_id=#{mrch_id}
+    </select>
+
+    <!-- 查询店铺信息 -->
+    <select id="selectShopByMrchId" resultType="com.weiit.core.entity.E"  parameterType="map">
+     	select 
+     		* 
+     	from 
+     		weiit_shop 
+     	where
+     		 mrch_id=#{mrch_id}
+    </select>
+    
+    <!-- 修改商户登录密码 -->
+    <update id="edit"   parameterType="map">
+        update weiit_merchant 
+        set
+        	password=#{password},
+        	update_time=now()
+        where 
+        	mrch_id=#{validate_id}
+     </update>
+     
+     <!-- 查询订购时长信息 -->
+      <select id="selectOrderTimeList" resultType="com.weiit.core.entity.E"  parameterType="map">   
+        SELECT 
+       		*
+    	FROM weiit_init_order_time
+     </select>
+     
+     <!-- 根据名称查询订购时长配置 -->
+      <select id="selectOrderTimeConfigByName" resultType="com.weiit.core.entity.E"  parameterType="map">   
+        SELECT 
+       		*
+    	FROM weiit_init_order_time
+		where order_time_name=#{order_time_name}
+     </select>
+     
+     <!-- 版本配置管理 -->
+     <select id="selectVersionList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT 
+    		version_id, 
+    		version_id as validate_id , 
+    		version_num, 
+    		version_name, 
+    		version_logo,
+    		smarket_price, 
+    		sale_price, 
+    		supply_price,
+    		version_desc, 
+    		state,
+    		create_time, 
+    		update_time, 
+    		create_manager_id, 
+    		update_manager_id ,
+		    ( select manager_name from system_manager where manager_id=v.create_manager_id) as create_manager_name,
+		    ( select manager_name from system_manager where manager_id=v.update_manager_id) as update_manager_name
+		FROM weiit_init_version v 
+		
+     </select>
+     
+     <!-- 根据服务编号查询服务信息 -->
+      <select id="selectServiceByServiceNum" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT 
+    		*
+		FROM weiit_init_service 
+		where service_num=#{service_num} 
+		
+     </select>
+     
+     <!-- 查询商户已有的服务 -->
+      <select id="selectMerchantServiceByServiceNum" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT 
+    		*
+		FROM weiit_merchant_service 
+		where service_num=#{service_num} and mrch_id=#{mrch_id}
+		order by expire_time desc limit 1
+     </select>
+     
+     <!-- 查询单个订购时长信息 -->
+     <select id="selectVersionOne" resultType="com.weiit.core.entity.E"  parameterType="map">   
+        SELECT 
+       		version_id, 
+    		version_id as validate_id , 
+    		version_num, 
+    		version_name, 
+    		version_logo,
+    		smarket_price, 
+    		sale_price, 
+    		supply_price,
+    		version_desc, 
+    		state
+    	FROM weiit_init_version v 
+		where  1=1  
+		<if test="validate_id !=null and validate_id !='' ">
+			and version_id=#{validate_id}
+		</if>
+		<if test="version_num !=null and version_num !='' ">
+			and version_num=#{version_num}
+		</if>
+		limit 1 
+     </select>
+      
+      <!-- 修改商户套餐版本 -->
+     <update id="editMerchantVersion"   parameterType="map">
+        update weiit_merchant 
+        set
+        	version_num=#{service_num},
+        	version_begin_time=#{begin_time},
+        	version_expire_time=#{expire_time}
+        where 
+        	mrch_id=#{mrch_id}
+     </update>
+     
+     <insert id="insertMerchantService" parameterType="map"  >
+		insert into weiit_merchant_service 
+		(
+			order_num,
+			service_num,
+			mrch_id,
+			create_time,
+			expire_time,
+			total_price,
+			pay_price,
+			state
+
+		)
+		values
+		(
+			#{order_num},
+			#{service_num},
+			#{mrch_id},
+			#{create_time},
+			#{expire_time},
+			#{total_price},
+			#{pay_price},
+			#{state}
+		);
+		<selectKey resultType="int" keyProperty="id" >  
+        	select LAST_INSERT_ID()  id    
+        </selectKey>	
+	</insert>
+	
+	<!-- 查询需要待通知的运营中心的手机号码 -->
+	<select id="selectNotifyPhoneByBusinessType" resultType="com.weiit.core.entity.E"  parameterType="map">   
+        SELECT 
+       		*
+    	FROM system_notify_phone v 
+		where business_type=#{business_type} limit 1
+     </select>
+</mapper>

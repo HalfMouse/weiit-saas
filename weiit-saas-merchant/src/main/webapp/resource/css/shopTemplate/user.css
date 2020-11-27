@@ -1,0 +1,21 @@
+/**  用户中心  **/
+.user-center { position: relative; color: #fff;margin-top:-10px;margin-left:-15px; }
+.user-center .bgpic-box { width: 100%; height: auto; min-width: 319px; min-height: 100px;}
+.user-center .bgpic-box img { width: 100%; height: auto; min-width: 320px; min-height: 100px; }
+.user-center .user-infor { height: 55px; overflow: hidden; position: absolute; left: 15px; top: 17px; }
+.user-center .user-photo { float:left; }
+.user-center .user-photo img {border-radius: 50%; border: 1px solid #fff; width: 52px; height: 52px; }
+.user-center .user-name { width: auto;  margin-left: 65px; margin-top:7px; font-size: 14px;}
+.user-center .user-other { width: auto; margin-left: 65px; margin-top:5px; font-size: 12px;}
+.user-center a { color: #fff; }
+.user-center .admin-text { position: absolute; right: 10px; bottom:10px; height: 20px; color: #fff; line-height: 20px; padding-right: 10px; background: url(../../images/shopTemplate/user_admin_icon.png) right no-repeat; background-size: 5px 8px;}
+.user-center .assets-text { position: absolute; left: 0px; bottom:10px; height: 20px; color: #fff; line-height: 20px; padding-left: 17px;}
+
+
+/**  用户订单  **/
+.user-order { background-color: #fff;overflow: hidden;}
+.user-order li { width: 20%; float: left;}
+.user-order li a { display: block; height: 45px; text-align: center;}
+.user-order li .icon-span { display: block; width: 28px; height: 28px; margin: 0 auto; position: relative;}
+.user-order li .num-e { display: block; width: 20px; height: 12px;position: absolute; top: 0; right: -6px; background-color:#ea4c88; text-align: center; line-height: 13px; font-size: 8px; color: #fff; border-radius: 6px; overflow: hidden; }
+.user-order li .text-span {display: block; height: 16px; padding-top:1px;  font-size: 12px; color: #666; line-height: 16px; text-align: center;}

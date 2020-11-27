@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.weiit.web.admin.ump.mapper.BargainMapper">
+ 
+	<!-- 砍价  -->
+	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			us.bargain_id,
+			us.bargain_id AS validate_id,
+			us.product_id,
+			op.product_name,
+			op.product_img,
+			us.bargain_name,
+			us.start_time,
+			us.end_time,
+			us.max_price,
+			us.min_price,
+			pi.stock,
+			us.cut_price_min,
+			us.cut_price_max,
+			us.state,
+			us.create_time,
+			us.update_time,
+			us.shop_id
+		FROM
+			weiit_ump_bargain us,
+			weiit_product op,
+            weiit_product_item pi
+		WHERE
+			us.product_id = op.product_id AND  us.item_id = pi.item_id
+		<if test=" bargain_name !=null and bargain_name !='' ">
+			and us.bargain_name like concat('%', #{bargain_name}, '%') 
+		</if>
+
+		<if test=" state !=null and state !='' ">
+			and us.state = #{state} 
+		</if>
+		<if test="shop_id != null and shop_id !=''">
+		 	and us.shop_id=#{shop_id}
+		</if> 
+		order by us.create_time desc 
+	</select>
+
+
+ 
+	<select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			us.bargain_id,
+			us.bargain_id AS validate_id,
+			us.product_id,
+			op.product_name,
+			op.product_img,
+			us.bargain_name,
+			us.start_time,
+			us.end_time,
+			us.max_price,
+			us.min_price,
+			us.cut_price_min,
+			us.cut_price_max,
+			us.state,
+			bargain_hour,
+			us.create_time,
+			us.update_time,
+			item_id,
+			us.shop_id
+		FROM
+			weiit_ump_bargain us,
+			weiit_product op
+		WHERE
+			us.product_id = op.product_id
+		AND us.bargain_id = #{validate_id}
+		<if test="shop_id != null and shop_id !=''">
+		 	and us.shop_id=#{shop_id} 
+		</if> 
+	</select>
+	
+	<update id="edit" parameterType="map">
+		update weiit_ump_bargain set  
+		<choose>
+            <when test="eivt !=null and eivt !=''">
+            	state=#{state} ,
+            </when>
+            <otherwise>
+               	product_id = #{product_id}, 
+	           	bargain_name = #{bargain_name},
+	            start_time=#{start_time},
+	            end_time=#{end_time}, 
+	           	max_price = #{max_price},
+	           	min_price = #{min_price},
+	           	cut_price_min = #{cut_price_min},
+	           	cut_price_max = #{cut_price_max},
+				bargain_hour = #{bargain_hour},
+	           	item_id = #{item_id},
+				state=#{state},
+            </otherwise>
+         </choose>
+         	update_time=now()  
+		 where  bargain_id=#{validate_id} 
+		 <if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if> 
+	</update> 
+	 
+	<delete id="remove" parameterType="map">
+		delete from weiit_ump_bargain where bargain_id=#{validate_id}  
+		<if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if> 
+	</delete>
+	
+    <insert id="insert" parameterType="map">
+		INSERT INTO weiit_ump_bargain (
+			product_id,
+			bargain_name,
+			start_time,
+			end_time,
+			max_price,
+			min_price,
+			cut_price_min,
+			cut_price_max,
+			state,
+			create_time,
+			update_time,
+			bargain_hour,
+			item_id,
+			shop_id
+		)
+		VALUES
+		(
+			#{product_id},
+			#{bargain_name},
+			#{start_time},
+			#{end_time},
+			#{max_price},
+			#{min_price},
+			#{cut_price_min},
+			#{cut_price_max},
+			#{state},
+			now(),
+			now(),
+			#{bargain_hour},
+			#{item_id},
+			#{shop_id}
+		)
+	</insert>
+
+
+	 
+	<!-- 查询砍价记录发起者 -->
+	<select id="selectBargainDetailList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			bo.b_order_id validate_id,
+			bo.pay_price,
+			bo.state,
+			bo.pay_time,
+			bo.order_num,
+			us.user_name,
+			us.user_img,
+			ub.bargain_name,
+			ub.max_price,
+			ub.start_time,
+			ub.end_time,
+			p.product_name,
+			p.product_img
+		FROM
+			weiit_ump_bargain_order bo
+		LEFT JOIN weiit_ump_bargain ub ON ub.bargain_id = bo.bargain_id
+		LEFT JOIN weiit_user us ON bo.user_id = us.user_id
+		LEFT JOIN weiit_product p ON ub.product_id = p.product_id
+		WHERE
+			ub.bargain_id = #{validate_id}
+		<if test="shop_id != null and shop_id !=''">
+			and bo.shop_id=#{shop_id}
+		</if>
+		<if test="order_num != null and order_num !=''">
+			and bo.order_num like concat('%', #{order_num}, '%')
+		</if>
+		ORDER BY bo.start_time DESC
+	</select>
+	
+		<!-- 查询砍价用户发起者参与者 -->
+	<select id="selectBargainNancyList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			log.log_id,
+			us.user_id,
+			us.user_name,
+			us.user_img,
+			log.create_time,
+			log.bargain_price,
+			log.after_price
+		FROM
+			weiit_ump_bargain_order_log log,
+			weiit_user us
+		WHERE
+			log.user_id = us.user_id AND b_order_id=#{b_order_id}
+		 	and log.shop_id=#{shop_id}
+
+        order by log.create_time desc
+	</select>
+
+
+
+
+
+	<select id="selectProductList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			p.product_id,
+			p.product_name,
+			p.product_img,
+			p.smarket_price,
+			p.sale_price,
+			p.stock,
+			p.sale_count,
+			b.state,
+			p.spec_config
+		FROM weiit_product p left join weiit_ump_bargain b on p.product_id=b.product_id
+		where p.is_on_sale=0 AND  p.is_deleted=0 AND   p.shop_id=#{shop_id}
+		<if test="product_name !=null and product_name !='' ">
+			and p.product_name like concat('%', #{product_name}, '%')
+		</if>
+	</select>
+
+
+	<select id="getProductByBargainIds"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			ub.bargain_id,
+			ub.bargain_name,
+			ub.end_time,
+			ub.max_price,
+			ub.min_price,
+			wp.product_img,
+			wp.product_name,
+			wp.sale_count
+		FROM
+		weiit_ump_bargain ub
+		LEFT JOIN weiit_product wp ON ub.product_id = wp.product_id
+		WHERE wp.is_on_sale=0 AND ub.state=0 AND ub.shop_id=#{shop_id}
+		<if test="end_time!=null">
+			AND end_time &gt;#{end_time}
+		</if>
+		<if test="bargain_ids !=null and bargain_ids !='' ">
+			and ub.bargain_id IN
+			<foreach collection="bargain_ids" index="index" item="bargain_id" open="(" separator="," close=")">
+				#{bargain_id}
+			</foreach>
+		</if>
+	</select>
+	 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

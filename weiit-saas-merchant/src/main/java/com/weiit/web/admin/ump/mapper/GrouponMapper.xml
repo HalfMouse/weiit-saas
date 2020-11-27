@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.weiit.web.admin.ump.mapper.GrouponMapper">
+ 
+	<!-- 秒杀  -->
+	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			us.groupon_id,
+			us.groupon_id AS validate_id,
+			us.product_id,
+			op.product_name,
+			op.product_img,
+			op.stock,
+			us.groupon_price,
+			us.groupon_name,
+			us.start_time,
+			us.end_time,
+			us.expire_time,
+			us.groupon_number,
+			us.max_limit,
+			us.virtual_groupon,
+			us.head_discount,
+			us.state,
+			us.create_time,
+			us.update_time,
+			us.shop_id
+		FROM
+			weiit_ump_groupon us,
+			weiit_product op
+		where us.product_id=op.product_id AND us.is_delete=0
+		<if test=" groupon_name !=null and groupon_name !='' ">
+			and us.groupon_name like concat('%', #{groupon_name}, '%') 
+		</if>
+		<if test=" state !=null and state !='' ">
+			and us.state = #{state} 
+		</if>
+		<if test="shop_id != null and shop_id !=''">
+		 	and us.shop_id=#{shop_id}
+		</if> 
+		order by us.create_time desc 
+	</select> 
+ 
+	<select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			us.groupon_id,
+			us.groupon_id AS validate_id,
+			us.product_id,
+			op.product_name,
+			op.product_img,
+			op.spec_config,
+			op.spec_custom,
+			op.sale_price,
+			us.groupon_price,
+			us.groupon_name,
+			us.start_time,
+			us.end_time,
+			us.expire_time,
+			us.groupon_number,
+			us.max_limit,
+			us.virtual_groupon,
+			us.head_discount,
+			us.state,
+			us.create_time,
+			us.update_time,
+			us.shop_id
+		FROM
+			weiit_ump_groupon us,
+			weiit_product op
+		WHERE
+			us.product_id = op.product_id
+		AND us.groupon_id = #{validate_id}
+		<if test="shop_id != null and shop_id !=''">
+		 	and us.shop_id=#{shop_id} 
+		</if> 
+	</select>
+	
+	<update id="edit" parameterType="map">
+		update weiit_ump_groupon set  
+		<choose>
+            <when test="eivt !=null and eivt !=''">
+            	state=#{state} ,
+            </when>
+            <otherwise>
+               	product_id = #{product_id},
+	           	groupon_price = #{groupon_price},
+	           	groupon_name = #{groupon_name},
+	            start_time=#{start_time},
+	            end_time=#{end_time}, 
+	           	expire_time = #{expire_time},
+	           	groupon_number = #{groupon_number},
+	           	max_limit = #{max_limit},
+	           	virtual_groupon = #{virtual_groupon},
+	           	head_discount = #{head_discount},  
+				state=#{state}, 
+            </otherwise>
+         </choose>
+         	update_time=now()  
+		 where  groupon_id=#{validate_id} 
+		 <if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if> 
+	</update>
+
+	<update id="updateGrouponItem" parameterType="map">
+		UPDATE weiit_ump_groupon_item
+		SET
+			<if test="groupon_price!=null  and groupon_price!=''">
+				groupon_price = #{groupon_price},
+			</if>
+
+			<if test="is_delete!=null  and is_delete!=''">
+				is_delete = #{is_delete},
+			</if>
+			update_time=now()
+		WHERE
+			groupon_id = #{groupon_id}
+			<if test="item_id!=null and item_id!=''">
+				AND item_id = #{item_id}
+			</if>
+	</update>
+
+	<delete id="remove" parameterType="map">
+		UPDATE weiit_ump_groupon
+			SET is_delete = #{is_delete}
+		WHERE
+		groupon_id = #{validate_id}
+	</delete>
+	
+    <insert id="insert" parameterType="map" useGeneratedKeys="true" keyProperty="groupon_id">
+		insert into weiit_ump_groupon
+		 (
+			product_id,
+			groupon_price, 
+			groupon_name, 
+			start_time, 
+			end_time, 
+			expire_time, 
+			max_limit, 
+    		groupon_number, 
+    		virtual_groupon, 
+    		head_discount, 
+    		state, 
+    		create_time, 
+    		update_time, 
+    		shop_id 
+	     )
+		 values
+		 (
+			#{product_id},
+			#{groupon_price},
+			#{groupon_name},
+			#{start_time},
+			#{end_time},
+			#{expire_time},
+			#{max_limit},
+			#{groupon_number}, 
+			#{virtual_groupon},
+			#{head_discount}, 
+			#{state},
+			now(),
+			now(),
+			#{shop_id} 
+		 )
+	</insert>
+
+    <insert id="insertGrouponItem" parameterType="com.weiit.core.entity.E" >
+		insert into weiit_ump_groupon_item
+		 (
+			product_id,
+			groupon_id,
+			item_id,
+			groupon_price,
+			sale_price,
+    		spec_custom,
+    		create_time,
+    		update_time
+	     )
+		 values
+		 (
+			#{product_id},
+			#{groupon_id},
+			#{item_id},
+			#{groupon_price},
+			#{sale_price},
+			#{spec_custom},
+			now(),
+			now()
+		 )
+	</insert>
+
+	<!-- 查询优惠记录 -->
+	<select id="selectGrouponDetailList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			de.g_order_id,
+			us.user_id,
+			us.user_name,
+			us.user_img,
+			ug.groupon_name,
+			ug.groupon_number,
+			ug.groupon_price,
+			ug.expire_time,
+			de.create_time,
+			de.state
+		FROM
+			weiit_ump_groupon_order de,
+			weiit_ump_groupon ug,
+			weiit_user us
+		WHERE
+			ug.groupon_id = de.groupon_id
+		AND de.user_id = us.user_id
+		AND ug.groupon_id = #{validate_id} AND de.parent_id=-1
+		<if test="shop_id != null and shop_id !=''">
+		 	and de.shop_id=#{shop_id} 
+		</if> 
+        order by de.create_time desc 
+	</select>
+	
+		<!-- 查询优惠记录 -->
+	<select id="selectGrouponNancyList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			na.g_order_id,
+			us.user_id,
+			us.user_name,
+			us.user_img,
+			na.create_time,
+			na.order_num,
+			na.pay_time,
+			na.end_time,
+			na.state
+		FROM
+			weiit_ump_groupon_order na,
+			weiit_user us
+		WHERE
+			na.user_id = us.user_id
+		AND (na.g_order_id = #{g_order_id} OR na.parent_id=#{g_order_id})
+		<if test="shop_id != null and shop_id !=''">
+		 	and na.shop_id=#{shop_id}
+		</if> 
+        order by na.create_time desc 
+	</select>
+
+
+	<select id="selectProductList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			p.product_id,
+			p.product_name,
+			p.product_img,
+			p.smarket_price,
+			p.sale_price,
+			p.stock,
+			p.sale_count,
+			b.state,
+			b.groupon_id,
+			spec_config
+		FROM
+			weiit_product p
+		LEFT JOIN weiit_ump_groupon b ON p.product_id = b.product_id
+		where   p.is_on_sale=0 AND  p.is_deleted=0 AND p.shop_id=#{shop_id}
+		<if test="product_name !=null and product_name !='' ">
+			and p.product_name like concat('%', #{product_name}, '%')
+		</if>
+	</select>
+
+
+
+	<select id="grouponListByIds" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			ug.groupon_id,
+			ug.product_id,
+			ug.groupon_name,
+			ug.groupon_number,
+			ug.groupon_price,
+			wp.product_img,
+			wp.product_name,
+			wp.sale_count,
+			wp.sale_price
+		FROM
+			weiit_ump_groupon ug
+		LEFT JOIN weiit_product wp ON ug.product_id = wp.product_id
+		WHERE
+		ug.shop_id = #{shop_id}
+		<if test="groupon_ids !=null">
+			AND groupon_id IN
+			<foreach collection="groupon_ids" index="index" item="groupon_id" open="(" separator="," close=")">
+				#{groupon_id}
+			</foreach>
+		</if>
+
+	</select>
+
+
+	<select id="grouponItemById" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			*
+		FROM
+			weiit_ump_groupon_item ug
+		WHERE
+		groupon_id =#{validate_id}
+	</select>
+
+	<select id="selectGrouponCount" resultType="java.lang.Integer" parameterType="map">
+		SELECT
+			count(*)
+		FROM
+			weiit_ump_groupon_order
+		WHERE parent_id=-1 AND
+		groupon_id =#{groupon_id}
+		<if test="state!=null and state!=''">
+			AND state=#{state}
+		</if>
+	</select>
+
+	  
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

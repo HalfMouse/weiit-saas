@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.weiit.web.admin.order.mapper.OrdersMapper">
+	
+	<!-- 公共查询条件 -->
+	<sql id="query_common_where">
+		<if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if>
+	</sql>
+ 
+	<!-- 商品订单查询 -->
+	<select id="selectList"  resultType="com.weiit.core.entity.E" parameterType="map">
+	    select
+			oo.order_id, oo.order_id as validate_id ,
+			oo.order_num,
+			oo.total_price,
+			oo.check_num,
+			oo.pay_price,
+			oo.address_id,
+			oo.user_id,
+			oo.user_name,
+			oo.create_time,
+			oo.update_time,
+			oo.state,
+			oo.order_type,
+			oo.remark, 
+			oo.payment_type,
+			oo.express_num,
+			oo.express_type,
+			oo.express_money,
+			oo.consignee,
+			oo.address,
+			oo.phone, 
+			oo.express_template_id,
+			oc.express_name,
+			ex.express_code,
+			oo.star_state 
+		from
+			weiit_order oo LEFT JOIN  weiit_shop_express oc on oo.express_template_id = oc.id 
+				LEFT JOIN weiit_init_express_ali ex  on oc.express_id = ex.express_id and ex.express_type = 0
+		where  1=1  
+		<if test="shop_id != null and shop_id !=''">
+		 	and oo.shop_id=#{shop_id}
+		</if>
+      	<if test="user_name != null and user_name != '' ">
+            and oo.user_name like concat('%', #{user_name}, '%') 
+        </if>
+        <if test="order_num != null and order_num != '' ">
+            and oo.order_num like concat('%', #{order_num}, '%') 
+        </if>
+        <if test="product_name != null and product_name !=''">
+		 	 and exists ( select od.order_id from weiit_order_item od 
+		 	 	where od.order_id=oo.order_id  and od.product_name like concat('%', #{product_name}, '%')   )
+		</if>
+        <if test="state !=null and state !='' ">     
+           and  oo.state =#{state} 
+        </if>
+        <if test="star_state !=null and star_state !='' ">     
+           and  oo.star_state =#{star_state} 
+        </if>
+		<if test="startTime !=null and startTime !='' ">     
+            <![CDATA[ and  date(oo.create_time) >= date(#{startTime}) ]]> 
+        </if>
+        <if test="endTime !=null and endTime !='' ">     
+            <![CDATA[ and  date(oo.create_time) <= date(#{endTime}) ]]>
+        </if> 
+      	 order by oo.create_time desc
+	</select>
+	
+	<!-- 修改订单状态 -->
+	<update id="updateStatus"  parameterType="map">
+		update  weiit_order 
+		set update_time=now() , 
+			state=#{state} 
+		where 
+			order_id=#{validate_id}
+			<include refid="query_common_where"></include>
+	</update>
+	
+	
+	<select id="queryOrdersDetail" resultType="com.weiit.core.entity.E" parameterType="map">
+	   select
+			od.id,
+			od.product_id,
+			od.product_name,
+			od.product_img,
+			od.supply_price,
+			od.smarket_price,
+			od.sale_price,
+			od.spec_content,
+			od.order_id,
+			od.create_time,
+			od.update_time,
+			od.item_id,
+			od.count,
+			(od.count * od.sale_price) AS totalPrice,
+			rd.refund_id,
+			rd.state 
+		from
+			weiit_order_item od left join weiit_order_refund rd 
+				on od.id = rd.order_item_id  
+		where 1=1 
+		<if test="validate_id !=null and validate_id !='' ">     
+           and  od.order_num =#{validate_id}
+        </if>
+        <if test="order_id !=null and order_id !='' ">     
+           and  od.order_id = #{order_id}
+        </if> 
+	    <if test="shop_id != null and shop_id !=''">
+		 	and od.shop_id=#{shop_id}
+		</if>
+	</select>
+	
+	<!-- 单个商品订单查询 -->
+	<select id="selectOne"  resultType="com.weiit.core.entity.E" parameterType="map">
+	   select
+	        oo.order_id, oo.order_id as validate_id ,
+			oo.order_num,
+			oo.total_price,
+			oo.check_num,
+			oo.pay_price,
+			oo.address_id,
+			oo.user_id,
+			oo.user_name,
+			oo.create_time,
+			oo.update_time,
+			oo.state,
+			oo.order_type,
+			oo.remark, 
+			oo.payment_type,
+			oo.express_num,
+			oo.express_type,
+			oo.express_money,
+			oo.consignee,
+			oo.address,
+			oo.phone,  
+			oo.express_template_id,
+			oc.express_name,
+			ex.express_code, 
+			oo.shop_id,
+			(select shop_name from weiit_shop ss where ss.shop_id=oo.shop_id) as shopName
+		from
+			weiit_order oo
+		LEFT JOIN  weiit_shop_express oc on oo.express_template_id = oc.id
+		LEFT JOIN weiit_init_express_ali ex  on oc.express_id = ex.express_id and ex.express_type = 0
+		where   1=1  
+		<if test="shop_id != null and shop_id !=''">
+		 	and oo.shop_id=#{shop_id} 
+		</if>
+      	<if test="validate_id !=null and validate_id !='' ">     
+           and  oo.order_id =#{validate_id}
+        </if>
+        limit 1 
+	</select>
+	
+ 	<!-- 根据用户ID查询地址 -->
+ 	<select id="queryAddressById"  resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			id,
+			user_id,
+			user_name,
+			consignee,
+			province,
+			city,
+			district,
+			address_detail,
+			zip_code,
+			phone,
+			create_time,
+			update_time
+		from
+		    weiit_user_address
+ 	    where 
+ 	    	id=#{id}
+ 	    	<include refid="query_common_where"></include>
+	</select>
+	
+	<!-- 待处理订单  -->
+ 	<select id="queryOrderCount"  resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			 count(case state when 0 then order_id end )  wfkOrder,
+			 count(case state when 1 then order_id end )  dfhOrder 
+		from 
+			weiit_order 
+		where  1=1 
+		 	<include refid="query_common_where"></include>
+		<if test=" state !=null and state =='99' ">
+			and state in(1,0) 
+		</if>
+		<if test="startTime !=null and startTime != '' ">
+			<![CDATA[ and  date(create_time) >= date(#{startTime}) ]]> 
+		</if>
+		<if test="endTime !=null and endTime != '' ">
+			<![CDATA[ and  date(create_time) <= date(#{endTime}) ]]> 
+		</if>
+	</select>
+	
+	<!-- 支付金额 -->
+ 	<select id="queryOrderPayCount"  resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			 sum(ifnull(pay_price,0)) payCount 
+		from
+			 weiit_order
+		where  state not in(-1,0) 
+		<include refid="query_common_where"></include>
+		<if test="startTime !=null and startTime != '' ">
+			<![CDATA[ and  date(create_time) >= date(#{startTime}) ]]> 
+		</if>
+		<if test="endTime !=null and endTime != '' ">
+			<![CDATA[ and  date(create_time) <= date(#{endTime}) ]]> 
+		</if>
+	</select>
+	
+	<!-- 访客数  -->
+ 	<select id="queryUserLogsCount"  resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			 count(*) mcount
+	    from
+	    	 weiit_user_logs 
+		where 1=1 
+		<include refid="query_common_where"></include>
+		<if test="startTime !=null and startTime != '' ">
+			<![CDATA[ and  date(create_time) >= date(#{startTime}) ]]> 
+		</if>
+		<if test="endTime !=null and endTime != '' ">
+			<![CDATA[ and  date(create_time) <= date(#{endTime}) ]]> 
+		</if>
+	</select>
+
+	<!--查询最近30天订单(金额) -->
+	<select id="queryMonthOrders" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			DATE_FORMAT(create_time,'%Y%m%d') as months,
+			sum(pay_price) as pay_price 
+		from 
+			weiit_order
+		where  state not in(-1,0) 
+		<include refid="query_common_where"></include>
+		<if test="startTime !=null and startTime != '' ">
+			<![CDATA[ and  date(create_time) >= date(#{startTime}) ]]> 
+		</if>
+		<if test="endTime !=null and endTime != '' ">
+			<![CDATA[ and  date(create_time) <= date(#{endTime}) ]]> 
+		</if>
+		 	group by months
+	</select>
+	
+	 <select id="selectOrderDetailByOrderId" resultType="com.weiit.core.entity.E" parameterType="map">
+	   select 
+	   		product_id,
+	   		count,
+	   		spec_content,
+	   		item_id,
+	   		order_id,
+	   		shop_id
+	   from 
+	   		weiit_order_item
+	   where 
+	   		 order_id=#{order_id}
+	  		<include refid="query_common_where"></include>
+	 </select>
+	 
+	 <!-- 修改商品表的订单库存和销量 -->
+	 <update id="updateProductStockByProductId"  parameterType="map">
+	   update  weiit_product 
+	   set 
+		 stock=stock-#{count},
+		 sale_count=sale_count+#{count}
+	   where 
+	   	 product_id=#{product_id}
+		 <include refid="query_common_where"></include>
+	 </update>
+	 
+	  <update id="updateProductItemStockByItemId"  parameterType="map">
+	   update  weiit_product_item 
+	   set 
+		    stock=stock-#{count}
+	   where 
+	   		item_id=#{item_id}
+			and product_id =#{product_id}
+			<include refid="query_common_where"></include>
+	 </update>
+ 
+ 	<update id="edit" parameterType="map">
+ 	    update weiit_order set update_time = now(), deliver_time = now()
+ 	  <if test="express_num !=null and express_num !=''">
+         , express_num=#{express_num} 
+      </if>
+      <if test="express_template_id !=null and express_template_id !=''">
+         , express_template_id=#{express_template_id} 
+      </if>
+      <if test="state !=null and state !=''">
+         , state=#{state}
+      </if> 
+      <if test="star_state !=null and star_state !=''">
+         , star_state=#{star_state} 
+      </if>
+ 	    where order_id=#{validate_id} 
+ 		<if test=" shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id} 
+		</if>
+ 	</update>
+ 
+ 
+ 	 <!-- 评论查询 -->
+	<select id="selectOrderEvaluateList"  resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			ev.evaluate_id,
+			ev.evaluate_id AS validate_id,
+			ev.evaluate_desc,
+			ev.evaluate_imgs,
+			ev.score,
+			ev.evaluate_reply,
+			ev.create_time,
+			ev.update_time,
+			ev.is_show,
+			ev.state,
+			ev.order_id,
+			ev.order_num,
+			ev.order_item_id,
+			ev.user_id,
+			ev.user_name,
+			ev.user_img,
+			it.product_id,
+			it.product_name,
+			it.product_img,
+			it.spec_content
+		FROM
+			weiit_order_evaluate ev,
+			weiit_order_item it
+		where ev.order_item_id=it.id  
+			<if test="shop_id != null and shop_id !=''">
+				and ev.shop_id=#{shop_id}
+			</if>
+			<if test="user_name != null and user_name != '' ">
+				and ev.user_name=#{user_name}
+			</if>
+			<if test="order_num != null and order_num != '' ">
+				and ev.order_num=#{order_num}
+			</if>
+			<if test="state !=null and state !='' ">
+			   and  ev.state =#{state}
+			</if>
+			<if test="is_show !=null and is_show !='' ">
+			   and  ev.is_show =#{is_show}
+			</if>
+			<if test="score !=null and score !='' ">
+			   and  ev.score =#{score}
+			</if>
+      	 order by ev.create_time desc
+	</select>
+	
+	<!-- 修改订单状态 -->
+	<update id="editOrderEvaluate"  parameterType="map">
+		update
+			weiit_order_evaluate
+		set 
+		<if test="state !=null and state !='' ">     
+           state=#{state} , 
+        </if>
+		<if test="evaluate_reply !=null and evaluate_reply !='' ">     
+           evaluate_reply=#{evaluate_reply} ,
+        </if>
+        <if test="is_show !=null and is_show !='' ">     
+           is_show=#{is_show} ,
+        </if>
+			update_time=now() 
+		where 
+			evaluate_id=#{validate_id}
+		<if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if>
+	</update>
+	
+	<!-- 查询订单报表指标,待付款订单、待发货订单、售后订单、昨日销售额、昨日订单 -->
+	<select id="selectOrderDashBoard"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        select
+	       (
+			select
+				count(1)
+		    from
+				weiit_order
+		 	where
+				state=0
+		       	<if test="shop_id>0">
+			    and shop_id=#{shop_id}
+			    </if>
+			)	no_pay_order_count,
+	       (
+			select
+				count(1)
+			from
+				weiit_order
+			where
+				state=1
+		       	<if test="shop_id>0">
+			    and shop_id=#{shop_id}
+			    </if>
+			)	no_send_order_count,
+	       (
+			select
+				count(1)
+			from
+				weiit_order_refund
+			where
+				state=0
+		       	<if test="shop_id>0">
+			    and shop_id=#{shop_id}
+			    </if>
+			)	after_sale_order_count,
+		   (
+	        select
+				count(*)
+			from
+				weiit_order
+			where
+				state &gt;0
+				<if test="shop_id>0">
+					and shop_id=#{shop_id}
+				</if>
+				and (<![CDATA[to_days(create_time)=to_days(now()) or to_days(update_time)=to_days(now())]]> )
+	       ) today_count,
+	       (
+	        select
+				ifnull(sum(round(pay_price,2)),0)
+			from
+				weiit_order
+			where
+				state &gt;0
+				<if test="shop_id>0">
+					and shop_id=#{shop_id}
+				</if>
+				AND (<![CDATA[to_days(create_time)=to_days(now()) or to_days(update_time)=to_days(now())]]> )
+	       ) today_total,
+	       (
+	        select
+				ifnull(sum(round(pay_price,2)),0)
+			from
+			weiit_order
+			where
+				state &gt;0
+				<if test="shop_id>0">
+					and shop_id=#{shop_id}
+				</if>
+			AND (<![CDATA[to_days(now())-to_days(create_time)<=1 or to_days(now())-to_days(update_time)<=1 ]]> )
+	       ) yesterday_total ,
+	       (
+	       select
+				count(*)
+		   from
+			weiit_order
+		   where
+			state &gt;0
+			<if test="shop_id>0">
+				and shop_id=#{shop_id}
+			</if>
+			AND (<![CDATA[to_days(now())-to_days(create_time)<=1 or to_days(now())-to_days(update_time)<=1 ]]> )
+	       ) yesterday_count 
+         from 
+         	dual
+    </select>
+    
+    <!-- 订单发货模板消息发送数据查询 -->
+    <select id="selectOrderTimplateOne" resultType="com.weiit.core.entity.E" parameterType="map">
+        select
+	        oo.order_id, oo.order_num, oo.express_num,  oo.user_id, us.wx_open_id,  oc.express_name , 
+        	info.authorizer_id ,info.authorizer_app_id, info.service_type_info , ms.wx_template_id ,
+            ( select product_name from weiit_order_item where order_id=oo.order_id order by id asc limit 1 ) product_name 
+		from
+			( select order_id, order_num, express_num, user_id,express_template_id, shop_id  from weiit_order 
+				where order_id=#{validate_id} ) oo
+			inner JOIN  weiit_user us on oo.user_id=us.user_id
+			inner JOIN  weiit_weixin_public_info info  on oo.shop_id=info.shop_id and us.open_id_type=info.service_type_info
+			inner JOIN  weiit_weixin_public_template_msg ms on info.authorizer_id=ms.authorizer_id 
+			inner JOIN  weiit_weixin_public_template_type tt on ms.template_type_id=tt.template_type_id and  ms.state=1 and tt.business_type=#{business_type}
+			left JOIN  weiit_shop_express oc on oo.express_template_id = oc.id 
+		where 1=1 
+		<if test="shop_id != null and shop_id !=''">
+		 	and oo.shop_id=#{shop_id}
+		</if>
+	</select>
+    
+</mapper>
+

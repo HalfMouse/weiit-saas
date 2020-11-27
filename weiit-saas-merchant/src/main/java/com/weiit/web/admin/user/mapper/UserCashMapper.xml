@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.weiit.web.admin.user.mapper.UserCashMapper">
+ 
+	<!-- 会员提现记录-->
+	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			cl.cash_id,
+			cl.cash_id AS validate_id,
+			cl.cash_num,
+			cl.cash_type,
+			cl.bank_name,
+			cl.cash_name,
+			cl.cash_account,
+			cl.cash_money,
+			cl.remark,
+			cl.state,
+			cl.reason,
+			cl.create_time,
+			cl.update_time,
+			cl.shop_id,
+			us.user_id,
+			us.user_name
+		FROM
+			weiit_user_cash_log cl,
+			weiit_user us
+		WHERE
+			cl.user_id = us.user_id
+		<if test=" shop_id !=null and shop_id !='' ">
+			and cl.shop_id = #{shop_id} 
+		</if> 
+		<if test=" state !=null and state !=''">
+			and cl.state = #{state} 
+		</if>
+        <if test="user_name !=null and user_name !='' ">     
+           and us.user_name  like concat('%', #{user_name}, '%') 
+        </if>
+        order by cl.create_time desc  
+	</select>
+	
+	<select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			cl.cash_id,
+			cl.cash_id AS validate_id,
+			cl.cash_num,
+			cl.cash_type,
+			cl.bank_name,
+			cl.cash_name,
+			cl.cash_account,
+			cl.cash_money,
+			cl.remark,
+			cl.state,
+			cl.reason,
+			cl.create_time,
+			cl.update_time,
+			cl.shop_id,
+			us.user_id,
+			us.user_name
+		FROM
+			weiit_user_cash_log cl,
+			weiit_user us
+		WHERE
+			cl.user_id = us.user_id
+		AND cl.cash_id = #{validate_id}
+		<if test=" shop_id !=null and shop_id !='' ">
+			and cl.shop_id = #{shop_id} 
+		</if>
+	</select>
+	
+	<update id="edit" parameterType="map">
+		update  weiit_user_cash_log set 
+			state = #{state} ,
+			reason = #{reason} ,
+			update_time =now() 
+		where cash_id=#{validate_id} 
+        <if test=" shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id} 
+		</if> 
+	</update>
+ 
+ 
+</mapper>

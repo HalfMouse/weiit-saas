@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.weiit.web.admin.user.mapper.UserSignMapper">
+ 
+	<!-- 查询会员的标签组-->
+	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			sign_id,
+			sign_id as validate_id,
+			sign_name,
+			(select count(1) from weiit_user_sign_log sl where sl.sign_id=s.sign_id) as user_count,
+			total_price_count,
+			order_count,
+			integral_count,
+			create_time,
+			update_time
+		FROM
+			weiit_user_sign s
+		WHERE
+			shop_id = #{shop_id} 
+        order by create_time desc  
+	</select>
+	
+	<select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			sign_id,
+			sign_id as validate_id,
+			sign_name,
+			total_price_count,
+			order_count,
+			integral_count,
+			create_time,
+			update_time
+		FROM
+			weiit_user_sign
+		WHERE
+			sign_id=#{validate_id}
+	</select>
+	
+	<insert id="insert"  parameterType="map">
+        insert into weiit_user_sign
+        (
+			sign_name, 
+			total_price_count, 
+			order_count, 
+			integral_count, 
+			create_time,
+			update_time,
+			shop_id
+        )
+        values
+        (
+			#{sign_name}, 
+			#{total_price_count}, 
+			#{order_count}, 
+			#{integral_count}, 
+			now(),
+			now(),
+			#{shop_id}
+        )
+     </insert>
+     
+	<update id="edit" parameterType="map">
+		UPDATE  weiit_user_sign SET 
+			sign_name = #{sign_name} ,
+			total_price_count = #{total_price_count},
+			order_count =#{order_count},
+			integral_count=#{integral_count},
+			update_time=now()
+		WHERE sign_id=#{validate_id} 
+        <if test="shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id} 
+		</if> 
+	</update>
+ 
+ 	<delete id="remove" parameterType="map">
+ 		DELETE FROM weiit_user_sign where sign_id=#{validate_id} and shop_id=#{shop_id}
+ 	</delete>
+ 	
+ 	<insert id="insertSignLog"  parameterType="map">
+        insert into weiit_user_sign_log
+        (
+			sign_id, 
+			user_id, 
+			shop_id, 
+			create_time
+        )
+        values
+        (
+			#{sign_id}, 
+			#{user_id}, 
+			#{shop_id},
+			now()
+        )
+     </insert>
+     
+     <select id="selectSignNameListByUserId" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT 
+			sign_name 
+		FROM weiit_user_sign
+		WHERE sign_id
+		in
+		(
+		SELECT
+			sign_id
+		FROM
+			weiit_user_sign_log 
+		WHERE
+			user_id=#{user_id}
+		)
+	</select>
+	
+	<select id="selectUserListBySignIds" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT 
+			* 
+		FROM weiit_user
+		WHERE
+			shop_id=#{shop_id}
+		<if test="open_id_type !=null and open_id_type !='' ">     
+            and  open_id_type=#{open_id_type}
+        </if>
+		and  user_id 
+		in
+		(
+		SELECT
+			user_id
+		FROM
+			weiit_user_sign_log 
+		WHERE
+			sign_id in (${sign_ids})
+		)
+	</select>
+</mapper>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.weiit.web.admin.setting.mapper.ShippingMapper">
+ 
+<!-- 商品横幅活动开始 -->
+	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			shipping_id,
+			shipping_name,
+			shipping_config,
+			create_time,
+			update_time,
+			shop_id
+		FROM
+			weiit_shop_shipping
+		WHERE
+			is_deleted = 0
+		<if test="shipping_id !=null and shipping_id !='' ">     
+         	and  shipping_id =#{shipping_id} 
+        </if>
+		<if test="queryName !=null and queryName !='' ">     
+         	and  shipping_name like concat('%', #{queryName}, '%') 
+        </if>
+        <if test=" shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id} 
+		</if> 
+        	order by  update_time  desc  
+	</select>
+
+
+ 
+	<select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			shipping_id,
+			shipping_name,
+			shipping_config,
+			create_time,
+			update_time,
+			is_deleted,
+			shop_id
+		FROM
+			weiit_shop_shipping
+		WHERE
+			shipping_id = #{shipping_id}
+		<if test=" shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id} 
+		</if> 
+	</select>
+
+
+	
+	<update id="edit" parameterType="map">
+		update  weiit_shop_shipping set 
+			<if test="shipping_name !=null and shipping_name != ''">
+	            shipping_name=#{shipping_name},
+	        </if> 
+	        <if test="shipping_config !=null and shipping_config != ''">
+	            shipping_config=#{shipping_config},
+	        </if>
+			update_time=now() 
+		where  shipping_id=#{shipping_id} 
+		<if test=" shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id} 
+		</if> 
+	</update>
+
+
+
+	<update id="remove" parameterType="map">
+		update weiit_shop_shipping set is_deleted=-1 where shipping_id=#{shipping_id}   
+	    <if test=" shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id} 
+		</if> 
+	</update>
+
+
+	
+    <insert id="insert" parameterType="map">
+		INSERT INTO weiit_shop_shipping (
+			shipping_name,
+			shipping_config,
+			create_time,
+			update_time,
+			is_deleted,
+			shop_id
+		)
+		VALUES
+		(
+			#{shipping_name},
+			#{shipping_config},
+			now(),
+			now(),
+			0,
+			#{shop_id}
+		)
+		 <selectKey resultType="int" keyProperty="shipping_id" >  
+        	SELECT  LAST_INSERT_ID()  shipping_id 
+         </selectKey>
+	</insert>
+
+
+
+	
+	<select id="selectShipmentsDetail" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			id,
+			areas_ids,
+			areas_names,
+			start_standard,
+			start_fee,
+			add_standard,
+			add_fee,
+			sort_num,
+			create_time,
+			shipping_id,
+			shop_id
+		FROM
+			weiit_shop_shipping_item
+		WHERE
+			1 = 1
+		<if test="shipmentList !=null and shipmentList.size>0 ">    
+			and  shipping_id in  
+         	<foreach item="item" index="index" collection="shipmentList" open="(" separator="," close=")">
+	            #{item.shipping_id}
+	        </foreach>
+        </if>
+        <if test="shipping_id !=null and shipping_id !='' ">     
+         	and  shipping_id =#{shipping_id} 
+        </if>
+        <if test=" shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id} 
+		</if> 
+        order by create_time desc , sort_num  asc   
+	</select>
+
+
+	
+	<delete id="removeShipmentsDetail" parameterType="map">
+		delete from  weiit_shop_shipping_item  where shipping_id=#{shipping_id}
+	    <if test=" shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id} 
+		</if> 
+	</delete>
+
+
+	
+	<insert id="insertShipmentsDetail" parameterType="map">
+		INSERT INTO weiit_shop_shipping_item (
+			areas_ids,
+			areas_names,
+			start_standard,
+			start_fee,
+			add_standard,
+			add_fee,
+			sort_num,
+			create_time,
+			shipping_id,
+			shop_id
+		)
+		VALUES
+		(
+			#{areas_ids},
+			#{areas_names},
+			#{start_standard},
+			#{start_fee},
+			#{add_standard},
+			#{add_fee},
+			#{sort_num},
+			now(),
+			#{shipping_id},
+			#{shop_id}
+		)
+	</insert>
+
+
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

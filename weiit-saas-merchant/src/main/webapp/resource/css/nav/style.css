@@ -1,0 +1,447 @@
+/* 中间手机展示部分 */
+.tel_show{
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+    width: 336px;
+    margin-left: 35px;
+    border: 1px solid #e5e5e5;
+    padding: 50px 0 60px 0;
+    border-radius: 30px;
+    margin-bottom: 220px;
+    margin-top: 30px;
+    
+}
+.tel_show .phone-headset{
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: -25px;
+    border-radius: 5px;
+    width: 50px;
+    height: 6px;
+    background: #dad8d8;
+}
+.tel_show .phone-home {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -20px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #e5e5e5;
+    border-radius: 100%;
+}
+.tel_show .phone-screen {
+    position: relative;
+    width: 320px;
+    margin: 0 auto;
+    min-height: 580px;
+    border: 1px solid #f5f5f5;
+    background-color: #f8f8f8;
+}
+.design-preview{
+    position: relative;
+}
+.design-preview .wp-comp {
+    position: relative;
+    width: 320px;
+    cursor: pointer;
+    height: 55px;
+}
+.design-preview .wp-config h1 {
+    position: absolute;
+    width: 320px;
+    top: 0;
+    margin: 0;
+    line-height: 36px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    background-size: 320px 55px;
+    z-index: 3;
+    padding-top: 19px;
+}
+.design-preview .wp-config img{
+    position: absolute;
+    width: 320px;
+    top: 0;
+}
+/* 底部导航展示 */
+.nav-bottom{
+    position: absolute;
+    display: flex;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 65px;
+}
+.nav-item{
+    flex: 1;
+    text-align: center;
+    padding-top: 2px;
+}
+.nav-item img{
+    width: 40px;
+}
+.nav-item span{
+    display: block;
+    text-align: center;
+}
+/* 右侧管理部分 */
+.setting-box{
+    float: left;
+    padding: 12px 10px;
+    min-height: 28px;
+    background: #f8f8f8;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    width: 450px;
+    margin-left: 20px;
+    font-size: 12px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-top: 80px;
+}
+.setting-box .head{
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 17px;
+}
+.setting-box .add-nav{
+    display: inline-block;
+    padding: 0 5px;
+    border: 1px solid #ccc;
+    margin-left: 6px;
+    border-radius: 3px;
+    font-size: 12px;
+    line-height: 26px;
+    background-color: #fff;
+    cursor: pointer;
+}
+.nav-list{
+    margin-bottom: 15px;
+}
+.nav-list li{
+    position: relative;
+    width: 427px;
+    background-color: #fff;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 17px auto 0;
+}
+.nav-list li .del-nav{
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    font-size: 16px;
+    color: #a3a3a3;
+}
+.nav-list li .add_pic{
+    position: relative;
+    float: left;
+    margin-right: 10px;
+    width: 78px;
+    border: 1px dotted #ddd;
+    text-align: center;
+    line-height: 78px;
+    cursor: pointer;
+}
+.add_pic img{
+    display: block;
+    width: 100%;
+}
+.add_pic span {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.5);
+    color: #fff;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 12px;
+}
+.choiceSize{
+    float: left;
+}
+.item{
+    position: relative;
+}
+.item:last-child{
+    margin-top: 10px;
+}
+.item span{
+    float: left;
+    text-align: right;
+    margin-top: 3px;
+}
+.item .changeUrl{
+    float: left;
+    margin-left:5px;
+}
+.item .changeUrl span.el-dropdown-link1{
+    color: #38f
+}
+.item span.title{
+    width: 69px;
+}
+.item span.link-btn{
+    text-align: left;
+    color: #38f;
+    max-width: 195px;
+    cursor: move;
+}
+.item .nav-name{
+    float: left;
+    width: 175px;
+}
+.item span.link-btn i{
+    margin-left: 5px;
+}
+/* 底部提示语 */
+.tips{
+    margin-top: 10px;
+    padding-left: 20px;
+    color: #999;
+    font-size: 12px;
+}
+/* 弹出窗 */
+.bg{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 50;
+}
+.bg .close-win{
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    font-size: 18px;
+    color: #aaa;
+    cursor: pointer;
+}
+.show-box{
+    width: 718px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 6px;
+    padding-bottom: 10px;
+}
+.show-box h2{
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    margin: 0;
+    font-weight: bold;
+}
+.picture-list{
+    padding: 10px;
+    min-height: 385px;
+    
+}
+.picture-list ul{
+    overflow: hidden;
+    margin-right: -18px;
+}
+.picture-list ul li{
+    position: relative;
+    float: left;
+    width: 84px;
+    height: 106px;
+    border: 2px solid #ddd;
+    margin: 0 18px 15px 0;
+    cursor: pointer;
+}
+.picture-list ul li.active{
+    border-color: #38f;
+}
+.picture-list ul li i.check{
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    color: #38f;
+}
+.picture_title{
+    width: 79px;
+    line-height: 22px;
+    padding-left: 5px;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+}
+.el-dropdown-menu {
+    height: 200px;
+    overflow-y: scroll;
+}
+/* 链接选择框 */
+.linkChoice{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.3);
+    z-index: 9999;
+}
+.choice_box{
+    width: 570px;
+    height: 425px;
+    background-color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding:10px 0;
+    border-radius: 8px;
+}
+.choice_box .head{
+    padding: 0 15px;
+}
+.choice_box .head h6{
+    float: left;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
+.choice_box .head .icon{
+    float: right;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333
+}
+.linkTab{
+    padding: 0 8px;
+}
+.choiceBtn{
+    float: right;
+    border: none 0;
+    background-color: #2897e4;
+    line-height: 30px;
+    padding: 0 10px;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 12px;
+    margin-right: 10px;
+}
+.choiceBtn:focus{
+    border: none 0;
+}
+.page_nation{
+    margin-top: 10px;
+}
+.choiceNav{
+    width: auto;
+    
+    position: relative;
+    border-color: rgba(51, 136, 255, 0.3);
+    background: rgb(226, 243, 255);
+    color: rgb(102, 102, 102);
+    padding: 5px;
+    border-radius: 5px;
+    padding-right: 25px;
+}
+.choiceNav i{
+    font-style: normal;
+    float: left;
+    margin-right: 5px;
+}
+.choiceNav i.glyphicon{
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #a3a3a3;
+    cursor: pointer;
+}
+.modify{
+    position: relative;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+}
+.add .contol_group .modify span{
+    position: relative;
+    width: 35px;
+    cursor: pointer;
+    color:#38f;
+}
+.modify_list{
+    background-color: #fff;
+    width: 100px;
+    position: absolute;
+    top: 26px;
+    left: 0;
+    max-height: 180px;
+    overflow-y: scroll;
+    z-index: 20;
+}
+.modify_list ul li{
+    cursor: pointer;
+    padding-left: 5px;
+}
+.modify_list ul li:hover{
+    background-color: #38f;
+    color: #fff;
+}
+.setChoice{
+    float: left;
+}
+.changeUrl span.el-dropdown-link1{
+    float: left;
+    width: 130px;
+    text-align: left;
+    color: #38f;
+    margin-top: 2px;
+    margin-right: 10px;
+}
+.el-dropdown{
+    margin-left: 10px;
+}
+.comfirm{
+    display: block;
+    width: 48px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    color: #fff;
+    background-color: #4b0;
+    border-radius: 5px;
+    font-size: 12px; 
+    margin: 0 auto;
+}
+.comfirm.none{
+    background-color: #ddd;
+}
+.comfirm:hover{
+    color: #fff;
+}
+/* 保存按钮 */
+.save{
+    position: absolute;
+    background-color: #2897e4;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 3px;
+    padding: 5px 10px;
+    left: 50%;
+    bottom: 64px;
+    transform: translateX(-50%);
+}
+.save:hover{
+    color: #fff;
+}

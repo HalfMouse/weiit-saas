@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.analyse.mapper.AnalyseMapper">
+	 
+	 <!-- 查询 概况基本指标统计，会员用户、交易总额、订单笔数、站点数指标 -->
+ 	 <select id="selectBaseReportTotal"  resultType="com.weiit.core.entity.E"  parameterType="map">
+      SELECT
+			(
+				SELECT
+					count(1)
+				FROM
+					weiit_user
+				WHERE
+					shop_id = #{shop_id}
+			) user_total,
+			(
+				SELECT
+					sum(pay_price)
+				FROM
+					weiit_order
+				WHERE
+					shop_id = #{shop_id}
+				AND (state != 0 AND state !=- 1)
+			) sale_total,
+			(
+				SELECT
+					count(1)
+				FROM
+					weiit_order
+				WHERE
+					shop_id = #{shop_id}
+				AND (state != 0 AND state !=- 1)
+			) order_total,
+			(
+				SELECT
+					COUNT(1)
+				FROM
+					weiit_order
+				WHERE
+					shop_id = #{shop_id}
+					AND (state != 0 AND state !=- 1)
+				    AND DATE_FORMAT(create_time, '%Y%m') = DATE_FORMAT(CURDATE(), '%Y%m')
+			)current_month_deal
+		FROM
+			DUAL
+    </select>
+     
+
+    
+    <!-- 查询今年每个月用户统计 -->
+    <select id="selectMonthRegisterUserList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+	    SELECT
+			MONTH (create_time) month,
+			count(1) sale_total
+		FROM
+			weiit_user
+		WHERE
+		shop_id = #{shop_id}
+		AND YEAR (create_time) = YEAR (now())
+		GROUP BY
+			MONTH (create_time)
+    </select>
+    
+    <!-- 查询今年每月销售额 -->
+    <select id="selectMonthOrderSaleTatalList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			MONTH (create_time) month,
+			sum(pay_price) sale_total
+		FROM
+			weiit_order_item
+		WHERE
+		shop_id = #{shop_id}
+		AND YEAR (create_time) = YEAR (now())
+		GROUP BY
+			MONTH (create_time)
+	</select>
+    
+    <!-- 查询热销商品100 top -->
+    <select id="selectHotProductList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			p.product_id,
+			p.product_name,
+			p.sale_count,
+			temp.true_sale_total
+		FROM
+			weiit_product p
+		INNER JOIN (
+		SELECT
+			product_id,
+			count(1) AS true_sale_total,
+			d.shop_id
+		FROM
+			weiit_order_item d
+		LEFT JOIN weiit_order o ON (d.order_id = o.order_id)
+		WHERE
+			(o.state != 0 OR o.state !=- 1)
+		GROUP BY
+			product_id
+		) temp ON (
+			p.product_id = temp.product_id
+		)
+	    <!-- 站点查询他自己的商品销售排名 -->
+	    <if test="shop_id>0">
+	    and temp.shop_id=#{shop_id}
+	    </if>
+    </select>
+    
+    <!-- 查询站点销售排名 -->
+    <select id="selectHotShopList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+    SELECT
+		s.shop_id,
+		s.shop_name,
+		sum(temp.pay_price) sale_total
+	FROM
+		(
+			SELECT
+				d.shop_id,
+				d.pay_price
+			FROM
+				weiit_order_item d
+			LEFT JOIN weiit_order o ON (d.order_id = o.order_id)
+			WHERE
+				(o.state != 0 OR o.state !=- 1)
+			GROUP BY
+				product_id
+		) temp
+	LEFT JOIN weiit_shop s ON (temp.shop_id = s.shop_id)
+	GROUP BY
+		temp.shop_id
+	ORDER BY
+	sale_total DESC
+    </select>
+    
+    <!-- 查询订单报表指标,待付款订单、待发货订单、售后订单、昨日销售额、今日销售额、本月销售额 -->
+    <select id="selectOrderBaseReportTotal"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			(
+			SELECT
+				count(1)
+			FROM
+				weiit_order
+			WHERE
+				state = 0
+			) no_pay_order_count,
+			(
+			SELECT
+				count(1)
+			FROM
+				weiit_order
+			WHERE
+				state = 1
+			) no_send_order_count,
+			(
+			SELECT
+				count(1)
+			FROM
+				weiit_order
+			WHERE
+				state = 4
+			) after_sale_order_count,
+			(
+			SELECT
+				count(1)
+			FROM
+				weiit_order
+			WHERE
+				(<![CDATA[to_days(create_time)=to_days(now()) or to_days(update_time)=to_days(now())]]> )
+				and state=1
+				   <if test="shop_id>0">
+					and shop_id=#{shop_id}
+					</if>
+	       ) today_total,
+	       (
+			SELECT
+				count(1)
+			FROM
+				weiit_order
+			WHERE
+			(<![CDATA[to_days(now())-to_days(create_time)<=1 or to_days(now())-to_days(update_time)<=1 ]]> )
+				and state=1
+			   <if test="shop_id>0">
+				and shop_id=#{shop_id}
+				</if>
+	       ) yesterday_total,
+	       (
+			SELECT
+				count(1)
+			FROM
+				weiit_order
+			WHERE
+				(<![CDATA[DATE_SUB(CURDATE(), INTERVAL 30 DAY)<=date(create_time) or DATE_SUB(CURDATE(), INTERVAL 30 DAY)<=date(update_time) ]]>)
+				and state=1
+			   <if test="shop_id>0">
+				and shop_id=#{shop_id}
+				</if>
+	       ) month_total
+         from
+         	dual
+    </select>
+    
+    <!-- 查询商品销售情况，根据商品分类占比进行统计 -->
+    <select id="selectSaleTotalByProductCateId"  resultType="com.weiit.core.entity.E"  parameterType="map">
+    	select 
+    		cate_id_level1 cate_id,
+    		(select cate_name from weiit_init_product_cate where cate_id=p.cate_id_level1) cate_name,
+		    count(1) sale_total 
+		from 
+		(
+		    select 
+			    d.product_id,
+			    d.product_name
+		    from weiit_order_item d left join weiit_order o on (d.order_id=o.order_id)
+		    where (o.state!=0 or o.state!=-1)
+		) temp
+	    inner join weiit_product p on (temp.product_id=p.product_id)
+	    group by p.cate_id_level1
+    </select>
+    
+    <!-- 查询近一个月的订单总额与订单笔数 -->
+    <select id="selectDayOrderSaleTotal"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			DAY (create_time) DAY,
+			sum(pay_price) sale_total,
+			count(1) orderCount
+		FROM
+			weiit_order
+		WHERE
+			(state!=0 or state!=-1)
+			and (<![CDATA[DATE_SUB(CURDATE(), INTERVAL 30 DAY)<=date(create_time) or DATE_SUB(CURDATE(), INTERVAL 30 DAY)<=date(update_time) ]]>)
+			<if test="shop_id>0">
+				and temp.shop_id=#{shop_id}
+			</if>
+	    group by day(create_time)
+    </select>
+    <!-- 查询四个季度销售额 -->
+    <select id="selectQuarterSaleTotal"  resultType="com.weiit.core.entity.E"  parameterType="map">
+	   select 
+		   count(1) sale_total,
+		   quarter(create_time) quarter
+	   from weiit_order 
+	   where 
+	   (state!=0 or state!=-1)
+	   <if test="shop_id>0">
+	    and temp.shop_id=#{shop_id}
+	    </if>
+	   group by quarter(create_time)
+    </select>
+</mapper>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.user.mapper.UserCardMapper">
+	
+	<!-- 查询店铺信息 -->
+	<select id="selectShopInfo"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			*
+		from weiit_shop 
+        where shop_id = #{shop_id} 
+        limit 1
+	</select>
+	
+	<!-- 查询所有会员卡信息 -->
+	<select id="selectList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			id, 
+			id as validate_id, 
+		    card_name, 
+		    card_bg_type,
+		    card_bg_color, 
+		    card_img, 
+		    is_free_shippiing, 
+		    discount, 
+		    give_integral, 
+		    use_remark, 
+		    tel, 
+		    type, 
+		    order_count, 
+		    order_total, 
+		    integral_count, 
+		    limit_type, 
+		    start_time, 
+		    end_time, 
+		    is_disabled, 
+		    is_deleted, 
+		    create_time, 
+		    update_time, 
+		    shop_id 
+		from weiit_user_card_info 
+		where  
+			is_deleted =0  
+		<if test="shop_id !=null and shop_id !='' ">     
+            and  shop_id = #{shop_id} 
+        </if>
+        order by create_time desc
+	</select>
+	
+	<!-- 查询会员卡 -->
+	<select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			id, 
+			id as validate_id, 
+		    card_name, 
+		    card_bg_type,
+		    card_bg_color, 
+		    card_img, 
+		    is_free_shippiing, 
+		    discount, 
+		    give_integral, 
+		    use_remark, 
+		    tel, 
+		    type, 
+		    order_count, 
+		    order_total, 
+		    integral_count, 
+		    limit_type, 
+		    start_time, 
+		    end_time, 
+		    is_disabled, 
+		    is_deleted, 
+		    create_time, 
+		    update_time, 
+		    shop_id 
+		from weiit_user_card_info 
+		where 
+			is_deleted =0  
+			and id = #{validate_id}  
+		<if test=" shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id} 
+		</if>
+	</select>
+	 	
+	<!-- 新增会员卡 -->
+	<insert id="insert" parameterType="map">
+		insert into weiit_user_card_info
+		 (
+			card_name, 
+			card_bg_type,
+			card_bg_color, 
+			card_img, 
+			is_free_shippiing, 
+			discount, 
+			give_integral, 
+			use_remark, 
+			tel, 
+		    type, 
+		    order_count, 
+		    order_total, 
+		    integral_count, 
+		    limit_type, 
+		    start_time, 
+		    end_time, 
+		    is_disabled, 
+		    is_deleted, 
+		    create_time, 
+		    update_time, 
+		    shop_id 
+	     )  
+		 values
+		 (
+			#{card_name},
+			#{card_bg_type},
+			#{card_bg_color},
+			#{card_img},
+			#{is_free_shippiing},
+			#{discount},
+			#{give_integral},
+			#{use_remark},
+			#{tel},
+			#{type},
+			#{order_count},
+			#{order_total},
+			#{integral_count},
+			#{limit_type},
+			#{start_time},
+			#{end_time},
+			#{is_disabled},
+			0,
+			now(),
+			now(),
+			#{shop_id}
+		 );
+		 <selectKey resultType="int" keyProperty="card_id" >  
+        	select LAST_INSERT_ID() card_id 
+        </selectKey>	
+	</insert>
+	
+	<!-- 删除会员卡 -->
+	<update id="remove"   parameterType="map" >
+	    update weiit_user_card_info 
+	    	set is_deleted=-1
+	    where 
+	    	id=#{validate_id}  
+	    <if test="shop_id !=null and shop_id !='' ">     
+            and  shop_id = #{shop_id} 
+        </if> 
+	</update> 
+     
+	<!-- 修改会员卡 -->
+	<update id="edit" parameterType="map">
+		update weiit_user_card_info 
+		set  
+			card_name=#{card_name},
+			card_bg_type=#{card_bg_type},
+			card_bg_color=#{card_bg_color} ,
+			card_img=#{card_img} ,
+			is_free_shippiing=#{is_free_shippiing},
+			discount=#{discount} ,
+			give_integral=#{give_integral},
+			use_remark=#{use_remark},
+			tel=#{tel},
+			type=#{type},
+			order_count=#{order_count},
+			order_total=#{order_total},
+			integral_count=#{integral_count},
+			limit_type=#{limit_type},
+			start_time=#{start_time},
+			is_disabled=#{is_disabled},
+			end_time=#{end_time},
+			start_time=#{start_time},
+			start_time=#{start_time},
+			update_time=now() 
+		where 
+			id=#{validate_id} 
+		<if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if>
+	</update>
+	
+	<!-- 根据会员卡id查询拥有此卡的会员集合-->
+	<select id="selectHaveCardUserList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			uc.id, 
+			uc.id as validate_id,
+			us.user_id,
+			us.user_account,  
+			us.user_name, 
+			us.user_nike, 
+			us.user_phone, 
+			us.user_img,     
+			us.balance, 
+			us.integral,
+			us.create_time, 
+			us.update_time, 
+			us.is_disabled, 
+			us.region,
+			ci.card_name 
+		from weiit_user us, weiit_user_card_info ci, weiit_user_card uc 
+		where 
+			us.user_id=uc.user_id and uc.card_id=ci.id  
+		<if test="validate_id !=null and validate_id !='' ">     
+            and  ci.id = #{validate_id} 
+        </if>
+		<if test="user_name !=null and user_name !='' ">
+			and  user_name  like concat('%', #{user_name}, '%')
+		</if>
+		<if test="shop_id !=null and shop_id !='' ">     
+            and  us.shop_id = #{shop_id} 
+        </if>
+        order by us.create_time desc 
+	</select>
+	
+	<!-- 查询没有拥有此卡的会员-->
+	<select id="selectNoCardUserList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			u.user_id, 
+			u.user_id as validate_id, 
+			user_account,
+			user_name, 
+			user_nike, 
+			user_img,
+			balance,
+			user_email, 
+			user_phone, 
+			is_disabled, 
+			create_time, 
+			update_time,t.user_id as isok
+		from weiit_user u left join 
+		(
+		select user_id from weiit_user_card where card_id=#{validate_id}
+		) t 
+		on u.user_id=t.user_id 
+		where t.user_id is null
+		<if test="user_id !=null and user_id !='' ">     
+            and  user_id  like concat('%', #{user_id}, '%') 
+        </if>
+		<if test="user_name !=null and user_name !='' ">     
+            and  user_name  like concat('%', #{user_name}, '%') 
+        </if>
+		<if test="user_account !=null and user_account !='' ">
+			and  user_account  like concat('%', #{user_account}, '%')
+		</if>
+		<if test="user_phone !=null and user_phone !='' ">
+			and  user_phone  like concat('%', #{user_phone}, '%')
+		</if>
+        <if test="is_disabled !=null and is_disabled !='' ">     
+            and is_disabled =#{is_disabled} 
+        </if>
+        <if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if>
+        order by create_time desc 
+	</select>
+	 
+	<!-- 用户绑定会员卡 -->
+	<insert id="insertUserCard" parameterType="map">
+		insert into weiit_user_card
+		(
+			card_id, 
+			user_id, 
+			create_time, 
+			shop_id
+		)
+		values
+		(
+			#{card_id}, 
+			#{user_id}, 
+			now(), 
+			#{shop_id} 
+		)
+	</insert>
+	
+	<!-- 删除用户会员卡-->
+	<delete id="removeUserCard"   parameterType="map" >
+	    delete from weiit_user_card  
+	    where 
+	    id in (${validate_ids}) 
+	    <if test="shop_id !=null and shop_id !='' ">     
+            and  shop_id = #{shop_id} 
+        </if> 
+	</delete> 
+	
+	<!-- 查询会员卡图片素材-->
+	<select id="selectUserCardPictureSourceList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			id as validate_id,<!-- vilidate_id会被自动加密 -->
+			id,
+			file_name,
+			file_url,
+			parent_id, 
+			type,
+			create_time,
+			update_time,
+			shop_id
+		from weiit_files 
+		where 
+		(shop_id=-1 or shop_id=#{shop_id})
+		and parent_id=#{parent_id}
+		order by type desc ,id desc 
+	</select> 
+</mapper>

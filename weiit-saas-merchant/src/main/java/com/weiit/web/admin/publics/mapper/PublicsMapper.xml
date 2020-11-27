@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.weiit.web.admin.publics.mapper.PublicsMapper">
+	
+	<!-- 公共查询条件 -->
+	<sql id="query_common_where">
+		<if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if>
+	</sql>
+	
+	<!-- 根据parent_id获取区域信息 -->
+	<select id="selectRegionList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			id
+			,region_name
+			,remark
+			,parent_id
+ 		from weiit_init_region 
+		where 1=1 
+		<if test="parent_id !=null and parent_id !='' and parentList ==null ">     
+            and parent_id = #{parent_id} 
+        </if>
+        <if test="parentList !=null and parentList.size>0 ">    
+			and  parent_id  in  
+         	<foreach item="item" index="index" collection="parentList" open="(" separator="," close=")">
+	            #{item.id}
+	        </foreach>
+        </if>
+        order by id asc 
+	</select>
+	
+	<!--根据id获取区域信息 -->
+	<select id="selectRegionById" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			id
+			,region_name
+			,remark
+			,parent_id
+ 		from weiit_init_region 
+		where 
+			id=#{id}
+	</select>
+ 
+	<!-- 弹出框 查询商品 -->
+	<select id="productList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			pd.product_id, 
+			pd.product_name,
+			pd.product_img, 
+			pd.smarket_price 
+		from
+			weiit_product pd 
+		where  
+			pd.is_deleted=0  
+		<if test=" product_name !=null and product_name !='' ">
+			and pd.product_name like concat('%', #{product_name}, '%') 
+		</if>
+		<include refid="query_common_where"></include>
+			order by pd.update_time desc 
+	</select>
+	
+	
+	<!-- 查询快递公司信息 -->
+	<select id="selectOrdersExpress"  resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			express_id,
+			express_name,
+			express_code,
+			express_type,
+			create_time
+		from
+			weiit_init_express_ali
+		where
+			express_type = 0
+		<if test="express_id !=null and express_id != '' ">     
+            and  express_id = #{express_id} 
+        </if>
+        	order by express_code asc 
+	</select>
+	
+	<!-- 查询链接信息 -->
+	<select id="selectWeixinLink"  resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			*
+		FROM
+			weiit_init_url
+		ORDER BY
+			sort_num,
+			id
+	</select>
+</mapper>
+

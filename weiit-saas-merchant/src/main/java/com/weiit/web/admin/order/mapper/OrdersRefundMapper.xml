@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.weiit.web.admin.order.mapper.OrdersRefundMapper">
+ 
+	<!-- 商品订单查询 -->
+	<select id="selectList"  resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			rf.refund_id,
+			rf.refund_id AS validate_id,
+			rf.refund_num,
+			oo.order_num,
+			it.product_id,
+			it.product_name,
+			it.product_img,
+			it.spec_content,
+			rf.refund_money,
+			rf.create_time,
+			rf.refund_type,
+			rf.state,
+			rf.user_id,
+			rf.user_name,
+			se.express_name,
+			ie.express_code
+		FROM
+			weiit_order_refund rf
+		INNER JOIN weiit_order oo ON rf.order_num= oo.order_num
+		INNER JOIN weiit_order_item it ON rf.order_item_id = it.id
+		LEFT JOIN weiit_shop_express se ON rf.express_template_id = se.id
+		LEFT JOIN weiit_init_express_ali ie ON se.express_id = ie.express_id
+		WHERE   1=1 
+			<if test=" refund_num !=null and refund_num !='' ">
+				and rf.refund_num like concat('%', #{refund_num}, '%') 
+			</if>
+			<if test=" order_num !=null and order_num !='' ">
+				and oo.order_num like concat('%', #{order_num}, '%') 
+			</if>
+	        <if test="user_name != null and user_name != '' ">
+	            and rf.user_name like concat('%', #{user_name}, '%') 
+	        </if>
+	        <if test="state !=null and state !='' ">     
+	           and  rf.state =#{state} 
+	        </if>
+			<if test="startTime !=null and startTime !='' ">     
+	            <![CDATA[ and  date(rf.create_time) >= date(#{startTime}) ]]> 
+	        </if>
+	        <if test="endTime !=null and endTime !='' ">     
+	            <![CDATA[ and  date(rf.create_time) <= date(#{endTime}) ]]>
+	        </if>
+	        <if test="shop_id != null and shop_id !=''">
+			 	and rf.shop_id=#{shop_id}
+			</if> 
+            order by rf.create_time desc 
+	</select>
+	
+<!-- oo.order_num, oo.create_time as order_create_time, oo.express_money , inner join weiit_order oo on rf.order_id=oo.order_id -->
+	<select id="selectOne"  resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			rf.refund_id,
+			rf.refund_id AS validate_id,
+			rf.refund_num,
+			rf.refund_imgs,
+			rf.express_num,
+			rf.order_num,
+			it.product_id,
+			it.product_name,
+			it.product_img,
+			it.spec_content,
+			rf.refund_money,
+			rf.create_time,
+			rf.update_time,
+			rf.refund_type,
+			rf.state,
+			rf.user_id,
+			rf.user_name,
+			rf.refund_reason,
+			rf.remark,
+			rf.refusal_reason,
+			se.express_name,
+			ie.express_code,
+			it.sale_price,
+			it.count,
+			it.pay_price
+		FROM
+		weiit_order_refund rf
+		INNER JOIN weiit_order_item it ON rf.order_item_id = it.id
+		LEFT JOIN weiit_shop_express se ON rf.express_template_id = se.id
+		LEFT JOIN weiit_init_express_ali ie ON se.express_id = ie.express_id
+		where   1=1  
+		<if test="shop_id != null and shop_id !=''">
+		 	and rf.shop_id=#{shop_id}
+		</if>
+		<if test="validate_id !=null and validate_id !='' ">     
+           and  rf.refund_id =#{validate_id} 
+        </if> 
+	</select>
+ 
+	<update id="edit" parameterType="map" >
+		update  weiit_order_refund set 
+			update_time=now() , 
+			state=#{state} ,
+			refusal_reason =#{refusal_reason} 
+		where refund_id=#{validate_id} 
+        <if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if>
+	</update>
+
+
+	<select id="selectRefunOne"  resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			rf.refund_id,
+			rf.refund_id AS validate_id,
+			rf.refund_num,
+			rf.refund_imgs,
+			rf.express_num,
+			rf.order_num,
+			it.product_id,
+			it.product_name,
+			it.product_img,
+			it.spec_content,
+			rf.refund_money,
+			rf.create_time,
+			rf.update_time,
+			rf.refund_type,
+			rf.state,
+			rf.user_id,
+			rf.user_name,
+			rf.refund_reason,
+			rf.remark,
+			iu.balance,
+			rf.refusal_reason,
+			it.sale_price,
+			it.count,
+			it.pay_price
+		FROM
+			weiit_order_refund rf
+		INNER JOIN weiit_order_item it ON rf.order_item_id = it.id
+		INNER JOIN weiit_user iu ON rf.user_id = iu.user_id
+		where   1=1
+		<if test="shop_id != null and shop_id !=''">
+			and rf.shop_id=#{shop_id}
+		</if>
+		<if test="validate_id !=null and validate_id !='' ">
+			and  rf.refund_id =#{validate_id}
+		</if>
+	</select>
+
+
+	<insert id="insertBalanceLog" parameterType="map" useGeneratedKeys="true" keyProperty="order_id">
+		insert into weiit_user_balance_log
+		(
+			user_id,
+			user_name,
+			balance,
+			last_balance,
+			remark,
+			type,
+			state,
+			origin_id,
+			create_time,
+			update_time,
+			shop_id
+		)
+		values
+		(
+			#{user_id},
+			#{user_name},
+			#{balance},
+			#{last_balance},
+			#{remark},
+			#{type},
+			#{state},
+			#{origin_id},
+			now(),
+			now(),
+			#{shop_id}
+		)
+	</insert>
+
+
+	<update id="uodateUserPrice"   parameterType="map">
+		UPDATE weiit_user
+		SET
+		balance=#{last_balance},
+		update_time=now()
+		WHERE
+		user_id=#{user_id}
+	</update>
+	
+	<!-- 订单 退货审核模板消息发送数据查询 -->
+    <select id="selectOrderTimplateOne" resultType="com.weiit.core.entity.E" parameterType="map">
+        select
+	        oo.refund_id, oo.order_num,oo.state, oo.refund_money, oo.refusal_reason, oo.update_time , 
+	        oo.user_id, us.wx_open_id, 
+        	info.authorizer_id ,info.authorizer_app_id, info.service_type_info , ms.wx_template_id ,
+            ( select product_name from weiit_order_item where id=oo.order_item_id order by id asc limit 1 ) product_name 
+		from
+			( select refund_id, order_num,order_item_id,state,refund_money,refusal_reason, update_time, user_id, shop_id  from weiit_order_refund 
+				where refund_id=#{validate_id} ) oo
+			inner JOIN  weiit_user us on oo.user_id=us.user_id
+			inner JOIN  weiit_weixin_public_info info  on oo.shop_id=info.shop_id and us.open_id_type=info.service_type_info
+			inner JOIN  weiit_weixin_public_template_msg ms on info.authorizer_id=ms.authorizer_id 
+			inner JOIN  weiit_weixin_public_template_type tt on ms.template_type_id=tt.template_type_id and  ms.state=1 and tt.business_type=#{business_type} 
+		where 1=1 
+		<if test="shop_id != null and shop_id !=''">
+		 	and oo.shop_id=#{shop_id}
+		</if>
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

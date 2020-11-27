@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.user.mapper.UserMapper">
+	<!-- 查询所有用户信息 -->
+	<select id="selectList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			user_id, 
+			user_id as validate_id,
+			user_account,  
+			user_name, 
+			user_nike, 
+			user_phone, 
+			user_img,
+			wx_open_id,
+			open_id_type,
+			balance,
+			integral,
+			create_time, 
+			update_time, 
+			is_disabled, 
+			region
+		from weiit_user 
+		where  
+			1=1 
+		<if test="shop_id !=null and shop_id !='' ">     
+            and  shop_id = #{shop_id} 
+        </if> 
+		<if test="user_id !=null and user_id !='' ">     
+            and  user_id  like concat('%', #{user_id}, '%') 
+        </if>
+		<if test="user_account !=null and user_account !='' ">     
+            and  user_account  like concat('%', #{user_account}, '%') 
+        </if>
+        <if test="open_id_type !=null and open_id_type !='' ">     
+            and  open_id_type=#{open_id_type}
+        </if>
+		<if test="user_name !=null and user_name !='' ">     
+            and  user_name  like concat('%', #{user_name}, '%') 
+        </if>
+		<if test="user_phone !=null and user_phone !='' ">     
+            and  user_phone  like concat('%', #{user_phone}, '%') 
+        </if>
+        order by create_time desc
+	</select>
+	
+	<select id="selectListByUserIds"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			user_id, 
+			user_id as validate_id,
+			user_account,  
+			user_name, 
+			user_nike, 
+			user_phone, 
+			user_img,
+			wx_open_id,
+			open_id_type,
+			balance,
+			integral,
+			create_time, 
+			update_time, 
+			is_disabled, 
+			region
+		from weiit_user 
+		where  
+			1=1 
+            and  shop_id = #{shop_id} 
+			and  user_id in (${user_ids})
+		<if test="open_id_type !=null and open_id_type !='' ">     
+            and  open_id_type=#{open_id_type}
+        </if>
+	</select>
+	
+     <!-- 查询单个用户的余额记录信息 -->
+     <select id="selectBalanceList" resultType="com.weiit.core.entity.E"  parameterType="map">
+     	select  
+	     	b.id,  
+	     	b.user_id, 
+	     	b.balance, 
+	     	b.remark,
+			b.type, 
+			b.state, 
+			b.create_time, 
+			b.update_time, 
+			b.shop_id,
+			us.user_name, 
+			us.user_account,
+			us.user_nike,
+			us.user_phone,
+			us.user_img,
+			b.last_balance
+		from  weiit_user_balance_log b, weiit_user us
+		where 
+			b.user_id=us.user_id 
+		<if test="shop_id !=null and shop_id !='' ">     
+            and  b.shop_id = #{shop_id} 
+        </if> 
+		<if test="user_id!=null and user_id !='' ">
+			and b.user_id=#{user_id}
+		</if>
+		<if test="user_name!=null and user_name !='' ">
+       		and us.user_name  like concat('%', #{user_name}, '%') 
+        </if> 
+        <if test="user_account!=null and user_account !='' ">
+       		and us.user_account  like concat('%', #{user_account}, '%') 
+        </if> 
+        <if test="user_phone!=null and user_phone !='' ">
+       		and us.user_phone  like concat('%', #{user_phone}, '%') 
+        </if> 
+        order by b.create_time desc 
+     </select>
+         
+     <!-- 查询会员地址信息 -->
+	<select id="selectAddressList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			ua.id, 
+			ua.user_id, 
+			ua.consignee, 
+			ua.province,
+			ua.city, 
+			ua.district, 
+			ua.address_detail, 
+			ua.zip_code, 
+			ua.phone, 
+			ua.create_time,
+			ua.is_default,
+			us.user_name, 
+			us.user_account,
+			us.user_nike,
+			us.user_img,
+			us.user_phone 
+		from  weiit_user_address ua, weiit_user us
+		where 
+			ua.user_id=us.user_id  
+		<if test="shop_id !=null and shop_id !='' ">     
+            and  ua.shop_id = #{shop_id} 
+        </if> 
+		<if test="user_id!=null and user_id !='' ">
+			and ua.user_id=#{user_id}
+		</if>
+		<if test="user_name!=null and user_name !='' ">
+       		and us.user_name  like concat('%', #{user_name}, '%') 
+        </if> 
+        <if test="user_account!=null and user_account !='' ">
+       		and us.user_account  like concat('%', #{user_account}, '%') 
+        </if> 
+        <if test="user_phone!=null and user_phone !='' ">
+       		and us.user_phone  like concat('%', #{user_phone}, '%') 
+        </if> 
+        order by ua.create_time desc 
+	</select>
+    
+    <!-- 查询用户积分记录 -->
+    <select id="selectIntegralList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			il.id,
+			il.user_id,
+			il.user_name,
+			il.integral,
+			il.remark,
+			il.type,
+			il.state,
+			il.create_time,
+			il.update_time,
+			il.shop_id,
+			us.user_name, 
+			us.user_account,
+			us.user_nike,
+			us.user_phone,
+			us.user_img,
+			us.integral as last_integral 
+		from  weiit_user_integral_log il, weiit_user us
+		where 
+			il.user_id=us.user_id  
+		<if test="shop_id !=null and shop_id !='' ">     
+            and  il.shop_id = #{shop_id} 
+        </if> 
+		<if test="user_id!=null and user_id !='' ">
+			and il.user_id=#{user_id}
+		</if>
+		<if test="user_name!=null and user_name !='' ">
+       		and us.user_name  like concat('%', #{user_name}, '%') 
+        </if> 
+        <if test="user_account!=null and user_account !='' ">
+       		and us.user_account  like concat('%', #{user_account}, '%') 
+        </if> 
+        <if test="user_phone!=null and user_phone !='' ">
+       		and us.user_phone  like concat('%', #{user_phone}, '%') 
+        </if> 
+        order by il.create_time desc 
+	</select>
+	
+	<!-- 禁用与启用用户 -->
+	<update id="forbiddenOrOpen"   parameterType="map" >
+	    update weiit_user 
+	    	set is_disabled=#{is_disabled} 
+	    where 
+	    	user_id=#{validate_id}  
+	    <if test="shop_id !=null and shop_id !='' ">     
+            and  shop_id = #{shop_id} 
+        </if> 
+	</update> 
+     
+     <!-- 批量禁用与启用用户 -->
+     <update id="forbiddenOrOpenBatch" parameterType="map">
+     	update weiit_user 
+	    	set is_disabled=#{is_disabled} 
+	    where 
+	    	user_id in(${validate_ids})  
+	    <if test="shop_id !=null and shop_id !='' ">     
+            and  shop_id = #{shop_id} 
+        </if> 
+     </update>
+
+
+
+	<!-- 充值金额或者赠送积分 -->
+	<update id="updateBalanceOrIntegral"   parameterType="map" >
+		update weiit_user
+		set
+		<if test="type==1">
+			balance=balance+#{balance}
+		</if>
+		<if test="type==2">
+			integral=integral+#{integral}
+		</if>
+		where
+		user_id=#{validate_id}
+		<if test="shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id}
+		</if>
+	</update>
+
+
+
+	<select id="selectById"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+			user_id,
+			user_id as validate_id,
+			user_account,
+			user_name,
+			user_nike,
+			user_phone,
+			user_img,
+			balance,
+			integral,
+			create_time,
+			update_time,
+			is_disabled,
+			region
+		from
+			weiit_user
+		where
+			user_id=#{validate_id} and shop_id = #{shop_id}
+	</select>
+
+
+
+	<!-- 新增余额记录 -->
+	<insert id="insertBalanceLog" parameterType="map">
+		insert into weiit_user_balance_log
+		(
+		user_id,
+		user_name,
+		balance,
+		last_balance,
+		remark,
+		type,
+		state,
+		create_time,
+		update_time,
+		shop_id
+
+		)
+		values
+		(
+		#{user_id},
+		#{user_name},
+		#{balance},
+		#{last_balance},
+		#{remark},
+		#{type},
+		#{state},
+		now(),
+		now(),
+		#{shop_id}
+		)
+	</insert>
+
+	<!-- 新增积分记录 -->
+	<insert id="insertIntegralLog" parameterType="map">
+		insert into weiit_user_integral_log
+		(
+		user_id,
+		user_name,
+		integral,
+		last_integral,
+		remark,
+		type,
+		state,
+		create_time,
+		update_time,
+		shop_id
+
+		)
+		values
+		(
+		#{user_id},
+		#{user_name},
+		#{integral},
+		#{last_integral},
+		#{remark},
+		#{type},
+		#{state},
+		now(),
+		now(),
+		#{shop_id}
+		)
+	</insert>
+</mapper>

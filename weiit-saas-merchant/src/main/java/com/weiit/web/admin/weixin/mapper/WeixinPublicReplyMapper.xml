@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.weiit.web.admin.weixin.mapper.WeixinPublicReplyMapper">
+	<!-- 查询微信公众号自动回复配置 -->
+	<select id="selectList" resultType="com.weiit.core.entity.E"
+		parameterType="map">
+		SELECT
+			reply_id, reply_type,rule_name,match_type, key_name, reply_content, type_id, authorizer_id 
+		FROM
+			weiit_weixin_public_reply 
+		where authorizer_id=#{authorizer_id} and type_id=#{action_type} 
+		<if test="reply_type !=null and reply_type !='' ">
+			and reply_type=#{reply_type}
+		</if>
+		<if test="key_name !=null and key_name !='' ">
+			and ( rule_name like concat('%', #{key_name}, '%')  
+					or key_name like concat('%', #{key_name}, '%')  )
+		</if>
+	</select>
+	
+	<select id="selectOne" resultType="com.weiit.core.entity.E"
+		parameterType="map">
+		SELECT
+			reply_id, reply_type,rule_name,match_type, key_name, reply_content, type_id, authorizer_id 
+		FROM
+			weiit_weixin_public_reply 
+		where authorizer_id=#{authorizer_id} and reply_id=#{reply_id} 
+	</select>
+	
+	<!-- 查询微信公众号自动回复 是否生效配置 -->
+	<select id="selectReplyType" resultType="com.weiit.core.entity.E"
+		parameterType="map">
+		SELECT id, action_type, state 
+		FROM 
+			weiit_weixin_public_reply_type 
+		where authorizer_id=#{authorizer_id} and action_type=#{action_type} 
+		limit 1 
+	</select>
+
+	<!-- 查询微信公众号自动回复图片配置 -->
+	<select id="selectImage" resultType="com.weiit.core.entity.E"
+		parameterType="map">
+		SELECT image_id, image_url, media_id, create_time, update_time, authorizer_id 
+		FROM weiit_weixin_public_media_image 
+		WHERE authorizer_id=#{authorizer_id} 
+		<if test="media_id !=null and media_id !='' ">
+			and media_id=#{media_id}
+		</if>
+		order by create_time desc 
+	</select>
+	
+	<!-- 查询微信公众号自动回复图文配置 -->
+	<select id="selectImageText" resultType="com.weiit.core.entity.E"
+		parameterType="map">
+		SELECT id, title, author, cover_img , media_id, create_time
+		FROM weiit_weixin_public_media_article  
+		where authorizer_id=#{authorizer_id} 
+		<if test="title != null and title != '' ">
+			and title like concat('%',#{title},'%')
+		</if>
+		<if test="media_id !=null and media_id !='' ">
+			and media_id=#{media_id} 
+		</if>
+		order by create_time desc 
+	</select>
+	
+		<!-- 新增微信公众号自动回复 生效配置 -->
+	<insert id="insertReplyType" parameterType="map">
+		insert into weiit_weixin_public_reply_type
+		(
+		 action_type, state, authorizer_id
+		)
+		values
+		(
+		#{action_type},#{state},#{authorizer_id} 
+		)
+	</insert>
+	<!-- 修改微信公众号自动回复 生效配置 -->
+	<update id="editReplyType" parameterType="map">
+		update weiit_weixin_public_reply_type set 
+			state=#{state} 
+		where authorizer_id=#{authorizer_id} and action_type=#{action_type} 
+	</update>
+	
+	<!-- 新增微信公众号自动回复配置内容 -->
+	<insert id="insert" parameterType="map">
+		insert into weiit_weixin_public_reply
+		(
+		 reply_type,match_type ,rule_name,key_name, reply_content, type_id, authorizer_id 
+		)
+		values
+		(
+		#{reply_type},#{match_type},#{rule_name},#{key_name},#{reply_content} ,#{action_type} ,#{authorizer_id} 
+		)
+	</insert>
+	<!-- 修改微信公众号自动回复配置内容 -->
+	<update id="edit" parameterType="map">
+		update weiit_weixin_public_reply set 
+		<if test="reply_type != null and reply_type !=''">
+			reply_type=#{reply_type},
+		</if>
+		<if test="match_type != null and match_type !=''">
+			match_type=#{match_type},
+		</if>
+		<if test="rule_name != null and rule_name !=''">
+			rule_name=#{rule_name},
+		</if>
+		<if test="reply_content != null and reply_content !=''">
+			reply_content=#{reply_content},
+		</if>
+		<if test="action_type != null and action_type !=''">
+			type_id=#{action_type},
+		</if>
+		key_name=#{key_name} 
+		where reply_id=#{reply_id} and authorizer_id=#{authorizer_id}	
+	</update>  
+	<!-- 删除公众号自动回复配置 -->
+	<delete id="remove" parameterType="map">
+		delete from weiit_weixin_public_reply where reply_id=#{reply_id} and authorizer_id=#{authorizer_id}	
+	</delete>
+ 
+ 
+</mapper>
+
+
+
+
+
+
+
+

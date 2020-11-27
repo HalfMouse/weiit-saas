@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.weixinopen.mapper.WeixinOpenMapper">
+ 
+ 	 <!-- 查询第三方平台配置信息 -->
+     <select id="selectWeixinOpenInfo" resultType="com.weiit.core.entity.E" flushCache="true" useCache="false" parameterType="map">
+    	select * from weiit_weixin_open_info limit 1
+     </select>
+
+
+    <select id="selectWxPublicInfo" parameterType="map"  flushCache="true" useCache="false" resultType="com.weiit.core.entity.E">
+        SELECT
+            *
+        FROM
+            weiit_weixin_public_info
+        WHERE
+            authorizer_app_id=#{appid}
+        LIMIT 1
+    </select>
+
+
+    <select id="selectWxPublicInfoAndShopInfo" parameterType="map"  flushCache="true" useCache="false" resultType="com.weiit.core.entity.E">
+       SELECT
+            t2.shop_name
+        FROM
+            weiit_weixin_public_info t1
+        LEFT JOIN weiit_shop t2 ON t1.shop_id = t2.shop_id WHERE t1.authorizer_app_id=#{authorizer_app_id} AND t1.shop_id !=#{shop_id}
+    </select>
+
+</mapper>

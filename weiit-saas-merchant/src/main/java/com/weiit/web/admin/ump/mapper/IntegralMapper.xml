@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.weiit.web.admin.ump.mapper.IntegralMapper">
+
+    <select id="selectProductList" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            p.product_id AS validate_id,
+            p.product_id,
+            p.product_name,
+            p.product_img,
+            p.smarket_price,
+            p.sale_price,
+            p.stock,
+            p.sale_count,
+            i.state,
+            p.spec_config
+        FROM weiit_product p left join weiit_ump_integral_product i on p.product_id=i.product_id
+        where 1=1 AND   p.shop_id=#{shop_id}
+        <if test="product_name !=null and product_name !='' ">
+            and p.product_name like concat('%', #{product_name}, '%')
+        </if>
+    </select>
+
+
+    <insert id="insert" parameterType="map">
+        INSERT INTO weiit_ump_integral_product (
+            product_id,
+            item_id,
+            sale_price,
+            integral,
+            integral_price,
+            max_limit,
+            create_time,
+            state,
+            shop_id
+        )
+        VALUES
+        (
+            #{product_id},
+            #{item_id},
+            #{sale_price},
+            #{integral},
+            #{integral_price},
+            #{max_limit},
+            now(),
+            #{state},
+            #{shop_id}
+        )
+    </insert>
+
+
+    <select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            i.integral_id AS validate_id,
+            i.integral_id,
+            i.product_id,
+            i.item_id,
+            i.sale_price,
+            i.integral,
+            i.integral_price,
+            i.max_limit,
+            i.start_time,
+            i.end_time,
+            i.create_time,
+            i.state,
+            p.product_name,
+            p.product_img,
+            p.stock,
+            i.shop_id
+        FROM weiit_ump_integral_product i left join weiit_product p  on p.product_id=i.product_id
+        where 1=1 AND   p.shop_id=#{shop_id}
+        <if test="product_name !=null and product_name !='' ">
+            and p.product_name like concat('%', #{product_name}, '%')
+        </if>
+    </select>
+
+
+    <delete id="remove" parameterType="map">
+        delete from weiit_ump_integral_product where integral_id=#{validate_id}
+        <if test="shop_id != null and shop_id !=''">
+            and shop_id=#{shop_id}
+        </if>
+    </delete>
+
+
+    <select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            i.integral_id AS validate_id,
+            i.product_id,
+            i.item_id,
+            i.sale_price,
+            i.integral,
+            i.integral_price,
+            i.max_limit,
+            i.start_time,
+            i.end_time,
+            i.create_time,
+            i.state,
+            p.product_name,
+            p.product_img,
+            p.stock,
+            i.shop_id
+        FROM weiit_ump_integral_product i left join weiit_product p  on p.product_id=i.product_id
+        where 1=1 AND   i.integral_id=#{validate_id}
+    </select>
+
+
+
+    <update id="edit" parameterType="map">
+    update weiit_ump_integral_product set
+        product_id = #{product_id},
+        item_id = #{item_id},
+        sale_price = #{sale_price},
+        integral = #{integral},
+        integral_price = #{integral_price},
+        max_limit = #{max_limit},
+        state=#{state}
+    where  integral_id=#{validate_id}
+    <if test="shop_id != null and shop_id !=''">
+        and shop_id=#{shop_id}
+    </if>
+    </update>
+
+
+
+    <update id="updateIntegralProductState" parameterType="map">
+        update weiit_ump_integral_product set
+          state=#{state}
+        where  integral_id=#{validate_id}
+        <if test="shop_id != null and shop_id !=''">
+            and shop_id=#{shop_id}
+        </if>
+    </update>
+
+
+    <select id="selectOrderList" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            io.i_order_id AS validate_id,
+            io.i_order_id,
+            io.user_id,
+            io.product_id,
+            io.item_id,
+            io.count,
+            io.pay_price,
+            io.integral,
+            io.address_id,
+            io.order_num,
+            io.pay_time,
+            o.state,
+            p.product_name,
+            p.sale_price,
+            p.product_img,
+            a.express_code,
+            a.express_name,
+            o.express_num,
+            io.shop_id
+        FROM
+            weiit_ump_integral_order io
+        LEFT JOIN weiit_product p ON p.product_id = io.product_id
+        LEFT JOIN weiit_order o ON io.order_num = o.order_num
+        LEFT JOIN weiit_init_express_ali a ON a.express_id = o.express_template_id
+        WHERE
+        1 = 1
+        AND   io.shop_id=#{shop_id}
+        <if test="order_num !=null and order_num !='' ">
+            and o.order_num like concat('%', #{order_num}, '%')
+        </if>
+        <if test="state !=null and state !='' ">
+            and o.state like concat('%', #{state}, '%')
+        </if>
+    </select>
+
+
+    <select id="selectOrderDetail" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            io.i_order_id AS validate_id,
+            io.i_order_id,
+            io.user_id,
+            io.product_id,
+            io.item_id,
+            io.count,
+            io.pay_price,
+            io.integral,
+            io.address_id,
+            io.order_num,
+            io.pay_time,
+            o.state,
+            p.product_name,
+            p.sale_price,
+            p.product_img,
+            a.express_code,
+            a.express_name,
+            a.express_type,
+            o.express_money AS express_price,
+            o.create_time AS createdTime,
+            o.express_num,
+            o.consignee,
+            o.address,
+            o.phone,
+            io.shop_id
+        FROM
+            weiit_ump_integral_order io
+        LEFT JOIN weiit_product p ON p.product_id = io.product_id
+        LEFT JOIN weiit_order o ON io.order_num = o.order_num
+        LEFT JOIN weiit_init_express_ali a ON a.express_id = o.express_template_id
+        WHERE
+        1 = 1
+        AND   io.i_order_id=#{validate_id}
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

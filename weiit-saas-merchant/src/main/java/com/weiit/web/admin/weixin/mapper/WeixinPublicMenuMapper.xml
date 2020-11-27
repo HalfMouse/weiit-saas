@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.weiit.web.admin.weixin.mapper.WeixinPublicMenuMapper">
+	
+	<select id="selectLinkList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			*
+		FROM
+			weiit_init_url 
+	</select>
+	
+	<!-- 根据公众号删除菜单 -->
+	<delete id="removePublicMenuByAuthorizerId" parameterType="map">
+		delete from
+		weiit_weixin_public_menu 
+		where
+		authorizer_id=#{authorizer_id}
+	</delete>
+	
+	<insert id="insertPublicMenu" parameterType="map" useGeneratedKeys="true" keyProperty="menu_id">
+		insert into weiit_weixin_public_menu
+		(
+		 menu_name,
+		 action_type,
+		 target_type,
+		 target_content,
+		 link_url,
+		 parent_id,
+		 title,
+		 create_time,
+		 update_time,
+		 authorizer_id
+
+		)
+		values
+		(
+		 #{menu_name},
+		 #{action_type},
+		 #{target_type},
+		 #{target_content},
+		 #{link_url},
+		 #{parent_id},
+		 #{title},
+		 now(),
+		 now(),
+		 #{authorizer_id}
+		)
+	</insert>
+	
+	<select id="selectParentMenuList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			*
+		FROM
+			weiit_weixin_public_menu
+		WHERE
+		authorizer_id=#{authorizer_id}
+		and parent_id=-1
+	</select>
+	
+	<select id="selectChildMenuList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			*
+		FROM
+			weiit_weixin_public_menu
+		WHERE
+		authorizer_id=#{authorizer_id}
+		and parent_id=#{parent_id}
+	</select>
+	
+	<insert id="insertBlog" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+		insert into weiit_blog
+		(
+		 title,
+		 content,
+		 create_time,
+		 update_time,
+		 shop_id
+		)
+		values
+		(
+		 #{title},
+		 #{content},
+		 now(),
+		 now(),
+		 #{shop_id}
+		)
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

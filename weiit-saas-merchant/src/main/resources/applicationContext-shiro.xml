@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <description>apache shiro配置</description>
+
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/center/login"/>
+        <property name="successUrl" value="/center/index"/>
+        <property name="unauthorizedUrl" value="/center/401"/>
+        <property name="filterChainDefinitions">
+            <value>
+                <!-- 静态资源允许访问 -->
+                /resource/** = anon
+                /static/** = anon
+                <!-- 登录页允许访问 -->
+                /center/login = anon
+                /center/register = anon
+                /center/account/verifyCode = anon
+                /center/account/login = anon
+                /center/account/shopInit = anon
+                /center/account/shopInitSave = anon
+                /favicon.ico = anon
+
+                <!--vue 装修-->
+                /center/productGroup/productGroupList = anon
+                /center/product/productListForPage = anon
+                /center/product/getProductByGroupId = anon
+                /center/product/getProductListByIds = anon
+                /center/publics/publics/urlList = anon
+                /center/file/picture/pictureSpace = anon
+                /center/file/picture/videoList = anon
+                /center/ump/activityProductList = anon
+                /center/ump/coupons/getCouponList = anon
+                /center/ump/groupon/grouponListByIds= anon
+                /center/ump/coupons/couponListByIds = anon
+                /center/ump/bargain/getProductByBargainIds = anon
+                /center/design/uploadFile = anon
+                /center/design/weiPage = anon
+                /center/design/shopLogo = anon
+                /center/design/pageList = anon
+                /center/design/savePageInfo = anon
+                /center/design/editPageInfo = anon
+                /center/design/uploadPageCover = anon
+                /center/design/page/getTemplatePageJson = anon
+                /center/design/page/navIconList = anon
+                /center/design/page/navOptionalUrl = anon
+                /center/design/page/saveNav = anon
+                /center/design/page/navInfo = anon
+                /center/productGroup/getProductByGroupIds = anon
+
+
+                /center/file/picture/uploadLogo =anon
+
+
+                /center/500 = anon
+
+
+                /center/account/versionPay=anon
+                /center/account/versionPayFinish=anon
+                /center/ump/servicePay=anon
+                /center/ump/servicePayFinish=anon
+                /center/weixin/public/auth_result=anon
+                /center/weixin/public/go_auth=anon
+                
+                 /center/weixinopen/goto_auth_url_show=anon
+                 /center/weixinopen/goto_auth_url=anon
+                 /center/weixinopen/portal=anon
+                /center/weixinopen/pay/findTemplateLibraryKeywordList =anon
+                <!-- 其他资源需要认证 -->
+                /** = authc
+               
+            </value>
+        </property>
+    </bean>
+
+    <!-- 缓存管理器 使用Ehcache实现 -->
+    <bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml"/>
+    </bean>
+
+    <!-- 会话DAO -->
+    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.MemorySessionDAO"/>
+
+    <!-- 会话管理器 -->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="sessionDAO" ref="sessionDAO"/>
+    </bean>
+
+    <!-- 安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realms">
+            <list>
+                <ref bean="securityRealm"/>
+            </list>
+        </property>
+        <!-- cacheManager,集合spring缓存工厂-->
+         <property name="cacheManager" ref="shiroEhcacheManager" />  
+        <!-- <property name="sessionManager" ref="sessionManager" /> -->
+    </bean>
+	
+    <!-- Shiro生命周期处理器 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+</beans>

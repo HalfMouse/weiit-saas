@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.weiit.web.admin.product.mapper.ProductMapper">
+	 	<!-- ****************************商品 新增***************************************** -->
+	<!-- 查询商品 -->
+	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			pd.product_id, 
+			pd.product_id as validate_id,
+			pd.product_num,  
+			( select cate_name from weiit_init_product_cate where cate_id = pd.cate_id_level1 ) firstCateName, 
+			( select cate_name from weiit_init_product_cate where cate_id = pd.cate_id_level2 ) secondCateName, 
+			( select cate_name from weiit_init_product_cate where cate_id = pd.cate_id_level3 ) thirdCateName, 
+			pd.product_name, 
+			pd.product_img,  
+			pd.smarket_price, 
+			pd.sale_price,  
+			pd.stock, 
+			pd.sale_count,  
+			pd.is_on_sale,  
+			pd.update_time 
+		from   weiit_product pd
+		where 
+			pd.is_deleted =0  
+		<if test=" shop_id !=null and shop_id !='' ">
+			and pd.shop_id = #{shop_id} 
+		</if>
+		<if test=" is_on_sale !=null and is_on_sale !='' ">
+			and pd.is_on_sale = #{is_on_sale} 
+		</if> 
+		<if test=" stock !=null and stock !='' ">
+			and <![CDATA[ pd.stock <= #{stock} ]]>  
+		</if> 
+		<if test=" product_name !=null and product_name !='' ">
+			and pd.product_name like concat('%', #{product_name}, '%') 
+		</if>
+		<if test=" group_id !=null and group_id !='' ">
+			and exists ( 
+				SELECT id FROM weiit_product_group_item where product_id=pd.product_id and group_id=#{group_id} )
+		</if>
+		<if test=" cate_name !=null and cate_name !='' ">
+			and exists 
+			( select cate_name from weiit_init_product_cate where 
+				(
+					cate_id = pd.cate_id_level1 or cate_id = pd.cate_id_level2 or cate_id = pd.cate_id_level3
+			  	) 
+				and cate_name like concat('%', #{cate_name}, '%')  
+			) 
+		</if> 
+		order by pd.update_time desc 
+	</select>
+	
+	<select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			pd.product_id, 
+			pd.product_id as validate_id,
+			pd.product_num,  
+			pd.cate_id_level1  as firstCateId  , 
+			pd.cate_id_level2  as secondCateId , 
+			pd.cate_id_level3  as thirdCateId, 
+			( select cate_name from weiit_init_product_cate where cate_id = pd.cate_id_level1 ) firstCateName, 
+			( select cate_name from weiit_init_product_cate where cate_id = pd.cate_id_level2 ) secondCateName, 
+			( select cate_name from weiit_init_product_cate where cate_id = pd.cate_id_level3 ) thirdCateName, 
+			pd.product_name, 
+			pd.product_img,  
+			pd.smarket_price, 
+			pd.sale_price, 
+			pd.stock, 
+			pd.sale_count, 
+			pd.purchase, 
+			pd.spec_config, 
+			pd.attribute_custom, 
+			pd.spec_custom, 
+			pd.express_config, 
+			pd.express_money, 
+			pd.express_template_id, 
+			pd.is_on_sale, 
+			pd.integral, 
+			pd.sort_num, 
+			pd.is_disabled, 
+			pd.is_deleted, 
+			pd.create_time, 
+			pd.update_time,  
+			pd.shop_id ,
+			pd.weight,pd.volume as msize
+		from weiit_product pd 
+		where 
+			pd.is_deleted =0
+			and pd.product_id = #{product_id}  
+		<if test=" shop_id !=null and shop_id !='' ">
+			and pd.shop_id = #{shop_id} 
+		</if>
+	</select>
+
+	<select id="selectProductById" resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			pd.product_id,
+			pd.product_id as validate_id,
+			pd.product_num,
+		from weiit_product pd
+		where
+			pd.product_id = #{product_id}
+		<if test=" shop_id !=null and shop_id !='' ">
+			and pd.shop_id = #{shop_id}
+		</if>
+	</select>
+
+	<insert id="insert" parameterType="map">
+		insert into weiit_product
+		 (
+			product_num, 
+			brand_id, 
+			cate_id_level1, 
+			<if test="secondCateId !=null and secondCateId !='' ">
+			 	cate_id_level2, 
+			</if>
+		 	<if test="thirdCateId !=null and thirdCateId !='' ">
+				cate_id_level3,
+			</if>
+			product_name,  
+			smarket_price, 
+			sale_price, 
+			stock, 
+			product_img, 
+			sale_count, 
+			purchase, 
+			spec_config, 
+			attribute_custom, 
+			spec_custom, 
+			express_config, 
+			express_money, 
+			express_template_id, 
+			is_on_sale, 
+			integral, 
+			sort_num, 
+			is_disabled, 
+			is_deleted, 
+			create_mid, 
+			create_time, 
+			update_mid,
+			update_time,  
+			shop_id ,
+			weight,
+			volume 
+	     )  
+		 values
+		 (
+			#{product_num},
+			#{brand_id},
+			#{firstCateId},
+			<if test="secondCateId !=null and secondCateId !='' ">
+			 	#{secondCateId},
+			</if>
+		 	<if test="thirdCateId !=null and thirdCateId !='' ">
+				#{thirdCateId},
+			</if>
+			#{product_name}, 
+			#{smarket_price} , 
+			#{sale_price} , 
+			#{stock},
+			#{product_img} , 
+			#{sale_count},
+			#{purchase} , 
+			#{spec_config},
+			#{attribute_custom},
+			#{spec_custom} , 
+			#{express_config},
+			#{express_money},
+			#{express_template_id} ,
+			#{is_on_sale}, 
+			#{integral}, 
+			#{sort_num} , 
+			0 , 
+			0,
+			#{manager_id} ,
+			now(),
+			#{manager_id} ,
+			now(),   
+			#{shop_id} ,
+			#{weight} ,
+			#{msize} 
+		 );
+		 <selectKey resultType="int" keyProperty="product_id" >  
+        	select LAST_INSERT_ID()  product_id 
+        </selectKey>	
+	</insert>
+	
+	<!-- 更新商品 -->
+	<update id="edit" parameterType="map">
+		update weiit_product  
+		set  
+		<choose>
+            <when test="eivt !=null and eivt !=''">
+            	<if test="is_deleted !=null and is_deleted !=''">
+					is_deleted=#{is_deleted} , 
+				</if>
+            	<if test="is_on_sale !=null and is_on_sale !=''">
+					is_on_sale=#{is_on_sale} , 
+				</if>
+            </when>   
+            <otherwise>
+                brand_id=#{brand_id}, 
+				product_name=#{product_name}, 
+				cate_id_level1 = #{firstCateId} ,
+				<choose>
+			        <when test="secondCateId !=null and secondCateId !=''" >
+			            cate_id_level2 = #{secondCateId},
+			        </when>
+			        <otherwise>
+			            cate_id_level2 = 0 ,
+			        </otherwise>
+			    </choose>	
+		 		<choose>
+			        <when test="thirdCateId !=null and thirdCateId !=''" >
+			            cate_id_level3 = #{thirdCateId} , 
+			        </when>
+			        <otherwise>
+			            cate_id_level3 = 0,
+			        </otherwise>
+			    </choose>
+				product_img=#{product_img},  
+				smarket_price =#{smarket_price},
+				sale_price =#{sale_price},
+				stock=#{stock} ,
+	            sale_count=#{sale_count} ,
+	            purchase=#{purchase} , 
+				spec_config=#{spec_config}, 
+				attribute_custom=#{attribute_custom}, 
+				spec_custom=#{spec_custom} , 
+				is_on_sale=#{is_on_sale} , 
+				express_config=#{express_config} , 
+				express_money=#{express_money} , 
+				express_template_id=#{express_template_id} ,
+				weight=#{weight} ,
+				volume=#{msize} ,
+				integral=#{integral} , 
+				sort_num=#{sort_num} , 
+            </otherwise> 
+         </choose>
+         	update_mid = #{manager_id} ,
+			update_time=now()
+		 where 
+			 is_deleted=0 
+			 and product_id=#{product_id}  
+		<if test=" shop_id !=null and shop_id !='' ">
+			 and  shop_id = #{shop_id} 
+		</if>
+	</update>
+
+	<update id="editItem" parameterType="map">
+		update weiit_product_item
+			set
+				item_num=#{item_num},
+				smarket_price =#{smarket_price},
+				sale_price =#{sale_price},
+				stock=#{stock} ,
+				is_deleted=#{is_deleted},
+				update_time=now()
+		 where
+			 item_id=#{item_id}
+		<if test=" shop_id !=null and shop_id !='' ">
+			 and  shop_id = #{shop_id}
+		</if>
+	</update>
+
+	<select id="selectCateList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			cate_id,
+			cate_name,
+			parent_id
+		from
+			weiit_init_product_cate 
+		where 
+			is_deleted = 0 
+		<if test="parent_id !=null and parent_id !='' ">
+			and parent_id=#{parent_id} 
+		</if>
+		<if test="is_show !=null and is_show !='' ">
+			and is_show =#{is_show} 
+		</if>  
+		order by parent_id asc ,sort_num asc 
+	</select>
+ 
+ 
+	<!-- ****************************查询属性表**************************************** -->
+	<select id="selectAttrList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			key_id, 
+			key_name, 
+			cate_id, 
+			token, 
+			create_time, 
+			update_time, 
+			type , 
+			parent_id 
+		from weiit_product_custom_key 
+		where  
+			is_deleted = 0 
+		<if test="cate_id !=null and cate_id !='' ">
+			and cate_id=#{cate_id}
+		</if>
+		<if test="parent_id !=null and parent_id !='' ">
+			and parent_id=#{parent_id}
+		</if> 
+		<if test=" shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id} 
+		</if>
+		order by key_id asc 
+	</select>
+	
+	<insert id="insertAttr" parameterType="map"  >
+		insert into weiit_product_custom_key 
+		(
+			key_name, 
+			cate_id, 
+			token, 
+			type, 
+			parent_id, 
+			is_deleted, 
+			create_time, 
+			update_time,  
+			shop_id 
+		)
+		values
+		(
+			#{key_name},
+			#{cate_id},
+			#{token},
+			#{type},
+			#{parent_id},
+			0,
+			now(),
+			now(), 
+			#{shop_id}
+		);
+		<selectKey resultType="int" keyProperty="key_id" >  
+        	select LAST_INSERT_ID()  key_id    
+        </selectKey>	
+	</insert>
+	
+	<!-- ****************************属性表 删除***************************************** -->
+	<update id="removeAttr" parameterType="map">
+		update  weiit_product_custom_key 
+			set  is_deleted=-1 , 
+			update_time=now()  
+		where  
+			is_deleted=0  
+		<if test="cate_id !=null and cate_id !='' ">
+			and  cate_id=#{cate_id} 
+		</if>
+		<if test="parent_id !=null and parent_id !='' ">
+			and parent_id=#{parent_id}
+		</if> 
+		<if test=" shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id} 
+		</if>
+		<if test="key_id !=null and key_id !='' ">
+			and  key_id=#{key_id} 
+		</if>
+	</update>
+	
+	<!-- ****************************多规格sku 表 新增***************************************** -->
+	<select id="selectItemList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			item_id,
+			product_id, 
+			item_num, 
+			bar_code,
+			spec_custom,  
+			smarket_price, 
+			sale_price, 
+			stock,
+			create_time,
+			update_time,  
+			shop_id  
+		from
+			weiit_product_item 
+		where  
+			product_id = #{product_id}  and  is_deleted = #{is_deleted}
+		<if test=" shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id} 
+		</if>
+		<if test=" is_deleted !=null and is_deleted !='' ">
+			and  is_deleted = #{is_deleted}
+		</if>
+		<if test=" is_disabled !=null and is_disabled !='' ">
+			and  is_disabled = #{is_disabled}
+		</if>
+			order by item_id asc 
+	</select>
+
+	<select id="selectById" resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			product_name,product_img
+		from
+			weiit_product
+		where
+			product_id = #{product_id}
+	</select>
+
+	<insert id="insertItem" parameterType="map" >
+		insert into  weiit_product_item
+		( 
+			product_id, 
+			item_num, 
+			bar_code, 
+			spec_custom, 
+			is_disabled , 
+			is_deleted , 
+			smarket_price, 
+			sale_price, 
+			stock,
+			create_time,
+			update_time,  
+			shop_id   
+		)
+		values
+		(
+			#{product_id},
+			#{item_num},
+			#{bar_code},
+			#{spec_custom}, 
+			0 ,
+			0 ,  
+			#{smarket_price},
+			#{sale_price},
+			#{stock}, 
+			now(),
+			now(),  
+			#{shop_id} 
+		);
+	</insert>
+	
+	<delete id="removeItem" parameterType="map"> 
+		update weiit_product_item
+		set is_deleted=-1
+		where 
+			product_id=#{product_id}  
+		<if test=" shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id} 
+		</if>
+	</delete>
+ 
+	<!-- 查询产品图片 -->
+	<select id="selectImagesList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			id, 
+			product_id, 
+			product_img, 
+			type, 
+			create_time, 
+			update_time,  
+			shop_id 
+		from
+			weiit_product_images 
+		where  
+			product_id = #{product_id}  
+		<if test=" shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id} 
+		</if>
+			order by id asc 
+	</select>
+	
+   <!--插入商品图片 -->
+	<insert id="insertImages" parameterType="map" >
+		insert into  weiit_product_images
+		( 
+			product_id, 
+			product_img, 
+			type, 
+			is_deleted,
+			create_time, 
+			update_time,  
+			shop_id 
+		)
+		values
+		(
+			#{product_id},
+			#{product_img},
+			#{type},
+			0,
+			now(),
+			now(), 
+			#{shop_id}
+		);
+	</insert>
+	
+	<!-- 删除产品图片 -->
+	<delete id="removeImages" parameterType="map"> 
+		delete from weiit_product_images  
+		where 
+			product_id=#{product_id}  
+		<if test=" shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id} 
+		</if>
+	</delete>
+
+	<!-- 查询产品描述 -->
+	<select id="selectProductDescList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			id, 
+			product_id, 
+			product_desc, 
+			is_deleted, 
+			create_time, 
+			update_time,  
+			shop_id 
+		from weiit_product_desc 
+		where  
+			product_id = #{product_id}  
+		<if test=" shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id} 
+		</if>
+			order by id asc 
+	</select>
+	
+    <!--插入商品描述 -->
+	<insert id="insertProductDesc" parameterType="map" >
+		insert into  weiit_product_desc
+		( 
+			product_id, 
+			product_desc, 
+			is_deleted, 
+			create_time, 
+			update_time,  
+			shop_id  
+		)
+		values
+		(
+			#{product_id},
+			#{editorValue}, 
+			0,
+			now(),
+			now(), 
+			#{shop_id}
+		);
+	</insert>
+	
+	<!-- 删除产品描述 -->
+	<delete id="removeProductDesc" parameterType="map"> 
+		delete from weiit_product_desc 
+		where 
+			product_id=#{product_id}  
+		<if test=" shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id} 
+		</if>
+	</delete>
+	
+	<!-- 查询站点 -->
+	<select id="selectShopList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT shop_id, shop_name 
+		FROM weiit_shop  where 1=1 
+		<if test=" shop_id !=null and shop_id !='' ">
+			and  shop_id = #{shop_id} 
+		</if>
+		order by shop_id desc 
+	</select>
+
+	<select id="productListForPage" resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			pd.product_id,
+			pd.product_id as validate_id,
+			pd.product_num,
+			pd.product_name,
+			pd.product_img,
+			pd.smarket_price,
+			pd.sale_price,
+			pd.stock,
+			pd.sale_count,
+			pd.is_on_sale,
+			pd.update_time
+		from weiit_product pd
+		where
+		pd.is_deleted =0 AND  is_on_sale=0
+		<if test=" shop_id !=null and shop_id !='' ">
+			and pd.shop_id = #{shop_id}
+		</if>
+		<if test=" product_name !=null and product_name !='' ">
+			and pd.product_name like concat('%', #{product_name}, '%')
+		</if>
+		order by pd.update_time desc
+	</select>
+
+	<select id="productCountForPage" resultType="java.lang.Integer" parameterType="map">
+		select
+			count(*)
+		from weiit_product pd
+		where
+		pd.is_deleted =0 AND  is_on_sale=0
+		<if test=" shop_id !=null and shop_id !='' ">
+			and pd.shop_id = #{shop_id}
+		</if>
+		<if test=" product_name !=null and product_name !='' ">
+			and pd.product_name like concat('%', #{product_name}, '%')
+		</if>
+	</select>
+
+	<select id="getProductListByIds" resultType="com.weiit.core.entity.E" parameterType="map">
+
+		<foreach collection="productIds" index="index" item="productId" open="" separator="union all" close="">
+			select
+				pd.product_id,
+				pd.product_id as validate_id,
+				pd.product_name,
+				pd.product_img,
+				pd.smarket_price,
+				pd.sale_price,
+				pd.stock,
+				pd.sale_count,
+				pd.is_on_sale,
+				pd.update_time
+			from
+				weiit_product pd
+			where
+				pd.is_deleted =0 AND  is_on_sale=0 AND pd.product_id=#{productId}
+				<if test=" shop_id !=null and shop_id !='' ">
+					and pd.shop_id = #{shop_id}
+				</if>
+		</foreach>
+	</select>
+
+	<select id="autoGetProduct" resultType="com.weiit.core.entity.E" parameterType="map">
+
+		select
+			pd.product_id,
+			pd.product_id as validate_id,
+			pd.product_name,
+			pd.product_img,
+			pd.smarket_price,
+			pd.sale_price,
+			pd.stock,
+			pd.sale_count,
+			pd.is_on_sale,
+			pd.update_time
+		from
+			weiit_product pd
+		where
+			pd.is_deleted =0 AND  is_on_sale=0
+			<if test=" shop_id !=null and shop_id !='' ">
+				and pd.shop_id = #{shop_id}
+			</if>
+		order by pd.update_time desc
+	</select>
+
+
+	<select id="getSpecCustomByIds" resultType="com.weiit.core.entity.E" parameterType="map">
+
+		SELECT
+			key_name
+		FROM weiit_product_custom_key where key_id in
+		<foreach collection="specIds" index="index" item="key_id" open="(" separator="," close=")">
+			#{key_id}
+		</foreach>
+	</select>
+
+
+	<select id="getItemById" resultType="com.weiit.core.entity.E" parameterType="map">
+
+		SELECT
+			spec_custom
+		FROM weiit_product_item
+		where item_id=#{item_id}
+	</select>
+
+	<select id="selectIsJoinBargain" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			product_id
+		FROM weiit_ump_bargain
+		where product_id=#{product_id} AND state=0
+	</select>
+	<select id="selectIsJoinGroupon" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			product_id
+		FROM weiit_ump_groupon
+		where product_id=#{product_id} AND state=0
+	</select>
+
+	<select id="selectItemByProductIdAndSpec" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			item_id
+		FROM weiit_product_item
+		where product_id=#{product_id} AND spec_custom=#{spec_custom} limit 1
+	</select>
+
+
+
+</mapper>
+

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.weiit.web.admin.shopdesign.mapper.PageUserMapper">
+ 
+	<!-- 装修 登录页  -->
+	<select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			id AS validate_id,
+			NAME,
+			bg_img,
+			align,
+			order_state,
+			balance_state,
+			integral_state,
+			create_time,
+			update_time,
+			shop_id
+		FROM weiit_page_user
+		where shop_id = #{shop_id} 
+	</select>
+	
+	<update id="edit" parameterType="map">
+		update  weiit_page_user set 
+			name=#{name}, 
+			align=#{align}, 
+			bg_img=#{bg_img}, 
+			order_state=#{order_state},
+			balance_state=#{balance_state},
+			integral_state=#{integral_state},
+    		update_time=now()
+		where shop_id = #{shop_id}
+	</update>
+	
+    <insert id="insert" parameterType="map">
+		insert into weiit_page_user
+		(
+			name, align,bg_img,order_state, balance_state, integral_state, create_time, update_time, shop_id 
+		)
+		values
+		(
+			#{name}, #{align},#{bg_img},#{order_state},#{balance_state},#{integral_state},now(),now(),#{shop_id} 
+		)
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

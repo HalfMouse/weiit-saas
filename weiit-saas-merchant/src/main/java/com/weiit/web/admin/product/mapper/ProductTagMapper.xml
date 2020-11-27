@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.product.mapper.ProductTagMapper">
+ 
+     <select id="selectList" resultType="com.weiit.core.entity.E"  parameterType="map">
+		 SELECT
+			 tag_id,
+			 tag_id AS validate_id,
+			 tag_name,
+			 state,
+			 create_time,
+			 update_time,
+			 shop_id
+		 FROM
+		 	weiit_product_tag
+		 WHERE
+		 1 = 1
+		<if test="shop_id !=null and shop_id !='' ">
+			and shop_id =#{shop_id}
+		</if> 
+		<if test="tag_name !=null and tag_name !='' ">
+			and tag_name like concat('%', #{tag_name}, '%')
+		</if> 
+		order by tag_id desc 
+     </select> 
+     
+     <select id="selectOne" resultType="com.weiit.core.entity.E"  parameterType="map">
+		 SELECT
+			 tag_id,
+			 tag_id AS validate_id,
+			 tag_name,
+			 state,
+			 create_time,
+			 update_time,
+			 shop_id
+		 FROM
+		 	weiit_product_tag
+		 WHERE
+		 1 = 1
+		<if test="shop_id !=null and shop_id !='' ">
+			and shop_id =#{shop_id} 
+		</if> 
+		and tag_id=#{validate_id}   
+     </select>
+      
+      <!-- 新增 -->
+	 <insert id="insert"  parameterType="map">
+        insert into weiit_product_tag
+        (
+			tag_name, state, create_time, update_time, shop_id 
+        )
+        values
+        (
+			#{tag_name},#{state}, now(), now(), #{shop_id} 
+        )
+     </insert>
+     <!-- 删除 -->
+     <delete id="remove"   parameterType="map">
+        delete from weiit_product_tag   
+        where  tag_id=#{validate_id}  
+        <if test="shop_id !=null and shop_id !='' ">
+			and shop_id =#{shop_id} 
+		</if> 
+     </delete>
+     <!-- 修改 -->
+     <update id="edit"   parameterType="map">
+        update weiit_product_tag  
+        set 
+        	update_time=now() 
+         <if test="tag_name !=null and tag_name !=''">
+       	 	,tag_name=#{tag_name}
+        </if>
+        <if test="state !=null and state !=''">
+       	 	,state=#{state}
+        </if> 
+        where tag_id=#{validate_id}  
+        <if test="shop_id !=null and shop_id !='' ">
+			and shop_id =#{shop_id} 
+		</if> 
+     </update>
+     
+          
+     <select id="selectDetailList" resultType="com.weiit.core.entity.E"  parameterType="map">
+		 SELECT
+			 ti.id,
+			 ti.tag_id,
+			 ti.product_id,
+			 ti.create_time,
+			 ti.shop_id,
+			 ta.tag_name
+		 FROM
+			 weiit_product_tag_item ti,
+			 weiit_product_tag ta
+		 WHERE
+		 	 ti.tag_id = ta.tag_id
+		<if test="tag_id !=null and tag_id !='' ">
+			and ti.tag_id=#{tag_id} 
+		</if>
+		<if test="product_id !=null and product_id !='' ">
+			and ti.product_id=#{product_id} 
+		</if>
+		<if test="shop_id !=null and shop_id !='' ">
+			and ti.shop_id =#{shop_id} 
+		</if> 
+		order by ti.id asc 
+     </select>
+     
+          <!-- 新增 -->
+	 <insert id="insertDetail"  parameterType="map">
+        insert into weiit_product_tag_item
+        (
+			tag_id, product_id ,create_time, shop_id 
+        )
+        values
+        (
+			#{tag_id},#{product_id}, now(), #{shop_id} 
+        )
+     </insert>
+     <!-- 删除 -->
+     <delete id="removeDetail"   parameterType="map">
+        delete from weiit_product_tag_item   
+        where  1=1 
+        <if test="validate_id !=null and validate_id !='' ">
+			and tag_id =#{validate_id} 
+		</if>
+		<if test="product_id !=null and product_id !='' ">
+			and product_id =#{product_id} 
+		</if>
+        <if test="shop_id !=null and shop_id !='' ">
+			and shop_id =#{shop_id} 
+		</if> 
+     </delete>
+     
+</mapper>

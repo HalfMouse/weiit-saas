@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.weixin.mapper.WeixinPublicMapper">
+ 
+     <select id="selectOne" resultType="com.weiit.core.entity.E"  parameterType="map">
+		 SELECT
+		 *
+		 from 
+		 weiit_weixin_public_info
+		 WHERE
+		 1 = 1
+		 <if test="service_type_info!=null and service_type_info!=''">
+			 and service_type_info=#{service_type_info}
+		 </if>
+		 <if test="authorizer_app_id!=null and authorizer_app_id!=''">
+			 and authorizer_app_id=#{authorizer_app_id}
+		 </if>
+	     <if test=" shop_id !=null and shop_id !='' ">
+       	 	 and shop_id=#{shop_id}
+         </if>
+         limit 1
+     </select>
+     
+      <select id="selectMerchantByShopId" resultType="com.weiit.core.entity.E"  parameterType="map">
+		 SELECT
+		 m.*
+		 from 
+		 weiit_merchant m inner join weiit_shop s on m.mrch_id=s.mrch_id
+		 WHERE
+		  s.shop_id=#{shop_id}
+     </select>
+
+      <select id="selectIntroPageList" resultType="com.weiit.core.entity.E"  parameterType="map">
+		 SELECT
+		  id ,
+		  id AS validate_id,
+		  intro_page_url,
+		  intro_page_desc,
+		  is_use,
+		  create_time,
+		  shop_id
+		 from
+		 weiit_weixin_mini_intropage
+		 WHERE
+		  shop_id=#{shop_id} and is_delete=0 order by is_use DESC , create_time DESC
+     </select>
+
+      <!-- 新增 -->
+	 <insert id="insert"  parameterType="map">
+        INSERT INTO
+        	weiit_weixin_public_info
+        	(
+				authorizer_id,
+				authorizer_app_id,
+				authorizer_fresh_token,
+				alias,
+				head_img,
+				nick_name,
+				principal_name,
+				qrcode_url,
+				service_type_info,
+				signature,
+				user_name,
+				mini_program,
+				create_time,
+				update_time,
+				shop_id
+
+			)
+		VALUES
+			(
+				#{authorizer_id},
+				#{authorizer_app_id},
+				#{authorizer_fresh_token},
+				#{alias},
+				#{head_img},
+				#{nick_name},
+				#{principal_name},
+				#{qrcode_url},
+				#{service_type_info},
+				#{signature},
+				#{user_name},
+				#{mini_program},
+				now(),
+				now(),
+				#{shop_id}
+			)
+     </insert>
+
+	 <insert id="introSave"  parameterType="map">
+        INSERT INTO
+        	weiit_weixin_mini_intropage
+        	(
+				intro_page_url,
+				intro_page_desc,
+				create_time,
+				shop_id
+
+			)
+		VALUES
+			(
+				#{intro_page_url},
+				#{intro_page_desc},
+				now(),
+				#{shop_id}
+			)
+     </insert>
+
+     <!-- 修改 -->
+     <update id="clearIntroDefault"   parameterType="map">
+        update
+        	weiit_weixin_mini_intropage
+        set
+        	is_use=0
+        where
+        	is_use=1 and shop_id=#{shop_id}
+     </update>
+
+     <update id="introDefault"   parameterType="map">
+        update
+        	weiit_weixin_mini_intropage
+        set
+        	is_use=1
+        where
+        	id=#{validate_id} and shop_id=#{shop_id}
+     </update>
+
+
+     <update id="edit"   parameterType="map">
+        update
+        	weiit_weixin_public_info
+        set
+        	update_time=now(),
+			authorizer_fresh_token=#{authorizer_fresh_token},
+			alias=#{alias},
+			head_img=#{head_img},
+			nick_name=#{nick_name},
+			principal_name=#{principal_name},
+			qrcode_url=#{qrcode_url},
+			service_type_info=#{service_type_info},
+			signature=#{signature},
+			user_name=#{user_name},
+			mini_program=#{mini_program}
+        where
+        	authorizer_app_id=#{authorizer_app_id}
+        	<if test=" shop_id !=null and shop_id !='' ">
+       	 	 and shop_id=#{shop_id}
+         </if>
+     </update>
+</mapper>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.weixin.mapper.WeixinPublicBatchSendingMapper">
+
+	<!-- 查询所有的群发记录 -->
+	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			t.record_id,
+			t.state,
+			t.create_time,
+			t.send_time,
+			t.action_type,
+			t.send_content,
+			t.group_tag,
+		(
+			SELECT tt.image_url FROM weiit_weixin_public_media_image tt
+			WHERE tt.authorizer_id=#{authorizer_id} and 
+				tt.media_id = t.send_content
+		) AS image_url,
+		(
+			SELECT tt.title FROM weiit_weixin_public_media_article tt
+			WHERE tt.authorizer_id=#{authorizer_id} and 
+				tt.media_id = t.send_content
+		) AS title,
+		(
+			SELECT tt.cover_img FROM weiit_weixin_public_media_article tt
+			WHERE tt.authorizer_id=#{authorizer_id} and 
+				tt.media_id = t.send_content
+		) AS cover_img,
+		(
+			SELECT count(1) FROM weiit_weixin_public_masssend_user tt
+			WHERE tt.record_id = t.record_id
+		) AS allCount,
+		(
+			SELECT count(1) FROM weiit_weixin_public_masssend_user tt
+			WHERE tt.record_id = t.record_id AND tt.state = 0
+		) AS successCount
+		FROM
+			weiit_weixin_public_masssend_record t
+		WHERE 1 = 1 
+		<if test="record_id !=null and record_id !='' ">
+			t.record_id=#{record_id}
+		</if>
+		<if test=" authorizer_id!=null and authorizer_id!=''  ">
+			and t.authorizer_id=#{authorizer_id}
+		</if>
+			order by t.send_time desc 
+	</select>
+	
+	<!-- 查询一条群发记录 -->
+	<select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			t.record_id,
+			t.state,
+			t.create_time,
+			t.send_time,
+			t.action_type,
+			t.send_content,
+			t.group_tag 
+		FROM
+			weiit_weixin_public_masssend_record t
+		WHERE t.record_id=#{record_id} and t.authorizer_id=#{authorizer_id} 
+	</select>
+
+	<!-- 新增群发记录 -->
+	<insert id="addPublicBatchSendingLog" parameterType="map" useGeneratedKeys="true" keyProperty="record_id">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="record_id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into weiit_weixin_public_masssend_record
+		(
+			action_type,send_content,group_tag,send_time,state,authorizer_id,create_time
+		)
+		values
+		(
+			#{action_type},#{send_content},#{group_tag},#{send_time},#{state},#{authorizer_id},now()
+		)
+	</insert>
+	
+	<!-- 新增群发用户记录 -->
+	<insert id="addPublicBatchSendingUsersLog" parameterType="ArrayList">
+		insert into weiit_weixin_public_masssend_user
+		(
+			record_id, user_id, state, create_time, reason, authorizer_id
+		) values 
+		<foreach collection="list" item="obj" index="index" separator=",">
+			(#{obj.record_id},#{obj.user_id},#{obj.state},now(),#{obj.reason},#{obj.authorizer_id})
+		</foreach>
+	</insert>
+	
+	<!-- 群发用户记录 修改  -->
+	<update id="updatePublicBatchSendingUsersLog" parameterType="map">
+		update weiit_weixin_public_masssend_user set 
+			state=#{state},
+			reason=#{reason},
+			create_time=now() 
+		where 1=1
+		<if test=" record_id!=null and record_id!=''  ">
+			and record_id = #{record_id}
+		</if>
+		<if test=" authorizer_id!=null and authorizer_id!=''  ">
+			and authorizer_id=#{authorizer_id}
+		</if>
+	</update>
+
+	<!-- 查询所有用户信息 -->
+	<select id="selectUsersList" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			user_id,  user_name,  wx_open_id 
+		FROM
+			weiit_user us
+		WHERE open_id_type=1 
+		<if test="region_name !=null and region_name !='' ">
+			and region = #{region_name} 
+		</if>
+		<if test="user_sex !=null and user_sex !='' ">
+			and user_sex = #{user_sex} 
+		</if>
+		<if test="sign_id !=null and sign_id !='' ">
+			and exists ( SELECT id from weiit_user_sign_log where user_id=us.user_id )
+		</if>
+		<if test="shop_id !=null and shop_id !='' ">
+			and shop_id = #{shop_id} 
+		</if>
+	</select>
+
+	<!-- 根据群发记录查询所有群发用户 -->
+	<select id="selectBatchSendingUsersLogList" resultType="com.weiit.core.entity.E"
+		parameterType="map">
+		select
+			t.id,
+			t.record_id,
+			t.user_id,
+			t.state,
+			t.create_time,
+			t.reason,
+			tt.user_name,
+			tt.user_img,
+			tt.wx_open_id 
+		FROM
+			weiit_weixin_public_masssend_user t , weiit_user tt
+		WHERE t.user_id=tt.user_id and t.authorizer_id=#{authorizer_id}
+		<if test="record_id != null and record_id !='' ">
+			and t.record_id=#{record_id}
+		</if>
+		<if test="user_name != null and user_name !='' ">
+			and tt.user_name  like concat('%', #{user_name}, '%') 
+		</if> 
+		order by tt.user_id desc 
+	</select>
+	
+	<!-- 修改消息群发记录 -->
+	<update id="edit" parameterType="map">
+		update weiit_weixin_public_masssend_record set
+			state = 1 , 
+			send_time = now() 
+		where record_id = #{record_id} and authorizer_id=#{authorizer_id} 
+	</update>
+	
+	<!-- 删除消息群发记录 -->
+	<delete id="remove" parameterType="map">
+		delete from weiit_weixin_public_masssend_record where record_id=#{record_id} and authorizer_id=#{authorizer_id}	
+	</delete>
+	
+	<!-- 删除消息群发用户记录 -->
+	<delete id="removeMasssendUser" parameterType="map">
+		delete from weiit_weixin_public_masssend_user where record_id=#{record_id} and authorizer_id=#{authorizer_id}	
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

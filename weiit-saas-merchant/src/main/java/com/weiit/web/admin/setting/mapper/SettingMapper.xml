@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.setting.mapper.SettingMapper">
+
+    <select id="selectList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        SELECT
+            shop_id,
+            shop_id as validate_id,
+            shop_domain_prex,
+            shop_num,
+            shop_name,
+            shop_main_img,
+            shop_logo,
+            shop_url,
+            shop_qr_code,
+            type,
+            business_id,
+            province_id,
+            province,
+            city_id,
+            city,
+            district_id,
+            district,
+            address_detail,
+            shop_x,
+            shop_y,
+            shop_tel,
+            shop_phone,
+            shop_office_time,
+            shop_summary,
+            (select state from weiit_shop_certification where shop_id=s.shop_id) as is_auth,
+            parent_id,
+            is_disabled,
+            is_deleted,
+            create_time,
+            update_time
+        FROM
+            weiit_shop s
+        WHERE
+            is_deleted = 0
+    </select>
+
+
+    <!--//查询商户信息-->
+    <select id="selectOne"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        SELECT
+            shop_id,
+            shop_id as validate_id,
+            shop_domain_prex,
+            shop_num,
+            shop_name,
+            shop_main_img,
+            shop_logo,
+            shop_url,
+            shop_qr_code,
+            type,
+            business_id,
+            province_id,
+            province,
+            city_id,
+            city,
+            district_id,
+            district,
+            address_detail,
+            shop_x,
+            shop_y,
+            shop_tel,
+            shop_phone,
+            shop_office_time,
+            shop_summary,
+             (select state from weiit_shop_certification where shop_id=s.shop_id) as is_auth,
+            parent_id,
+            is_disabled,
+            is_deleted,
+            create_time,
+            update_time
+        FROM
+            weiit_shop s
+        WHERE	
+            is_deleted = 0
+        AND shop_id = #{shop_id}
+    </select>
+
+	<!-- 根据店铺域名查询店铺信息 -->
+	<select id="selectShopInfoByDomainPrex"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        SELECT
+            shop_id,
+            shop_id as validate_id,
+            shop_domain_prex,
+            shop_num,
+            shop_name,
+            shop_main_img,
+            shop_logo,
+            shop_url,
+            shop_qr_code,
+            type,
+            business_id,
+            province_id,
+            province,
+            city_id,
+            city,
+            district_id,
+            district,
+            address_detail,
+            shop_x,
+            shop_y,
+            shop_tel,
+            shop_phone,
+            shop_office_time,
+            shop_summary,
+             (select state from weiit_shop_certification where shop_id=s.shop_id) as is_auth,
+            parent_id,
+            is_disabled,
+            is_deleted,
+            create_time,
+            update_time
+        FROM
+            weiit_shop s
+        WHERE
+            is_deleted = 0
+        AND shop_domain_prex = #{shop_domain_prex} limit 1
+    </select>
+
+
+    <!-- 修改商家信息 -->
+    <update id="edit"   parameterType="map">
+        update weiit_shop
+        set
+            shop_name=#{shop_name},
+            shop_logo=#{shop_logo},
+            province_id=#{province_id},
+            province=#{province},
+            city_id=#{city_id},
+            city=#{city},
+            district_id=#{district_id},
+            district=#{district},
+           	address_detail=#{address_detail},
+            shop_x=#{shop_x},
+            shop_y=#{shop_y},
+            shop_tel=#{shop_tel},
+            shop_summary=#{shop_summary},
+            update_time=now()
+        where
+        shop_id=#{validate_id}
+    </update>
+
+    <update id="editShopSomeInfo"   parameterType="map">
+        update weiit_shop
+        set
+           shop_domain_prex=#{shop_domain_prex},
+            update_time=now()
+        where
+        shop_id=#{shop_id}
+    </update>
+
+
+
+    <select id="selectCertificationOne"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        SELECT
+            id,
+            id as validate_id,
+            auth_type,
+            name auth_name,
+            auth_no,
+            business_img,
+            idcard_front_img,
+            idcard_back_img,
+            is_deleted,
+            create_time,
+            update_time,
+            state,
+            shop_id
+        FROM
+            weiit_shop_certification
+        WHERE
+            is_deleted = 0
+        AND shop_id = #{shop_id}
+    </select>
+
+
+	<insert id="insertCertification"  parameterType="map">
+	   insert into weiit_shop_certification 
+	   ( 
+		auth_type, 
+		name, 
+		auth_no, 
+		business_img, 
+		idcard_front_img, 
+		idcard_back_img, 
+		is_deleted, 
+		create_time, 
+		update_time, 
+		shop_id 
+	   )
+	   values
+	   (
+		#{auth_type},
+		#{name},
+		#{auth_no},
+		#{business_img},
+		#{idcard_front_img},
+		#{idcard_back_img},
+		0,
+		now(),
+		now(),
+		#{shop_id}
+	   )
+	</insert>
+	
+	<update id="updateCertification" parameterType="map">
+        UPDATE weiit_shop_certification
+        SET
+            auth_type = #{auth_type},
+            name = #{name},
+            auth_no=#{auth_no},
+            business_img=#{business_img},
+            idcard_front_img=#{idcard_front_img},
+            idcard_back_img=#{idcard_back_img},
+            update_time=now(),
+            state=0
+        WHERE
+        id=#{validate_id}
+        AND 
+        shop_id = #{shop_id}
+    </update>
+    
+    <!--   支付交易设置    -->
+    <select id="selectShopPaymentList" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+          	pay_id,
+          	pay_id as validate_id,
+			app_id,
+			app_key,
+			partner_name,
+			partner_id,
+			partner_key,
+			redirect_url,
+			notify_url,
+			client_cert,
+			client_key,
+			ca_cert,
+			type,
+			state,
+			create_time,
+			update_time,
+			shop_id
+
+        FROM
+            weiit_shop_payment
+        WHERE
+            shop_id = #{shop_id}
+    </select>
+
+
+
+    <insert id="insertShopPayment" parameterType="map">
+        insert into weiit_shop_payment
+         (
+         	<if test = "app_id !=null and app_id !='' " >
+				  app_id,
+			</if >
+            <if test = "app_key !=null and app_key !='' " >
+				  app_key,
+			</if >
+			<if test = "partner_name !=null and partner_name !='' " >
+				  partner_name,
+			</if >
+			<if test = "partner_id !=null and partner_id !='' " >
+				  partner_id,
+			</if >
+			<if test = "partner_key !=null and partner_key !='' " >
+				  partner_key,
+			</if >
+			<if test = "redirect_url !=null and redirect_url !='' " >
+				  redirect_url,
+			</if >
+			<if test = "notify_url !=null and notify_url !='' " >
+				  notify_url,
+			</if >
+			<if test = "client_cert !=null and client_cert !='' " >
+				  client_cert,
+			</if >
+			<if test = "client_key !=null and client_key !='' " >
+				  client_key,
+			</if >
+			<if test = "ca_cert !=null and ca_cert !='' " >
+				  ca_cert,
+			</if >
+			type,
+			state,
+			create_time,
+			update_time,
+			shop_id
+        )
+        values
+        (
+            
+            <if test = "app_id !=null and app_id !='' " >
+				  #{app_id},
+			</if >
+            <if test = "app_key !=null and app_key !='' " >
+				  #{app_key},
+			</if >
+			<if test = "partner_name !=null and partner_name !='' " >
+				  #{partner_name},
+			</if >
+			<if test = "partner_id !=null and partner_id !='' " >
+				  #{partner_id},
+			</if >
+			<if test = "partner_key !=null and partner_key !='' " >
+				  #{partner_key},
+			</if >
+			<if test = "redirect_url !=null and redirect_url !='' " >
+				  #{redirect_url},
+			</if >
+			<if test = "notify_url !=null and notify_url !='' " >
+				  #{notify_url},
+			</if >
+			<if test = "client_cert !=null and client_cert !='' " >
+				  #{client_cert},
+			</if >
+			<if test = "client_key !=null and client_key !='' " >
+				  #{client_key},
+			</if >
+			<if test = "ca_cert !=null and ca_cert !='' " >
+				  #{ca_cert},
+			</if >
+			#{type},
+			#{state},
+			create_time,
+			update_time,
+			#{shop_id}
+        )
+    </insert>
+
+
+
+    <update id="editShopPayment" parameterType="map">
+        UPDATE weiit_shop_payment
+        SET
+        	<if test = "app_id !=null and app_id !='' " >
+				  appid=#{app_id},
+			</if >
+            <if test = "app_key !=null and app_key !='' " >
+				  app_key=#{app_key},
+			</if >
+			<if test = "partner_name !=null and partner_name !='' " >
+				  partner_name=#{partner_name},
+			</if >
+			<if test = "partner_id !=null and partner_id !='' " >
+				  partner_id=#{partner_id},
+			</if >
+			<if test = "partner_key !=null and partner_key !='' " >
+				  partner_key=#{partner_key},
+			</if >
+			<if test = "redirect_url !=null and redirect_url !='' " >
+				  redirect_url=#{redirect_url},
+			</if >
+			<if test = "notify_url !=null and notify_url !='' " >
+				  notify_url=#{notify_url},
+			</if >
+			<if test = "client_cert !=null and client_cert !='' " >
+				  client_cert=#{client_cert},
+			</if >
+			<if test = "client_key !=null and client_key !='' " >
+				  client_key=#{client_key},
+			</if >
+			<if test = "ca_cert !=null and ca_cert !='' " >
+				  ca_cert=#{ca_cert},
+			</if >
+            state = #{state} ,
+            update_time = now()
+        WHERE
+            pay_id = #{validate_id}
+        AND shop_id = #{shop_id}
+    </update>
+
+	<update id="editShopPaymentState" parameterType="map">
+        UPDATE weiit_shop_payment
+        SET
+            state = #{state} ,
+            update_time = now()
+        WHERE
+            pay_id = #{pay_id}
+        AND shop_id = #{shop_id}
+    </update>
+
+	<update id="updateShopInfo" parameterType="map">
+        UPDATE weiit_shop
+        SET
+            <if test = "shop_qr_code !=null and shop_qr_code !='' " >
+                shop_qr_code=#{shop_qr_code},
+            </if >
+            <if test = "shop_url !=null and shop_url !='' " >
+                shop_url=#{shop_url},
+            </if >
+            update_time = now()
+        WHERE
+         shop_id = #{shop_id}
+    </update>
+</mapper>
