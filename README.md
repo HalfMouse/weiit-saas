@@ -55,7 +55,8 @@ weiit-saas是一款Java开源项目，属于weiit团队自研产品，意在通�
 
 ## 四、系统功能
 
-![image](https://github.com/HalfMouse/weiit-saas/blob/main/preview/1.png?raw=true)
+
+![Image text](preview/1.png)
 ![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2020-11-20/71d87ed3-d2e9-44b0-ac58-03570fdb0942.png)
 ![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2020-11-20/90362bf9-3456-482d-98eb-338e71e35020.png)
 ![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2020-11-20/4b0e5dc0-4581-471f-b2dd-fab55fee2b13.png)
