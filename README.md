@@ -45,7 +45,7 @@ weiit-saas是一款Java开源项目，属于weiit团队自研产品，意在通�
 | 渠道端|http://saasplatform.wei-it.com/  |qudao  123456 |
 | 平台端|http://saasplatform.wei-it.com/  |pingtai 123456 |
 
-二、生产环境：[https://www.wstore.me](https://www.wstore.me)。
+二、生产环境：[http://www.wstore.me](http://www.wstore.me)。
 
 三、成功案例：
 
