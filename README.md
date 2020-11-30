@@ -32,9 +32,40 @@ weiit-saas是一款Java开源项目，属于weiit团队自研产品，意在通�
 
 
 
+## 三、Maven仓库
+
+maven仓库依赖的核心jar包项目，开源地址：[https://github.com/HalfMouse/weiit-frame](https://github.com/HalfMouse/weiit-frame)
+
+weiit-saas系统依赖jar支持1：
+```maven
+ <dependency>
+    <groupId>com.weiit</groupId>
+    <artifactId>weiit-support-core</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+weiit-saas系统依赖jar支持2：
+```maven
+ <dependency>
+    <groupId>com.weiit</groupId>
+    <artifactId>weiit-resource-common</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+weiit-saas系统依赖jar支持3：
+```maven
+ <dependency>
+    <groupId>com.weiit</groupId>
+    <artifactId>weiit-suppor-task</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
 
-## 三、演示地址
+
+## 四、演示地址
 
 
 一、测试环境演示：
@@ -53,7 +84,7 @@ weiit-saas是一款Java开源项目，属于weiit团队自研产品，意在通�
 
 
 
-## 四、系统功能
+## 五、系统功能
 
 
 
@@ -93,7 +124,7 @@ weiit-saas是一款Java开源项目，属于weiit团队自研产品，意在通�
 
 
 
-## 五、技术支持
+## 六、技术支持
 
 QQ群：321771500
 
