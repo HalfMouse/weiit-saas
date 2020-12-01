@@ -126,7 +126,7 @@ weiit-saas系统依赖jar支持3：
 
 ## 六、技术支持
 
-扫码加微信群：
+
 ![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2020-12-01/e57efd7a-126c-479b-b732-1c5a3da99c67.png)
 
 
