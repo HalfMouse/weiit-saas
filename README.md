@@ -76,12 +76,23 @@ weiit-saas系统依赖jar支持3：
 | 渠道端|http://saasplatform.wei-it.com/  |qudao  123456 |
 | 平台端|http://saasplatform.wei-it.com/  |pingtai 123456 |
 
-二、生产环境：[http://www.wstore.me](http://www.wstore.me)。
+
+二、生产环境演示：
+
+| 用户端 | 演示地址 |测试账户 |
+|--|--|--|
+| 商家端|http://www.wstore.me  |18339835117   123456 |
+| 渠道端|  |无|
+| 平台端|  |无 |
+
 
 三、成功案例：
-
-
-
+![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/a2f7387e-29ff-4890-8917-64a174f1dc85.png)
+![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/2c7b2c24-ca20-4cd7-8d23-a06b7c216ba8.png)
+![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/4e4b1d4c-1459-4acb-b7e1-f70862768edb.jpg)
+![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/a0621572-8c28-4a20-8746-97d8a3096e1d.jpg)
+![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/5d003a57-7e17-43c3-aa27-e04c59123d56.jpg)
+![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/f3301cbe-7272-44c4-bb1e-98d771d80c02.jpg)
 
 
 ## 五、系统功能
