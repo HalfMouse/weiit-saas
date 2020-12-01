@@ -8,7 +8,7 @@ weiit-saas是一款Java开源项目，属于weiit团队自研产品，意在通�
 
  -  **2016年3月**weiit团队推出SAAS电商1.0版本，帮助20家企业完成独立品牌商城上线，成功接入微信；
  -  **2017年6月** weiit团队启动2.0版本开发，主打**小程序**一键生成，并获得部分企业付费支持；
- -   **2018年5月** weiit团队研发成功并上线SAAS电商2.0版本，快速获得200多家企业使用与支持；
+ -  **2018年5月** weiit团队研发成功并上线SAAS电商2.0版本，快速获得200多家企业使用与支持；
  -  **2018年到2019年**weiit团队研发经费无法持续，放弃SAAS系统持续迭代，转型做技术服务商；
  -  **2020年** weiit团队宣布，SAAS电商产品免费开源，让圈内的技术大佬一起学习与交流；
  - weiit团队承诺“weiit-saas”系统完全开源，跟喜欢研究SAAS概念的技术大佬交流与学习成长。
@@ -83,16 +83,16 @@ weiit-saas系统依赖jar支持3：
 |--|--|--|
 | 商家端|http://www.wstore.me  |18339835117   123456 |
 | 渠道端|  |无|
-| 平台端|  |无 |
+| 用户端|  |小程序搜索“衣家好店” |
 
 
 三、成功案例：
 
-<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/a2f7387e-29ff-4890-8917-64a174f1dc85.png"  width="130" height="130"  />
-<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/2c7b2c24-ca20-4cd7-8d23-a06b7c216ba8.png"  width="130" height="130"  />
-<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/4e4b1d4c-1459-4acb-b7e1-f70862768edb.jpg"  width="130" height="130"  />
-<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/a0621572-8c28-4a20-8746-97d8a3096e1d.jpg"  width="130" height="130"  />
-<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/f3301cbe-7272-44c4-bb1e-98d771d80c02.jpg"  width="130" height="130"  />
+<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/a2f7387e-29ff-4890-8917-64a174f1dc85.png"  width="150" height="150"  />
+<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/2c7b2c24-ca20-4cd7-8d23-a06b7c216ba8.png"  width="150" height="150"  />
+<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/4e4b1d4c-1459-4acb-b7e1-f70862768edb.jpg"  width="150" height="150"  />
+<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/a0621572-8c28-4a20-8746-97d8a3096e1d.jpg"  width="150" height="150"  />
+<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/f3301cbe-7272-44c4-bb1e-98d771d80c02.jpg"  width="150" height="150"  />
 
 
 
