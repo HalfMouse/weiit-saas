@@ -18,7 +18,7 @@ weiit-saas是一款Java开源项目，属于weiit团队自研产品，意在通�
 ## 二、主要特点
 
 
- -  项目采用**Spring+SpringMVC+Mybatis**主流开源框架，遵循MVC架构，设计轻巧，使用简单，开发人员接手与二次开发简单易懂；
+ - 项目采用**Spring+SpringMVC+Mybatis**主流开源框架，遵循MVC架构，设计轻巧，使用简单，开发人员接手与二次开发简单易懂；
  - 项目依赖的**核心支持jar包**，都已经完全开源，开源地址：[https://github.com/HalfMouse/weiit-frame](https://github.com/HalfMouse/weiit-frame)
  - 项目完成了对阿里云、腾讯云、微信生态的快速接入与代码示例，并成功运用到了商业中，方便大家学习对**OSS/COS/短信服务/快递服务/公众号/小程序/微信开放平台/微信支付**的技术点与应用场景的学习。
  - 小程序与公众号第三方授权集成，让开发者与企业省去繁琐的配置，对**AppId/AppSecret**集成彻底告别。
@@ -88,11 +88,11 @@ weiit-saas系统依赖jar支持3：
 
 三、成功案例：
 
-<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/a2f7387e-29ff-4890-8917-64a174f1dc85.png"  width="100" height="100"  />
-<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/2c7b2c24-ca20-4cd7-8d23-a06b7c216ba8.png"  width="100" height="100"  />
-<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/4e4b1d4c-1459-4acb-b7e1-f70862768edb.jpg"  width="100" height="100"  />
-<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/a0621572-8c28-4a20-8746-97d8a3096e1d.jpg"  width="100" height="100"  />
-<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/f3301cbe-7272-44c4-bb1e-98d771d80c02.jpg"  width="100" height="100"  />
+<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/a2f7387e-29ff-4890-8917-64a174f1dc85.png"  width="130" height="130"  />
+<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/2c7b2c24-ca20-4cd7-8d23-a06b7c216ba8.png"  width="130" height="130"  />
+<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/4e4b1d4c-1459-4acb-b7e1-f70862768edb.jpg"  width="130" height="130"  />
+<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/a0621572-8c28-4a20-8746-97d8a3096e1d.jpg"  width="130" height="130"  />
+<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/f3301cbe-7272-44c4-bb1e-98d771d80c02.jpg"  width="130" height="130"  />
 
 
 
