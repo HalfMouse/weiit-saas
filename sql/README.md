@@ -16,6 +16,7 @@
  
 ## 二、weiit_saas_wodian数据库
 -  weiit_saas_wodian属于应用系统核心数据库，所有业务属于此库管理。
+-  weiit_saas_wodian数据库字典，待补充。
 
 
  
