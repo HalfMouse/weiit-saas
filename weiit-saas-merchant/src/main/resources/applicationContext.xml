@@ -83,7 +83,7 @@
         <property name="basePackage" value="com.weiit.web.admin.*.mapper,com.weiit.web.weixinopen.mapper" />  
     </bean>
 
-    <bean id="qrCodeUtil" class="com.weiit.resource.common.utils.QRCodeUtil"></bean>
+    <bean id="qrCodeUtil" class="com.weiit.resource.common.utils.WeiitQrCodeUtil"></bean>
     
     <!-- 自动扫描包 ,将带有注解的类 纳入spring容器管理 -->
     <context:component-scan base-package="com.weiit"></context:component-scan>
