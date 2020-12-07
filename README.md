@@ -139,6 +139,7 @@ weiit-saas系统依赖jar支持3：
 
 ## 六、系统核心
 ![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2020-12-07/1d247d67-a6b4-4c0b-a87c-9f7f318ab499.jpg)
+详情：[系统核心](https://www.processon.com/view/link/5fca03875653bb7d2b2b1c11)
 
 ## 七、技术支持
 
