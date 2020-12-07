@@ -1,40 +1,32 @@
 package com.weiit.web.admin.weixin.controller;
 
 
-import java.io.IOException;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.weiit.core.entity.E;
+import com.weiit.core.entity.FormMap;
 import com.weiit.resource.common.utils.RedisUtil;
 import com.weiit.web.admin.miniprogram.service.WxMiniProgramService;
 import com.weiit.web.admin.setting.service.SettingService;
-import me.chanjar.weixin.common.error.WxErrorException;
-import me.chanjar.weixin.open.api.WxOpenService;
-import me.chanjar.weixin.open.bean.result.WxOpenAuthorizerInfoResult;
-import me.chanjar.weixin.open.bean.result.WxOpenQueryAuthResult;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.github.pagehelper.PageHelper;
-import com.weiit.core.entity.E;
-import com.weiit.core.entity.FormMap; 
 import com.weiit.web.admin.weixin.service.WeixinPublicService;
 import com.weiit.web.base.AdminController;
 import com.weiit.web.base.UIview;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
+import me.chanjar.weixin.common.error.WxErrorException;
+import me.chanjar.weixin.open.api.WxOpenService;
+import me.chanjar.weixin.open.bean.result.WxOpenAuthorizerInfoResult;
+import me.chanjar.weixin.open.bean.result.WxOpenQueryAuthResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 
-/*
-*
- * 
+/***
 * @ClassName: WeixinPublicController 
 * @Description: 微信公众号视图控制器
 * @author lcm

@@ -6,12 +6,10 @@ import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.web.admin.publics.service.ParameterService;
-import com.weiit.web.admin.publics.service.impl.ParameterServiceImpl;
 import com.weiit.web.admin.user.service.UserCardService;
 import com.weiit.web.admin.user.service.UserService;
 import com.weiit.web.base.AdminController;
 import com.weiit.web.base.UIview;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-
 import java.util.ArrayList;
 import java.util.List;
 

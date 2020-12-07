@@ -1,20 +1,17 @@
 package com.weiit.web.admin.setting.controller;
 
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.weiit.core.entity.E;
+import com.weiit.core.entity.FormMap;
+import com.weiit.web.admin.setting.service.ProtocolService;
+import com.weiit.web.base.AdminController;
+import com.weiit.web.base.UIview;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.weiit.core.entity.E;
-import com.weiit.core.entity.FormMap;
-import com.weiit.web.admin.setting.service.ProtocolService;
-import com.weiit.web.admin.setting.service.SettingService;
-import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 设计页面

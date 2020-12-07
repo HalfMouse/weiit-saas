@@ -1,18 +1,13 @@
 package com.weiit.web.admin.publics.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
-
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.bean.material.WxMpMaterial;
 import me.chanjar.weixin.mp.bean.material.WxMpMaterialUploadResult;
-import me.chanjar.weixin.open.api.WxOpenConfigStorage;
-import me.chanjar.weixin.open.api.WxOpenService;
-
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +19,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.*;
 import java.util.Map;
 
@@ -206,20 +200,7 @@ public class UeditorController {
         return flag;
     }
     
-    /**
-	 * 获取最新的wxopenService
-	 * @return
-	 */
-//	public WxOpenService freshWeixinOpenService(E publicInfo){
-//
-//		WxOpenConfigStorage openConfig=weixinOpenService.getOpenConfig().getWxOpenConfigStorage();
-//		openConfig.setAuthorizerRefreshToken(publicInfo.getStr("authorizer_app_id"), publicInfo.getStr("authorizer_fresh_token"));
-//
-//		WxOpenService openService=weixinOpenService.getOpenConfig();
-//		openService.setWxOpenConfigStorage(openConfig);
-//		return openService;
-//	}
-	
+
 	/**  
      * 删除  
      *   

@@ -1,28 +1,25 @@
 package com.weiit.web.admin.publics.controller;
 
 
- 
-import java.io.File;
-import java.io.FileInputStream;
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Date; 
-
-import javax.annotation.Resource; 
-import javax.servlet.ServletOutputStream;
-
-import org.springframework.stereotype.Controller; 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import com.weiit.core.entity.FormMap; 
+import com.weiit.core.entity.FormMap;
 import com.weiit.resource.common.utils.CSVUtil;
 import com.weiit.resource.common.utils.DateUtil;
 import com.weiit.resource.common.utils.SpringUtil;
 import com.weiit.resource.common.utils.XlsExcelUtil;
 import com.weiit.web.admin.publics.service.ExcelExportService;
 import com.weiit.web.base.AdminController;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.lang.reflect.Method;
+import java.util.Date;
+import java.util.List;
  
 /**
  * Excel公共服务
@@ -80,14 +77,6 @@ public class ExcelExportController  extends AdminController {
 				file=CSVUtil.createListCSV(resultsList, exportTitles, exportFields, outPutPath+""+File.separator, exportExcelName);
 			}
 			
-			/*将生成的excel记录文件表记录，方便二次下载
-			formMap.set("file_name", exportExcelName+"."+fileType);
-			formMap.set("file_url", "");
-			formMap.set("parent_id", "-1");
-			formMap.set("type", 1);
-			formMap.set("is_icon", 0);
-			excelExportService.insert(formMap);
-	 		*/
 			this.getResponse().setCharacterEncoding("GBK");
 			this.getResponse().setContentType("application/x-xls;charset=GBK");
 			this.getResponse().setHeader("Content-Disposition", "attachment;filename=" + new String(exportExcelName.getBytes("GBK"), "ISO-8859-1") +  "."+fileType);

@@ -65,15 +65,28 @@
      
 	 <!-- 行业  查询 -->
      <select id="selectList" resultType="com.weiit.core.entity.E"  parameterType="map">
-    	SELECT business_id, business_name, is_deleted  
+    	SELECT
+			business_id,
+			business_name,
+			is_deleted
 		FROM weiit_saas_init.weiit_init_business  
 		order by business_id asc 
      </select> 
 	
 	<!-- 微页面  查询 -->
      <select id="selectPageList" resultType="com.weiit.core.entity.E"  parameterType="map">
-    	SELECT page_id, page_name, page_desc, bgcolor, page_layout, page_cover, is_deleted, 
-    		is_default, create_time, update_time, demo_id  
+    	SELECT
+			page_id,
+			page_name,
+			page_desc,
+			bgcolor,
+			page_layout,
+			page_cover,
+			is_deleted,
+			is_default,
+			create_time,
+			update_time,
+			demo_id
 		FROM weiit_saas_init.weiit_page 
 		where demo_id=#{demo_id} 
 		order by page_id asc 
@@ -94,7 +107,11 @@
  
  	 <!-- 店铺协议表 查询 -->
      <select id="selectProtocolList" resultType="com.weiit.core.entity.E"  parameterType="map">
-    	SELECT id, protocol_title, protocol_content, type 
+    	SELECT
+			id,
+			protocol_title,
+			protocol_content,
+			type
 		FROM weiit_saas_init.weiit_init_protocol  
 		order by id asc 
      </select> 
@@ -112,7 +129,12 @@
      
      <!-- 底部菜单表 查询 -->
 	<select id="selectPageBottomList" resultType="com.weiit.core.entity.E"  parameterType="map">
-    	SELECT id, nav_name, target_type, target_id, target_url 
+    	SELECT
+			id,
+			nav_name,
+			target_type,
+			target_id,
+			target_url
 		FROM weiit_saas_init.weiit_page_bottom_menu 
 		order by id asc 
 	</select> 
@@ -130,7 +152,11 @@
  
 	<!-- 全店风格表  查询 -->
 	<select id="selectPageGlobalList" resultType="com.weiit.core.entity.E"  parameterType="map">
-    	SELECT id, global_type, global_bg1, global_bg2 
+    	SELECT
+			id,
+			global_type,
+			global_bg1,
+			global_bg2
 		FROM weiit_saas_init.weiit_page_global  
 		order by id asc 
 	</select> 
@@ -148,7 +174,12 @@
      
     <!-- 导航  查询 -->
 	<select id="selectPageNavsList" resultType="com.weiit.core.entity.E"  parameterType="map">
-    	SELECT nav_id, nav_name, nav_url, nav_value, nav_icon_id  
+    	SELECT
+			nav_id,
+			nav_name,
+			nav_url,
+			nav_value,
+			nav_icon_id
 		FROM weiit_saas_init.weiit_page_navs  
 		order by nav_id asc 
 	</select> 
@@ -165,7 +196,13 @@
      
 	<!-- 商品属性与规格表  查询 -->
 	<select id="selectProductCustomList" resultType="com.weiit.core.entity.E"  parameterType="map">
-    	SELECT key_id as old_key_id, key_name, cate_id, token, type, parent_id 
+    	SELECT
+			key_id AS old_key_id,
+			key_name,
+			cate_id,
+			token,
+			type,
+			parent_id
 		FROM weiit_saas_init.weiit_product_custom_key 
 		where demo_id=#{demo_id} 
 		order by key_id asc 
@@ -186,10 +223,32 @@
      
 	<!-- 商品  查询 -->
 	<select id="selectProductList" resultType="com.weiit.core.entity.E"  parameterType="map">
-    	SELECT product_id as old_product_id, product_num, brand_id, cate_id_level1, cate_id_level2, cate_id_level3, 
-    		product_name, supply_price, smarket_price, sale_price, stock, product_img, sale_count, 
-    		purchase, spec_config, attribute_custom, spec_custom, integral, express_config, 
-    		express_money, express_template_id, weight, volume, is_on_sale, sort_num
+    	SELECT
+			product_id AS old_product_id,
+			product_num,
+			brand_id,
+			cate_id_level1,
+			cate_id_level2,
+			cate_id_level3,
+			product_name,
+			supply_price,
+			smarket_price,
+			sale_price,
+			stock,
+			product_img,
+			sale_count,
+			purchase,
+			spec_config,
+			attribute_custom,
+			spec_custom,
+			integral,
+			express_config,
+			express_money,
+			express_template_id,
+			weight,
+			volume,
+			is_on_sale,
+			sort_num
 		FROM weiit_saas_init.weiit_product 
 		where demo_id=#{demo_id} 
 		order by product_id asc 
@@ -197,13 +256,35 @@
  
      <!-- 商品  新增 -->
 	 <insert id="insertProduct"  parameterType="map">
-        insert into weiit_product  
-        (
-			product_num, brand_id, cate_id_level1, cate_id_level2, cate_id_level3, product_name, 
-			supply_price, smarket_price, sale_price, stock, product_img, sale_count, purchase, 
-			spec_config, attribute_custom, spec_custom, integral, express_config, express_money, 
-			express_template_id, weight, volume, is_on_sale, sort_num,create_time , update_time , shop_id
-        ) values (
+		 INSERT INTO weiit_product (
+			 product_num,
+			 brand_id,
+			 cate_id_level1,
+			 cate_id_level2,
+			 cate_id_level3,
+			 product_name,
+			 supply_price,
+			 smarket_price,
+			 sale_price,
+			 stock,
+			 product_img,
+			 sale_count,
+			 purchase,
+			 spec_config,
+			 attribute_custom,
+			 spec_custom,
+			 integral,
+			 express_config,
+			 express_money,
+			 express_template_id,
+			 weight,
+			 volume,
+			 is_on_sale,
+			 sort_num,
+			 create_time,
+			 update_time,
+			 shop_id
+		 ) values (
 			 #{product_num},#{brand_id},#{cate_id_level1},#{cate_id_level2},#{cate_id_level3},#{product_name},
 			 #{supply_price},#{smarket_price},#{sale_price},#{stock},#{product_img},#{sale_count},#{purchase},
 			 #{spec_config},#{attribute_custom},#{spec_custom},#{integral},#{express_config},#{express_money},
@@ -216,7 +297,13 @@
      
      	<!-- 商品描述  查询 -->
 	<select id="selectProductDescOne" resultType="com.weiit.core.entity.E"  parameterType="map">
-    	SELECT id, product_id, product_desc, is_deleted, create_time, update_time 
+    	SELECT
+			id,
+			product_id,
+			product_desc,
+			is_deleted,
+			create_time,
+			update_time
 		FROM weiit_saas_init.weiit_product_desc 
 		where product_id=#{product_id} 
 			and demo_id=#{demo_id} 
@@ -234,7 +321,15 @@
      
           	<!-- 商品图片  查询 -->
 	<select id="selectProductImagesList" resultType="com.weiit.core.entity.E"  parameterType="map">
-    	SELECT id, product_id, product_img, type, is_deleted, create_time, update_time, demo_id  
+    	SELECT
+			id,
+			product_id,
+			product_img,
+			type,
+			is_deleted,
+			create_time,
+			update_time,
+			demo_id
 		FROM weiit_saas_init.weiit_product_images 
 		where product_id=#{product_id} 
 			and demo_id=#{demo_id} 
@@ -254,8 +349,23 @@
      
 	<!-- 商品规格  查询 -->
 	<select id="selectProductItemList" resultType="com.weiit.core.entity.E"  parameterType="map">
-    	SELECT item_id as old_item_id, item_num, product_id, bar_code, bar_code_pic, qr_code_pic, spec_custom, 
-    		supply_price, smarket_price, sale_price, stock, is_disabled, is_deleted, create_time, update_time, demo_id  
+    	SELECT
+			item_id AS old_item_id,
+			item_num,
+			product_id,
+			bar_code,
+			bar_code_pic,
+			qr_code_pic,
+			spec_custom,
+			supply_price,
+			smarket_price,
+			sale_price,
+			stock,
+			is_disabled,
+			is_deleted,
+			create_time,
+			update_time,
+			demo_id
 		FROM weiit_saas_init.weiit_product_item 
 		where product_id=#{product_id} 
 			and demo_id=#{demo_id} 
@@ -280,8 +390,22 @@
      
     <!-- 砍价  查询 -->
 	<select id="selectUmpBargainList" resultType="com.weiit.core.entity.E"  parameterType="map">
-    	SELECT bargain_id, product_id, bargain_name, start_time, end_time, max_price, min_price, 
-    		cut_price_min, cut_price_max, item_id, bargain_hour, state, create_time, update_time, demo_id  
+    	SELECT
+			bargain_id,
+			product_id,
+			bargain_name,
+			start_time,
+			end_time,
+			max_price,
+			min_price,
+			cut_price_min,
+			cut_price_max,
+			item_id,
+			bargain_hour,
+			state,
+			create_time,
+			update_time,
+			demo_id
 		FROM weiit_saas_init.weiit_ump_bargain 
 		where product_id=#{product_id} 
 			and demo_id=#{demo_id} 
@@ -302,9 +426,31 @@
      
          <!-- 优惠券  查询 -->
 	<select id="selectUmpCouponList" resultType="com.weiit.core.entity.E"  parameterType="map">
-    	SELECT coupon_id, coupon_num, coupon_name, type, coupon_price, coupon_discount, random_min_price, 
-    		random_max_price, is_condition, condition_price, coupon_desc, use_type, from_day, to_day, 
-    		start_time, end_time, number, product_range_type, product_ids, state, max_limit, create_time, update_time, demo_id  
+    	SELECT
+			coupon_id,
+			coupon_num,
+			coupon_name,
+			type,
+			coupon_price,
+			coupon_discount,
+			random_min_price,
+			random_max_price,
+			is_condition,
+			condition_price,
+			coupon_desc,
+			use_type,
+			from_day,
+			to_day,
+			start_time,
+			end_time,
+			number,
+			product_range_type,
+			product_ids,
+			state,
+			max_limit,
+			create_time,
+			update_time,
+			demo_id
 		FROM weiit_saas_init.weiit_ump_coupon  
 		order by coupon_id asc 
 	</select> 
@@ -325,9 +471,24 @@
      
     <!-- 拼团  查询 -->
 	<select id="selectUmpGrouponList" resultType="com.weiit.core.entity.E"  parameterType="map">
-    	SELECT groupon_id, product_id, groupon_price, groupon_name, start_time, end_time, expire_time, 
-    		groupon_number, max_limit, virtual_groupon, head_discount, state, 
-    		create_time, update_time, is_delete, is_morespec, demo_id  
+    	SELECT
+			groupon_id,
+			product_id,
+			groupon_price,
+			groupon_name,
+			start_time,
+			end_time,
+			expire_time,
+			groupon_number,
+			max_limit,
+			virtual_groupon,
+			head_discount,
+			state,
+			create_time,
+			update_time,
+			is_delete,
+			is_morespec,
+			demo_id
 		FROM weiit_saas_init.weiit_ump_groupon 
 		where product_id=#{product_id} 
 			and demo_id=#{demo_id} 
@@ -350,7 +511,16 @@
           
     <!-- 商家物流   查询 -->
 	<select id="selectShopExpressList" resultType="com.weiit.core.entity.E"  parameterType="map">
-    	SELECT id, express_name, express_logo, type, create_time, update_time, express_id, is_deleted, demo_id  
+    	SELECT
+			id,
+			express_name,
+			express_logo,
+			type,
+			create_time,
+			update_time,
+			express_id,
+			is_deleted,
+			demo_id
 		FROM weiit_saas_init.weiit_shop_express   
 		order by id asc 
 	</select> 

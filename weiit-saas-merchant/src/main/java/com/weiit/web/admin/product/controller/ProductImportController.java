@@ -9,23 +9,21 @@ import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.product.service.ProductGroupService;
 import com.weiit.web.admin.product.service.ProductImportService;
 import com.weiit.web.admin.product.service.ProductService;
-//import com.weiit.web.admin.setting.service.ShippingService;
 import com.weiit.web.base.AdminController;
 import com.weiit.web.base.UIview;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
-
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.*;
+
 
 /**
  * 
@@ -42,8 +40,6 @@ public class ProductImportController  extends AdminController {
 	private ProductImportService productImportService;
 	@Resource
 	private ProductService productService;
-//	@Resource
-//	private ShippingService shippingService;
 	@Resource
 	private ProductGroupService productGroupService;
 	

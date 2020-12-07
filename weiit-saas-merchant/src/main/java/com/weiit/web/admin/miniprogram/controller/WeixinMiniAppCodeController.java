@@ -1,42 +1,28 @@
 package com.weiit.web.admin.miniprogram.controller;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
-import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
 import cn.binarywang.wx.miniapp.bean.WxMaDomainAction;
-import cn.binarywang.wx.miniapp.bean.code.*;
-import cn.binarywang.wx.miniapp.config.WxMaConfig;
-import cn.binarywang.wx.miniapp.config.WxMaInMemoryConfig;
+import cn.binarywang.wx.miniapp.bean.code.WxMaCategory;
+import cn.binarywang.wx.miniapp.bean.code.WxMaCodeAuditStatus;
+import cn.binarywang.wx.miniapp.bean.code.WxMaCodeSubmitAuditRequest;
 import cn.binarywang.wx.miniapp.util.json.WxMaGsonBuilder;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sun.imageio.plugins.common.ImageUtil;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.resource.common.utils.RedisUtil;
 import com.weiit.resource.common.utils.WeiitUtil;
-import com.weiit.resource.common.utils.XlsExcelUtil;
 import com.weiit.web.admin.miniprogram.service.WxMiniProgramService;
-import com.weiit.web.admin.setting.service.SettingService;
-import com.weiit.web.admin.weixin.mapper.WeixinPublicMapper;
 import com.weiit.web.admin.weixin.service.WeixinPublicService;
 import com.weiit.web.base.AdminController;
-import com.weiit.web.base.FrontController;
 import com.weiit.web.base.UIview;
-import com.weiit.web.common.Constants;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
 import me.chanjar.weixin.common.error.WxErrorException;
-import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
-import me.chanjar.weixin.mp.api.WxMpService;
-import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
-import me.chanjar.weixin.mp.bean.WxMpMassOpenIdsMessage;
 import me.chanjar.weixin.open.api.WxOpenService;
 import me.chanjar.weixin.open.bean.result.WxOpenAuthorizerInfoResult;
 import me.chanjar.weixin.open.bean.result.WxOpenQueryAuthResult;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,12 +32,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by 罗鸿强 on 2018/7/12.
@@ -71,9 +57,6 @@ public class WeixinMiniAppCodeController extends AdminController {
 
     @Resource
     WxMiniProgramService wxMiniProgramService;
-
-    @Resource
-    SettingService settingService;
 
     @Resource
     RedisUtil redisUtil;
@@ -234,6 +217,10 @@ public class WeixinMiniAppCodeController extends AdminController {
         return result;
     }
 
+    /**
+     * 保存引导页
+     *
+     * */
     @RequestMapping("/introSave")
     public UIview introSave() {
         FormMap formMap = getFormMap();
@@ -260,13 +247,20 @@ public class WeixinMiniAppCodeController extends AdminController {
         return result;
     }
 
+    /**
+     * 跳转新增引导页
+     *
+     * */
     @RequestMapping("/newIntroModal")
     public UIview newIntroModal() {
         UIview result = UIView("/center/miniprogram/newIntroModal", false);
         return result;
     }
 
-
+    /**
+     * 小程序发布页
+     *
+     * */
     @RequestMapping("/publishInfo")
     public UIview publishInfo(HttpServletResponse response) {
         FormMap formMap = getFormMap();
@@ -294,13 +288,15 @@ public class WeixinMiniAppCodeController extends AdminController {
 
 
     /**
+     *  添加小程序体验者
+     *  错误编码
      * 85001	微信号不存在或微信号设置为不可搜索
      * 85002	小程序绑定的体验者数量达到上限
      * 85003	微信号绑定的小程序体验者达到上限
      * 85004	微信号已经绑定
      */
 
-    //添加体验者
+
     @RequestMapping("addTestUser")
     public UIview addTestUser() {
         UIview result = UIView("publishInfo", true);
@@ -321,10 +317,9 @@ public class WeixinMiniAppCodeController extends AdminController {
     }
 
     /**
-     *
+     * 删除体验者
      *
      * */
-    //删除体验者
     @RequestMapping("delTestUser")
     public UIview delTestUser() {
         UIview result = UIView("publishInfo", true);
@@ -338,7 +333,8 @@ public class WeixinMiniAppCodeController extends AdminController {
 
 
     /**
-     * 发布小程序
+     * 设置小程序服务器域名
+     * 发布小程序知识
      * <p>
      * 1、设置小程序服务器域名
      * 授权给第三方的小程序，其服务器域名只可以为第三方的服务器，当小程序通过第三方发布代码上线后，小程序原先自己配置的服务器域名将被删除，
@@ -358,7 +354,7 @@ public class WeixinMiniAppCodeController extends AdminController {
      * https://api.weixin.qq.com/wxa/setwebviewdomain?access_token=TOKEN
      */
 
-    //、设置小程序服务器域名
+
     @RequestMapping("modifyDomain")
     @ResponseBody
     public void modifyDomain() {
@@ -371,21 +367,8 @@ public class WeixinMiniAppCodeController extends AdminController {
 
 
     /**
-     * 授权给第三方的小程序，其业务域名只可以为第三方的服务器，当小程序通过第三方发布代码上线后，小程序原先自己配置的业务域名将被删除，只保留第三方平台的域名，所以第三方平台在代替小程序发布代码之前，需要调用接口为小程序添加业务域名。
-     * 提示：
-     * 1、需要先将域名登记到第三方平台的小程序业务域名中，才可以调用接口进行配置。
-     * 2、为授权的小程序配置域名时支持配置子域名，例如第三方登记的业务域名如为qq.com，则可以直接将qq.com及其子域名（如xxx.qq.com）也配置到授权的小程序中。
-     * <p>
-     * 请求方式: POST（请使用https协议）
-     * https://api.weixin.qq.com/wxa/setwebviewdomain?access_token=TOKEN
-     * <p>
-     * 参数	说明
-     * access_token	            请使用第三方平台获取到的该小程序授权的authorizer_access_token
-     * action	                    add添加, delete删除, set覆盖, get获取。当参数是get时不需要填webviewdomain字段。如果没有action字段参数，则默认将开放平台第三方登记的小程序业务域名全部添加到授权的小程序中
-     * webviewdomain	            小程序业务域名，当action参数是get时不需要此字段
+     * 设置小程序业务域名（仅供第三方代小程序调用）
      */
-
-    //设置小程序业务域名（仅供第三方代小程序调用）
     @RequestMapping("setWebViewDomain")
     @ResponseBody
     public void setWebViewDomain() {
@@ -395,8 +378,9 @@ public class WeixinMiniAppCodeController extends AdminController {
         wxMiniProgramService.setWebViewDomain(formMap);
     }
 
-
-    //上传代码并提交
+    /**
+     * 上传代码并提交
+     */
     @RequestMapping("/uploadMiniCode")
     @ResponseBody
     public String uploadMiniCode() {
@@ -413,7 +397,7 @@ public class WeixinMiniAppCodeController extends AdminController {
 
 
     /**
-     *  上传代码
+     * 上传代码
      * 修改域名
      * */
     @RequestMapping("/uploadMiniCodeNoSubmit")
@@ -431,10 +415,7 @@ public class WeixinMiniAppCodeController extends AdminController {
     }
 
     /**
-     * status	审核状态，其中0为审核成功，1为审核失败，2为审核中
-     * reason	当status=1，审核被拒绝时，返回的拒绝原因
-     *
-     * 小程序体验二维码
+     * 获取小程序体验二维码
      */
     @RequestMapping("/getQrcode")
     @ResponseBody
@@ -447,12 +428,14 @@ public class WeixinMiniAppCodeController extends AdminController {
         return wxMiniProgramService.getQrcode(formMap);
     }
 
-
-    //获取授权小程序帐号的可选类目
-    @RequestMapping("get_category")
+    /**
+     * 获取授权小程序帐号的可选类目（开发用）
+     *
+     */
+    @RequestMapping("getCategory")
     @ResponseBody
-    public String get_category() {
-        logger.info("WeixinMiniAppCodeController-getQrcode,【获取授权小程序帐号的可选类目】");
+    public String getCategory() {
+        logger.info("WeixinMiniAppCodeController-getCategory,【获取授权小程序帐号的可选类目】");
         FormMap formMap = new FormMap();
         formMap.put("appid", "wx16abeb3ca941a985");
 
@@ -466,11 +449,13 @@ public class WeixinMiniAppCodeController extends AdminController {
     }
 
 
-    //获取小程序的第三方提交代码的页面配置
-    @RequestMapping(value = "get_page", method = RequestMethod.POST)
+    /**
+     * 获取小程序的第三方提交代码的页面配置（开发用）
+     * */
+    @RequestMapping(value = "getPage", method = RequestMethod.POST)
     @ResponseBody
-    public String get_page() {
-        logger.info("WeixinMiniAppCodeController-get_page,【获取小程序的第三方提交代码的页面配置】");
+    public String getPage() {
+        logger.info("WeixinMiniAppCodeController-getPage,【获取小程序的第三方提交代码的页面配置】");
 
         FormMap formMap = new FormMap();
         formMap.put("appid", "wxdde6d44348f138ca");
@@ -487,6 +472,7 @@ public class WeixinMiniAppCodeController extends AdminController {
 
 
     /**
+     * 将第三方提交的代码包提交审核(可单独升级某小程序，不用全平台升级)
      * access_token	请使用第三方平台获取到的该小程序授权的authorizer_access_token
      * item_list	提交审核项的一个列表（至少填写1项，至多填写5项）
      * address	小程序的页面，可通过“获取小程序的第三方提交代码的页面配置”接口获得
@@ -499,20 +485,17 @@ public class WeixinMiniAppCodeController extends AdminController {
      * third_id	三级类目的ID(同上)
      * title	小程序页面的标题,标题长度不超过32
      */
-
-    //将第三方提交的代码包提交审核
-    @RequestMapping("submit_audit")
+    @RequestMapping("submitAudit")
     @ResponseBody
-    public String submit_audit() {
-        logger.info("WeixinMiniAppCodeController-submit_audit,【将第三方提交的代码包提交审核】");
+    public String submitAudit() {
+        logger.info("WeixinMiniAppCodeController-submitAudit,【将第三方提交的代码包提交审核】");
         FormMap formMap = new FormMap();
         formMap.put("appid", "wx16abeb3ca941a985");
 
         WxMaService wxMaService = weixinOpenService.getInstance(formMap).getWxOpenComponentService().getWxMaServiceByAppid("wx16abeb3ca941a985");
 
-
-//        get_category();  获取可配的分类目录
-
+//        get_category();  获取可配的分类目录 （小程序可有多个分类类目，
+//        默认第一个目录认证时会审核失败，建议先获取目录分类，根据小程序上线场景（酒、化妆品类需相应分类资质）挂类目）
         WxMaCategory wxMaCategory = WxMaCategory.builder().firstClass("商家自营").address("pages/index/index").tag("食品").title("首页")
                 .firstId(304L)
                 .secondClass("食品")
@@ -534,7 +517,9 @@ public class WeixinMiniAppCodeController extends AdminController {
     }
 
 
-    //查询某个指定版本的审核状态
+    /**
+     * 查询某个小程序的某个指定版本的审核状态
+     * */
     @RequestMapping("getAuthStatus")
     @ResponseBody
     public String getAuthStatus() {
@@ -583,12 +568,11 @@ public class WeixinMiniAppCodeController extends AdminController {
         return "success";
     }
 
-    public static void main(String[] args) throws Exception {
-        System.out.println(WeiitUtil.getLogistics("YUNDA","3922010766623"));
-    }
 
 
-    //发布已通过审核的小程序
+    /**
+     * 发布已通过审核的小程序
+     * */
     @RequestMapping("release")
     @ResponseBody
     public String release() {
@@ -705,61 +689,5 @@ public class WeixinMiniAppCodeController extends AdminController {
         return  wxMaService.getSettingService().modifyDomain(getModifyDomain).toJson();
 
     }
-
-    @ResponseBody
-    @RequestMapping("addDomain")
-    public String addDomain() throws Exception {
-        FormMap formMap = getFormMap();
-        E miniPublicInfo = (E) this.getSession().getAttribute("miniPublicInfo");
-        formMap.putAll(miniPublicInfo);
-
-        formMap.put("appid","wxb47cdc920eda00d2");
-
-        WxMaService wxMaService = weixinOpenService.getOpenConfig().getWxOpenComponentService().getWxMaServiceByAppid("wxb47cdc920eda00d2");
-
-
-//        File file = weixinOpenService.getInstance(formMap).getWxOpenComponentService().getWxMaServiceByAppid(miniPublicInfo.getStr("authorizer_app_id")).getQrcodeService().createWxaCode("pages/index/index",225);
-//        WxMaService wxMaService = new WxMaServiceImpl();
-//
-//        WxMaInMemoryConfig wxMaInMemoryConfig = new WxMaInMemoryConfig();
-//        wxMaInMemoryConfig.setAppid("wxdde6d44348f138ca");
-//        wxMaInMemoryConfig.setSecret("d833c4fe415ced5b9a5b597c39568a7b");
-//        wxMaInMemoryConfig.setAesKey("weiit");
-//        wxMaService.setWxMaConfig(wxMaInMemoryConfig);
-//
-//
-//        WxMpService wxMpService = new WxMpServiceImpl();
-//        WxMpInMemoryConfigStorage wxMpInMemoryConfigStorage = new WxMpInMemoryConfigStorage();
-//        wxMpInMemoryConfigStorage.setAppId("登录微信公众平台查询APPID");
-//        wxMpInMemoryConfigStorage.setSecret("登录微信公众平台查询SECRET");
-//        wxMpService.setWxMpConfigStorage(wxMpInMemoryConfigStorage);
-//
-//        //第一个方法
-//        //获取code
-//        //redirectURI  接收code 的接口
-//        wxMpService.oauth2buildAuthorizationUrl("redirectURI","scope","state");
-//
-//        //第二个方法  接收code 的接口
-//        //通过code获取openId
-//        wxMpService.oauth2getAccessToken("code");
-
-//        File file = wxMaService.getQrcodeService().createWxaCode("pages/index/index",225);
-//        File file = wxMaService.getQrcodeService().createWxaCodeUnlimit("2259","pages/detail/detail");
-        File file = wxMaService.getQrcodeService().createQrcode("pages/detail/detail?shop_id=2259");
-        String qrCodePath = WeiitUtil.uploadFile(FileUtils.readFileToByteArray(file),"png");
-        logger.info("\n【qrCodePath is {}】",qrCodePath);
-        System.out.println(WeiitUtil.getFileDomain()+qrCodePath);
-//        List<String> requestDomain = new ArrayList();
-//        requestDomain.add("http://merchant.wstore.me/");
-//
-//        WxMaDomainAction getModifyDomain = WxMaDomainAction.builder().action("add")
-//                .requestDomain(requestDomain).uploadDomain(requestDomain).uploadDomain(requestDomain)
-//                .build();
-
-//        return  wxMaService.getSettingService().modifyDomain(getModifyDomain).toJson();
-        return  WeiitUtil.getFileDomain()+qrCodePath;
-
-    }
-
 
 }

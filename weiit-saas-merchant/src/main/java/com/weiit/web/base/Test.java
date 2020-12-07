@@ -1,12 +1,9 @@
 package com.weiit.web.base;
 
 
-import org.apache.commons.lang.StringUtils;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.weiit.core.entity.E;
-import com.weiit.resource.common.utils.WeiitUtil;
 
 
 public class Test {

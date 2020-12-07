@@ -4,10 +4,9 @@ import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.publics.service.PublicsService;
+import com.weiit.web.admin.setting.service.SettingService;
 import com.weiit.web.base.AdminController;
 import com.weiit.web.base.UIview;
-import com.weiit.web.admin.setting.service.SettingService;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
-
 import java.util.List;
 
 /**

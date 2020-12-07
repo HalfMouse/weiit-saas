@@ -1,24 +1,12 @@
 package com.weiit.web.admin.setting.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.weiit.core.mapper.BaseMapper;
+import com.weiit.core.service.impl.AbstractService;
+import com.weiit.web.admin.setting.mapper.ProtocolMapper;
+import com.weiit.web.admin.setting.service.ProtocolService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Service; 
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.weiit.core.entity.E;
-import com.weiit.core.entity.FormMap;
-import com.weiit.core.mapper.BaseMapper;
-import com.weiit.core.service.impl.AbstractService;  
-import com.weiit.web.admin.setting.mapper.AddressMapper;
-import com.weiit.web.admin.setting.mapper.ProtocolMapper;
-import com.weiit.web.admin.setting.service.AddressService;
-import com.weiit.web.admin.setting.service.ProtocolService;
 
 
 /**
