@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "邀请好友",
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

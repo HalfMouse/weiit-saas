@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "砍价",
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

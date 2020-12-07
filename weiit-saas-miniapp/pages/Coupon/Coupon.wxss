@@ -1,0 +1,11 @@
+/* pages/Coupon/Coupon.wxss */
+@import "../template/template.wxss";
+
+.noCoupons {
+  width: 100%;
+  height: 80vh;
+  text-align: center;
+  line-height: 60vh;
+  font-size: 30rpx;
+  color: #333;
+}

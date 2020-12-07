@@ -1,0 +1,47 @@
+<!-- 砍价 -->
+<view class='address_people' wx:if='{{defaultAdd!=""}}' bindtap='address'>
+  <view class='iconfont icon-dizhi'></view>
+  <view class='address_name'>{{defaultAdd.consignee}}
+    <text class='tel'>{{defaultAdd.phone}}</text>
+  </view>
+  <view class='adress_content'>
+    <text>{{defaultAdd.province}}</text>
+    <text>{{defaultAdd.city}}</text>
+    <text>{{defaultAdd.district}}</text>{{defaultAdd.address_detail}}</view>
+  <view class='iconfont icon-youjiantouda'></view>
+</view>
+<view class='fill_in' bindtap='address' wx:else>请填写收件人信息
+  <text class='iconfont icon-youjiantouda'></text>
+</view>
+<!-- 拼团商品 -->
+<view class='carlist'>
+  <image class='carlist_img' src='http://wstore-1255653546.image.myqcloud.com{{car_content.img}}'></image>
+  <view class='carlist_title'>{{car_content.title}}</view>
+  <view class='carlist_size'>{{car_content.spec_content}}</view>
+  <view class='carlist_money'>￥{{car_content.sale_price}}</view>
+  <view class='carlist_num'>
+    <view bindtap='reduce_num'>-</view>
+    <view class='car_num'>{{car_content.count}}</view>
+    <view bindtap='add_num'>+</view>
+  </view>
+</view>
+  <!-- 支付方式 -->
+  <view class='paymentBox'>
+    <view class='wechat' wx:for='{{payment_method}}' bindtap='getValue' data-index='{{index}}'>
+      <view class='{{item.is_radio?"selectRadio":"radios"}}'></view>
+      <view class='iconfont icon-icon-test'></view>
+      <image class='img' src='{{item.imgs}}'></image>
+      <view class='titles'>{{item.name}}</view>
+      <text>{{item.title}}</text>
+    </view>
+  </view>
+<!-- 底部付款 -->
+<view class='payment'>
+  <view class='Actual'>实付款:
+    <text>￥{{(car_content.sale_price*car_content.count)+freight}}</text>
+  </view>
+  <view class='total'>运费:￥{{freight}}</view>
+  <!-- <view class='replace'>找人代付</view> -->
+  <view class='sub_Order' style='background-color:{{btnColor.global_bg1}}' bindtap='sub_order'>立即付款</view>
+</view>
+<sliders></sliders>

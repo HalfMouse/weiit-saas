@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.task.mapper.UserCouponMapper">
+  	  
+    <update id="edit" parameterType="map">
+		update weiit_ump_coupon_user SET state=#{update_state} ,update_time=now()
+			WHERE state=#{state} 
+		<if test="end_time!=null and end_time!=''">
+           AND end_time &lt; #{end_time}
+        </if>
+        <if test="start_time!=null and start_time!=''">
+           AND start_time &lt; #{start_time}
+        </if>
+	</update>
+	
+	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT ca.cart_id , ca.update_time , pr.product_name , us.wx_open_id, 
+        	info.authorizer_id ,info.authorizer_app_id, info.service_type_info , ms.wx_template_id
+			FROM weiit_user_cart ca , weiit_product pr, weiit_user us , weiit_weixin_public_info info  
+		    , weiit_weixin_public_template_msg ms , weiit_weixin_public_template_type tt
+		where  ca.product_id=pr.product_id and ca.user_id=us.user_id and ca.shop_id=info.shop_id 
+			and us.open_id_type=info.service_type_info and info.authorizer_id=ms.authorizer_id 
+			and ms.template_type_id=tt.template_type_id and  ms.state=1 
+		 	and tt.business_type=#{business_type} 
+			and ca.update_time &lt; #{end_time} 
+	</select>
+	
+	<delete id="remove" parameterType="map">
+		delete from weiit_user_cart 
+			WHERE update_time &lt; #{end_time} 
+	</delete>
+</mapper>

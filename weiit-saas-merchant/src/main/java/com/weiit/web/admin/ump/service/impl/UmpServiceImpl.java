@@ -4,11 +4,15 @@ import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.mapper.BaseMapper;
 import com.weiit.core.service.impl.AbstractService;
+import com.weiit.web.admin.ump.mapper.BargainMapper;
 import com.weiit.web.admin.ump.mapper.UmpMapper;
+import com.weiit.web.admin.ump.service.BargainService;
 import com.weiit.web.admin.ump.service.UmpService;
+
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+
 import java.util.List;
 
 

@@ -5,12 +5,16 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.task.core.log.TaskLogger;
 import com.weiit.web.admin.order.service.OrdersService;
 import com.weiit.web.admin.publics.service.ParameterService;
+//import com.weiit.web.admin.setting.service.ExpressService;
 import com.weiit.web.admin.setting.service.ExpressService;
+import com.weiit.web.admin.util.DateUtil;
 import com.weiit.web.base.AdminController;
 import com.weiit.web.base.UIview;
 import com.weiit.web.weixinopen.service.MessageService;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-
-//import com.weiit.web.admin.setting.service.ExpressService;
 
 /**
  * 订单管理 
@@ -185,12 +187,14 @@ public class OrderController extends AdminController {
     public UIview starOrderList() {
     	logger.info("进入 OrderController-starOrderList,加星订单"); 
     	FormMap formMap = getFormMap();
+//    	List<E> expressList= expressService.selectList(formMap);
     	formMap.put("star_state", 1);
 		PageHelper.startPage(formMap.getPage(), formMap.getRows());
 		List list = ordersService.selectList(formMap);
 		UIview result=UIView("/center/order/starOrderList",false);
 		result.addObject("pageInfo", new PageInfo<E>(list));
 		result.addObject("queryParam", formMap); 
+//		result.addObject("expressList", expressList);
 		result.addObject("expressList", null);
 		return result;
     }

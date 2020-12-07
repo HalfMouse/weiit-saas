@@ -1,0 +1,70 @@
+/* pages/productGroup/productGroup.wxss */
+
+page {
+  color: #333;
+}
+
+.productTitle {
+  height: 90rpx;
+  line-height: 90rpx;
+  margin: 0 auto;
+  font-size: 32rpx;
+  text-align: center;
+  position: relative;
+  background-color: #fff;
+}
+
+.productTitle view {
+  float: left;
+}
+
+.productTitle .left, .productTitle .right {
+  width: 100rpx;
+  height: 2rpx;
+  background-color: #333;
+  position: absolute;
+  top: 44rpx;
+}
+
+.productTitle .left {
+  left: 100rpx;
+}
+
+.productTitle .right {
+  right: 100rpx;
+}
+
+.productBox {
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.productList {
+  width: 48vw;
+  float: left;
+  margin: 10rpx 1vw;
+  background-color: #fff;
+}
+
+.productList image {
+  width: 48vw;
+  height: 48vw;
+}
+
+.productList .titles {
+  width: 46vw;
+  padding: 0 1vw;
+  font-size: 28rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  height: 75rpx;
+}
+
+.productList .sale_price {
+  color: #ec4531;
+  font-size: 28rpx;
+  padding: 10rpx 0;
+  padding-left: 1vw;
+}

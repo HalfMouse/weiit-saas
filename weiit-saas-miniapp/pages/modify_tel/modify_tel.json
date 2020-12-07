@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "修改手机号",
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

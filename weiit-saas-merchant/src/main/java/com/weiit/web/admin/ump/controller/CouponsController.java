@@ -7,6 +7,7 @@ import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.resource.common.utils.WeiitQrCodeUtil;
 import com.weiit.resource.common.utils.WeiitUtil;
+import com.weiit.web.admin.publics.mapper.ParameterMapper;
 import com.weiit.web.admin.publics.service.ParameterService;
 import com.weiit.web.admin.ump.service.CouponService;
 import com.weiit.web.admin.util.DateUtil;
@@ -15,6 +16,9 @@ import com.weiit.web.base.AdminController;
 import com.weiit.web.base.UIview;
 import com.weiit.web.common.Constants;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
+
+import me.chanjar.weixin.common.error.WxErrorException;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -26,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+
 import java.io.File;
 import java.util.Date;
 import java.util.List;

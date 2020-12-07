@@ -1,0 +1,30 @@
+<!-- 图文导航 -->
+<view class='ification'>
+  <view wx:if='{{pageParam.play=="nav" &&pageParam.iconPos=="top"}}' class='modu' wx:for='{{pageParam.navList}}' style='width:{{100/(pageParam.navList.length)}}% '>
+    <form bindsubmit='nav_jump' report-submit='submit'>
+      <button plain='true' form-type='submit' data-pageId='{{item.validate_id}}' data-url='{{item.url}}'></button>
+      <image class='modu_icon' src='{{item.img}}' style='width:{{pageParam.iconSize*2}}rpx;height: {{pageParam.iconSize*2}}rpx '></image>
+      <view class='modu_name'>{{item.navText}}</view>
+    </form>
+  </view>
+  <view wx:if='{{pageParam.play=="nav" &&pageParam.iconPos=="left" }}' class='imgleft ' wx:for='{{pageParam.navList}}' style='width:{{100/(pageParam.navList.length)}}%'>
+    <form bindsubmit='nav_jump' report-submit='submit'>
+      <button plain='true' form-type='submit' data-pageId='{{item.validate_id}}' data-url='{{item.url}}'></button>
+      <image class='modu_icon' src='{{item.img}}' style='width:{{pageParam.iconSize*2}}rpx;height: {{pageParam.iconSize*2}}rpx'></image>
+      <view class='modu_name'>{{item.navText}}</view>
+    </form>
+  </view>
+  <view wx:if='{{pageParam.play=="nav" &&pageParam.iconPos=="no"}}' class='noimg' wx:for='{{pageParam.navList}}' style='width:{{100/(pageParam.navList.length)}}%'>
+    <form bindsubmit='nav_jump' report-submit='submit'>
+      <button plain='true' form-type='submit' data-pageId='{{item.validate_id}}' data-url='{{item.url}}'></button>
+      <view class='modu_name'>{{item.navText}}</view>
+    </form>
+  </view>
+  <view wx:if='{{pageParam.play=="sort"}}' class='halfmodu' wx:for='{{pageParam.navList}}'>
+    <form bindsubmit='nav_jump' report-submit='submit'>
+      <button plain='true' form-type='submit' data-pageId='{{item.validate_id}}' data-url='{{item.url}}'></button>
+      <image class='modu_icon' src='{{item.img}}' style='width:{{pageParam.iconSize*2}}rpx;height: {{pageParam.iconSize*2}}rpx'></image>
+      <view class='modu_name'>{{item.navText}}</view>
+    </form>
+  </view>
+</view>

@@ -1,0 +1,40 @@
+<!-- 记录页面 -->
+<import src="../template/template.wxml" />
+<!--导航条-->
+<view class="navbar">
+  <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text>
+</view>
+<!--全部-->
+<view hidden="{{currentTab!==0}}" class='bar'>
+  <block wx:for='{{bill}}'>
+    <view class='category'>
+      <view class='mode'>{{item.remark}}</view>
+      <text decode='true' class='time'>{{time[index]}}</text>
+      <view class='{{item.balance>=0?"green":"num"}}'>
+        <text wx:if='{{item.balance>=0}}'>+</text>{{item.balance}}</view>
+    </view>
+  </block>
+</view>
+<!--已支出-->
+<view hidden="{{currentTab!==1}}" class='bar'>
+  <block wx:for='{{expenditure}}'>
+    <view class='category'>
+      <view class='mode'>{{item.remark}}</view>
+      <text decode='true' class='time'>{{ex_time[index]}}</text>
+      <view class='{{item.balance>=0?"green":"num"}}'>
+        <text wx:if='{{item.balance>=0}}'>+</text>{{item.balance}}</view>
+    </view>
+  </block>
+</view>
+<!--已收入-->
+<view hidden="{{currentTab!==2}}" class='bar'>
+  <block wx:for='{{income}}'>
+    <view class='category'>
+      <view class='mode'>{{item.remark}}</view>
+      <text decode='true' class='time'>{{come_time[index]}}</text>
+      <view class='{{item.balance>=0?"green":"num"}}'>
+        <text wx:if='{{item.balance>=0}}'>+</text>{{item.balance}}</view>
+    </view>
+  </block>
+</view>
+<sliders></sliders>

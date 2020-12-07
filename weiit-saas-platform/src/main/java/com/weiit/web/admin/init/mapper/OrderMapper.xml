@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.init.mapper.OrderMapper">
+ 	
+	<!-- 订单列表查询    -->
+	<select id="selectOrderList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+    	select 
+	    	oo.order_id, 
+	    	oo.order_num, 
+	    	oo.create_time, 
+	    	oo.pay_time, 
+    		oo.state, 
+    		oo.total_price, 
+    		oo.pay_price, 
+    		si.shop_name 
+		from weiit_order oo ,  weiit_shop si  
+		where   oo.shop_id = si.shop_id  
+        <if test="shop_name !=null and shop_name !='' ">
+			and si.shop_name like concat('%', #{shop_name}, '%')
+		</if>
+		<if test="order_num !=null and order_num !='' ">
+			and oo.order_num like concat('%', #{order_num}, '%')
+		</if>
+		<if test="startTime !=null and startTime !='' ">     
+            <![CDATA[ and  date(oo.create_time) >= date(#{startTime}) ]]> 
+        </if>
+        <if test="endTime !=null and endTime !='' ">     
+            <![CDATA[ and  date(oo.create_time) <= date(#{endTime}) ]]>
+        </if> 
+        <if test="role_sign !=null and role_sign =='USER' ">   
+ 			and oo.shop_id in (select s.shop_id from weiit_shop s,weiit_merchant m where s.mrch_id=m.mrch_id and m.create_manager_id=#{manager_id} ) 
+		</if>
+        order by oo.create_time desc 
+    </select>
+    
+    
+   	<!-- 数据统计 商家会员总数，订单交易总数，交易总金额，商家数    -->
+	<select id="selectShopOrderCount"  resultType="com.weiit.core.entity.E"  parameterType="map">
+    	select
+	       ( select count(*) from weiit_user where 1=1 
+	      	<if test="role_sign !=null and role_sign =='USER' ">   
+  				and shop_id in (select s.shop_id from weiit_shop s,weiit_merchant m where s.mrch_id=m.mrch_id and m.create_manager_id=#{manager_id} ) 
+			</if>
+		    ) user_count,
+	       (select count(*) from weiit_order where state not in(-1,0) 
+	      	<if test="role_sign !=null and role_sign =='USER' ">   
+  				and shop_id in (select s.shop_id from weiit_shop s,weiit_merchant m where s.mrch_id=m.mrch_id and m.create_manager_id=#{manager_id} ) 
+			</if>
+	        ) order_count,
+	       (select sum(pay_price) from weiit_order where state not in(-1,0) 
+	      	<if test="role_sign !=null and role_sign =='USER' ">   
+  				and shop_id in (select s.shop_id from weiit_shop s,weiit_merchant m where s.mrch_id=m.mrch_id and m.create_manager_id=#{manager_id} ) 
+			</if>
+	       ) price_sum,
+	       ( select count(*) from weiit_merchant where is_deleted=0  
+	       	<if test="role_sign !=null and role_sign =='USER' ">   
+  				and create_manager_id=#{manager_id} 
+			</if>
+	       ) shop_count 
+         from 
+         dual 
+    </select>
+    
+     <!-- 查询  付款订单 和 金额 的折线图 -->
+    <select id="selectOrderSurveyList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			DATE_FORMAT(pay_time,'%Y%m%d') months, 
+			count(*) payCount, 
+			sum(pay_price) paySum
+		from weiit_order  
+			where  state not in(-1,0)  
+		<if test="startTime !=null and startTime != '' ">
+			<![CDATA[ and  date(pay_time) >= date(#{startTime}) ]]> 
+		</if>
+		<if test="endTime !=null and endTime != '' ">
+			<![CDATA[ and  date(pay_time) <= date(#{endTime}) ]]> 
+		</if>
+		<if test="role_sign !=null and role_sign =='USER' ">   
+ 			and shop_id in (select s.shop_id from weiit_shop s,weiit_merchant m where s.mrch_id=m.mrch_id and m.create_manager_id=#{manager_id} ) 
+		</if>
+		group by months  order by months asc 
+	</select>
+    
+    <!-- 查询 交易排名 前10 -->
+    <select id="selectShopOrderList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			oo.order_id,
+			si.shop_name, 
+			count(*) payCount, 
+			sum(oo.pay_price) paySum
+		from weiit_order oo,weiit_shop si  
+        where oo.shop_id = si.shop_id and oo.state not in(-1,0) 
+        <if test="startTime !=null and startTime != '' ">
+			<![CDATA[ and  date(oo.pay_time) >= date(#{startTime}) ]]> 
+		</if>
+		<if test="endTime !=null and endTime != '' ">
+			<![CDATA[ and  date(oo.pay_time) <= date(#{endTime}) ]]> 
+		</if>
+		<if test="role_sign !=null and role_sign =='USER' ">     
+           and oo.shop_id in (select s.shop_id from weiit_shop s,weiit_merchant m where s.mrch_id=m.mrch_id and m.create_manager_id=#{manager_id} ) 
+        </if>
+         group by oo.shop_id,si.shop_name  order by payCount desc limit 10 
+	</select>
+
+
+	<select id="selectUserAddressById" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+		id,
+		consignee,
+		province,
+		city,
+		district,
+		address_detail,
+		zip_code,
+		tel,
+		phone,
+		is_default
+		from weiit_user_address
+		where id=#{address_id}
+	</select>
+
+
+	<!-- 添加订单-->
+	<insert id="insertOrder" parameterType="map" useGeneratedKeys="true" keyProperty="order_id">
+		insert into weiit_order
+		(
+		order_num,
+		check_num,
+		total_price,
+		pay_price,
+		user_id,
+		user_name,
+		address_id,
+		payment_type,
+		consignee,
+		address,
+		phone,
+		order_type,
+		remark,
+		express_type,
+		express_money,
+		state,
+		create_time,
+		update_time,
+		pay_time,
+		deliver_time,
+		shop_id
+		)
+		values
+		(
+		#{order_num},
+		#{check_num},
+		#{total_price},
+		#{pay_price},
+		#{user_id},
+		#{user_name},
+		#{address_id},
+		#{payment_type},
+		#{consignee},
+		#{address},
+		#{phone},
+		#{order_type},
+		#{remark},
+		#{express_type},
+		#{express_money},
+		#{state},
+		now(),
+		now(),
+		now(),
+		now(),
+		#{shop_id}
+		)
+	</insert>
+
+	<!-- 添加订单详情记录 -->
+	<insert id="insertOrderItem" parameterType="map">
+		insert into weiit_order_item
+		(
+		product_id,
+		product_name,
+		product_img,
+		smarket_price,
+		sale_price,
+		pay_price,
+		count,
+		spec_content,
+		item_id,
+		order_id,
+		order_num,
+		create_time,
+		update_time,
+		shop_id
+		)
+		values
+		(
+		#{product_id},
+		#{product_name},
+		#{product_img},
+		#{smarket_price},
+		#{sale_price},
+		#{pay_price},
+		#{count},
+		#{spec_content},
+		#{item_id},
+		#{order_id},
+		#{order_num},
+		now(),
+		now(),
+		#{shop_id}
+		)
+	</insert>
+
+	<select id="getProductItemById" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+		spec_custom
+		FROM
+		weiit_product_item
+		WHERE
+		item_id = #{item_id}
+	</select>
+
+	<select id="getSpecInfoByIds" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+		*
+		FROM
+		weiit_product_custom_key
+		WHERE
+		key_id IN
+		<foreach collection="keyIds" index="index" item="key_id" open="(" separator="," close=")">
+			#{key_id}
+		</foreach>
+	</select>
+
+	<update id="updateProductStock" parameterType="map">
+		update weiit_product
+		set
+		stock=stock-#{count},
+		sale_count=sale_count+#{count}
+		where
+		product_id=#{product_id}
+	</update>
+
+	<update id="updateItemStock" parameterType="map">
+		update weiit_product_item
+		set
+		stock=stock-#{count}
+		where
+		item_id	= #{item_id}
+	</update>
+
+	<select id="userInfo" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+		user_id,
+		user_account,
+		user_name,
+		user_phone,
+		user_img,
+		user_sex,
+		balance
+		from
+		weiit_user u
+		where u.user_id=#{user_id}
+	</select>
+
+	<insert id="insertBalance" parameterType="map">
+		insert into weiit_user_balance_log
+		(
+		user_id,
+		user_name,
+		balance,
+		last_balance,
+		origin_id,
+		remark,
+		type,
+		state,
+		create_time,
+		update_time,
+		shop_id
+		)
+		values
+		(
+		#{user_id},
+		#{user_name},
+		#{balance},
+		#{last_balance},
+		#{origin_id},
+		#{logRemark},
+		#{type},
+		#{state},
+		now(),
+		now(),
+		#{shop_id}
+		)
+	</insert>
+
+	<!-- 修改会员信息 -->
+	<update id="updateUserInfo" parameterType="map">
+		update  weiit_user
+		set
+		<if test="balance !=null and balance !='' ">
+			balance=#{balance},
+		</if>
+		update_time=now()
+		where user_id=#{user_id}
+	</update>
+</mapper>

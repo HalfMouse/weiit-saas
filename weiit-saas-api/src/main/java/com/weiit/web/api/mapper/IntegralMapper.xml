@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.api.mapper.IntegralMapper">
+
+	<select id="selectIntegralProductList" parameterType="map" resultType="com.weiit.core.entity.E">
+		   SELECT
+			   wuip.integral_id AS  validate_id,
+			   wuip.sale_price,
+			   wuip.integral,
+			   wuip.integral_price,
+			   wuip.max_limit,
+			   wuip.start_time,
+			   wuip.end_time,
+			   wp.product_name,
+			   wp.product_img
+		   FROM weiit_ump_integral_product wuip
+		   LEFT JOIN weiit_product wp ON wuip.product_id = wp.product_id
+		   WHERE wuip.shop_id=#{shop_id} AND wuip.state=0
+			<if test="product_name!=null and product_name!=''">
+				AND wp.product_name LIKE concat('%', #{product_name}, '%')
+			</if>
+		order BY integral_id DESC
+	</select>
+
+
+	<select id="selectIntegralLogList" parameterType="map" resultType="com.weiit.core.entity.E">
+		   SELECT
+			*
+		   FROM weiit_user_integral_log
+		   WHERE user_id=#{user_id}  order BY id DESC
+	</select>
+
+	<insert id="insert" parameterType="map" useGeneratedKeys="true" keyProperty="i_order_id">
+		insert into weiit_ump_integral_order
+			(
+				integral_id,
+				user_id,
+				product_id,
+				item_id,
+				count,
+				pay_price,
+				integral,
+				address_id,
+				express_money,
+				express_template_id,
+				payment_type,
+				order_num,
+				start_time,
+				state,
+				shop_id
+			)
+			values
+			(
+				#{integral_id},
+				#{user_id},
+				#{product_id},
+				#{item_id},
+				#{count},
+				#{pay_price},
+				#{integral},
+				#{address_id},
+				#{express_money},
+				#{express_template_id},
+				#{payment_type},
+				#{order_num},
+				now(),
+				#{state},
+				#{shop_id}
+				)
+	</insert>
+
+	<select id="selectById" parameterType="map" resultType="com.weiit.core.entity.E">
+		   SELECT
+		       wuip.product_id,
+		       wuip.item_id,
+			   wuip.sale_price,
+			   wuip.integral,
+			   wuip.integral_price,
+			   wuip.max_limit,
+			   wuip.start_time,
+			   wuip.end_time,
+			   wp.product_name,
+			   wp.product_img,
+			   wp.smarket_price,
+			   wp.sale_price
+		   FROM weiit_ump_integral_product wuip
+		   LEFT JOIN weiit_product wp ON wuip.product_id = wp.product_id
+		   WHERE wuip.shop_id=#{shop_id} AND wuip.integral_id=#{validate_id} AND wuip.state=0
+	</select>
+
+	<select id="selectList" parameterType="map" resultType="com.weiit.core.entity.E">
+		   SELECT
+		       wuip.product_id,
+		       wuip.item_id,
+			   wuip.integral,
+			   wuip.pay_price,
+			   wuip.order_num,
+			   wuip.state,
+			   wuip.count,
+			   wp.product_name,
+			   wp.product_img,
+			   wp.smarket_price,
+			   wp.sale_price
+		   FROM weiit_ump_integral_order wuip
+		   LEFT JOIN weiit_product wp ON wuip.product_id = wp.product_id
+		   WHERE wuip.shop_id=#{shop_id} AND wuip.user_id=#{user_id}
+		   ORDER BY wuip.start_time DESC
+	</select>
+
+	<select id="selectByOrderNum" parameterType="map" resultType="com.weiit.core.entity.E">
+		   SELECT
+		       wuip.product_id,
+		       wuip.item_id,
+			   wuip.sale_price,
+			   wuip.integral,
+			   wuip.integral_price,
+			   wuip.max_limit,
+			   wuip.start_time,
+			   wuip.end_time
+		   FROM weiit_ump_integral_product wuip
+		   WHERE wuip.order_num=#{order_num}
+	</select>
+
+	<select id="selectOrderByOrderNum" parameterType="map" resultType="com.weiit.core.entity.E">
+		   SELECT
+		      wuio.i_order_id,
+		      wuio.integral_id,
+		      wuio.user_id,
+		      wuio.product_id,
+		      wuio.count,
+		      wuio.pay_price,
+		      wuio.integral,
+		      wuio.address_id,
+		      wuio.express_money,
+		      wuio.express_template_id,
+		      wuio.payment_type,
+		      wuio.order_num,
+		      wuio.payment_type,
+		      wuio.item_id,
+		      wuio.shop_id,
+		      wp.product_name,
+		      wp.product_img,
+		      wp.smarket_price
+		   FROM weiit_ump_integral_order wuio
+		   LEFT JOIN weiit_product wp ON wuio.product_id = wp.product_id
+		   WHERE wuio.order_num=#{order_num}
+	</select>
+
+
+	<select id="selectPayInfoByOrderNum" parameterType="map" resultType="com.weiit.core.entity.E">
+		   SELECT
+		       wuip.product_id,
+		       wuip.item_id,
+			   wuip.sale_price,
+			   wuip.integral,
+			   wuip.integral_price,
+			   wuip.max_limit,
+			   wuip.start_time,
+			   wuip.end_time
+		   FROM weiit_ump_integral_product wuip
+		   WHERE wuip.order_num=#{order_num}
+	</select>
+
+
+	<select id="selectHasBuyCount" parameterType="map" resultType="java.lang.Integer">
+		   SELECT
+		      COALESCE(SUM(count),0)
+		   FROM weiit_ump_integral_order
+		   WHERE
+		   state=1 AND user_id=#{user_id}
+	</select>
+
+
+	<select id="getMchKeyByOrderNum" parameterType="map" resultType="java.lang.Integer">
+		  SELECT
+			ww.partner_key,
+			wu.user_id,
+			wo.order_id
+		FROM
+			weiit_ump_integral_order wo,
+			weiit_user wu,
+			weiit_shop_payment ww
+		WHERE
+		 wo.order_num=#{_parameter}
+		AND wo.user_id=wu.user_id
+		AND wu.open_id_type = ww.type
+		AND wo.shop_id=ww.shop_id
+	</select>
+
+
+	<select id="selectShopParamByCode" parameterType="map" resultType="com.weiit.core.entity.E">
+		  SELECT
+			*
+		FROM
+			weiit_shop_parameter
+		WHERE
+			shop_id=#{shop_id} AND item_code=#{item_code} AND item_name=#{item_name} limit 1
+	</select>
+
+
+	<select id="selectShopParamList" parameterType="map" resultType="com.weiit.core.entity.E">
+		  SELECT
+			*
+		FROM
+			weiit_shop_parameter
+		WHERE
+			shop_id=#{shop_id} AND item_code=#{item_code} AND state=0
+	</select>
+
+	<update id="updateIntegralById" parameterType="map">
+		update  weiit_ump_integral_order
+		<set>
+			<if test="state!=null">
+				state=#{state},
+			</if>
+			<if test="pay_price!=null and pay_price!=''">
+				pay_price=#{pay_price},
+			</if>
+			<if test="pay_time!=null and pay_time!=''">
+				pay_time=#{pay_time},
+			</if>
+		</set>
+
+		where i_order_id=#{i_order_id} and user_id=#{user_id}
+	</update>
+
+
+
+	
+</mapper>

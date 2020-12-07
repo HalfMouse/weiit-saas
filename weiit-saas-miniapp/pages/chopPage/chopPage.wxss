@@ -1,0 +1,527 @@
+/* pages/chopPage/chopPage.wxss */
+@import "../logo/logo.wxss";
+
+page {
+  background-color: #fff7d3;
+}
+
+.pages {
+  background-color: #fff7d3;
+  padding-bottom: 20rpx;
+  position: relative;
+}
+
+/* 活动规则 */
+
+.rule {
+  width: 150rpx;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 30rpx;
+  border-radius: 20rpx;
+  position: absolute;
+  top: 20rpx;
+  right: 30rpx;
+  z-index: 2;
+}
+
+/* 规则内容 */
+
+.rulePage {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 3;
+}
+
+.ruleBox {
+  width: 597rpx;
+  height: 730rpx;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 70rpx 0 2% 0;
+  background-color: #f4564a;
+  font-size: 32rpx;
+  border-radius: 10rpx;
+  z-index: 4;
+}
+
+.ruleBox .icon-cha1 {
+  font-size: 40rpx;
+  color: #fff;
+  position: absolute;
+  top: 10rpx;
+  right: 10rpx;
+}
+
+.ruleTitle {
+  height: 100rpx;
+  border-bottom: 1rpx solid #999;
+  text-align: center;
+}
+
+.ruleTitle image {
+  width: 278rpx;
+  height: 77rpx;
+  margin: 0 auto;
+}
+
+.ruleTitle view {
+  width: 278rpx;
+  height: 77rpx;
+  text-align: center;
+  line-height: 77rpx;
+  margin: 0 auto;
+  margin-top: -77rpx;
+  z-index: 3;
+  color: #c6000a;
+  font-size: 30rpx;
+}
+
+.ruleBox .content {
+  width: 514rpx;
+  height: 580rpx;
+  overflow: auto;
+  margin: 0 auto;
+  text-indent: 2em;
+  padding-top: 20rpx;
+  font-size: 24rpx;
+  color: #fff;
+  line-height: 40rpx;
+}
+
+.content view {
+  margin-bottom: 20rpx;
+}
+
+/* 背景 */
+
+.pageCon {
+  height: 700rpx;
+  position: relative;
+}
+
+.back {
+  width: 100%;
+  height: 700rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.user_pic {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  z-index: 1;
+  position: absolute;
+  top: 20rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.top {
+  width: 90%;
+  padding-top: 70rpx;
+  padding-bottom: 10rpx;
+  background-color: #fff;
+  border-radius: 20rpx;
+  position: absolute;
+  left: 50%;
+  top: 80rpx;
+  transform: translateX(-50%);
+}
+
+.top .user_name {
+  text-align: center;
+  font-size: 32rpx;
+  color: #666;
+}
+
+.top .find {
+  text-align: center;
+  font-size: 34rpx;
+  color: #333;
+}
+
+.top .baby_list {
+  width: 96%;
+  margin: 15rpx auto;
+  background-color: #f5f5f5;
+  height: 200rpx;
+  position: relative;
+}
+
+.top .baby_list .baby_img {
+  width: 150rpx;
+  height: 150rpx;
+  margin-top: 25rpx;
+  margin-left: 20rpx;
+}
+
+.top .baby_list .baby_title {
+  width: 430rpx;
+  font-size: 30rpx;
+  color: #333;
+  position: absolute;
+  top: 25rpx;
+  left: 200rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.top .baby_list .baby_price {
+  color: #f44;
+  font-size: 30rpx;
+  position: absolute;
+  top: 130rpx;
+  left: 200rpx;
+}
+
+.top .baby_list .baby_price text {
+  font-size: 38rpx;
+  font-weight: 600;
+}
+
+.top .baby_list .people_num {
+  font-size: 28rpx;
+  color: #aaa;
+  position: absolute;
+  top: 135rpx;
+  right: 30rpx;
+}
+
+/* 运费 */
+
+.freight {
+  font-size: 20rpx;
+  color: #aaa;
+  position: absolute;
+  bottom: 0rpx;
+  right: 30rpx;
+}
+
+/* 已砍多少元、还剩多少元 */
+
+.rest {
+  width: 650rpx;
+  text-align: center;
+  color: #eb423d;
+  font-size: 36rpx;
+  position: absolute;
+  top: 480rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.rest text {
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+/* 分享按钮 */
+
+.share {
+  width: 80%;
+  height: 90rpx;
+  text-align: center;
+  line-height: 90rpx;
+  border-radius: 10rpx;
+  background-color: #fde84d;
+  font-size: 36rpx;
+  color: #f44;
+  position: absolute;
+  top: 540rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 还剩多少时间 */
+
+.remainingTime {
+  width: 90%;
+  text-align: center;
+  font-size: 32rpx;
+  color: #f44;
+  position: absolute;
+  bottom: 20rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 参与砍价的用户列表 */
+
+.user_list {
+  width: 90%;
+  margin: 20rpx auto;
+  padding-bottom: 20rpx;
+  border-radius: 10rpx;
+  background-color: #f7ebc7;
+}
+
+.user_list .list_top {
+  text-align: center;
+  position: relative;
+  line-height: 80rpx;
+  font-size: 32rpx;
+}
+
+.user_list .list_top .top_back {
+  width: 100%;
+  height: 3rpx;
+  position: absolute;
+  top: 40rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 用户列表 */
+
+.user_list .list {
+  width: 100%;
+  height: 140rpx;
+  color: #333;
+  font-size: 30rpx;
+  position: relative;
+}
+
+.user_list .list .users_img {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 55rpx;
+  margin-top: 15rpx;
+  margin-left: 10rpx;
+}
+
+.user_list .list .users_name, .user_list .list .users_title {
+  position: absolute;
+  top: 26rpx;
+  left: 134rpx;
+}
+
+.user_list .list .users_title {
+  top: 80rpx;
+}
+
+.user_list .list .num {
+  color: #eb423d;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 立即购买 */
+
+.nowBuy {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 60rpx;
+  background-color: #fde84d;
+  color: #eb423d;
+}
+
+/* 支付方式 */
+
+.commodity_attr_box {
+  height: 600rpx;
+}
+
+.payment {
+  margin-top: 20rpx;
+  background-color: #fff;
+}
+
+.wechat {
+  height: 100rpx;
+  position: relative;
+  background-color: #fff;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.radios {
+  width: 34rpx;
+  height: 34rpx;
+  border-radius: 50%;
+  border: 1rpx solid #d5d5d5;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 20rpx;
+  transform: translateY(-50%);
+}
+
+.selectRadio {
+  width: 34rpx;
+  height: 34rpx;
+  border-radius: 50%;
+  border: 1rpx solid #09bb07;
+  background-color: #09bb07;
+  position: absolute;
+  top: 50%;
+  left: 20rpx;
+  transform: translateY(-50%);
+}
+
+.icon-icon-test {
+  font-size: 28rpx;
+  color: #fff;
+  position: absolute;
+  left: 25rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.wechat:last-child {
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.wechat radio {
+  position: absolute;
+  top: 45%;
+  left: 20rpx;
+  transform: scale(0.8) translateY(-50%);
+}
+
+.wechat .img {
+  width: 70rpx;
+  height: 70rpx;
+  position: absolute;
+  left: 90rpx;
+  top: 15rpx;
+}
+
+.wechat .titles {
+  font-size: 30rpx;
+  color: #333;
+  position: absolute;
+  top: 11rpx;
+  left: 180rpx;
+}
+
+.wechat text {
+  font-size: 24rpx;
+  color: #999;
+  position: absolute;
+  bottom: 14rpx;
+  left: 180rpx;
+}
+
+/* 确定支付方式 */
+
+.Determine {
+  height: 90rpx;
+  width: 90%;
+  position: absolute;
+  bottom: 20rpx;
+  left: 5%;
+  text-align: center;
+  line-height: 90rpx;
+  border-radius: 10rpx;
+  background-color: #ffdc4b;
+}
+
+/* 底部推荐宝贝列表 */
+
+.list_box {
+  width: 96%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.list_box .product {
+  width: 49.5%;
+  height: 400rpx;
+  background-color: #fff;
+  float: left;
+  margin-bottom: 1%;
+  position: relative;
+}
+
+.list_box .product:nth-child(even) {
+  margin-left: 1%;
+}
+
+.product_img {
+  display: block;
+  width: 94%;
+  height: 230rpx;
+  margin: 10rpx auto;
+}
+
+.product_title {
+  font-size: 32rpx;
+  padding: 0 10rpx;
+  color: #333;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.product_price {
+  color: #f44;
+  font-size: 32rpx;
+  position: absolute;
+  bottom: 14rpx;
+  left: 10rpx;
+}
+
+.product_price text {
+  font-size: 38rpx;
+  margin-left: -10rpx;
+}
+
+.product_num {
+  font-size: 30rpx;
+  color: #777;
+  position: absolute;
+  bottom: 14rpx;
+  right: 20rpx;
+}
+
+/* 进入页面时显示 */
+
+.mask {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-color: #000;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 3;
+  position: fixed;
+  top: 0;
+}
+
+.prompt {
+  width: 600rpxp;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 200rpx;
+  padding-top: 100rpx;
+  position: relative;
+}
+
+.prompt text {
+  font-size: 60rpx;
+  padding: 0 10rpx;
+  margin-left: -10rpx;
+  color: #f44;
+}
+
+.prompt .icon-cha1 {
+  color: #fff;
+  font-size: 60rpx;
+  position: absolute;
+  top: 0;
+  right: 20rpx;
+}

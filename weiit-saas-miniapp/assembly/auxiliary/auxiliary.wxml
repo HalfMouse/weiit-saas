@@ -1,0 +1,1 @@
+<view class='{{pageParam.haveMargin=="have_margin"?"guides":"guide"}}' style='margin:;border:4rpx {{pageParam.manner}} {{pageParam.lineColor}}'></view>

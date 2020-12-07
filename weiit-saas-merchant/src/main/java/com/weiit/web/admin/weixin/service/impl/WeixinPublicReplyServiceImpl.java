@@ -6,9 +6,11 @@ import com.weiit.core.mapper.BaseMapper;
 import com.weiit.core.service.impl.AbstractService;
 import com.weiit.web.admin.weixin.mapper.WeixinPublicReplyMapper;
 import com.weiit.web.admin.weixin.service.WeixinPublicReplyService;
+
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+
 import java.util.List;
 
 /**

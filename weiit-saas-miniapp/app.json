@@ -1,0 +1,87 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/detail/detail",
+    "pages/productGroup/productGroup",
+    "pages/indexCopy/indexCopy",
+    "pages/search/search",
+    "pages/category/category",
+    "pages/Personal/Personal",
+    "pages/collageList/collageList",
+    "pages/commodityList/commodityList",
+    "pages/car/car",
+    "pages/logo/logo",
+    "pages/shopCar/shopCar",
+    "pages/buySuccess/buySuccess",
+    "pages/recharge/recharge",
+    "pages/chopPage/chopPage",
+    "pages/invite/invite",
+    "pages/cutCar/cutCar",
+    "pages/Collage/Collage",
+    "pages/myList/myList",
+    "pages/after_sale/after_sale",
+    "pages/userInfo/userInfo",
+    "pages/add_info/add_info",
+    "pages/test_tel/test_tel",
+    "pages/modify_tel/modify_tel",
+    "pages/Set_up/Set_up",
+    "pages/order_details/order_details",
+    "pages/logistics/logistics",
+    "pages/teams/teams",
+    "pages/Template_/Template_",
+    "pages/Order/Order",
+    "pages/Receive_coupons/Receive_coupons",
+    "pages/Progress/Progress",
+    "pages/Withdrawals/Withdrawals",
+    "pages/add_address/add_address",
+    "pages/address/address",
+    "pages/Collection/Collection",
+    "pages/vip_detail/vip_detail",
+    "pages/Opinion/Opinion",
+    "pages/VIP/VIP",
+    "pages/Coupon/Coupon",
+    "pages/refund_detail/refund_detail",
+    "pages/ReturnGoods/ReturnGoods",
+    "pages/integral/integral",
+    "pages/Record/Record",
+    "pages/template/template",
+    "pages/wallet/wallet",
+    "pages/logs/logs",
+    "pages/IntegralMall/IntegralMall",  
+    "pages/IntegralRule/IntegralRule",
+    "pages/IntegralDetail/IntegralDetail",
+    "pages/IntegralCar/IntegralCar",
+    "pages/IntegralList/IntegralList",
+    "pages/Forward/Forward",
+    "pages/goodde/goodde"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#333",
+    "selectedColor": "#ec534e",
+    "borderStyle": "black",
+    "list": [
+      {
+        "selectedIconPath": "images/homes.png",
+        "iconPath": "images/home.png",
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "images/fenleis.png",
+        "iconPath": "images/fenlei.png",
+        "pagePath": "pages/category/category",
+        "text": "特惠"
+      },
+      {
+        "selectedIconPath": "images/gerens.png",
+        "iconPath": "images/geren.png",
+        "pagePath": "pages/Personal/Personal",
+        "text": "个人中心"
+      }
+    ]
+  }
+}

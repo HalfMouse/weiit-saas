@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.init.mapper.ShopMapper">
+ 	
+ 	<!-- 商户列表 查询 -->
+ 	<select id="selectList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT 
+	    	m.mrch_id, 
+	    	m.mrch_id as validate_id , 
+    		m.account, 
+    		m.password, 
+    		m.description, 
+    		m.type, 
+    		m.locked, 
+    		m.state, 
+    		m.is_deleted, 
+		    m.create_manager_id, 
+		    m.create_time, 
+		    m.update_time,
+		    m.version_num,
+		    (select version_name from weiit_init_version where version_num=m.version_num) as version_name,
+		    m.version_begin_time,
+		    m.version_expire_time,
+		    sh.shop_id, 
+		    sh.shop_name, 
+		    ce.name as auth_name,
+		    ce.auth_no, 
+		    ce.state as c_state,
+		    ( select manager_name from system_manager where manager_id=m.create_manager_id) as create_manager_name,
+		    ( select manager_name from system_manager where manager_id=m.update_manager_id) as update_manager_name
+		FROM weiit_merchant m left join weiit_shop sh  on m.mrch_id=sh.mrch_id 
+        left join weiit_shop_certification ce on sh.shop_id=ce.shop_id  
+        where  m.is_deleted=0 
+        <if test="account !=null and account !='' ">
+			and m.account like concat('%', #{account}, '%')
+		</if> 
+		<if test="shop_name !=null and shop_name !='' ">
+			and sh.shop_name like concat('%', #{shop_name}, '%')
+		</if>
+		<if test="search_manager_name !=null and search_manager_name !='' ">
+			 and exists (select manager_id from system_manager  where manager_id=m.create_manager_id and manager_name like concat('%', #{search_manager_name}, '%')  )
+		</if> 
+		<if test="role_sign !=null and role_sign =='USER' ">     
+            and m.create_manager_id=#{manager_id}
+        </if>
+        order by m.create_time desc 
+    </select>
+     
+     <!-- 商户信息 查询单条 -->
+ 	<select id="selectOne"  resultType="com.weiit.core.entity.E"  parameterType="map">
+       SELECT 
+	       si.shop_id, 
+	       si.shop_id as validate_id,
+	       si.shop_name,
+	       ce.auth_type, 
+	       ce.name as auth_name, 
+	       ce.auth_no, 
+	       ce.business_img, 
+	       ce.idcard_front_img, 
+	       ce.idcard_back_img ,
+	       ce.state as c_state
+		FROM weiit_shop si , weiit_shop_certification ce 
+		where si.shop_id=ce.shop_id 
+			and si.shop_id=#{shop_id} 
+		<if test="role_sign !=null and role_sign =='USER' ">   
+ 			and si.shop_id in (select s.shop_id from weiit_shop s,weiit_merchant m where s.mrch_id=m.mrch_id and m.create_manager_id=#{manager_id} ) 
+		</if>
+    </select>
+     
+      <!-- 商户信息 新增  -->
+	 <insert id="insert"  parameterType="map" useGeneratedKeys="true" keyProperty="shop_id">
+        insert into weiit_shop  
+        (
+			shop_num, 
+			shop_name,
+			shop_logo, 
+			create_time, 
+			update_time, 
+			mrch_id
+        )
+        values
+        (
+			#{shop_num},
+			#{shop_name},
+			'/wstore_saas/2018-07-28/c587107e-099d-4528-a7ab-44bbf58934d9.png',
+			now(),
+			now(), 
+			#{validate_id}
+        );
+		 <selectKey resultType="int" keyProperty="shop_id" >  
+        	SELECT  LAST_INSERT_ID() shop_id 
+         </selectKey>
+     </insert>
+     
+     <!-- 商户信息 修改 -->
+     <update id="edit"   parameterType="map">
+        update weiit_shop 
+        set 
+	        update_time=now(),
+	 		shop_name=#{shop_name} 
+        where  shop_id=#{shop_id} and mrch_id=#{validate_id} 
+        <if test="role_sign !=null and role_sign =='USER' ">   
+ 			and shop_id in (select s.shop_id from weiit_shop s,weiit_merchant m where s.mrch_id=m.mrch_id and m.create_manager_id=#{manager_id} ) 
+		</if>
+    </update>
+    
+    
+      <!-- 商户认证信息 插入 -->
+	 <insert id="insertCert"  parameterType="map">
+        insert into weiit_shop_certification   
+        (
+			auth_type, 
+			name, 
+			auth_no, 
+			business_img, 
+			idcard_front_img, 
+			idcard_back_img, 
+			is_deleted, 
+			create_time, 
+			update_time, 
+			state,
+			shop_id 
+        )
+        values
+        (
+			#{auth_type},
+			#{name},
+			#{auth_no},
+			#{business_img},
+			#{idcard_front_img},
+			#{idcard_back_img},
+			0,
+			now(),
+			now(),
+			-1, 
+			#{shop_id} 
+        )
+     </insert>
+     
+     <!-- 商户认证信息 修改 -->
+     <update id="editCert"   parameterType="map">
+        update weiit_shop_certification 
+        set 
+	        update_time=now() ,
+	 		auth_type=#{auth_type} ,
+	 		name=#{name},
+	 		auth_no=#{auth_no},
+	 		business_img=#{business_img} ,
+	 		idcard_front_img=#{idcard_front_img} ,
+	 		idcard_back_img=#{idcard_back_img},
+	 		state=-1 
+        where  shop_id=#{shop_id}  
+        <if test="role_sign !=null and role_sign =='USER' ">   
+ 			and shop_id in (select s.shop_id from weiit_shop s,weiit_merchant m where s.mrch_id=m.mrch_id and m.create_manager_id=#{manager_id} ) 
+		</if>
+    </update>
+ 
+     <update id="editShopCertificationState"   parameterType="map">
+        update weiit_shop_certification 
+        set 
+	        update_time=now() ,
+	 		state=#{state}
+        where  shop_id=#{shop_id}  
+        <if test="role_sign !=null and role_sign =='USER' ">   
+ 			and shop_id in (select s.shop_id from weiit_shop s,weiit_merchant m where s.mrch_id=m.mrch_id and m.create_manager_id=#{manager_id} ) 
+		</if>
+    </update>
+    
+     <!-- 商户账号 查询 单条 -->
+ 	<select id="selectMerchantOne"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        SELECT 
+	        mrch_id, 
+	        mrch_id as validate_id, 
+	        account, 
+	        password, 
+	        description, 
+	        type, 
+	        locked, 
+	        state, 
+	        is_deleted, 
+	        version_num,
+		    version_begin_time,
+		    version_expire_time,
+        	create_manager_id, 
+        	update_manager_id, 
+        	create_time, 
+        	update_time 
+		FROM weiit_merchant 
+		where  
+			is_deleted=0 
+			and mrch_id=#{validate_id} 
+		<if test="role_sign !=null and role_sign =='USER' ">     
+	        and create_manager_id=#{manager_id} 
+	    </if>
+    </select>
+    
+    <!-- 根据商户的账户查询 -->
+    <select id="selectMerchantByAccount"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        SELECT 
+	        mrch_id, 
+	        mrch_id as validate_id, 
+	        account, 
+	        password, 
+	        description, 
+	        type, 
+	        locked, 
+	        state, 
+	        is_deleted, 
+	        version_num,
+		    version_begin_time,
+		    version_expire_time,
+        	create_manager_id, 
+        	update_manager_id, 
+        	create_time, 
+        	update_time 
+		FROM weiit_merchant 
+		where  
+			is_deleted=0 
+			and account=#{account} 
+		<if test="role_sign !=null and role_sign =='USER' ">     
+	        and create_manager_id=#{manager_id} 
+	    </if>
+	    limit 1
+    </select>
+     
+      <!-- 商户账号 新增 -->
+	 <insert id="insertMerchant"  parameterType="map" useGeneratedKeys="true" keyProperty="mrch_id">
+        insert into weiit_merchant 
+        (
+			account, 
+			password, 
+			description, 
+			type, 
+			locked, 
+			state, 
+			is_deleted, 
+			version_num,
+			version_begin_time,
+			version_expire_time,
+        	create_manager_id, 
+        	update_manager_id, 
+        	create_time, 
+        	update_time 
+        )
+        values
+        (
+			#{account},
+			#{password},
+			#{description},
+			#{type},
+			0,
+			0,
+			0,
+			#{version_num},
+			now(),
+			date_add(now(), interval #{day} day),
+			#{manager_id}, 
+			#{manager_id},
+			now(),
+			now()
+        );
+		 <selectKey resultType="int" keyProperty="mrch_id" >  
+        	SELECT  LAST_INSERT_ID() mrch_id 
+         </selectKey>
+     </insert>
+     
+    <!-- 商户账号 登录 是否 锁定 -->
+	<update id="editMerchantLocked"   parameterType="map">
+        update weiit_merchant 
+        set
+	        update_manager_id= #{manager_id} ,
+	        update_time=now(), 
+	 		locked=#{locked} 
+        where  mrch_id=#{validate_id}  
+         <if test="role_sign !=null and role_sign =='USER' ">     
+            and create_manager_id=#{manager_id} 
+        </if>
+     </update>
+    
+    <!-- 查询用户提出的建议信息 -->
+	<select id="selectSuggestList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT 
+			us.id, 
+			us.id as validate_id, 
+			us.suggest, 
+			us.user_id, 
+			us.user_name, 
+			us.create_time, 
+			us.shop_id, 
+			s.shop_name 
+		FROM weiit_user_suggest us, weiit_shop s 
+		where  s.shop_id=us.shop_id 
+        <if test="user_name !=null and user_name !='' ">     
+            and  us.user_name  like concat('%', #{user_name}, '%') 
+        </if>
+        <if test="role_sign !=null and role_sign =='USER' ">   
+ 			and s.shop_id in (select s.shop_id from weiit_shop s,weiit_merchant m where s.mrch_id=m.mrch_id and m.create_manager_id=#{manager_id} ) 
+		</if>
+        order by us.create_time desc 
+	</select>
+	
+	<!-- 用户已经反馈删除     -->
+	<delete id="removeSuggest" parameterType="map">
+		delete from weiit_user_suggest  
+		where id=#{validate_id} 
+		<if test="role_sign !=null and role_sign =='USER' ">   
+ 			and shop_id in (select s.shop_id from weiit_shop s,weiit_merchant m where s.mrch_id=m.mrch_id and m.create_manager_id=#{manager_id} ) 
+		</if>
+	</delete>
+	
+	<!-- 查询需要待通知的运营中心的手机号码 -->
+	<select id="selectNotifyPhoneByBusinessType" resultType="com.weiit.core.entity.E"  parameterType="map">   
+        SELECT 
+       		*
+    	FROM system_notify_phone v 
+		where business_type=#{business_type} limit 1
+     </select>
+</mapper>

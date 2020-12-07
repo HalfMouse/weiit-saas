@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.login.mapper.LoginMapper">
+	 
+	 
+ 	 <select id="selectOne"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        select
+	        manager_id,
+			manager_name,
+			account_name,
+			password,
+			description,
+			create_by,
+			create_time,
+			update_time,
+			type,
+			parent_id,
+			locked,
+			state,
+			is_deleted ,
+			(select sr.role_sign from system_role sr, system_manager_role ro 
+				where sr.role_id=ro.role_id 
+					and ro.manager_id=sm.manager_id ) as role_sign 
+        from 
+        system_manager sm
+        where 
+        	1=1 
+        	and is_deleted=0 
+        <if test="manager_id!=null">
+       		and manager_id=#{manager_id}
+        </if>
+        <if test="account_name!=null and account_name!=''">
+       		and account_name=#{account_name} 
+        </if>
+    </select>
+    
+     
+    <select id="selectShopByManagerId" resultType="com.weiit.core.entity.E"  parameterType="map">
+     	select shop_id from shop_manager where manager_id=#{manager_id}
+    </select>
+     
+    <select id="selectDeveloperManagerByManagerId" resultType="com.weiit.core.entity.E"  parameterType="map">
+     	select app_id from system_manager_developer where manager_id=#{manager_id}
+    </select>
+    
+    <select id="selectShopInfo" resultType="com.weiit.core.entity.E"  parameterType="map">
+     	select * from weiit_open_shops where shop_id=#{shop_id}
+    </select>
+    
+    <!-- 新增业务 ,查询管理员余额清单-->
+    <select id="selectSystemManagerBalanceList" resultType="com.weiit.core.entity.E"  parameterType="map">
+     	select 
+	     	id,
+			num,
+			balance,
+			last_balance,
+			remark,
+			type,
+			state,
+			create_time,
+			update_time,
+ 			(select manager_name from system_manager where manager_id=b.manager_id) as manager_name,
+ 			manager_id
+     	from system_manager_balance b
+     	where 
+     	manager_id=#{manager_id}
+     	<if test="type!=null and type!=''">
+       		and type=#{type} 
+        </if>
+        order by create_time desc
+    </select>
+    
+    <!-- 查询最后余额 -->
+    <select id="selectSystemManagerLastBalance" resultType="com.weiit.core.entity.E"  parameterType="map">
+     	select 
+	     	last_balance
+     	from system_manager_balance b
+     	where 
+     	manager_id=#{manager_id}
+     	order by create_time desc
+     	limit 1
+    </select>
+    
+    <!-- 查询最后余额 -->
+    <select id="selectSystemManagerLastBalanceByValidateId" resultType="com.weiit.core.entity.E"  parameterType="map">
+     	select 
+	     	last_balance
+     	from system_manager_balance b
+     	where 
+     	manager_id=#{validate_id}
+     	order by create_time desc
+     	limit 1
+    </select>
+    
+    <!-- 预存余额 -->
+     <insert id="insertManagerBalance"  parameterType="map">
+        insert into system_manager_balance 
+        (
+			num,
+			balance,
+			last_balance,
+			remark,
+			type,
+			state,
+			create_time,
+			update_time,
+			manager_id
+        )
+        values
+        (
+			#{num},
+			#{balance},
+			#{last_balance},
+			#{remark},
+			#{type},
+			#{state},
+			now(),
+			now(),
+			#{validate_id} 
+        )
+     </insert>
+</mapper>

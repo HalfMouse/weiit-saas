@@ -1,0 +1,245 @@
+/* pages/after_sale/after_sale.wxss */
+
+.babylist {
+  position: relative;
+  height: 210rpx;
+  background-color: #fff;
+  margin-bottom: 10rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.bacylist_img {
+  width: 155rpx;
+  height: 155rpx;
+  position: absolute;
+  left: 30rpx;
+  top: 30rpx;
+}
+
+.com_nums {
+  width: 155rpx;
+  height: 40rpx;
+  text-align: center;
+  line-height: 40rpx;
+  background-color: #000;
+  opacity: 0.6;
+  color: #fff;
+  font-size: 30rpx;
+  position: absolute;
+  left: 30rpx;
+  top: 155rpx;
+}
+
+.babylist_title {
+  font-size: 30rpx;
+  color: #333;
+  width: 370rpx;
+  position: absolute;
+  top: 30rpx;
+  left: 200rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.babylist_money {
+  font-size: 28rpx;
+  color: #333;
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+}
+
+.baby_start {
+  text-align: center;
+  text-decoration: line-through;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.baby_size {
+  font-size: 28rpx;
+  color: #333;
+  position: absolute;
+  top: 140rpx;
+  left: 200rpx;
+}
+
+.type {
+  font-size: 30rpx;
+  color: #333;
+  padding: 0 20rpx;
+  background-color: #fff;
+  height: 90rpx;
+  margin: 5rpx 0;
+  line-height: 90rpx;
+}
+
+.option {
+  font-size: 28rpx;
+  color: #333;
+  float: right;
+}
+
+.refund_money {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 90rpx;
+  background-color: #fff;
+  margin-top: 14rpx;
+  margin-bottom: 20rpx;
+  padding: 0 20rpx;
+}
+
+.refund_money text {
+  font-size: 28rpx;
+}
+
+.max {
+  line-height: 100rpx;
+  padding: 0 20rpx;
+  color: #999;
+}
+
+.Explain {
+  font-size: 30rpx;
+  color: #333;
+  overflow: hidden;
+  line-height: 90rpx;
+  background-color: #fff;
+  padding: 0 20rpx;
+}
+
+.Explain view, .Explain input {
+  height: 90rpx;
+  float: left;
+}
+
+.Explain input {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.evidence {
+  padding: 20rpx;
+  margin-top: 20rpx;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.evidence .sub, .evidence .preview {
+  float: left;
+}
+
+.upload {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.sub, .preview_img {
+  width: 140rpx;
+  height: 140rpx;
+  text-align: center;
+  color: #d9d9d9;
+  font-size: 24rpx;
+  margin: 30rpx 20rpx 20rpx 0;
+  border: 1rpx dotted #999;
+}
+
+.preview_img {
+  border: 1rpx solid #999;
+}
+
+.sub .icon-zhaoxiangji {
+  font-size: 50rpx;
+  line-height: 70rpx;
+}
+
+.sub_btn {
+  width: 90%;
+  margin: 50rpx auto;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  background-color: #ffdc4b;
+  color: #fff;
+  font-size: 36rpx;
+  border-radius: 15rpx;
+}
+
+.commodity_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.8;
+  overflow: hidden;
+  z-index: 1000;
+  color: #fff;
+}
+
+.commodity_attr_box {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2000;
+  background: #fff;
+}
+
+.com_box {
+  height: 500rpx;
+}
+
+.com_title {
+  line-height: 100rpx;
+  font-size: 34rpx;
+  font-weight: bold;
+  text-align: center;
+}
+
+.comlist {
+  margin: 0 20rpx;
+  color: #666;
+  line-height: 90rpx;
+  height: 90rpx;
+  font-size: 30rpx;
+  border-bottom: 1rpx solid #ddd;
+  position: relative;
+}
+
+.select, .selectBox {
+  width: 42rpx;
+  height: 42rpx;
+  border: 1rpx solid #999;
+  border-radius: 22rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 25rpx;
+}
+
+.selectBox {
+  border: 1rpx solid #ffdc4b;
+}
+
+.selectSon {
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 15rpx;
+  background-color: #ffdc4b;
+  position: absolute;
+  right: 6rpx;
+  top: 6rpx;
+}
+.son{
+  display: none
+}
+.comlistmin {
+  font-size: 26rpx;
+  color: #999;
+  margin-top: -40rpx;
+}

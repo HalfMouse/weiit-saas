@@ -1,0 +1,557 @@
+/* pages/template/template.wxss */
+
+/* 商品列表 */
+
+.wares_list {
+  overflow: hidden;
+}
+
+.list_head {
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: #fff;
+  text-align: center;
+  position: relative;
+}
+
+.more {
+  position: absolute;
+  right: 20rpx;
+  top: 0rpx;
+  font-size: 32rpx;
+  color: #ec534e;
+}
+
+.icon-youjiantouda {
+  font-size: 30rpx;
+  font-weight: bold;
+}
+
+
+.list_num {
+  width: 48vw;
+  float: left;
+  height: 68vw;
+  overflow: hidden;
+  margin: 1vw;
+  position: relative;
+  background-color: #fff;
+}
+
+.Box_img {
+  width: 48vw;
+  height: 48vw;
+}
+
+.Box_img .list_img {
+  width: 100%;
+  height: 100%;
+}
+
+.list_title {
+  font-size: 30rpx;
+  padding: 0 20rpx;
+  padding-top: 16rpx;
+  height: 75rpx;
+  color: #333;
+  line-height: 40rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.list_money {
+  font-size: 28rpx;
+  padding-left: 20rpx;
+  color: #ec534e;
+  position: absolute;
+  bottom: 12rpx;
+}
+
+.list_money text {
+  font-size: 22rpx;
+}
+
+/* .add_car {
+  width: 60rpx;
+  height: 60rpx;
+  color: #aaa;
+  font-weight: bold;
+  line-height: 60rpx;
+  text-align: center;
+  border-radius: 30rpx;
+  border: 1rpx solid #aaa;
+  position: absolute;
+  right: 15rpx;
+  bottom: 10rpx;
+} */
+
+/* 我的订单 */
+
+.Business_name {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  background-color: #fff;
+}
+
+.top {
+  height: 80rpx;
+  padding-left: 25rpx;
+  line-height: 80rpx;
+  position: relative;
+  background-color: #fff;
+}
+
+.state {
+  width: 180rpx;
+  height: 80rpx;
+  text-align: right;
+  line-height: 80rpx;
+  padding-right: 20rpx;
+  color: rgba(236, 83, 78, 1);
+  position: absolute;
+  top: 0rpx;
+  right: 4rpx;
+}
+
+.baby_name {
+  background-color: #f5f5f5;
+  height: 180rpx;
+  position: relative;
+}
+
+.baby_img {
+  width: 140rpx;
+  height: 140rpx;
+  position: absolute;
+  top: 20rpx;
+  left: 40rpx;
+}
+
+.com_nums {
+  width: 140rpx;
+  height: 40rpx;
+  text-align: center;
+  line-height: 40rpx;
+  background-color: #000;
+  opacity: 0.6;
+  color: #fff;
+  font-size: 30rpx;
+  position: absolute;
+  left: 40rpx;
+  top: 120rpx;
+}
+
+.title {
+  width: 400rpx;
+  font-size: 24rpx;
+  position: absolute;
+  top: 20rpx;
+  left: 200rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.Size {
+  font-size: 22rpx;
+  position: absolute;
+  color: #666;
+  left: 200rpx;
+  bottom: 20rpx;
+}
+
+.baby_Price {
+  font-size: 26rpx;
+  color: #333;
+  position: absolute;
+  right: 20rpx;
+  top: 20rpx;
+}
+
+.Original_price {
+  text-decoration: line-through;
+  color: rgba(153, 153, 153, 1);
+  font-size: 24rpx;
+  text-align: center;
+}
+
+.refund_option {
+  padding-left: 40rpx;
+  border-bottom: 1rpx solid #f3f3f3;
+  line-height: 60rpx;
+}
+
+.bom {
+  background-color: #fff;
+  font-size: 24rpx;
+  color: #333;
+}
+
+.Settlement {
+  text-align: right;
+  padding-right: 20rpx;
+  line-height: 60rpx;
+}
+
+.freight {
+  font-size: 24rpx;
+}
+
+.money {
+  margin-right: 10rpx;
+  color: #222;
+  font-size: 26rpx;
+}
+
+.btn {
+  height: 80rpx;
+  position: relative;
+  font-size: 24rpx;
+}
+
+button[plain] {
+  line-height: 48rpx;
+  position: absolute;
+  top: 14rpx;
+  padding: 0 15rpx;
+}
+
+button[class=logistics] {
+  height: 48rpx;
+  border: 1rpx solid #666;
+  right: 180rpx;
+  font-size: 24rpx;
+}
+
+button[class=confirm] {
+  background-color: rgba(255, 220, 75, 1);
+  right: 30rpx;
+  font-size: 24rpx;
+  color: #fff;
+}
+
+button[class=details_btn] {
+  border: 1rpx solid #000;
+  right: 30rpx;
+}
+
+.empty {
+  text-align: center;
+  padding-top: 250rpx;
+  font-size: 32rpx;
+  color: #666;
+}
+
+.car {
+  width: 240rpx;
+  margin-bottom: 40rpx;
+}
+
+.Prompt {
+  padding-bottom: 100rpx;
+}
+
+.jump_home {
+  color: #fff;
+  width: 90%;
+  background: rgba(255, 220, 75, 1);
+}
+
+.jump_home:hover {
+  color: #fff;
+}
+
+/* 什么是积分、什么是余额 */
+
+.explain {
+  width: 609rpx;
+  height: 150rpx;
+  margin-left: 54rpx;
+  border-radius: 30rpx;
+  box-shadow: 0rpx 0rpx 2rpx 2rpx rgba(221, 221, 221, 1);
+  padding: 60rpx 30rpx 30rpx 30rpx;
+  font-size: 32rpx;
+  position: absolute;
+  bottom: 30rpx;
+  color: #666;
+  background-color: #fff;
+}
+
+.rabbit {
+  width: 140rpx;
+  height: 140rpx;
+  float: left;
+  position: absolute;
+  top: -15%;
+}
+
+.what_yue {
+  line-height: 80rpx;
+  font-size: 30rpx;
+  padding-left: 177rpx;
+  margin-top: -20rpx;
+}
+
+.content {
+  font-size: 28rpx;
+}
+.content text{
+  display: block;
+}
+.know {
+  width: 150rpx;
+  height: 50rpx;
+  text-align: center;
+  position: absolute;
+  right: 8rpx;
+  line-height: 50rpx;
+  color: #58a2ef;
+}
+
+/* 我的优惠券 */
+
+.titletype {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.div {
+  width: 92%;
+  height: 188rpx;
+  margin: 20rpx auto;
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 14rpx;
+}
+
+.left, .right, .lefts {
+  float: left;
+}
+
+.left {
+  color: #fff;
+  width: 32%;
+  height: 100%;
+  text-align: center;
+  background: #ff4c6b;
+}
+
+.lefts {
+  color: #fff;
+  width: 32%;
+  height: 200rpx;
+  text-align: center;
+  background-color: #ccc;
+}
+
+.Quota {
+  padding-top: 20rpx;
+  line-height: 100rpx;
+}
+
+.Quota .money_num {
+  font-size: 40rpx;
+  padding-right: 4rpx;
+}
+
+.condition {
+  font-size: 30rpx;
+}
+
+.right {
+  width: 66%;
+  padding-left: 2%;
+  position: relative;
+  right: 0;
+}
+
+.couponRadios {
+  width: 34rpx;
+  height: 34rpx;
+  border-radius: 50%;
+  border: 1rpx solid #d5d5d5;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  right: 20rpx;
+  transform: translateY(-50%);
+}
+
+.couponRadio {
+  width: 34rpx;
+  height: 34rpx;
+  border-radius: 50%;
+  border: 1rpx solid #ffdc48;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  right: 20rpx;
+  transform: translateY(-50%);
+}
+
+.select {
+  width: 23rpx;
+  height: 23rpx;
+  border-radius: 50%;
+  background-color: #ffdc48;
+  position: absolute;
+  top: 50%;
+  right: 28rpx;
+  transform: translateY(-50%);
+}
+
+.purpose {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 65rpx;
+}
+
+.Time_limit, .limit, .ticket, .go_Use, .tickets, .go_Uses {
+  font-size: 22rpx;
+  color: #999;
+  line-height: 30rpx;
+}
+
+.ticket, .go_Use, .tickets, .go_Uses {
+  color: #ff4c6b;
+  min-width: 100rpx;
+  max-width: 140rpx;
+  overflow: hidden;
+  height: 30rpx;
+  border-radius: 20rpx;
+  text-align: center;
+}
+
+.ticket, .tickets {
+  border: 1rpx solid #ff4c6b;
+  margin-top: 16rpx;
+}
+
+.useable {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 10rpx;
+}
+
+.tickets {
+  color: #ff4255;
+  font-size: 20rpx;
+  border: 1rpx solid #ff4255;
+  line-height: 30rpx;
+}
+
+.go_Use, .go_Uses {
+  height: 34rpx;
+  line-height: 34rpx;
+  position: absolute;
+  right: 30rpx;
+  bottom: 0rpx;
+  background-color: #ff4c6b;
+  color: #fff;
+}
+
+.go_Uses {
+  background-color: #999;
+}
+
+.already {
+  width: 150rpx;
+  height: 150rpx;
+  position: absolute;
+  top: 10rpx;
+  right: 10rpx;
+}
+
+/* 会员卡 */
+
+.user, .users {
+  width: 684rpx;
+  height: 293rpx;
+  margin: 20rpx auto;
+  color: #fff;
+  border-radius: 14rpx;
+  background-color: #8f82bc;
+  position: relative;
+}
+
+.users {
+  background-color: #999;
+}
+
+.user_img {
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  top: 30rpx;
+  left: 30rpx;
+}
+
+.user_name {
+  position: absolute;
+  top: 50rpx;
+  left: 150rpx;
+}
+
+.states {
+  font-size: 80rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 10rpx;
+}
+
+.icon-yiguoqi {
+  font-size: 150rpx;
+}
+
+.user_id {
+  font-size: 45rpx;
+  position: absolute;
+  top: 50%;
+  left: 30rpx;
+}
+
+.term {
+  position: absolute;
+  bottom: 10rpx;
+  left: 30rpx;
+}
+
+.term text {
+  font-size: 40rpx;
+}
+
+.click {
+  width: 100%;
+  height: 100%;
+}
+/* 积分列表 */
+.intergral_list{
+  width: 48vw;
+  float: left;
+  overflow: hidden;
+  margin: 1vw;
+  position: relative;
+  background-color: #fff;
+}
+.intergral_title{
+  padding: 10rpx;
+}
+.intergral_money{
+  padding: 0 10rpx 10rpx;
+}
+.intergral_money text{
+  float: left;
+  font-size: 28rpx;
+  color: #bbb;
+  
+}
+.intergral_money text.intergral-num{
+  float: right;
+  color: #ff4c6b;
+}

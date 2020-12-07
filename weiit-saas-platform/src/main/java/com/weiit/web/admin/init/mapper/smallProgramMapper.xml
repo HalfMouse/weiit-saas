@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.init.mapper.smallProgramMapper">
+    <select id="selectOne" resultType="com.weiit.core.entity.E"  parameterType="map">
+        SELECT
+            template_id,
+            version_no,
+            create_time,
+            version_desc,
+            is_new_version
+        from weiit_weixin_mini_version
+    </select>
+
+</mapper>

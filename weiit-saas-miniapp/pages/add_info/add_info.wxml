@@ -1,0 +1,9 @@
+<!-- 填写退换物流信息 -->
+<picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+  <view class='option_company'>快递公司
+    <text>{{array[index]}}<text class='iconfont icon-youjiantouda'></text></text>
+  </view>
+</picker>
+<input placeholder='请填写快递/物流单号' bindinput='get_value' type='number'></input>
+<view class='complete' bindtap='complete' style='background-color:{{btnColor.global_bg1}}'>确定</view>
+<sliders></sliders>

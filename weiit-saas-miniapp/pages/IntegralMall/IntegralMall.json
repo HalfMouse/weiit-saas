@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "积分商城",
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

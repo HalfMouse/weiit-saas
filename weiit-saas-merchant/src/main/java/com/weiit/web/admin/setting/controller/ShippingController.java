@@ -1,18 +1,21 @@
 package com.weiit.web.admin.setting.controller;
+ 
+import java.net.URLEncoder;
+import java.util.List;  
+
+import javax.annotation.Resource;  
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping; 
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
-import com.weiit.core.entity.FormMap;
+import com.weiit.core.entity.FormMap; 
 import com.weiit.web.admin.publics.service.PublicsService;
 import com.weiit.web.admin.setting.service.ShippingService;
 import com.weiit.web.base.AdminController;
 import com.weiit.web.base.UIview;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * 

@@ -1,0 +1,16 @@
+<!--pages/productGroup/productGroup.wxml-->
+<view wx:if='{{load}}'>
+  <view class='productTitle'>
+    <view class='left'></view>
+    <text class='content'>{{productList.group_name}}</text>
+    <view class='right'></view>
+  </view>
+  <view class='productBox'>
+    <view class='productList' wx:for='{{productList.productInfo}}' data-product_id='{{item.product_id}}' bindtap='go_detail'>
+      <image src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+      <view class='titles'>{{item.product_name}}</view>
+      <view class='sale_price'>￥{{item.sale_price}}</view>
+    </view>
+  </view>
+  <sliders></sliders>
+</view>

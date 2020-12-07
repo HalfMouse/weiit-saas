@@ -1,0 +1,7 @@
+
+/* 辅助空白 */
+
+.blank {
+  background-color: #fff;
+  width: 100%;
+}

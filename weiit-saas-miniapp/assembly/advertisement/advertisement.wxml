@@ -1,0 +1,36 @@
+<!-- 广告模块 -->
+<view class='adBox'>
+  <view wx:if='{{pageParam.temp=="temp1"}}' class="{{pageParam.haveBlock === 'yes' ? 'haveBlock' : ''}}" style='overflow:hidden'>
+    <swiper wx:if='{{pageParam.navList.length>1}}' style='height:{{98/(pageParam.imgWidth/pageParam.imgHeight)}}vw' class='head_banner' indicator-dots='{{pageParam.navList.length>1?true:false}}' autoplay='true' circular='true'>
+      <block wx:for="{{pageParam.navList}}">
+        <swiper-item>
+          <image src="{{item.img}}" mode='widthFix' class="slide-image" bindtap='bannerJump' data-pageUrl='{{item.url}}' data-validate_id='{{item.validate_id}}' />
+        </swiper-item>
+      </block>
+    </swiper>
+    <image wx:else src="{{pageParam.navList[0].img}}" style='width:100%;margin-bottom:-10rpx' mode='widthFix'  bindtap='bannerJump' data-pageUrl='{{pageParam.navList[0].url}}' data-validate_id='{{pageParam.navList[0].validate_id}}'></image>
+  </view>
+  <view wx:if='{{pageParam.temp=="temp2"}}' class="{{pageParam.haveBlock === 'yes' ? 'haveBlock' : ''}}" style='overflow:hidden'>
+    <image mode='widthFix' class='tr_one' wx:for='{{pageParam.navList}}' bindtap='bannerJump' data-pageUrl='{{item.url}}' data-validate_id='{{item.validate_id}}' src='{{item.img}}'></image>
+  </view>
+  <scroll-view wx:if='{{pageParam.temp=="temp3"}}' scroll-x='true' class="{{pageParam.haveBlock === 'yes' ? 'haveBlock' : ''}}">
+    <image class='tran' wx:for='{{pageParam.navList}}' bindtap='bannerJump' data-pageUrl='{{item.url}}' data-validate_id='{{item.validate_id}}' src='{{item.img}}'></image>
+  </scroll-view>
+  <view class='threeImgBox' wx:if='{{pageParam.temp=="temp4"}}' class="{{pageParam.haveBlock === 'yes' ? 'haveBlock' : ''}}" style='overflow:hidden'>
+    <image class='threeImg' wx:for='{{pageParam.navList}}' bindtap='bannerJump' data-pageUrl='{{item.url}}' data-validate_id='{{item.validate_id}}' src='{{item.img}}'></image>
+  </view> 
+  <scroll-view scroll-x='true' wx:if='{{pageParam.temp=="temp5"}}' class="{{pageParam.haveBlock === 'yes' ? 'haveBlock' : ''}}">
+    <image class='slideImg' wx:for='{{pageParam.navList}}' bindtap='bannerJump' data-pageUrl='{{item.url}}' data-validate_id='{{item.validate_id}}' src='{{item.img}}'></image>
+  </scroll-view>
+  <view class='doubleImgBox' wx:if='{{pageParam.temp=="temp6"}}' class="{{pageParam.haveBlock === 'yes' ? 'haveBlock' : ''}}">
+    <view class='doubleImgBox-item' wx:for='{{pageParam.navList}}'>
+      <image class='doubleImg' mode='widthFix' bindtap='bannerJump' data-pageUrl='{{item.url}}' data-validate_id='{{item.validate_id}}' src='{{item.img}}'></image>
+    </view>
+    <!-- <image class='doubleImg' mode='aspectFit' wx:for='{{pageParam.navList}}' bindtap='bannerJump' data-pageUrl='{{item.url}}' data-validate_id='{{item.validate_id}}' src='{{item.img}}'></image> -->
+  </view>
+  <view class='doubleImgBox' wx:if='{{pageParam.temp=="temp7"}}' class="{{pageParam.haveBlock === 'yes' ? 'haveBlock' : ''}}">
+    <view class='tripleImg-item' wx:for='{{pageParam.navList}}'>
+      <image class='tripleImg' mode='widthFix' bindtap='bannerJump' data-pageUrl='{{item.url}}' data-validate_id='{{item.validate_id}}' src='{{item.img}}'></image>
+    </view>
+  </view>
+</view>

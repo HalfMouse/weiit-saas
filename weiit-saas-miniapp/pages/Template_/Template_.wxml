@@ -1,0 +1,51 @@
+<!-- 拼团、砍价模板 -->
+<template name='Bargain'>
+  <view  wx:if='{{value=="cut"}}' class='Bargain_introduce' style='background-color:{{backgroundColor}}'>
+    <image class='back_img' src='../../images/pass.png'></image>
+    <view class='How_Bargain'>如何砍价:</view>
+    <view class='Bargaun_rule' bindtap='rule'>查看砍价规则
+      <text class='iconfont icon-youjiantouda'></text>
+    </view>
+    <view class='step'>
+      <view class='iconfont icon-gouwuche'></view>
+      <view>选择心仪商品</view>
+    </view>
+    <view class='step'>
+      <view class='iconfont icon-yaoqinghaoyou'></view>
+      <view>邀请好友砍价</view>
+    </view>
+    <view class='step'>
+      <view class='iconfont icon-songhuo'></view>
+      <view>砍价必减</view>
+    </view>
+  </view>
+  <!-- 中奖消息 -->
+  <view class='news' wx:if='{{value!="collage"}}'>
+    <swiper vertical='true' autoplay='true' circular='true' interval='3000'>
+      <block wx:for='{{noticeList}}'>
+        <swiper-item>
+          <view class='userImg_box'>
+            <image class='news_UserImg' src='{{item.user_img}}'></image>
+          </view>
+          <view class='news_content'>{{item.user_name}}砍价成功啦，{{item.pay_price}}元拿到了【{{item.product_name}}】</view>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class='back'></view>
+  </view>
+  <!-- 可以砍价、拼团商品列表 -->
+  <view class='commodityList' wx:for='{{data}}'>
+    <view class='commodity_img'>
+      <image mode='aspectFit' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+    </view>
+    <view class='commodity_right'>
+      <view class='commodity_title'>{{item.product_name}}</view>
+      <!-- <view class='people_num' wx:if='{{value!=="cut"}}'>{{item.count}}人已拼单</view> -->
+      <view class='Price' wx:if='{{value=="cut"}}'>原价{{item.max_price}}元</view>
+      <view class='people_num' wx:if='{{value=="collage"}}'>{{item.sale_count}}人已拼单</view>
+      <view class='Price' wx:if='{{value=="collage"}}'>原价{{item.sale_price}}元</view>
+      <view wx:if='{{value=="cut"}}' class='cut' bindtap='go_cut' data-id='{{item.bargain_id}}' data-index='{{index}}'>砍价{{item.min_price}}元得</view>
+      <view wx:else class='cut' bindtap='go_Collage' data-id='{{item.product_id}}' data-groupon_id='{{item.groupon_id}}' data-index='{{index}}' style='background-color:{{backgroundColor}}'>去拼团</view>
+    </view>
+  </view>
+</template>

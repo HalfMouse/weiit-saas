@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.task.mapper.BargainMapper">
+ 
+    
+    <update id="edit" parameterType="map">
+		update weiit_ump_bargain SET state=#{update_state} ,update_time=now()
+			WHERE state=#{state} 
+		<if test="end_time!=null and end_time!=''">
+           AND end_time &lt; #{end_time}
+        </if>
+        <if test="start_time!=null and start_time!=''">
+           AND start_time &lt; #{start_time}
+        </if>
+	</update>
+	
+	<update id="editBargainOrder" parameterType="map">
+		update weiit_ump_bargain_order SET state=#{update_state} 
+			WHERE state=#{state} 
+		<if test="end_time!=null and end_time!=''">
+           AND end_time &lt; #{end_time}
+        </if>
+	</update>
+	
+</mapper>

@@ -1,0 +1,37 @@
+/* pages/Record/Record.wxss */
+
+.navbar {
+  width: 100%;
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.bar {
+  margin-top: 80rpx;
+}
+
+.category {
+  height: 100rpx;
+}
+
+.mode {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.green {
+  font-size: 30rpx;
+  color: #00bd00;
+}
+
+.num {
+  font-size: 30rpx;
+  color: #333;
+}

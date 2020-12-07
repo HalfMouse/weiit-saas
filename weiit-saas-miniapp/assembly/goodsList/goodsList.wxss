@@ -1,0 +1,269 @@
+/* assembly/goodsList/goodsList.wxss */
+/* 公共部分 */
+.Corner_mark{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70rpx;
+  height: 70rpx;
+}
+.Corner_mark image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.list_title {
+  font-size: 28rpx;
+  height: 70rpx;
+  margin-top: 4rpx;
+  line-height: 36rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.list_money {
+  font-size: 30rpx;
+  line-height: 50rpx;
+  padding-left: 4rpx;
+  color: #ec534e;
+}
+/* 主题内容 */
+.wares_list {
+  padding: 0 30rpx;
+  
+}
+.list-box{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.wares_list .list_num {
+  float: left;
+  position: relative;
+  margin: 1vw 0;
+  background-color: #fff;
+}
+
+.wares_list .list_num button {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.cut_title {
+  position: relative;
+  text-align: center;
+  line-height: 100rpx;
+  font-size: 32rpx;
+  color: #000;
+  background-color: #fff;
+}
+
+.cut_title .title_title {
+  margin: 0 20rpx;
+}
+
+/* 大图模式 */
+
+.big_list{
+  position: relative;
+  width: 100%;
+  margin-bottom: 20rpx;
+}
+.big_list .Box_img{
+  width: 100%;
+}
+.big_list .Box_img image{
+  width: 100%;
+}
+/* 小图模式列表 */
+
+.small_lsit{
+  position: relative;
+  width: 48%;
+}
+.small_lsit .list_title{
+  padding: 0;
+}
+/* 一大两小模式 */
+
+.zigzag_list {
+  position: relative;
+  width: 48%;
+}
+.zigzag_list .list_title{
+  padding: 0;
+}
+.zigzag_list:first-child {
+  width: 100%;
+  margin-bottom: 20rpx;
+}
+
+.zigzag_list .add_car {
+  display: none;
+}
+
+.zigzag_list:first-child .add_car {
+  display: block;
+}
+
+/* 多行列表模式 */
+
+.detailed_list {
+  position: relative;
+  width: 100%;
+  height: 240rpx;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+}
+
+.detailed_list .Box_img {
+  float: left;
+  width: 240rpx;
+  height: 240rpx;
+  margin-right: 20rpx;
+}
+
+.detailed_list .list_title {
+  width: calc(100% - 260rpx);
+  font-size: 30rpx;
+  color: #333;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  height: 70rpx;
+}
+
+.detailed_list .list_money {
+  position: absolute;
+  left: 270rpx;
+  font-size: 28rpx;
+  bottom: 15rpx;
+}
+
+.detailed_list .add_car {
+  right: 30rpx;
+}
+
+.describe {
+  margin-top: 40rpx;
+  margin-left: 270rpx;
+  color: #666;
+  font-size: 28rpx;
+}
+
+/* 一行三个模式 */
+
+.more_list {
+  position: relative;
+  width: 31%;
+}
+
+/* 滚动模式 */
+
+.box {
+  overflow: auto;
+}
+
+.box .scroll_list {
+  position: relative;
+  width: 29vw;
+  margin-right: 20rpx;
+}
+.box .scroll_list:last-child{
+  margin-right: 0;
+}
+.box .scroll_list .formData{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.box scroll-view {
+  white-space: nowrap;
+  display: flex;
+  display: -webkit-flex;
+}
+
+.scroll_list .scrollList_title {
+  width: 96%;
+  margin: 0 auto;
+  font-size: 26rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 40rpx;
+  line-height: 40rpx;
+}
+
+.scroll_list .scrollList_money {
+  color: red;
+  font-size: 26rpx;
+  padding-left: 10rpx;
+}
+
+.list_img {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+.add_car {
+  width: 60rpx;
+  height: 60rpx;
+  color: #ec534e;
+  font-weight: bold;
+  line-height: 60rpx;
+  text-align: center;
+  border-radius: 30rpx;
+  border: 1rpx solid #ec534e;
+  position: absolute;
+  right: 15rpx;
+  bottom: 10rpx;
+}
+
+.btn3, .btn4 {
+  max-width: 100rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  color: #fff;
+  font-size: 28rpx;
+  background-color: #f44;
+  padding: 0 20rpx;
+  border-radius: 25rpx;
+  position: absolute;
+  right: 30rpx;
+  bottom: 20rpx;
+}
+
+.btn4 {
+  border-radius: 0;
+  background-color: #fff;
+  color: #f44;
+  border: 1rpx solid #f44;
+}
+
+@font-face {
+  font-family: 'iconfont'; /* project id 655959 */
+  src: url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.eot');
+  src: url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.eot?#iefix') format('embedded-opentype'),
+         url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.woff') format('woff'),
+         url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.ttf') format('truetype'),
+         url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-gouwuche:before {
+  content: "\e628";
+}

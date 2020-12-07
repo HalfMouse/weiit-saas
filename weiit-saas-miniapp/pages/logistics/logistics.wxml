@@ -1,0 +1,28 @@
+<!-- 物流详情 -->
+<view wx:if='{{load}}'>
+  <view class='commodity'>
+    <image class='commodity_img' src='http://wstore-1255653546.image.myqcloud.com{{imgs}}'></image>
+    <view class='commodity_state' wx:if='{{logisticsDetail.msg=="ok"&&logisticsDetail.status=="0"}}'>已签收</view>
+    <view class='express_num'>快递公司:{{company}}</view>
+  </view>
+  <view>
+    <view wx:if='{{logisticsDetail.result.list.length>0}}' class='message' wx:for='{{logisticsDetail.result.list}}'>
+      <view class='message_left'>
+        <view>{{item.time}}</view>
+        <!-- <view>11:20</view> -->
+      </view>
+      <view class='Middle'>
+        <view class='iconfont icon-iconcorrect'></view>
+        <view class='line'></view>
+      </view>
+      <view class='message_right'>
+        <!-- <view>已签收</view> -->
+        <view class='people'>{{item.status}}</view>
+      </view>
+    </view>
+    <view wx:if='{{logisticsDetail.result.list.length==0}}' class='logistics'>
+      还没有物流信息哟
+    </view>
+  </view>
+  <sliders></sliders>
+</view>

@@ -1,0 +1,11 @@
+<view>
+  <view class='recharge'>
+    充值金额
+    <view class='symbol'>
+      <view class='RMB'>￥</view>
+      <input bindinput='getValue' value='{{value}}' type='number'></input>
+    </view>
+  </view>
+  <button bindtap='next' style='background-color:{{btnColor.global_bg1}}'>下一步</button>
+  <sliders></sliders>
+</view>

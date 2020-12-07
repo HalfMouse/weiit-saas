@@ -1,0 +1,75 @@
+/* pages/userInfo/userInfo.wxss */
+.backs{
+  width: 100vw;
+  height: 100vh
+}
+.shopPic, .shopName {
+  width: 130rpx;
+  height: 130rpx;
+  border-radius: 65rpx;
+  display: block;
+  margin: 0 auto;
+  margin-top: 100rpx;
+  margin-bottom: 30rpx;
+}
+
+.shopName {
+  width: 90%;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.shopBox {
+  width: 86%;
+  margin: 0 auto;
+  border-top: 1rpx solid #dadada;
+  padding-top: 16rpx;
+  font-size: 30rpx;
+}
+
+.shopList {
+  width: 100%;
+  overflow: hidden;
+  padding: 8rpx 0;
+  line-height: 45rpx;
+}
+
+.shopLeft {
+  float: left;
+  width: 180rpx;
+  color: #666;
+}
+
+.shopRight {
+  margin-left: 180rpx;
+  color: #333;
+}
+
+.userInfo {
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  position: fixed;
+  bottom: 10%;
+  border: 0;
+  color: #fff;
+  border-radius: 100rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 60rpx;
+  font-size: 30rpx;
+  background-color: #f40
+}
+
+button::after {
+  border: none;
+}
+
+button:hover {
+  color: #fff;
+}
+
+.userInfo:active {
+  border: 0;
+}

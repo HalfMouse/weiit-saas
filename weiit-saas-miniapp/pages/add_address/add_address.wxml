@@ -1,0 +1,41 @@
+<!-- 新增地址 -->
+<view class='edit'>
+  <view class='information'>
+    <text class='space'>姓名</text>
+    <input bindblur='name' placeholder='请输入收件人姓名' value='{{add_content.consignee}}'></input>
+    <text class='{{name?"correct":"error"}}'>姓名不合法</text>
+  </view>
+
+  <view class='information'>
+    <text class='space'>手机号码</text>
+    <input bindblur='tel' placeholder='请输入收件人手机号' value='{{add_content.phone}}' type='number'></input>
+    <text class='{{phone?"correct":"error"}}'>手机不合法</text>
+  </view>
+
+  <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+    <view class="picker information">
+      <text class='space'>省市</text>
+      <view wx:if='{{add==true}}'>
+        <text class='Space'>{{add_content.province}}</text>
+        <text class='Space'>{{add_content.city}}</text>
+        <text class='Space'>{{add_content.district}}</text>
+      </view>
+      <view wx:else>
+        <text class='Space'>{{region[0]}}</text>
+        <text class='Space'>{{region[1]}}</text>
+        <text class='Space'>{{region[2]}}</text>
+      </view>
+    </view>
+  </picker>
+  <view class='information'>
+    <text class='space'>详细地址</text>
+    <input bindblur='ads' placeholder='请输入收件人详细地址' value='{{add_content.address_detail}}'></input>
+    <text class='{{address?"correct":"error"}}'>地址不合法</text>
+  </view>
+</view>
+<view class='default'>设为默认地址
+  <switch checked='{{is_default == 0 ? true : false}}' bindchange='switch'></switch>
+</view>
+<button wx:if='{{add_content.id}}' class='Preservation' bindtap='modify' style='background-color:{{btnColor.global_bg1}}'>确认修改</button>
+<button wx:else class='Preservation' bindtap='Preservation' style='background-color:{{btnColor.global_bg1}}'>保存</button>
+<sliders></sliders>

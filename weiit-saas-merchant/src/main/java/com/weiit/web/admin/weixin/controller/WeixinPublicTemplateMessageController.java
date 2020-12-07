@@ -2,24 +2,36 @@ package com.weiit.web.admin.weixin.controller;
 
 
 import cn.binarywang.wx.miniapp.api.WxMaTemplateService;
+import cn.binarywang.wx.miniapp.bean.WxMaTemplateMessage;
 import cn.binarywang.wx.miniapp.bean.template.WxMaTemplateAddResult;
 import cn.binarywang.wx.miniapp.bean.template.WxMaTemplateListResult;
+import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.web.admin.util.JsonUtil;
+import com.weiit.web.admin.weixin.service.WeixinPublicMenuService;
+import com.weiit.web.admin.weixin.service.WeixinPublicService;
 import com.weiit.web.admin.weixin.service.WeixinPublicTemplateMessageService;
 import com.weiit.web.base.AdminController;
 import com.weiit.web.base.UIview;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
+
 import me.chanjar.weixin.mp.bean.template.WxMpTemplate;
+import me.chanjar.weixin.mp.bean.template.WxMpTemplateIndustry;
+import me.chanjar.weixin.open.api.WxOpenConfigStorage;
 import me.chanjar.weixin.open.api.WxOpenService;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 公众号设置-模板消息

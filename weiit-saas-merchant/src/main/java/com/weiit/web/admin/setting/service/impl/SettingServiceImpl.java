@@ -5,13 +5,16 @@ import com.weiit.core.entity.FormMap;
 import com.weiit.core.mapper.BaseMapper;
 import com.weiit.core.service.impl.AbstractService;
 import com.weiit.resource.common.utils.WeiitQrCodeUtil;
+import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.setting.mapper.SettingMapper;
 import com.weiit.web.admin.setting.service.SettingService;
 import com.weiit.web.common.Constants;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+
 import java.util.List;
 
 /**

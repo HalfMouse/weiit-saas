@@ -1,0 +1,217 @@
+.new_box{
+    padding-top: 20px;
+    padding-left: 26px;
+    height: calc(100% - 20px);
+}
+.navigation_box{
+    height: calc(100% - 52px);
+}
+.dads-children-placeholder{
+    display: none;
+}
+/* 左侧功能选择 */
+.navigation{
+    float: left;
+    width: 140px;
+    padding-right: 25px;
+    height: 100%;
+    border-right: 1px solid #eee;
+}
+.navigation .dowebok{
+    position: relative;
+}
+.navigation .dowebok .item{
+    float: left;
+    width: 60px;
+    height: 54px;
+    box-sizing: border-box;
+    border:1px dotted #60a6e4;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: #fbfbfb;
+    padding-top: 6px;
+    border-radius: 6px;
+    cursor: move;
+    z-index: 99999;
+}
+.nav_icon{
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    margin:0 auto;
+}
+.nav_txt{
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: #000;
+    margin-top: -3px;
+}
+.nav_des{
+    width: 320px;
+    height: 50px;
+    background-color: blue;
+    color: #333;
+    text-align: center;
+    line-height: 50px;
+    display: none;
+    color: #fff;
+    box-sizing: border-box;
+}
+#right-defaults .nav_des{
+    display: block;
+    cursor: move;
+}
+.focus{
+    border: 1px #cd6e00 dashed;
+}
+.focus{
+    border:1px #cd6e00 dashed;
+}
+/* 中间手机展示部分 */
+.tel_show{
+    position: relative;
+    float: left;
+    box-sizing: border-box;
+    width: 336px;
+    margin-left: 35px;
+    border: 1px solid #e5e5e5;
+    padding: 50px 0 60px 0;
+    border-radius: 30px;
+    
+}
+.tel_show .phone-headset{
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: -25px;
+    border-radius: 5px;
+    width: 50px;
+    height: 6px;
+    background: #dad8d8;
+}
+.tel_show .phone-home {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -20px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #e5e5e5;
+    border-radius: 100%;
+}
+.tel_show .phone-screen {
+    position: relative;
+    width: 320px;
+    margin: 0 auto;
+    min-height: 200px;
+    border: 1px solid #f5f5f5;
+    background-color: #f8f8f8;
+}
+.design-preview .wp-comp {
+    position: relative;
+    width: 320px;
+    cursor: pointer;
+}
+.design-preview .wp-config h1 {
+    margin: 0;
+    padding: 18px 60px 0 60px;
+    height: 55px;
+    line-height: 36px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    background: url('../images/titlebar.png') no-repeat;
+    background-size: 320px 55px;
+}
+/* 主要展示区 */
+.sortTable{
+    position: relative;
+    min-height: 400px;
+}
+/* 更改区域 */
+.modify{
+    float: left;
+    position: relative;
+}
+/* 头部更改 */
+.modify_box {
+    position: absolute;
+    left: 100%;
+    top:55px;
+    padding: 12px 10px;
+    min-height: 28px;
+    background: #f8f8f8;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    width: 420px;
+    margin-left: 20px;
+    font-size: 12px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 5;
+    min-height: 200px;
+    display: none;
+}
+.modify_box:after, 
+.modify_box:before {
+    right: 100%;
+    top: 20px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.modify_box:before {
+    border-color: transparent;
+    border-right-color: #e5e5e5;
+    border-width: 7px;
+    margin-top: -7px;
+}
+/* 底部按钮 */
+.footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    
+}
+.foot{
+    width: 96%;
+    height: 41px;
+    background-color: #f9f9f9;
+    border-top: 1px solid rgba(153,153,153,.2);
+    margin: 0 auto;
+    display: table;
+    text-align: center;
+    padding-top: 12px;
+}
+.foot a{
+    display: inline-block;
+    text-align: center;
+    line-height: 18px;
+    width: 68px;
+    box-sizing: border-box;
+    font-size: 12px;
+    border-radius: 3px;
+    padding:5px 10px;
+}
+.foot a.save{
+    background-color: #2897e4;
+    color: #fff;
+    margin-right: 5px;
+}
+.foot a.reBack{
+    border:1px solid #ccc;
+    color: #333;
+}
+.no-more{
+    width: 100%;
+    height: 30px;
+    box-sizing: border-box;
+    border: 1px #cd6e00 dashed;
+}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.init.mapper.ArticleCateMapper">
+
+    <select id="selectCateList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        select
+            id,
+            cate_name,
+            sort_num,
+            create_time
+        from weiit_init_weixin_media_article_cate
+        where
+            1 = 1
+        ORDER BY
+			sort_num DESC
+    </select>
+
+
+    <insert id="insert" parameterType="map">
+        INSERT INTO weiit_init_weixin_media_article_cate
+        (
+          cate_name,
+          sort_num,
+          create_time,
+          update_time
+        )
+        VALUE
+        (
+          #{cate_name},
+          #{sort_num},
+          now(),
+          now()
+        )
+    </insert>
+
+    <select id="selectSort"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        SELECT
+            MAX(sort_num) AS sort_num
+        FROM
+            weiit_init_weixin_media_article_cate
+    </select>
+
+    <update id="edit" parameterType="map">
+        update weiit_init_weixin_media_article_cate
+        set
+            cate_name=#{cate_name},
+            sort_num=#{sort_num},
+            update_time=now()
+        WHERE id=#{cate_id}
+    </update>
+
+    <update id="editSort"   parameterType="map">
+        UPDATE weiit_init_weixin_media_article_cate
+        SET
+            sort_num = #{sort_num}
+        where id=#{cate_id}
+    </update>
+
+
+
+
+    <select id="selectOne"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        select
+            id,
+            cate_name,
+            sort_num
+        from weiit_init_weixin_media_article_cate
+        where id=#{cate_id}
+    </select>
+<!--
+    <update id="edit" parameterType="map">
+        update weiit_init_protocol
+        set
+        protocol_title= #{protocol_title},
+        protocol_content= #{editorValue},
+        create_time=now(),
+        update_time=now()
+        where id=#{agreementId}
+    </update>-->
+
+</mapper>

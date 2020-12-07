@@ -1,0 +1,6 @@
+<view class='tel' bindtap='tel'>
+  <text class='iconfont icon-dianhua1'></text>
+  <text>{{content.custom_txt}}</text>：
+  <text>{{content.custom_tel}}</text>
+  <text class='iconfont icon-you'></text>
+</view>

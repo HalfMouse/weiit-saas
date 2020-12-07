@@ -1,0 +1,43 @@
+<!-- 个人信息设置 -->
+<view class='user'>
+  <view class='user_img'>
+    头像
+    <image src='{{content.user_img}}' class='user_pic'></image>
+  </view>
+  <view class='user_name'>昵称
+    <text class='fr'>{{content.user_name}}</text> 
+  </view>
+  <view class='user_Birthday'>生日
+    <text class='fr'>{{content.user_birthday}}</text> 
+    <!-- <picker mode="date" value="{{date}}" bindchange='bindDateChange'>
+      <text class='birthday'>{{date}}</text>
+    </picker> -->
+  </view>
+  <view class='user_sex'>性别:
+    <radio-group>
+      男
+      <radio value='男' checked='{{content.user_sex == 1}}' ></radio>
+      女
+      <radio value='女' checked='{{content.user_sex == 2}}'></radio>
+    </radio-group>
+  </view>
+  <view>
+  <view class='user_tel' wx:if="{{user_phone.length > 0 && user_phone }}">
+      <text>手机号</text>
+      <text class='fr'>{{user_phone}}</text>
+    </view>
+    <view class='user_tel' wx:else>
+      <text>手机号</text>
+      <input type='number' placeholder='请输入手机号' bindinput ="telInput" class='telNumber' value='{{telNum}}'></input>
+      <view class='getCode' bindtap='getCode'>获取验证码</view>
+    </view>
+    
+  </view>
+  <sliders></sliders>
+</view>
+<view class='code-box' wx:if="{{isCode}}">
+    <view class='code-input-box'>
+      <input type='number' placeholder='请输入短信验证码' bindinput ="codeInput" value='{{inputCode}}'></input>
+      <view class="ensure-btn" bindtap='binding'>确认绑定</view>
+    </view>
+  </view>

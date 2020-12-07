@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.init.mapper.ProductCateMapper">
+ 
+     <select id="selectList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	select 
+    		cate_id, 
+    		cate_id as validate_id,
+    		cate_name, 
+    		cate_img, 
+    		cate_icon_img,
+    		parent_id, 
+    		is_show, 
+    		create_time, 
+    		update_time, 
+    		sort_num 
+		from weiit_init_product_cate
+		where 
+			is_deleted=0 
+		<if test="parent_id !=null and parent_id !='' ">
+			and parent_id=#{parent_id}
+		</if>
+		<if test="is_show !=null and is_show !='' ">
+			and is_show =#{is_show}
+		</if> 
+		order by parent_id asc , sort_num desc , cate_id asc 
+     </select>
+     
+     <select id="selectOne" resultType="com.weiit.core.entity.E"  parameterType="map">   
+         select
+         	cate_id, 
+         	cate_id as validate_id,
+         	cate_name, 
+         	cate_img, 
+         	cate_icon_img, 
+         	parent_id, 
+         	is_show, 
+    		create_time, 
+    		update_time, 
+    		sort_num 
+		from weiit_init_product_cate  
+		where 
+			is_deleted=0 
+			and cate_id=#{validate_id}   
+     </select>
+      
+      <!-- 新增 -->
+	 <insert id="insert"  parameterType="map">
+        insert into weiit_init_product_cate
+        (
+			cate_name, 
+			cate_img, 
+			cate_icon_img, 
+			parent_id, 
+			is_show, 
+    		create_time, 
+    		update_time, 
+    		sort_num , 
+    		is_disabled , 
+    		is_deleted  
+        )
+        values
+        (
+			#{cate_name}, 
+			#{cate_img}, 
+			#{cate_icon_img}, 
+			#{parent_id}, 
+			#{is_show},
+			now(), 
+			now(), 
+			#{sort_num}, 
+			0, 
+			0 
+        )
+     </insert>
+     <!-- 删除 -->
+     <update id="remove"   parameterType="map">
+        update weiit_init_product_cate 
+        set 
+        	is_deleted=-1, 
+        	update_time=now() 
+        where 
+        	is_deleted=0 
+        	and cate_id=#{validate_id}  
+     </update>
+     <!-- 修改 -->
+     <update id="edit"   parameterType="map">
+        update weiit_init_product_cate  
+        set 
+        	update_time=now()   
+         <if test="cate_name !=null and cate_name !=''">
+       	 	,cate_name=#{cate_name}
+        </if>
+        <if test="cate_img !=null and cate_img !=''">
+       	 	,cate_img=#{cate_img}
+        </if>
+         <if test="cate_icon_img !=null and cate_icon_img !=''">
+       	 	,cate_icon_img=#{cate_icon_img}
+        </if>
+         <if test="parent_id !=null and parent_id !=''">
+       	 	,parent_id=#{parent_id}
+        </if>
+         <if test="is_show !=null and is_show !=''">
+       	 	,is_show=#{is_show}
+        </if> 
+        <if test="sort_num !=null and sort_num !=''">
+       	 	,sort_num=#{sort_num}
+        </if>
+        where  
+        	is_deleted=0 
+        	and cate_id=#{validate_id}  
+     </update>
+</mapper>

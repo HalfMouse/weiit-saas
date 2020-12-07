@@ -1,0 +1,77 @@
+/* pages/address/address.wxss */
+
+.pages {
+  padding-bottom: 120rpx;
+}
+
+.information {
+  background-color: #fff;
+  padding: 20rpx 0 6rpx 30rpx;
+  position: relative;
+  margin-bottom: 30rpx;
+}
+.name{
+  font-size: 30rpx;
+  color: #333
+}
+.tel {
+  font-size: 30rpx;
+  color: #333;
+  position: absolute;
+  left: 200rpx;
+  top: 20rpx;
+}
+
+.address {
+  line-height: 80rpx;
+  font-size: 28rpx;
+  color: #333
+}
+
+radio {
+  transform: scale(0.8);
+  margin-left: -20rpx;
+}
+
+.bom {
+  width: 100%;
+  height: 50rpx;
+  font-size: 30rpx;
+  position: relative;
+  padding-top: 10rpx;
+  border-top: 1rpx solid #d3d3d3;
+}
+
+.edit {
+  position: absolute;
+  left: 400rpx;
+  top: 14rpx;
+}
+
+.delete {
+  position: absolute;
+  right: 30rpx;
+  top: 14rpx;
+}
+.edit text,
+.delete text{
+  font-size: 34rpx;
+  padding-right: 10rpx
+}
+.adds {
+  width: 100%;
+  position: fixed;
+  bottom: 0rpx;
+  padding: 20rpx 0;
+  background-color: #f5f5f5;
+}
+
+.add {
+  color: #fff;
+  width: 92%;
+  margin: 0 auto;
+  border-radius: 10rpx;
+  text-align: center;
+  line-height: 100rpx;
+  background-color: #ffdc4b;
+}

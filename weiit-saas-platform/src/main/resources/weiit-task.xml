@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/jdbc
+    http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+    http://www.springframework.org/schema/cache
+    http://www.springframework.org/schema/cache/spring-cache.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util.xsd">
+    
+    
+   <!-- 配置01、JobHandler 扫描路径 -->
+	<context:component-scan base-package="com.weiit.web.admin.task.executor" />
+
+	<!-- 配置02、执行器 -->
+	<bean id="weiitTaskExecutor" class="com.weiit.task.core.executor.TaskExecutor" init-method="start" destroy-method="destroy" >
+		<!-- 执行器注册中心地址[选填]，为空则关闭自动注册 -->
+		<property name="adminAddresses" value="${weiit.task.admin.addresses}" />
+		<!-- 执行器AppName[选填]，为空则关闭自动注册 -->
+		<property name="appName" value="${weiit.task.executor.appname}" />
+		<!-- 执行器IP[选填]，为空则自动获取 -->
+		<property name="ip" value="${weiit.task.executor.ip}" />
+		<!-- 执行器端口号[选填]，为空则自动获取 -->
+		<property name="port" value="${weiit.task.executor.port}" />
+		<!-- 访问令牌[选填]，非空则进行匹配校验 -->
+		<property name="accessToken" value="${weiit.task.accessToken}" />
+		<!-- 执行器日志路径[选填]，为空则使用默认路径 -->
+		<property name="logPath" value="${weiit.task.executor.logpath}" />
+		<!-- 日志保存天数[选填]，值大于3时生效 -->
+		<property name="logRetentionDays" value="${weiit.task.executor.logretentiondays}" />
+	</bean>
+   
+</beans>

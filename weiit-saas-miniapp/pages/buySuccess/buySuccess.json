@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "购买成功",
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

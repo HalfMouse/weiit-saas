@@ -1,0 +1,6 @@
+  <!-- 标题 -->
+  <view class='list_head {{pageParam.titleStyle=="style1" ? "list_left": ""}}' bindtap='go_page' data-url='{{pageParam.titleNav.url}}' data-validate_id='{{pageParam.titleNav.validate_id}}'>{{pageParam.inputTitle}}
+    <view wx:if='{{pageParam.more=="isHave"}}' class='more'>更多
+      <text class='iconfont icon-youjiantouda'></text>
+    </view>
+  </view>

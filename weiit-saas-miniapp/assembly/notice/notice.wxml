@@ -1,0 +1,12 @@
+<!-- 公告 -->
+<!-- <view class='news' style='background-color:{{pageParam.bgColor}};color:{{pageParam.textColor}}'>
+  <view class='texts'>
+    <text class='iconfont icon-gonggao'></text>{{pageParam.noticeTxt}}</view>
+</view> -->
+<zan-noticebar
+  text="{{ pageParam.noticeTxt }}"
+  scrollable="true"
+  color="{{ pageParam.textColor }}"
+  background-color="{{pageParam.bgColor}}"
+  left-icon="/images/notice.png"
+/>

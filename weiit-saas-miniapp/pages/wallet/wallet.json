@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我的钱包",
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

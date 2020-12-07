@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "转发店铺",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

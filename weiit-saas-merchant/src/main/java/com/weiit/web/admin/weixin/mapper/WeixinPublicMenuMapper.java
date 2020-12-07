@@ -1,10 +1,11 @@
 package com.weiit.web.admin.weixin.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.mapper.BaseMapper;
-
-import java.util.List;
 
 /**
  * 微信自定义菜单管理Mapper

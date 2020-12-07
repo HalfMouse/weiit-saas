@@ -8,6 +8,7 @@ import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.product.service.ProductService;
 import com.weiit.web.admin.publics.service.ParameterService;
 import com.weiit.web.admin.ump.service.IntegralService;
+import com.weiit.web.admin.util.DateUtil;
 import com.weiit.web.base.AdminController;
 import com.weiit.web.base.UIview;
 import org.apache.commons.lang.StringUtils;

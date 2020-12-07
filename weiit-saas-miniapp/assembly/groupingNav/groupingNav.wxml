@@ -1,0 +1,95 @@
+<!-- 分组导航 -->
+<view class='warpper'>
+  <!-- 分类到导航在顶部 -->
+  <block wx:if='{{navPos=="top"}}'>
+    <view class='navbar' wx:if='{{navShow == "yes"}}'>
+      <text wx:for='{{list_item}}' data-index='{{index}}' class='item {{currentTab == index ? "active" : ""}}' bindtap='navbarTap'>{{item.group_name}}</text>
+    </view>
+    <view class='list' hidden='{{currentTab !== currentTab}}'>
+      <view wx:for='{{list_item[currentTab].productInfo}}' class='content'>
+        <form bindsubmit='go_detail' report-submit='true'>
+          <button plain='true' form-type='submit' data-id='{{item.product_id}}'></button>
+          <image class='img' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+          <view class='title'>{{item.product_name}}</view>
+          <view class='money'>￥{{item.sale_price}}</view>
+        </form>
+      </view>
+    </view>
+  </block>
+  <!-- 分类导航在左侧 -->
+  <block wx:if='{{navPos=="left"}}'>
+    <view class='sideNav'>
+      <!-- 左侧导航列表 -->
+      <view class='leftNav' wx:if='{{navShow == "yes"}}'>
+        <view class='navList {{leftIndex===index?"select":""}}' wx:for='{{list_item}}'>
+          <form bindsubmit='leftIndex' report-submit='true'>
+            <button plain='true' form-type='submit' data-leftindex='{{index}}'></button>
+            {{item.group_name}}
+          </form>
+        </view>
+      </view>
+      <!-- 右侧商品列表 -->
+      <scroll-view scroll-y scroll-top='{{scrollTop}}' class='rightNav'>
+        <view class='rightTopNav' wx:for='{{list_item}}'>
+          <view class='rightTopTitle'>{{item.group_name}}</view>
+          <view class='rightList' wx:for='{{list_item[index].productInfo}}'>
+            <form bindsubmit='go_detail' report-submit='true'>
+              <button plain='true' form-type='submit' data-id='{{item.product_id}}'></button>
+              <image class='listImg' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+              <view class='listTitle'>{{item.product_name}}</view>
+              <view class='listMoney'>￥{{item.sale_price}}</view>
+              <view class='addProduct' data-id="{{item.product_id}}" catchtap='addProduct'>
+                <image src='/images/add.png'></image>
+              </view>
+            </form>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </block>
+</view>
+<view class='mask-bg' wx:if="{{isMask}}" catchtap='close'>
+  <view class='set-content'>
+    <view class='product-mation'>
+      <view class='product fn-clear'>
+        <view class='product-pic'>
+          <image src='http://wstore-1255653546.image.myqcloud.com{{productImg}}'></image>
+        </view>
+        <view class='product-content'>
+          <text class='product-title'>{{productName}}</text>
+          <text class='product-price'>￥{{productPrice}}</text>
+        </view>
+      </view>
+      <view class='spec' wx:if="{{spec_info.length > 0}}">
+        <!-- <view class='spec-item'>
+          <view class='spec-title'>种类：</view>
+          <view class='spec-content fn-clear'>
+            <view class='spec-value select'>热</view>
+            <view class='spec-value'>冷</view>
+          </view>
+        </view> -->
+        <view wx:for="{{spec_info}}" wx:for-item="ele" class='spec-item' data-index='{{index}}'>
+          <view class='spec-title'>{{ele.spec_name}}：</view>
+          <view class='spec-content fn-clear'>
+            <view class='spec-value  {{ clom.choice ? "select" : "" }}' data-value='{{clom.spec_value}}' wx:for='{{ele.values}}' data-id='{{clom.spec_value_id}}' catchtap='choiceSpec' data-index='{{index}}'  wx:for-item="clom">{{clom.spec_value}}</view>
+          </view>
+        </view>
+      </view>
+      <view class='nums fn-clear'>
+        <text>购买数量</text>
+        <view class='plus_reduce'>
+          <view catchtap='reduce_num'>-</view>
+          <view class='buy_nums'>{{buy_num}}</view>
+          <view catchtap='add_num'>+</view>
+        </view>
+      </view>
+    </view>
+    <view class='func-btn'>
+      <view catchtap='confirm' data-value='add_car'>加入购物车</view>
+      <view catchtap='confirm' data-value='buy'>立即购买</view>
+    </view>
+     <view class='close' catchtap='close'>
+        <image src="/images/close.png"></image>
+      </view>
+  </view>
+</view>

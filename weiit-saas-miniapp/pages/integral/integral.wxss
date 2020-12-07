@@ -1,0 +1,69 @@
+/* pages/integral/integral.wxss */
+@import "../template/template.wxss";
+
+.Current_integral {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 100rpx;
+  padding-left: 20rpx;
+  background-color: #fff;
+}
+
+.integral_num {
+  font-size: 28rpx;
+  color: red;
+}
+
+.mode {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.green {
+  font-size: 30rpx;
+  color: #00bd00;
+}
+
+.num {
+  font-size: 30rpx;
+  color: #333;
+}
+.red{
+  font-size: 30rpx;
+  color: red;
+}
+.integral_rule{
+  float: right;
+  margin-right: 20rpx;
+  font-size: 28rpx;
+  color: #999;
+}
+.bottom-btn{
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 30rpx;
+  height: 70rpx;
+}
+.exchangeBtn,
+.listBtn{
+  position: absolute;
+  top: 0;
+  display: block;
+  font-size: 28rpx;
+  padding: 10rpx;
+  border-radius: 10rpx;
+  border: 1px solid #ff4c6b;
+  color: #ff4c6b;
+}
+.exchangeBtn{
+  left: 22%;
+}
+.listBtn{
+  right: 22%;
+}

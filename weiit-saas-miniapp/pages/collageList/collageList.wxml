@@ -1,0 +1,75 @@
+<!-- 拼团 -->
+<import src="../Template_/Template_.wxml" />
+<view class='pages' style='overflow:{{YorN}}'>
+  <view class='contents' hidden="{{currentTab === 1}}">
+    <template is="Bargain" data='{{value:"collage",data:datas,noticeList:noticeList,backgroundColor:backgroundColor}}' />
+  </view>
+  <view class='contents' hidden="{{currentTab === 0}}">
+    <view wx:if='{{list!=null}}' class='myList' wx:for='{{list}}'>
+      <view class='img_box'>
+        <image class='collageImg' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+        <image wx:if='{{item.state==0}}' class='wares' style='display:none'></image>
+        <image wx:if='{{item.state==3}}' class='wares' src='../../images/suc.png'></image>
+        <image wx:if='{{item.state==-1||item.state==2}}' class='wares' src='../../images/fail.png'></image>
+      </view>
+      <view class='collagRight'>
+        <view class='collageTitle'>{{item.product_name}}</view>
+        <block wx:if='{{value!="cut"}}'>
+          <view wx:if='{{item.state==1}}' class='SorF'>拼团进行中</view>
+          <view wx:if='{{item.state==3}}' class='SorF'>拼团成功</view>
+          <view wx:if='{{item.state==4}}' class='SorF'>订单未支付</view>
+          <view wx:if='{{item.state==-1||item.state==2}}' class='SorF'>拼团失败</view>
+        </block>
+      </view>
+      <block wx:if='{{value!="cut"}}'>
+        <view wx:if='{{item.state==1}}' class='again' bindtap='continues' data-g_order_id='{{item.g_order_id}}' style='background-color:{{backgroundColor}}'>查看拼团</view>
+        <view wx:if='{{item.state==4}}' data-paymentType="{{item.payment_type}}" data-index="{{index}}" class='again' bindtap='payment' data-g_order_id='{{item.g_order_id}}' data-order_num='{{item.order_num}}' style='background-color:{{backgroundColor}}'>继续支付</view>
+        <view wx:if='{{item.state==-1||item.state==2||item.state==3}}' class='again' bindtap='again' data-groupon_id='{{item.groupon_id}}' data-product_id='{{item.product_id}}' style='background-color:{{backgroundColor}}'>再拼一次</view>
+      </block>
+      <view wx:if='{{item.state==1||item.state==4}}' class='countDown'>
+        <text>{{item.hour}}</text>:
+        <text>{{item.minute}}</text>:
+        <text>{{item.secondr}}</text>后结束
+      </view>
+    </view>
+    <view wx:if='{{list==null}}' class='cutOrder'>您还没有拼团订单哦~</view>
+  </view>
+</view>
+<view class='order_bar'>
+  <view class="navbar">
+    <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text>
+  </view>
+</view>
+<!-- 规则内容 -->
+<!-- <view wx:if='{{rulePage}}' class='rulePage' bindtap='know'>
+  <view class='ruleBox' style='background-color:{{backgroundColor}}'>
+    <text class='iconfont icon-cha1' bindtap='closerule'></text>
+    <view class='ruleTitle'>
+      <image src='../../images/backss.png'></image>
+      <view>活动规则</view>
+    </view>
+    <view class='content'>这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，这是规则啊，一定要遵守规则，</view>
+  </view>
+</view> -->
+<!-- 继续购买 -->
+<sliders></sliders>
+<view class="commodity_screen" bindtap="hide" wx:if="{{showModalStatus}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <view class='paymentBox'>
+    <radio-group bindchange='getValue'>
+      <view class='wechat'>
+        <radio value='wechat' checked='{{payment_current == 0}}'></radio>
+        <image class='img' src='../../images/wechat.png'></image>
+        <view class='titles'>微信支付</view>
+        <text>推荐安装微信的用户使用</text>
+      </view>
+      <view class='wechat'>
+        <radio value='balance' checked='{{payment_current == 1}}'></radio>
+        <image class='img' src='../../images/balance.png'></image>
+        <view class='titles'>余额支付</view>
+        <text>请确保自己账户余额充足</text>
+      </view>
+    </radio-group>
+  </view>
+  <view class='confirmBtn' bindtap='confirmBtn' style='background-color:{{backgroundColor}}'>确定</view>
+</view>

@@ -1,0 +1,237 @@
+<template name='List_of_goods'>
+  <view class='list_num' bindtap='go_detail' data-product_id='{{product_id}}'>
+    <view class='Box_img'>
+      <image class='list_img' src='http://wstore-1255653546.image.myqcloud.com{{product_img}}' mode='aspectFit'></image>
+    </view>
+    <view class='list_title'>{{product_name}}</view>
+    <view class='list_money'>
+      <text>￥</text>{{sale_price}}</view>
+  </view>
+</template>
+<!-- 兑换积分商品列表 -->
+<template name='intergral_of_goods'>
+  <view class='intergral_list' bindtap='go_detail' data-id='{{validate_id}}' data-toke='{{validate_id_token}}'>
+    <view class='Box_img'>
+      <image class='list_img' src='http://wstore-1255653546.image.myqcloud.com{{product_img}}' mode='aspectFit'></image>
+    </view>
+    <view class='list_title intergral_title'>{{product_name}}</view>
+    <view class='intergral_money fn-clear'>
+      <text class='price'>￥{{integral_price}}</text>
+      <text class='intergral-num'>{{integral}}积分</text>
+    </view>
+  </view>
+</template>
+<!-- 我的订单模板 -->
+<template name="my_Order">
+  <view class='Business_name'>
+    <view class='top'>订单号:{{order_num}}
+      <view class='state' wx:if='{{name!="退货"}}'>{{state}}</view>
+    </view>
+    <template name='list'>
+      <view class='baby_name' bindtap='go_orderdetail' data-index='{{order_num}}'>
+        <image class='baby_img' src='http://wstore-1255653546.image.myqcloud.com{{product_img}}'></image>
+        <view class='com_nums'>{{count}}件商品</view>
+        <view class='title'>{{product_name}}</view>
+        <view class='Size' wx:if='{{spec_content!=null}}'>
+          <text decode='true'>{{spec_content}}</text>
+        </view>
+        <view class='baby_Price'>
+          <view class='Price'>￥{{pay_price}}</view>
+          <view class='Original_price'>￥{{smarket_price}}</view>
+        </view>
+      </view>
+    </template>
+    <template name='bottom'>
+      <!-- 判断是否是退货管理 -->
+      <view class='bom'>
+        <view class='Settlement'>共{{total}}件商品 合计:￥
+          <text class='money'>{{pay_price}}</text>(
+          <text class='freight'>含运费￥{{express_money}}</text>)
+        </view>
+        <!-- 判断是否是退货管理 -->
+        <view class='btn' wx:if='{{state=="待收货"}}'>
+          <button bindtap='look_logistics' hover-class='none' plain='true' class='logistics' data-index='{{index}}'>查看物流</button>
+          <button bindtap='confirm' hover-class='none' plain='true' style='background-color:{{btnColor.global_bg1}}' class='confirm' data-id='{{order_num}}'>确认收货</button>
+        </view>
+        <view class='btn' wx:if='{{state=="待付款"}}'>
+          <button bindtap='payment' hover-class='none' plain='true' style='background-color:{{btnColor.global_bg1}}' class='confirm' data-id='{{order_num}}' data-money='{{pay_price}}'>继续付款</button>
+        </view>
+      </view>
+    </template>
+  </view>
+</template>
+
+<!-- 当订单 || 收藏 ||退货为空的时候执行 -->
+<template name='empty'>
+  <view class='empty'>
+    <image mode='widthFix' class='car' src='{{url}}'></image>
+    <view class='Prompt'>{{title}}~</view>
+    <button class='jump_home' bindtap='go_home' style='background-color:{{btnColor.global_bg1}}'>{{btn}}</button>
+  </view>
+</template>
+
+<!-- 什么是余额、什么是积分模板 -->
+<template name='explain'>
+  <view class='explain'>
+    <image class='rabbit' src='../../images/rabbit.png'></image>
+    <view class='what_yue'>钱包中的余额常识</view>
+    <view class='content'>
+      <text>1.订单退款不会按照原路退还，只会退到余额.</text>
+      <text>2.余额的钱可以用于下单时使用.</text>
+      <text>3.余额的钱可以提现，但是需要商家审核.</text>
+    </view>
+  </view>
+</template>
+
+<!-- 我的优惠券模板 -->
+<template name="Coupon">
+  <view class='titletype' wx:if='{{availableCoupon.length>0}}'>可用优惠券</view>
+  <block wx:for='{{availableCoupon}}'>
+    <view class='div' data-index='{{index}}' bindtap='option_coupon'>
+      <view class='{{item.is_useable?"left":"lefts"}}'>
+        <view class='Quota'>
+          <text style='font-size:22rpx' wx:if='{{item.type==1||item.type==3}}'>￥</text>
+          <text class='money_num'>{{item.coupon_content}}</text>
+          <text style='font-size:26rpx' wx:if='{{item.type==2}}'>折</text>
+        </view>
+        <view class='condition'>{{item.condition}}</view>
+      </view>
+      <view class='right'>
+        <view class='purpose'>{{item.coupon_name}}</view>
+        <view class='Time_limit'>{{item.time}}</view>
+        <view class='limit'>*{{item.product}}</view>
+        <block>
+          <view wx:if='{{item.is_useable}}' class='tickets'>{{item.coupon_desc}}</view>
+          <view wx:else class='useable'>{{item.reason}}</view>
+        </block>
+        <view class='{{CouponIndex==index?"couponRadio":"couponRadios"}}'></view>
+        <view class='{{CouponIndex==index?"select":""}}'></view>
+        <block wx:if='{{item.state==0}}'></block>
+        <block wx:else>
+          <image wx:if="{{item.state==1}}" class='already' src='../../images/Already_1.png'></image>
+          <image wx:if="{{item.state==2}}" class='already' src='../../images/Already_2.png'></image>
+        </block>
+      </view>
+    </view>
+  </block>
+  <view class='titletype' wx:if='{{unavailableCoupon.length>0}}'>不可用优惠券</view>
+  <block wx:for='{{unavailableCoupon}}'>
+    <view class='div'>
+      <view class='{{item.is_useable?"left":"lefts"}}'>
+        <view class='Quota'>
+          <text style='font-size:22rpx' wx:if='{{item.type==1||item.type==3}}'>￥</text>
+          <text class='money_num'>{{item.coupon_content}}</text>
+          <text style='font-size:26rpx' wx:if='{{item.type==2}}'>折</text>
+        </view>
+        <view class='condition'>{{item.condition}}</view>
+      </view>
+      <view class='right'>
+        <view class='purpose'>{{item.coupon_name}}</view>
+        <view class='Time_limit'>{{item.time}}</view>
+        <view class='limit'>*{{item.product}}</view>
+        <block>
+          <view wx:if='{{item.is_useable}}' class='tickets'>{{item.coupon_desc}}</view>
+          <view wx:else class='useable'>{{item.reason}}</view>
+        </block>
+      </view>
+    </view>
+  </block>
+</template>
+<!-- 我的优惠券模板 -->
+<template name="Coupons">
+  <view class='div' bindtap='Use' data-state='{{state}}'>
+    <view class='{{state==0?"left":"lefts"}}'>
+      <view class='Quota'>
+        <text wx:if='{{type==1||type==3}}'>￥</text>
+        <text class='money_num'>{{coupon_content}}</text>
+        <text wx:if='{{type==2}}'>折</text>
+      </view>
+      <view>{{condition}}</view>
+    </view>
+    <view class='right'>
+      <view class='purpose'>{{coupon_name}}</view>
+      <view class='Time_limit'>{{time}}</view>
+      <view class='limit'>*{{product}}</view>
+      <view class='{{state==0?"ticket":"tickets"}}'>{{coupon_desc}}</view>
+      <view wx:if='{{pages == "car"}}'>
+        <radio data-value='{{product}}({{coupon_name}}){{coupon_content}}' checked='{{CouponIndex==index?true:false}}' data-id='{{coupon_id}}' data-index='{{index}}' bindtap='option_coupon'></radio>
+      </view>
+      <view wx:else>
+        <view wx:if='{{state==0}}' class='go_Use'>去使用</view>
+        <view wx:elif="{{state == -1}}" class='go_Uses'>已过期</view>
+        <view wx:else class='go_Uses'>去使用</view>
+
+      </view>
+      <block wx:if='{{state==0}}'></block>
+      <block wx:else>
+        <image wx:if="{{state==1}}" class='already' src='../../images/Already_1.png'></image>
+        <image wx:if="{{state==2}}" class='already' src='../../images/Already_2.png'></image>
+      </block>
+    </view>
+  </view>
+</template>
+<!-- 会员卡 -->
+<template name="vip">
+  <view class='{{true?"user":"users"}}'>
+    <image class='user_img' src='http://dl.bizhi.sogou.com/images/2012/02/11/25025.jpg'></image>
+    <view class='user_name'>京东商城</view>
+    <text wx:if="true" class='iconfont icon-erweima states'></text>
+    <text wx:else class='iconfont icon-yiguoqi states'></text>
+    <view class='user_id'>ID：1234567890</view>
+    <view class='term'>
+      <text decode='true'>有效期:&nbsp;&nbsp;</text>2012.12.12-2021.12.12</view>
+    <view wx:if="true" bindtap='vip_detail' class='click'></view>
+  </view>
+</template>
+
+<!-- 商品分组 -->
+<template name="Grouping">
+  <!-- <block wx:for='{{group_con.productInfo}}'> -->
+  <!-- 大图模式 -->
+  <view wx:if='{{pageParam.goodStyle=="big"}}' wx:for='{{group_con.productInfo}}' class='team_list big_list' bindtap='go_detail' data-product_id='{{item.product_id}}'>
+    <view class='team_left'>
+      <image mode='aspectFit' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+    </view>
+    <view class='team_right'>
+      <view class='bigTeam_title'>{{item.product_name}}</view>
+      <view class='team_money'>￥{{item.sale_price}}</view>
+      <!-- <view wx:if='{{pageParam.btnStyle=="button1"}}' class='add_car'>
+          <view class='iconfont icon-gouwuche'></view>
+        </view>
+        <view wx:if='{{pageParam.btnStyle=="button2"}}' class='add_car'>
+          <view class='iconfont icon-jia'></view>
+        </view>
+        <view wx:if='{{pageParam.btnStyle=="button3"}}' class='btn3'>{{pageParam.btnTxt3}}</view>
+        <view wx:if='{{pageParam.btnStyle=="button4"}}' class='btn4'>{{pageParam.btnTxt4}}</view> -->
+    </view>
+  </view>
+  <!-- 小图模式 -->
+  <view wx:if='{{pageParam.goodStyle=="small"||pageParam.goodStyle=="matrix"}}' wx:for='{{group_con.productInfo}}' class='team_list small_list' bindtap='go_detail' data-product_id='{{item.product_id}}'>
+    <image class='team_left' mode='aspectFit' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+    <view class='team_right'>
+      <view class='team_title'>{{item.product_name}}</view>
+      <view class='team_money'>￥{{item.sale_price}}</view>
+      <view class='team_Already'>已售{{item.sale_count}}件</view>
+    </view>
+  </view>
+  <!-- 列表模式 -->
+  <view wx:if='{{pageParam.goodStyle=="list"}}' wx:for='{{group_con.productInfo}}' class='team_list list_list' bindtap='go_detail' data-product_id='{{item.product_id}}'>
+    <view class='team_left'>
+      <image mode='aspectFit' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+    </view>
+    <view class='team_right'>
+      <view class='team_title'>{{item.product_name}}</view>
+      <!-- <view class='team_content'>香糯可口 农家好粽</view> -->
+      <view class='team_money'>￥
+        <text>{{item.sale_price}}</text>
+      </view>
+      <!-- <view class='team_num'>规格:{{item.groupon_number}}个装</view> -->
+      <!-- <view class='boom'>
+        <image class='team_img' src='../../images/double.png'></image>
+        <text class='people_num'>三人团:{{item.groupon_price}}元</text>
+        <view class='go_team'>去开团</view>
+      </view> -->
+    </view>
+  </view>
+  <!-- </block> -->
+</template>

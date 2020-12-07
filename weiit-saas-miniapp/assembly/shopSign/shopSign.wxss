@@ -1,0 +1,170 @@
+/* 店招 */
+
+.shop {
+  width: 100%;
+  position: relative;
+  background-color: #fff;
+  overflow: hidden;
+  
+}
+
+.shop_pic {
+  width: 120rpx;
+  height: 120rpx;
+  position: absolute;
+  left: 30rpx;
+  bottom: 20rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.shop_title {
+  width: 460rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  color: #fff;
+  font-weight: bold;
+  position: absolute;
+  left: 170rpx;
+  bottom: 80rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.type1 {
+  border-bottom: 0;
+  height: 300rpx;
+  overflow: hidden;
+}
+.shop_back{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.type1 .shop_con {
+  font-size: 28rpx;
+  color: #fff;
+  position: absolute;
+  bottom: 30rpx;
+  left: 170rpx;
+}
+
+.type1 .satisfy {
+  width: 70rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  background-color: #f44;
+  float: left;
+}
+
+.type2 {
+  height: 350rpx;
+}
+.type2  .back-bg{
+  position: relative;
+  height: 250rpx;
+  overflow: hidden;
+}
+.type2 .shop_pic {
+  border-radius: 60rpx;
+  position: absolute;
+  bottom: 40rpx;
+}
+
+.type2 .shop_title {
+  position: absolute;
+  bottom: 100rpx;
+}
+
+.type2 .orr {
+  position: absolute;
+  bottom: 55rpx;
+  left: 170rpx;
+  color: #666;
+  font-size: 28rpx;
+}
+
+.type3 {
+  height: 300rpx;
+  overflow: hidden;
+}
+
+
+.type3 .orr {
+  position: absolute;
+  bottom: 30rpx;
+  left: 170rpx;
+  color: #fff;
+  font-size: 30rpx;
+}
+
+.type4 {
+  height: 350rpx;
+}
+
+
+.type4 .shop_pic {
+  border-radius: 60rpx;
+  top: 70rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.type4 .shop_title {
+  text-align: center;
+  color: #000;
+  top: 210rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.type4 .orr {
+  font-size: 30rpx;
+  color: #666;
+  position: absolute;
+  top: 270rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.type4 .type-bg{
+  position: relative;
+  height: 200rpx;
+  overflow: hidden;
+}
+
+.type5 {
+  height: 350rpx;
+  overflow: hidden;
+}
+
+
+.type5 .shop_pic {
+  border-radius: 60rpx;
+  top: 65rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.type5 .shop_title {
+  max-width: 90%;
+  position: absolute;
+  top: 200rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.type5 .orr {
+  border-top: 2rpx solid #fff;
+  padding-top: 20rpx;
+  color: #fff;
+  position: absolute;
+  top: 260rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.task.mapper.CouponMapper">
+	 
+	<select id="selectCouponList" resultType="com.weiit.core.entity.E" parameterType="map">
+ 	    select
+			*
+		FROM
+			weiit_ump_coupon
+		where 1=1
+ 	    <if test="state!=null and state !=''">
+			AND state=#{state}
+		</if>
+		<if test="end_time!=null and end_time !=''">
+			AND end_time=#{end_time}
+		</if>
+		<if test="start_time!=null and start_time !=''">
+			AND start_time=#{start_time}
+		</if>
+	</select>
+
+	<update id="updateCouponState" parameterType="map">
+		update
+			weiit_ump_coupon
+		set state=#{updateState}
+		WHERE
+			state=#{state}
+			 <if test="start_time!=null and start_time!=''">
+				 AND start_time &lt;#{start_time}
+			 </if>
+			<if test="end_time!=null and end_time!=''">
+				AND end_time &lt;#{end_time}
+			</if>
+
+	</update>
+
+ 	 
+ 	 
+</mapper>

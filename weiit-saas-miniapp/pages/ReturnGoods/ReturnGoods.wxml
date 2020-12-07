@@ -1,0 +1,19 @@
+<!-- 退货管理 -->
+<view wx:if='{{load}}'>
+  <import src="../template/template.wxml" />
+  <block wx:if='{{retreat != ""}}'>
+    <view wx:for='{{retreat}}'>
+      <template is="my_Order" data='{{...item}}' />
+      <template is='list' data='{{...item}}' />
+      <view class='bom'>
+        <view class='refund_option'>{{item.refund_type}}</view>
+        <view class='cancel_btn' wx:if='{{item.bool}}' bindtap='cacel_btn' data-type='{{item.state}}' data-cancel_id='{{item.refund_id}}'>取消退换</view>
+        <view class='look_detail' data-cancel_id='{{item.refund_id}}' data-type='{{item.state}}' bindtap='look_detail'>查看详情</view>
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+    <template is="empty" data='{{...emptys,btnColor:btnColor}}' />
+  </block>
+  <sliders></sliders>
+</view>

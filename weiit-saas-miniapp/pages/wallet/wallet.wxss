@@ -1,0 +1,55 @@
+/* pages/Withdrawals/Withdrawals.wxss */
+@import "../template/template.wxss";
+
+.wallet {
+  text-align: center;
+}
+
+.my_money {
+  line-height: 80rpx;
+  font-size: 30rpx;
+}
+
+.money_num {
+  padding-bottom: 60rpx;
+  font-size: 32rpx;
+}
+
+.img {
+  padding-top: 100rpx;
+  width: 200rpx;
+  height: 200rpx;
+}
+
+button {
+  width: 90%;
+  border: 0;
+}
+
+button::after {
+  border: none;
+}
+
+button:hover {
+  color: #000;
+}
+
+.Withdrawals {
+  background: rgba(255, 220, 75, 1);
+  color: #fff;
+}
+
+.Withdrawals:hover {
+  color: #fff;
+}
+
+.Recharge {
+  background: rgba(229, 229, 229, 1);
+  margin: 22rpx auto;
+}
+
+.detail {
+  font-size: 30rpx;
+  text-decoration-line: underline;
+  color: rgba(55, 149, 237, 1);
+}

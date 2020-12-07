@@ -1,0 +1,39 @@
+/* pages/add_info/add_info.wxss */
+
+.option_company {
+  line-height: 100rpx;
+  background-color: #fff;
+  padding: 0 20rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+text {
+  float: right;
+}
+
+.option_company .icon-youjiantouda {
+  margin-top: 6rpx;
+}
+
+input {
+  width: 96%;
+  background-color: #fff;
+  height: 90rpx;
+  padding: 0 2%;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.complete {
+  width: 90%;
+  height: 90rpx;
+  color: #fff;
+  text-align: center;
+  line-height: 90rpx;
+  background-color: #ffdc4b;
+  border-radius: 14rpx;
+  position: fixed;
+  bottom: 30rpx;
+  left: 5%;
+}

@@ -4,7 +4,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.web.admin.file.service.PictureService;
 import com.weiit.web.admin.product.service.ProductGroupService;
+import com.weiit.web.admin.product.service.ProductService;
+import com.weiit.web.admin.publics.service.PublicsService;
+//import com.weiit.web.admin.ump.service.BargainService;
+//import com.weiit.web.admin.ump.service.GrouponService;
 import com.weiit.web.admin.util.DesUtil;
 import com.weiit.web.base.AdminController;
 import com.weiit.web.base.UIview;
@@ -18,12 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-//import com.weiit.web.admin.ump.service.BargainService;
-//import com.weiit.web.admin.ump.service.GrouponService;
 
 /**
  * 商品分组
@@ -41,6 +44,21 @@ public class ProductGroupController extends AdminController {
 	@Resource
 	private ProductGroupService productGroupService;
 
+	@Resource
+    ProductService productService;
+
+	@Resource
+    PublicsService publicsService;
+
+	@Resource
+    PictureService pictureService;
+
+//	@Resource
+//	BargainService bargainService;
+
+//	@Resource
+//    GrouponService grouponService;
+ 
     /**
      * 商品分组列表
      */

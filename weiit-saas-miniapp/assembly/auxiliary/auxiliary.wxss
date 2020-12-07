@@ -1,0 +1,10 @@
+/* assembly/auxiliary/auxiliary.wxss */
+
+.guide {
+  width: 98%;
+  margin: 0 auto;
+}
+.guides{
+  width: 86%;
+  margin: 0 auto
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.task.mapper.MerchantMapper">
+  	
+    <update id="edit" parameterType="map">
+		update weiit_merchant SET state=#{update_state} ,update_time=now()
+			WHERE state=#{state} 
+		<if test="end_time!=null and end_time!=''">
+           AND version_expire_time &lt; #{end_time}
+        </if>
+	</update>
+	
+	<update id="editMerchantService" parameterType="map">
+		update weiit_merchant_service SET state=#{update_state} 
+			WHERE state=#{state} 
+		<if test="end_time!=null and end_time!=''">
+           AND expire_time &lt; #{end_time}
+        </if>
+	</update>
+
+	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map" >
+		SELECT
+			account,
+			version_num
+		FROM
+			weiit_merchant
+		WHERE
+			DATE_FORMAT(
+				version_expire_time,
+				'%Y-%m-%d'
+			) = #{expireDate}
+	</select>
+	
+</mapper>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    
+    <!-- 扫描controller（controller层注入） -->
+    <context:component-scan base-package="com.weiit.web.admin.system.controller,com.weiit.web.admin.shop.controller,com.weiit.web.admin.file.controller,com.weiit.web.admin.user.controller,com.weiit.web.admin.order.controller,com.weiit.web.admin.report.controller
+    ,com.weiit.web.admin.*.controller,com.weiit.web.weixinopen.controller"/>
+    
+	<!-- 会自动注册了validator  ConversionService  -->
+    <mvc:annotation-driven>
+        <!--enableMatrixVariables="true">-->
+        <mvc:message-converters register-defaults="true">
+            <!-- StringHttpMessageConverter编码为UTF-8，防止乱码 -->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+                <property name="supportedMediaTypes">
+                    <list>
+                        <bean class="org.springframework.http.MediaType">
+                            <constructor-arg index="0" value="text"/>
+                            <constructor-arg index="1" value="plain"/>
+                            <constructor-arg index="2" value="UTF-8"/>
+                        </bean>
+                        <bean class="org.springframework.http.MediaType">
+                            <constructor-arg index="0" value="*"/>
+                            <constructor-arg index="1" value="*"/>
+                            <constructor-arg index="2" value="UTF-8"/>
+                        </bean>
+                    </list>
+                </property>
+            </bean>
+ 
+            <!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"
+                  id="fastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+                <!--<property name="serializerFeature">-->
+                <!--这个地方加上这个功能吧，能自己配置一些东西，比如时间的格式化，null输出""等等-->
+                <!--</property>-->
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+   <!-- <mvc:resources location="/resource/" mapping="/resource/**"/>-->
+
+    <mvc:default-servlet-handler />
+
+    <bean id="springUtil" class="com.weiit.resource.common.utils.SpringUtil" />
+    
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+        <bean class="com.weiit.web.admin.util.MyHandlerInterceptor" />  
+    </mvc:interceptors>
+
+    <!-- 对模型视图添加前后缀 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/view" p:suffix=".jsp"/>
+
+    <!-- 配置springMVC处理上传文件的信息 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="10485760000"/>
+        <property name="maxInMemorySize" value="40960"/>
+    </bean>
+
+    <!-- 启用shrio授权注解拦截方式 -->
+    <aop:config proxy-target-class="true"></aop:config>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+	<!-- spring 统一异常处理  -->
+	<bean id="exceptionResolver" class="com.weiit.web.admin.util.DefaultExceptionResolver">     
+         <property name="exceptionMappings">     
+        	<props>     
+        		<prop key="java.lang.Exception">/center/error</prop>     
+          		<prop key="org.apache.shiro.authz.AuthorizationException">/center/401</prop>  
+        	</props>     
+         </property>    
+     </bean> 
+</beans>

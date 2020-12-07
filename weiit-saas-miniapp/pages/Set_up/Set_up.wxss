@@ -1,0 +1,112 @@
+/* pages/Set_up/Set_up.wxss */
+
+.user {
+  background-color: #fff;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.user view {
+  border-bottom: 1rpx solid #d9d9d9;
+}
+
+.user_img {
+  line-height: 100rpx;
+  padding: 0 30rpx;
+}
+
+.user_pic {
+  width: 80rpx;
+  height: 80rpx;
+  margin-top: 10rpx;
+  float: right;
+  border-radius: 50%;
+}
+
+.user_name, .user_Birthday, .user_sex, .user_tel {
+  padding: 0 30rpx;
+  line-height: 80rpx;
+  height: 80rpx;
+}
+.user_tel text,
+.user_tel input{
+  float: left;
+  line-height: 80rpx;
+}
+.user_tel input{
+  font-size: 26rpx;
+  width: 370rpx
+}
+.user_tel view{
+  float: right;
+  padding: 0 20rpx;
+  font-size: 26rpx;
+  color: #bbb;
+  border: 1px solid #bbb;
+  line-height: 50rpx;
+  height: 50rpx;
+  border-radius: 10rpx;
+  margin-top: 15rpx;
+}
+.user_tel text.fr{
+  float: right
+}
+input, .birthday {
+  height: 80rpx;
+  color: #666;
+  padding-left: 20rpx;
+}
+
+.user_sex, .user_tel {
+  position: relative;
+}
+
+radio-group {
+  position: absolute;
+  top: 0;
+  right: 20rpx;
+}
+
+radio {
+  transform: scale(0.7);
+}
+
+.code-box{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, .8);
+  z-index: 20; 
+}
+
+.code-input-box{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding: 20rpx 40rpx;
+  transform: translate(-50%, -50%);
+  
+}
+.code-input-box input{
+  padding: 0 40rpx;
+  border-bottom: 1px solid #bbb;
+  font-size: 40rpx;
+  width: 500rpx;
+  text-align: center;
+  margin-bottom: 50rpx;
+}
+.ensure-btn{
+  border: none 0;
+  color: #fff;
+  background-color: #38f;
+  text-align: center;
+  line-height: 80rpx;
+  border-radius: 20rpx;
+  font-size: 30rpx;
+}
+.tel_code{
+  float: right;
+
+}

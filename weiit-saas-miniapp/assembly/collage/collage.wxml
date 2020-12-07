@@ -1,0 +1,57 @@
+<view>
+  <view class='cut_title' wx:if="{{pageParam.haveTitle == 'yes'}}">一
+    <text class='title_title'>{{fightTitle}}</text>一
+    <view class='look_orr' wx:if='{{collage}}' bindtap='look_orr' data-value='collage'>更多
+      <text class='iconfont icon-youjiantouda'></text>
+    </view>
+  </view>
+  <!-- 大图模式 -->
+  <view wx:if='{{pageParam.goodStyle=="big"}}' wx:for='{{collage}}' class='team_list big_list'>
+    <form bindsubmit='collage' report-submit='true'>
+      <button plain='true' form-type='submit' data-id='{{item.product_id}}' data-index='{{item.groupon_id}}'></button>
+      <view class='team_left'>
+        <image mode='aspectFit' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+      </view>
+      <view class='team_right'>
+        <view class='bigTeam_title'>{{item.product_name}}</view>
+        <view class='team_money'>￥{{item.groupon_price}}</view>
+        <view class='team_Already'>已拼{{item.sale_count}}件</view>
+        <view class='go_gogo'>去拼团</view>
+      </view>
+    </form>
+  </view>
+  <!-- 小图模式 -->
+  <view wx:if='{{pageParam.goodStyle=="matrix"}}' wx:for='{{collage}}' class='team_list small_list'>
+    <form bindsubmit='collage' report-submit='true'>
+      <button plain='true' form-type='submit' data-id='{{item.product_id}}' data-index='{{item.groupon_id}}'></button>
+      <image class='team_left' mode='aspectFit' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+      <view class='team_right'>
+        <view class='team_title'>{{item.product_name}}</view>
+        <view class='team_money'>￥{{item.groupon_price}}</view>
+        <view class='team_Already'>已拼{{item.sale_count}}件</view>
+      </view>
+    </form>
+  </view>
+  <!-- 列表模式 -->
+  <view wx:if='{{pageParam.goodStyle=="list"}}' wx:for='{{collage}}' class='team_list list_list'>
+    <form bindsubmit='collage' report-submit='true'>
+      <button plain='true' form-type='submit' data-id='{{item.product_id}}' data-index='{{item.groupon_id}}'></button>
+      <view class='team_left'>
+        <image mode='aspectFit' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+      </view>
+      <view class='team_right'>
+        <view class='team_title'>{{item.product_name}}</view>
+        <!-- <view class='team_content'>香糯可口 农家好粽</view> -->
+        <view class='team_money'>原价:
+          <text>{{item.sale_price}}</text>
+        </view>
+        <!-- <view class='team_num'>规格:个装</view> -->
+        <view class='boom'>
+          <image class='team_img' src='../../images/double.png'></image>
+          <text class='people_num'>{{item.groupon_number}}人团:{{item.groupon_price}}元</text>
+          <view class='go_team'>去开团</view>
+        </view>
+      </view>
+    </form>
+  </view>
+</view>

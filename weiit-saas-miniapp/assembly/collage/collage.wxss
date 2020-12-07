@@ -1,0 +1,297 @@
+
+.cut_title, .cut_prompt {
+  position: relative;
+  text-align: center;
+  line-height: 100rpx;
+  font-size: 32rpx;
+  color: #000;
+  background-color: #fff;
+}
+
+.cut_title .title_title {
+  margin: 0 20rpx;
+}
+
+/*  组团拼团 */
+
+.team {
+  overflow: hidden;
+  position: relative;
+}
+.look_orr, .cut_more {
+  width: 100rpx;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  position: absolute;
+  top: 50%;
+  right: 10rpx;
+  transform: translateY(-50%);
+  font-size: 28rpx;
+  color: #ec534e;
+}
+
+.team_list {
+  margin: 10rpx 0;
+  overflow: hidden;
+  background-color: #fff;
+  position: relative
+}
+.team_list button{
+  width: 100%;
+  height: 100%;
+}
+.team_left, .team_right {
+  float: left;
+}
+
+.team_left {
+  width: 35%;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.team_left image {
+  width: 230rpx;
+  height: 230rpx;
+}
+
+.team_right {
+  width: 65%;
+  position: relative;
+}
+
+.team_title {
+  font-size: 28rpx;
+  padding-top: 20rpx;
+  color: #333;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.team_content {
+  font-size: 24rpx;
+  line-height: 60rpx;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.team_money {
+  margin-top: 40rpx;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.team_num {
+  font-size: 20rpx;
+  color: #666;
+  position: absolute;
+  right: 30rpx;
+  top: 122rpx;
+}
+
+.boom {
+  width: 96%;
+  height: 42rpx;
+  line-height: 42rpx;
+  margin: 0 auto;
+  margin-top: 40rpx;
+  font-size: 24rpx;
+  position: relative;
+}
+
+.team_img {
+  width: 100%;
+  height: 100%;
+}
+
+.people_num {
+  color: #fff;
+  position: absolute;
+  left: 30rpx;
+  top: 5rpx;
+}
+
+.go_team {
+  position: absolute;
+  right: 30rpx;
+  top: 5rpx;
+}
+
+/* 拼团大图模式 */
+
+.big_list {
+  width: 98vw;
+  margin: 0 auto;
+  margin-bottom: 20rpx
+}
+
+.big_list .team_left, .big_list .team_right {
+  width: 100% !important;
+}
+
+.big_list .team_right {
+  height: 165rpx !important;
+  position: relative;
+}
+
+.big_list .team_left image {
+  width: 94vw;
+  height: 94vw;
+}
+
+.big_list .bigTeam_title {
+  font-size: 28rpx;
+  width: 94vw;
+  margin: 0 auto;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.big_list .team_money {
+  color: #f44;
+  font-size: 26rpx;
+  position: absolute;
+  bottom: 20rpx;
+  left: 20rpx;
+}
+
+.big_list .team_Already {
+  color: #999;
+  font-size: 26rpx;
+  position: absolute;
+  bottom: 20rpx;
+  left: 170rpx;
+}
+
+.big_list .go_gogo {
+  width: 150rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  border-radius: 20rpx;
+  text-align: center;
+  border: 4rpx solid #ffdc48;
+  position: absolute;
+  bottom: 6rpx;
+  right: 20rpx;
+}
+
+/* 拼团小图模式 */
+
+.small_list {
+  width: 48vw;
+  margin: 0 1vw;
+  margin-bottom: 2vw;
+  float: left;
+}
+
+.small_list .team_left {
+  width: 48vw;
+  height: 48vw;
+}
+
+.small_list .team_right {
+  width: 47vw;
+  height: 120rpx;
+  padding-left: 1vw;
+}
+
+.small_list .team_title {
+  width: 47vw;
+  font-weight: normal;
+}
+
+.small_list .team_money {
+  color: #f44;
+  font-size: 26rpx;
+  margin-top: 16rpx;
+  margin-right: 10rpx;
+}
+
+.small_list .team_Already {
+  font-size: 26rpx;
+  color: #999;
+  margin-top: 16rpx;
+}
+
+.small_list .team_money, .small_list .team_Already {
+  float: left;
+}
+
+/* 拼团列表模式 */
+
+.list_list {
+  width: 100%;
+  height: 250rpx;
+  display: flex;
+  display: -webkit-flex;
+  flex: left;
+}
+
+.list_list .team_left {
+  width: 230rpx;
+  height: 230rpx;
+  margin: 10rpx 0 0 1vw;
+  overflow: visible;
+}
+
+.list_list .team_right {
+  position: relative;
+  margin-left: 20rpx;
+  height: 100%;
+  width: none;
+}
+
+.list_list .team_right .team_title {
+  width: 100%;
+  line-height: 40rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.list_list .team_right .team_money {
+  position: absolute;
+  top: 94rpx;
+}
+
+.list_list .team_right .boom {
+  position: absolute;
+  bottom: 20rpx;
+  left: 0;
+  margin: none;
+  width: 100%;
+}
+
+.list_list .team_right .boom .people_num, .list_list .team_right .boom .go_team {
+  margin-top: -2rpx;
+}
+
+@font-face {
+  font-family: 'iconfont'; /* project id 655959 */
+  src: url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.eot');
+  src: url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.eot?#iefix') format('embedded-opentype'),
+         url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.woff') format('woff'),
+         url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.ttf') format('truetype'),
+         url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-youjiantouda:before {
+  content: "\e607";
+}

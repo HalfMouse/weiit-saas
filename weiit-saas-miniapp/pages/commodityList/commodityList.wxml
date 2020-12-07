@@ -1,0 +1,38 @@
+<!-- 搜索页 -->
+<import src="../template/template.wxml" />
+<view touchmove='aaaa'>
+  <!-- <view class='search'>
+    <view class='iconfont icon-sousuo'></view>
+    <input placeholder='搜索品牌、商家或商品' class='search_ipt' bindinput='get_value'></input>
+    <view class='serach_btn' bindtap='search_Result'>搜索</view>
+  </view> -->
+  <view class='sea'>
+    <view class='top_bar'>
+      <view class="navbar">
+        <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item.name}}<text class='iconfont {{item.sorts?"icon-xiangxiajiantou":"icon-xiangshangjiantou"}}'></text></text>
+      </view>
+    </view>
+    <!--默认-->
+    <view class='aa' hidden="{{currentTab!==0}}">
+      <view class='searchBox'>
+        <template wx:for='{{searchList}}' is="List_of_goods" data='{{...item}}' />
+      </view>
+      <view wx:if='{{!hasNextPage}}' class='toTheEnd'>到底了~</view>
+    </view>
+    <!--价格-->
+    <view class='aa' hidden="{{currentTab!==1}}">
+      <view class='searchBox'>
+        <template wx:for='{{priceList}}' is="List_of_goods" data='{{...item}}' />
+      </view>
+      <view wx:if='{{!hasNextPage}}' class='toTheEnd'>到底了~</view>
+    </view>
+    <!--销量-->
+    <view class='aa' hidden="{{currentTab!==2}}">
+      <view class='searchBox'>
+        <template wx:for='{{salesList}}' is="List_of_goods" data='{{...item}}' />
+      </view>
+      <view wx:if='{{!hasNextPage}}' class='toTheEnd'>到底了~</view>
+    </view>
+  </view>
+  <sliders></sliders>
+</view>

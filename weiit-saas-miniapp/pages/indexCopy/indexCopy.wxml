@@ -1,0 +1,41 @@
+<!--index.wxml-->
+<block wx:for='{{layout}}' wx:key='{{index}}'>
+  <!-- 搜索框 -->
+  <search wx:if='{{layout[index].type=="search"}}' wx:key='{{layout[index].id}}' types='{{layout[index].pageParam.searchStyle}}' backColor='{{layout[index].pageParam}}'></search>
+  <!-- 广告模块 -->
+  <advertisement wx:if='{{layout[index].type=="advertisement"}}' wx:key='{{layout[index].id}}' pageParam='{{layout[index].pageParam}}'></advertisement>
+  <!-- 商品分组 -->
+  <grouping wx:if='{{layout[index].type=="Commodity_sort"}}' wx:key='{{layout[index].id}}' pageParam='{{layout[index].pageParam}}'></grouping>
+  <!-- 辅助空白线 -->
+  <guide wx:if='{{layout[index].type=="auxiliary_blank"}}' wx:key='{{layout[index].id}}' pageParam='{{layout[index].pageParam}}'></guide>
+  <!-- 优惠券 -->
+  <coupon wx:if='{{layout[index].type=="coupon"}}' wx:key='{{layout[index].id}}' pageParam='{{layout[index].pageParam}}'></coupon>
+  <!-- 商品列表 -->
+  <goodsList wx:if='{{layout[index].type=="Commodity_list"}}' wx:key='{{layout[index].id}}' pageParam='{{layout[index].pageParam}}'></goodsList>
+  <!-- 拼团列表 -->
+  <collage wx:if='{{layout[index].type=="fight"}}' wx:key='{{layout[index].id}}' pageParam='{{layout[index].pageParam}}'></collage>
+  <!-- 砍价列表 -->
+  <cutPrice wx:if='{{layout[index].type=="bargain"}}' wx:key='{{layout[index].id}}' pageParam='{{layout[index].pageParam}}'></cutPrice>
+  <!-- 客服电话 -->
+  <serviceTel wx:if='{{layout[index].type=="tel"}}' wx:key='{{layout[index].id}}' content='{{layout[index].pageParam}}'></serviceTel>
+  <!-- 富文本内容 -->
+  <richText wx:if='{{layout[index].type=="text_box"}}' wx:key='{{layout[index].id}}' pageParam='{{layout[index].pageParam}}'></richText>
+  <!-- 标题 -->
+  <title wx:if='{{layout[index].type=="title"}}' wx:key='{{layout[index].id}}' pageParam='{{layout[index].pageParam}}'></title>
+  <!-- 图文导航 -->
+  <menu wx:if='{{layout[index].type=="nav"}}' wx:key='{{layout[index].id}}' pageParam='{{layout[index].pageParam}}'></menu>
+  <!-- 店招 -->
+  <shopSign wx:if='{{layout[index].type=="shop_signs"}}' wx:key='{{layout[index].id}}' pageParam='{{layout[index].pageParam}}'></shopSign>
+  <!-- 公告 -->
+  <notice wx:if='{{layout[index].type=="notice"}}' pageParam='{{layout[index].pageParam}}'></notice>
+  <!-- 文本 -->
+  <text wx:if='{{layout[index].type=="text"}}' pageParam='{{layout[index].pageParam}}'></text>
+  <!-- 辅助线 -->
+  <auxiliary wx:if='{{layout[index].type=="auxiliary_lines"}}' pageParam='{{layout[index].pageParam}}'></auxiliary>
+  <!-- 音频 -->
+  <audio wx:if='{{layout[index].type=="voice"}}' pageParam='{{layout[index].pageParam}}'></audio>
+</block>
+<!-- 底部导航 -->
+<!-- <bottomNav wx:if='{{layout}}'></bottomNav> -->
+<bottomNav></bottomNav>
+<sliders></sliders>

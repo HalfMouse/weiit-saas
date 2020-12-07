@@ -1,0 +1,46 @@
+<!--pages/IntegralList/IntegralList.wxml-->
+<view>
+  <view class='integralList'>
+    <view wx:for="{{IntegralList}}" class='integral-item' data-indx="{{index}}">
+      <view class='order-num fn-clear'>
+        <text class='order'>订单号：{{item.order_num}}</text>
+        <text class='state' wx:if="{{item.state == 0}}">待支付</text>
+        <text class='state' wx:if="{{item.state == 1}}">已支付</text>
+        <text class='state' wx:if="{{item.state == -1}}">已过期</text>
+      </view>
+      <view class='item-goods fn-clear'>
+        <view class='item-pic'>
+          <image src="http://wstore-1255653546.image.myqcloud.com{{item.product_img}}"></image>
+        </view>
+        <view class='item-mations'>
+          <view class='item-title'>{{item.product_name}}</view>
+          <view class='goods-pays fn-clear'>
+            <text class='price'>￥{{item.pay_price}}</text>
+            <text class='integral'>{{item.integral}}积分</text>
+            <text class='smarket_price'>￥{{item.smarket_price}}</text>
+          </view>
+        </view>
+        
+      </view>
+      <view class='pay-btn fn-clear' wx-if="{{item.state == 0}}">
+          <view class='go-pay' bindtap='continue' data-item="{{item}}">继续支付</view>
+        </view>
+    </view>
+  </view>
+</view>
+<!-- 继续购买 -->
+<view class="commodity_screen" bindtap="hide" wx:if="{{showModalStatus}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <!-- 支付方式 -->
+  <view class='paymentBox'>
+    <view class='wechat' wx:for='{{payment_method}}' bindtap='getValue' data-index='{{index}}'>
+      <view class='{{item.is_radio?"selectRadio":"radios"}}'></view>
+      <view class='iconfont icon-icon-test'></view>
+      <image class='img' src='{{item.imgs}}'></image>
+      <view class='titles'>{{item.name}}</view>
+      <text>{{item.title}}</text>
+    </view>
+  </view>
+  <view class='confirmBtn' bindtap='confirmBtn' style='background-color:{{btnColor.global_bg1}}'>确定</view>
+</view>
+<sliders></sliders>

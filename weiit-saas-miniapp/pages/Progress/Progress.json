@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "提现进展",
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

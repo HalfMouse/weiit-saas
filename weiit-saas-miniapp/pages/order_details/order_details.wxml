@@ -1,0 +1,84 @@
+<!-- 订单详情 -->
+<view>
+  <view class='order_message bord'>
+    <view class='title'>订单信息</view>
+    <view class='content'>
+      <view><text class='name'>订单编号</text><text class='value'>{{content.order_num}}</text></view>
+      <view><text class='name'>订单时间</text><text class='value'>{{content.create_time}}</text></view>
+      <view wx:if='{{content.state!="待付款"&&content.deliver_time!=null&&content.state!="待发货"}}'><text class='name'>发货时间</text><text class='value'>{{content.deliver_time}}</text></view>
+      <view wx:if='{{content.state==4}}'><text class='name'>成交时间</text><text class='value'>{{content.update_time}}</text></view>
+      <view><text class='name'>订单状态</text><text class='value'>{{content.state}}</text></view>
+    </view>
+  </view>
+  <view class='address bord'>
+    <view class='title'>收货信息</view>
+    <view class='content'>
+      <view><text class='name'>收件人</text><text class='value'>{{content.consignee}}</text></view>
+      <view><text class='name'>电话号码</text><text class='value'>{{content.phone}}</text></view>
+      <view><text class='name'>收货地址</text><text class='value'>{{content.address}}</text></view>
+    </view>
+  </view>
+  <view class='commodity_list bord'>
+    <!-- <view class='top'>
+      <text class='iconfont icon-dianpu'></text>活动专区1
+      <text class='iconfont icon-youjiantouda'></text>
+    </view> -->
+    <view class='title'>商品信息</view>
+    <view class='babylist content' wx:for='{{content.item}}'>
+      <view style='width:520rpx;height:100%' data-product_id='{{item.product_id}}' bindtap='goto_detail'>
+        <image class='bacylist_img' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+        <view class='com_nums'>{{item.count}}件商品</view>
+        <view class='babylist_title'>{{item.product_name}}</view>
+      </view>
+      <view class='babylist_money'>
+        <view>￥{{item.sale_price}}</view>
+        <view class='baby_start'>￥{{item.smarket_price}}</view>
+      </view>
+      <view class='baby_size' wx:if='{{item.spec_content!=null}}'>{{item.spec_content}}</view>
+      <view wx:if='{{content.state=="待收货"||content.state=="交易完成"||content.state=="待发货"}}' class='After-sale' bindtap='sale' data-state='{{item.state}}' data-id='{{item.id}}' data-index='{{index}}'>申请售后</view>
+    </view>
+  </view>
+  <!-- <view class='state'> -->
+    <!-- <image class='back_img' src='../../images/back.png'></image> -->
+    <!-- <view class='state-name'>{{content.state}}</view>
+    <view wx:if='{{content.state=="交易完成"}}' class=' state-icon iconfont icon-yishiyong1'></view> -->
+  <!-- </view> -->
+  <!-- <view wx:if='{{content.state==4}}'>已签收,感谢</view> -->
+  <!-- <view class='address'>
+    <view>收件人:{{content.consignee}}
+      <text class='tel'>{{content.phone}}</text>
+    </view>
+    <view>收件地址:{{content.address}}</view>
+  </view> -->
+  <view class='Actual bord'>
+    <view class='freight'>运费
+      <text class='right'>￥{{content.express_money==null?0:content.express_money}}</text>
+    </view>
+    <view class='discount'>优惠券抵扣
+      <text wx:if='{{content.couponInfo!= null}}' class='right'>￥{{content.couponInfo.coupon_price}}</text>
+      <text wx:else class='right'>￥0</text>
+    </view>
+    <view wx:if='{{content.state!="待付款"}}' class='money'>实付款(含运费)
+      <text class='right'>￥{{content.pay_price}}</text>
+    </view>
+    <view wx:if='{{content.state=="待付款"}}' class='money'>待付款(含运费)
+      <text class='right'>￥{{content.pay_price}}</text>
+    </view>
+  </view>
+  <!-- <view class='btn'>
+    <view class='seller'>
+      <text class='iconfont icon-kujialeqiyezhan_zaixiankefu-'></text>联系卖家
+    </view>
+    <view class='service'>
+      <text class='iconfont icon-dianhua'></text>联系客服
+    </view>
+  </view> -->
+  <!-- <view class='order_message'>
+    <view>订单编号：{{content.order_num}}</view>
+    <view>订单时间：{{content.create_time}}</view>
+    <view wx:if='{{content.state!="待付款"&&content.deliver_time!=null&&content.state!="待发货"}}'>发货时间：{{content.deliver_time}}</view>
+    <view wx:if='{{content.state==4}}'>成交时间：{{content.update_time}}</view>
+    <view wx:if="{{content.state=='待收货'}}" class='look_logistics' bindtap='logistics' data-id='{{content.order_id}}'>查看物流</view>
+  </view> -->
+  <sliders></sliders>
+</view>

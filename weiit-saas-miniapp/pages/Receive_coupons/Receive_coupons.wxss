@@ -1,0 +1,103 @@
+/* pages/Receive_coupons/Receive_coupons.wxss */
+@import "../logo/logo.wxss";
+.backImg {
+  width: 98%;
+  height: 100%;
+  position: absolute;
+}
+
+.Coupon {
+  color: #f5c662;
+  background-size: 100% 340rpx;
+  padding: 20rpx 1% 0 1%;
+  height: 180rpx;
+  margin-bottom: 20rpx;
+  position: relative;
+}
+
+.coupon {
+  color: #f5c662;
+  background-size: 100% 340rpx;
+  padding: 20rpx 1% 0 1%;
+  height: 230rpx;
+  margin-bottom: 40rpx;
+  position: relative;
+}
+
+.name {
+  width: 430rpx;
+  height: 100rpx;
+  overflow: hidden;
+  font-size: 28rpx;
+  position: absolute;
+  left: 35rpx;
+  top: 40rpx;
+}
+
+.term {
+  font-size: 24rpx;
+  width: 100%;
+  overflow: hidden;
+  line-height: 30rpx;
+  padding-top: 30rpx;
+}
+
+.Quota {
+  position: absolute;
+  top: 30rpx;
+  right: 40rpx;
+}
+
+.AOM {
+  font-size: 60rpx;
+}
+
+.full {
+  position: absolute;
+  right: 40rpx;
+  top: 100rpx;
+  font-size: 28rpx;
+}
+
+.Arrow {
+  width: 50rpx;
+  height: 50rpx;
+  text-align: center;
+  line-height: 50rpx;
+  color: #999;
+  position: absolute;
+  top: 150rpx;
+  left: 30rpx;
+}
+
+.btn {
+  width: 140rpx;
+  height: 70rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 130rpx;
+  z-index: 2
+}
+
+.Receive_btn {
+  width: 130rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  text-align: center;
+  border-radius: 20rpx;
+  background-color: #f5c662;
+  color: #fff;
+  position: absolute;
+  right: 30rpx;
+  top: 150rpx;
+  z-index: 1
+}
+
+.limit {
+  width: 90%;
+  border-top: 1rpx solid #f5c662;
+  position: absolute;
+  font-size: 28rpx;
+  right: 5%;
+  bottom: 0rpx;
+}

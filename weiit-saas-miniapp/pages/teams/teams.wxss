@@ -1,0 +1,261 @@
+/* pages/teams/teams.wxss */
+@import "../Template_/Template_.wxss";
+
+.pages {
+  width: 100%;
+  overflow-x: hidden;
+  padding-bottom: 105rpx;
+}
+
+.order_bar {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+}
+
+.navbar {
+  height: 100rpx;
+}
+
+.navbar .item {
+  line-height: 100rpx;
+}
+
+.navbar .item.active {
+  color: #000;
+  background-color: #f0f0f0;
+}
+
+.navbar .item.active:after {
+  height: 0;
+}
+
+/* 规则内容 */
+
+/* 规则内容 */
+
+.rulePage {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 3;
+}
+
+.ruleBox {
+  width: 597rpx;
+  height: 730rpx;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 70rpx 0 2% 0;
+  background-color: #f4564a;
+  font-size: 32rpx;
+  border-radius: 10rpx;
+  z-index: 4;
+}
+
+.ruleBox .icon-cha1 {
+  font-size: 40rpx;
+  color: #fff;
+  position: absolute;
+  top: 10rpx;
+  right: 10rpx;
+}
+
+.ruleTitle {
+  height: 100rpx;
+  border-bottom: 1rpx solid #999;
+  text-align: center;
+}
+
+.ruleTitle image {
+  width: 278rpx;
+  height: 77rpx;
+  margin: 0 auto;
+}
+
+.ruleTitle view {
+  width: 278rpx;
+  height: 77rpx;
+  text-align: center;
+  line-height: 77rpx;
+  margin: 0 auto;
+  margin-top: -77rpx;
+  z-index: 3;
+  color: #c6000a;
+  font-size: 30rpx;
+}
+
+.ruleBox .content {
+  width: 514rpx;
+  height: 580rpx;
+  overflow: auto;
+  margin: 0 auto;
+  text-indent: 2em;
+  padding-top: 20rpx;
+  font-size: 24rpx;
+  color: #fff;
+  line-height: 40rpx;
+}
+
+.content view {
+  margin-bottom: 20rpx;
+}
+
+/* pages/myList/myList.wxss */
+
+.myList {
+  overflow: hidden;
+  width: 96%;
+  height: 280rpx;
+  padding: 0 2%;
+  background-color: #fff;
+  margin-top: 5rpx;
+  margin-bottom: 15rpx;
+  position: relative;
+}
+
+.img_box {
+  width: 186rpx;
+  padding-top: 10rpx;
+  float: left;
+}
+
+.img_box, .collagRight {
+  height: 186rpx;
+  position: relative;
+}
+
+.collageImg {
+  width: 90%;
+  height: 90%;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+}
+
+.wares {
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+}
+
+.collagRight {
+  padding: 0 3%;
+  margin-left: 186rpx;
+  padding-top: 10rpx;
+  border-bottom: 1rpx solid #c0c0c0;
+}
+
+.collageTitle {
+  font-size: 30rpx;
+  color: #666;
+}
+
+.SorF {
+  color: #f44;
+  font-size: 28rpx;
+  position: absolute;
+  bottom: 20rpx;
+}
+
+.again {
+  width: 150rpx;
+  text-align: center;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 30rpx;
+  background-color: #ffdc4b;
+  border-radius: 10rpx;
+  position: absolute;
+  right: 20rpx;
+  bottom: 20rpx;
+}
+
+.countDown {
+  color: #999;
+  font-size: 26rpx;
+  height: 40rpx;
+  position: absolute;
+  bottom: 20rpx;
+  left: 200rpx;
+}
+
+.countDown text {
+  padding: 0 10rpx;
+  height: 3rpx;
+  text-align: center;
+  line-height: 3rpx;
+  border-radius: 5rpx;
+  margin-right: 10rpx;
+  background-color: #000;
+  color: #fff;
+}
+
+.cutOrder {
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  line-height: 80vh;
+  font-size: 34rpx;
+  color: #333;
+}
+
+/* 选择收货地址 */
+
+.commodity_attr_box {
+  width: 96%;
+  height: 65vh;
+  overflow: auto;
+  padding: 0 2%;
+  padding-bottom: 5vh;
+  font-size: 36rpx;
+}
+
+.add_title {
+  text-align: center;
+  line-height: 100rpx;
+}
+
+.add_title .icon-cha {
+  float: right;
+}
+
+.add_list {
+  padding: 20rpx 10rpx;
+  border-top: 1rpx solid #999;
+  position: relative;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.add_list .iconfont {
+  position: absolute;
+  top: 50%;
+  right: 0rpx;
+  transform: translateY(-50%);
+  font-size: 40rpx;
+}
+
+.add_list text {
+  margin-left: 40rpx;
+}
+
+.add_list .add_people {
+  margin-bottom: 10rpx;
+}
+
+.add_list .add_address {
+  width: 620rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}

@@ -1,0 +1,109 @@
+<block wx:if='{{load}}'>
+  <view wx:if='{{car_content.cart_info!=""}}'>
+    <import src="../template/template.wxml" />
+    <!-- 购物车 -->
+    <view class='shopcar_list'>
+      <view class='carlist' wx:for='{{car_content.cart_info}}'>
+        <radio color='#EC534E' checked='{{item.checked}}' class='carlist_radio' data-id='{{item.cart_id}}' bindtap='Choice' data-index='{{index}}'></radio>
+        <image class='carlist_img' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+        <view class='carlist_title'>{{item.product_name}}</view>
+        <view class='carlist_size'>{{item.spec_content}}</view>
+        <view class='carlist_money'>￥{{item.sale_price}}</view>
+        <view class='car_error' data-car_id='{{item.cart_id}}' bindtap='deletes'>
+          <text class=' iconfont icon-cha'></text>
+        </view>
+        <view class='carlist_num'>
+          <view bindtap='reduce_num' data-index='{{index}}' data-id='{{item.cart_id}}'>-</view>
+          <view class='car_num'>{{item.count}}</view>
+          <view bindtap='add_num' data-index='{{index}}' data-id='{{item.cart_id}}'>+</view>
+        </view>
+      </view>
+    </view>
+    <view class='Postage'>邮费
+      <text class='money_num'>￥{{express_money}}</text>
+    </view>
+    <!-- 配送方式 -->
+    <view class='Distribution' bindtap='mode'>配送方式
+      <text>{{give_value}}<text class='iconfont icon-youjiantouda'></text></text>
+    </view>
+    <!-- 配送方式遮盖层 -->
+    <view class="commodity_screen" bindtap="hide" wx:if="{{ModalStatus}}"></view>
+    <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{ModalStatus}}">
+      <view class='give_mode'>配送方式</view>
+      <radio-group>
+        <view class='Delivery' wx:for='{{Delivery_mode}}'>
+          <view>{{item}}</view>
+          <radio data-value='{{item}}' checked='{{activeIndex==index?true:false}}' data-index='{{index}}' bindtap='get_index'></radio>
+        </view>
+      </radio-group>
+    </view>
+    <!-- 优惠券 -->
+    <view class='invoice' bindtap='Choice_Coupon' wx:if='{{sum>0}}'>优惠券
+      <text wx:if='{{option==true}}'>请选择<text class='iconfont icon-youjiantouda'></text></text>
+      <view wx:else class='Coupon_name'>
+        <radio checked='true' color='#EC534E'></radio>
+        <text>{{selectCoupon.product+"("+selectCoupon.coupon_name+")"+selectCoupon.coupon_content}}<text class='iconfont icon-youjiantouda'></text></text>
+      </view>
+    </view>
+    <!-- 选择优惠券遮盖层 -->
+    <view class="commodity_screen" wx:if="{{showModal}}" bindtap='closeCoupon'></view>
+    <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModal}}">
+      <scroll-view class='coupon_list' scroll-y='true'>
+        <template is="Coupon" data="{{availableCoupon:availableCoupon,unavailableCoupon:unavailableCoupon,CouponIndex:CouponIndex}}" />
+      </scroll-view>
+    </view>
+    <view class='Addressee'>收件人信息</view>
+    <view class='address_people' wx:if='{{address!=null}}' bindtap='address'>
+      <view class='address_name'>{{address.consignee}}</view>
+      <view class='address_phone'>{{address.phone}}</view>
+      <view class='adress_content'>{{address.province}}{{address.city}}{{address.district}}{{address.address_detail}}
+        <text class='iconfont icon-youjiantouda'></text>
+      </view>
+    </view>
+    <view class='fill_in' bindtap='address' wx:else>请填写收件人信息
+      <text class='iconfont icon-youjiantouda'></text>
+    </view>
+    <view class='message'>
+      <view>买家留言：</view>
+      <input placeholder='选填：填写内容已和卖家协商确认' bindinput='get_input'></input>
+    </view>
+    <!-- 支付方式 -->
+    <view class='paymentBox'>
+      <view class='wechat' wx:for='{{payment_method}}' bindtap='getValue' data-index='{{index}}'>
+        <view class='{{item.is_radio?"selectRadio":"radios"}}'></view>
+        <view class='iconfont icon-icon-test'></view>
+        <image class='img' src='{{item.imgs}}'></image>
+        <view class='titles'>{{item.name}}</view>
+        <text>{{item.title}}</text>
+      </view>
+    </view>
+    <sliders></sliders>
+    <!-- 商品价格明细 -->
+    <view class='Settlement'>
+      <view>商品金额
+        <text>￥{{sums}}</text>
+      </view>
+      <view>运费
+        <text>￥{{express_money}}</text>
+      </view>
+      <view>优惠
+        <text wx:if='{{selectCoupon!=""}}'>￥{{sums-sum}}</text>
+        <text wx:else>￥0</text>
+      </view>
+    </view>
+    <!-- 底部付款 -->
+    <view class='payment'>
+      <view class='Actual'>总价:
+        <text>￥{{((sum*100)+(express_money*100))/100}}</text>
+      </view>
+      <!-- <view class='total'>总额:￥{{((sum*100)+(express_money*100))/100}}</view> -->
+      <!-- <view class='replace'>找人代付</view> -->
+      <view class='sub_Order' bindtap='sub_order' style='background-color:{{btnColor.global_bg1}}'>提交订单</view>
+    </view>
+  </view>
+  <view wx:else>
+    <text class='iconfont icon-gouwuche-kong'></text>
+    <view class='promptNull'>您的购物车还是空的哦~</view>
+    <view class='btnNull' bindtap='go_home' style='background-color:{{btnColor.global_bg1}}'>去逛逛</view>
+  </view>
+</block>

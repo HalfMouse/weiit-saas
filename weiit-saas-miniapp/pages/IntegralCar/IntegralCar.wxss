@@ -1,0 +1,254 @@
+.address_people {
+  height: 140rpx;
+  background-color: #fff;
+  position: relative;
+  color: #777;
+  margin-bottom: 30rpx;
+}
+
+.icon-dizhi {
+  margin: 0 20rpx;
+  font-size: 50rpx;
+  line-height: 140rpx;
+}
+
+.address_name {
+  font-size: 32rpx;
+  color: #222;
+  position: absolute;
+  top: 20rpx;
+  left: 80rpx;
+}
+
+.tel {
+  font-size: 30rpx;
+  color: #777;
+  margin-left: 20rpx;
+}
+
+.adress_content {
+  width: 75%;
+  font-size: 28rpx;
+  position: absolute;
+  left: 80rpx;
+  top: 70rpx;
+}
+
+.adress_content text {
+  margin-right: 20rpx;
+}
+
+.address_people .icon-youjiantouda {
+  font-size: 50rpx;
+  position: absolute;
+  top: 50%;
+  right: 20rpx;
+  transform: translateY(-50%);
+}
+
+.fill_in {
+  height: 80rpx;
+  line-height: 80rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+  background-color: #fff;
+  padding: 0 20rpx;
+  font-size: 30rpx;
+}
+
+.fill_in .icon-youjiantouda {
+  float: right;
+}
+
+/* 商品 */
+
+.carlist {
+  background-color: #fff;
+  height: 200rpx;
+  position: relative;
+  margin-bottom: 30rpx;
+}
+
+.carlist_img {
+  width: 150rpx;
+  height: 150rpx;
+  position: absolute;
+  top: 25rpx;
+  left: 20rpx;
+}
+
+.carlist_title {
+  width: 530rpx;
+  font-size: 30rpx;
+  position: absolute;
+  top: 25rpx;
+  left: 200rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.carlist_size {
+  font-size: 30rpx;
+  color: #999;
+  position: absolute;
+  top: 110rpx;
+  left: 200rpx;
+}
+
+.carlist_money {
+  font-size: 34rpx;
+  color: #f44;
+  position: absolute;
+  top: 123rpx;
+  left: 200rpx;
+}
+
+/* 商品数量 */
+
+.carlist_num {
+  width: 156rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  border-radius: 2rpx;
+  text-align: center;
+  border: 1rpx solid #999;
+  position: absolute;
+  right: 30rpx;
+  bottom: 30rpx;
+}
+
+.carlist_num view {
+  width: 50rpx;
+  float: left;
+  
+}
+
+.car_num {
+  border-left: 1rpx solid #999;
+  border-right: 1rpx solid #999;
+  font-size: 32rpx;
+}
+
+/* 支付方式 */
+
+.wechat {
+  height: 100rpx;
+  position: relative;
+  background-color: #fff;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.radios {
+  width: 34rpx;
+  height: 34rpx;
+  border-radius: 50%;
+  border: 1rpx solid #d5d5d5;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 20rpx;
+  transform: translateY(-50%);
+}
+
+.selectRadio {
+  width: 34rpx;
+  height: 34rpx;
+  border-radius: 50%;
+  border: 1rpx solid #09bb07;
+  background-color: #09bb07;
+  position: absolute;
+  top: 50%;
+  left: 20rpx;
+  transform: translateY(-50%);
+}
+
+.icon-icon-test {
+  font-size: 28rpx;
+  color: #fff;
+  position: absolute;
+  left: 25rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.wechat:last-child {
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.wechat radio {
+  position: absolute;
+  top: 45%;
+  left: 20rpx;
+  transform: scale(0.8) translateY(-50%);
+}
+
+.wechat .img {
+  width: 70rpx;
+  height: 70rpx;
+  position: absolute;
+  left: 90rpx;
+  top: 15rpx;
+}
+
+.wechat .titles {
+  font-size: 30rpx;
+  color: #333;
+  position: absolute;
+  top: 15rpx;
+  left: 180rpx;
+}
+
+.wechat text {
+  font-size: 24rpx;
+  color: #999;
+  position: absolute;
+  bottom: 14rpx;
+  left: 180rpx;
+}
+
+/* 底部付款 */
+
+.payment {
+  padding-left: 20rpx;
+  width: 100%;
+  background-color: #fff;
+  height: 100rpx;
+  position: fixed;
+  bottom: 0;
+}
+
+.Actual {
+  font-size: 32rpx;
+  line-height: 50rpx;
+}
+
+.Actual text {
+  color: #ec534e;
+}
+
+.total {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.sub_Order, .replace {
+  width: 180rpx;
+  height: 100rpx;
+  font-size: 34rpx;
+  line-height: 100rpx;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  color: #fff;
+}
+
+.replace {
+  background-color: #fc8c35;
+  right: 180rpx;
+}
+
+.sub_Order {
+  background-color: #ffdc4b;
+  right: 0;
+}

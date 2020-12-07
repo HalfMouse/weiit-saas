@@ -1,0 +1,4 @@
+<!-- 会员卡 -->
+<import src="../template/template.wxml" />
+<template is="vip" />
+<sliders></sliders>

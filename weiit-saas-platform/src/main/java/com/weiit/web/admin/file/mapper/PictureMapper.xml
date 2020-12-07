@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.weiit.web.admin.file.mapper.PictureMapper">
+	
+	<!-- 公共查询条件 -->
+	<sql id="query_common_where">
+		<if test="shop_id != null and shop_id !=''">
+		 	and shop_id=#{shop_id}
+		</if>
+	</sql>
+
+	<!-- 查询所有文件-->
+	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			id as validate_id,<!-- vilidate_id会被自动加密 -->
+			id,
+			file_name,
+			file_url,
+			parent_id, 
+			type,
+			create_time,
+			update_time,
+			is_read,
+			shop_id
+		from weiit_files 
+		where 
+			1=1
+		<if test="parent_id != null and parent_id !=''">
+			and parent_id=#{parent_id}
+		</if>
+		<include refid="query_common_where"></include>
+		order by create_time asc
+	</select> 
+ 
+	<select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			id as validate_id,<!-- vilidate_id会被自动加密 -->
+			file_name,
+			file_url,
+			parent_id, 
+			type,
+			create_time,
+			update_time,
+			is_read,
+			shop_id
+		from weiit_files 
+		where 
+		    id=#{id}
+		<include refid="query_common_where"></include>
+	</select>
+	
+	<update id="edit" parameterType="map">
+		update weiit_files
+		set 
+		<if test="file_name != null and file_name !=''">
+			file_name=#{file_name},
+		</if>
+		<if test="file_url != null and file_url !=''">
+			file_url=#{file_url},
+		</if>
+		<if test="parent_id != null and parent_id !=''">
+			parent_id=#{parent_id},
+		</if>
+		<if test="type != null and type !=''">
+			type=#{type},
+		</if>
+		<if test="create_time != null and create_time !=''">
+			create_time=#{create_time},
+		</if> 
+			type=type
+		where  
+			id=#{validate_id}  
+		<include refid="query_common_where"></include>
+	</update>
+ 
+	<delete id="remove" parameterType="map">
+		delete from weiit_files 
+		where
+		    id=#{validate_id} 
+		<include refid="query_common_where"></include>
+	</delete>
+	
+	<delete id="removeBatch" parameterType="map">
+		delete from weiit_files 
+		where
+		    id in (${validate_ids})
+		<include refid="query_common_where"></include>
+	</delete>
+	
+    <insert id="insert" parameterType="map"  useGeneratedKeys="true" keyProperty="id">
+		insert into weiit_files
+		(
+			file_name,
+			file_url,
+			parent_id, 
+			type,
+			create_time,
+			update_time,
+			shop_id,
+			<if test="business_type != null and business_type !=''">
+				business_type,
+			</if>
+			is_read
+		)
+		values
+		(
+			#{file_name},
+			#{file_url},
+			#{parent_id},
+			#{type},
+			now(),
+			now(),
+			#{shop_id},
+			<if test="business_type != null and business_type !=''">
+				#{business_type},
+			</if>
+			1
+		)
+	</insert>
+
+	<insert id="uploadFile" parameterType="map">
+		insert into weiit_files
+		(
+		file_name,
+		file_url,
+		parent_id,
+		type,
+		create_time,
+		update_time,
+		shop_id,
+		business_type
+		)
+		values
+		(
+		#{file_name},
+		#{file_url},
+		#{parent_id},
+		#{type},
+		now(),
+		now(),
+		#{shop_id},
+		#{business_type}
+		)
+	</insert>
+ 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

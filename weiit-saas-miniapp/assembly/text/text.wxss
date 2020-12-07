@@ -1,0 +1,14 @@
+/* assembly/text/text.wxss */
+
+.text_box {
+  width: 92vw;
+  margin: 0 auto;
+  line-height: 60rpx;
+  padding: 10rpx;
+  padding-right: 0;
+}
+
+.text_ipt {
+  line-height: 60rpx;
+  
+}

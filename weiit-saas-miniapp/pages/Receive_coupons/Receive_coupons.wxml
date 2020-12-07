@@ -1,0 +1,33 @@
+<!-- 领取优惠券 -->
+<import src="../logo/logo.wxml" />
+<view class='pages'>
+  <block wx:for='{{receiveList}}'>
+    <view class='{{item.hidden==true?"Coupon":"coupon"}}'>
+      <image src='../../images/cou.png' class='backImg'></image>
+      <view>
+        <view class='name'>
+          <view class='type'>{{item.coupon_name}}</view>
+          <view class='term'>有效期 {{item.time}}</view>
+        </view>
+        <view class='btn' bindtap='receive' data-id='{{item.coupon_id}}'></view>
+        <view class='Quota'>
+          <text wx:if='{{item.type==1}}'>￥</text>
+          <text class='AOM'>{{item.coupon_price}}</text>
+          <text wx:if='{{item.type==2}}'>折</text>
+        </view>
+        <view class='full'>{{item.condition}}</view>
+        <view class='Receive_btn'>领取</view>
+        <view class='Arrow' bindtap='btn' data-index='{{index}}'>
+          <text wx:if='{{item.hidden}}' class='iconfont icon-xiangxiajiantou'></text>
+          <text wx:else class='iconfont icon-xiangshangjiantou'></text>
+        </view>
+        <view class='limit' hidden='{{item.hidden}}'>*{{item.coupon_desc}}</view>
+      </view>
+    </view>
+  </block>
+   <!-- 底部导航 -->
+  <!-- <template is='BottomNavigation' data='{{bottomMenuList:bottomMenuList}}' /> -->
+  <template is='BottomNavigation' />
+  <view style='height:100rpx;width:100vw'></view>
+</view>
+<sliders></sliders>

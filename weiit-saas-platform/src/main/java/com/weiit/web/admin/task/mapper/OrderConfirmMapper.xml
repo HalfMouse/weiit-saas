@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.task.mapper.OrderConfirmMapper">
+
+    <select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT od.order_id ,od.order_num, od.pay_price , od.total_price , od.create_time, od.shop_id ,
+        	us.user_id , us.wx_open_id, 
+        	( select product_name from weiit_order_item where order_id=od.order_id order by id asc limit 1 ) product_name ,
+        	info.authorizer_id ,info.authorizer_app_id, info.service_type_info ,tt.template_type , ms.wx_template_id
+		FROM weiit_order od inner join weiit_user us on od.user_id=us.user_id
+	 		inner join weiit_weixin_public_info info on od.shop_id=info.shop_id and us.open_id_type=info.service_type_info 
+	    	left join ( weiit_weixin_public_template_msg ms
+                   inner join weiit_weixin_public_template_type tt on ms.template_type_id=tt.template_type_id and tt.business_type=#{business_type} 
+               )  on info.authorizer_id=ms.authorizer_id and  ms.state=1 
+		where od.state=#{state} 
+        <if test="pay_time!=null and pay_time!=''">
+           AND od.pay_time &lt; #{pay_time}
+        </if>
+    </select>
+    
+  	<update id="edit" parameterType="map">
+		update weiit_order SET state=#{update_state} ,update_time=now()
+			WHERE state=#{state} 
+		<if test="create_time!=null and create_time!=''">
+           AND create_time &lt; #{create_time}
+        </if>
+        <if test="deliver_time!=null and deliver_time!=''">
+           AND deliver_time &lt; #{deliver_time}
+        </if>
+        <if test="order_id !=null and order_id!=''">
+        	AND order_id=#{order_id} 
+    	</if>
+	</update>
+	
+	<select id="selectOrderUnpaidList" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT od.order_id ,od.order_num, od.total_price , od.create_time , us.wx_open_id, 
+        	info.authorizer_id ,info.authorizer_app_id, info.service_type_info , ms.wx_template_id,
+        	( select product_name from weiit_order_item where order_id=od.order_id order by id asc limit 1 ) product_name 
+			FROM weiit_order od , weiit_user us , weiit_weixin_public_info info  
+		    , weiit_weixin_public_template_msg ms , weiit_weixin_public_template_type tt
+		where od.state=0 and od.user_id=us.user_id and od.shop_id=info.shop_id 
+			and us.open_id_type=info.service_type_info and info.authorizer_id=ms.authorizer_id 
+			and ms.template_type_id=tt.template_type_id and  ms.state=1 
+		 	and tt.business_type=#{business_type} 
+			and od.create_time &lt; #{create_time} 
+	</select>
+	
+</mapper>

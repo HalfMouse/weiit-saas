@@ -1,0 +1,78 @@
+<!-- 砍价 -->
+<import src="../Template_/Template_.wxml" />
+<view class='pages' style='overflow:{{YorN}}'>
+  <view class='contents' hidden="{{currentTab!==0}}">
+    <template is="Bargain" data='{{value:"cut",data:datas,noticeList:noticeList,backgroundColor:backgroundColor}}' />
+    <view class="commodity_screen" bindtap="hide" wx:if="{{showModalStatus}}"></view>
+    <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+      <view class='add_title'>选择收货地址
+        <text class='iconfont icon-cha' bindtap='close'></text>
+      </view>
+      <view wx:for='{{address}}' class='add_list' bindtap='choice' data-index='{{index}}'>
+        <view class='add_people'>
+          {{item.consignee}}
+          <text>{{item.phone}}</text>
+        </view>
+        <view class='add_address'>{{item.province}}{{item.city}}{{item.district}}{{item.address_detail}}</view>
+        <text class='iconfont icon-youjiantouda'></text>
+      </view>
+      <view catchtap='address' style='line-height:120rpx;border-bottom:1rpx solid #999;border-top:1rpx solid #999;font-size:30rpx'>添加新收货地址
+        <text class='iconfont icon-youjiantouda' style='float:right;'></text>
+      </view>
+    </view>
+    <!-- 弹出框 -->
+    <modal hidden="{{hiddenmodalput}}" title="确认您的收货地址" confirm-text="确定" cancel-text="取消" bindcancel="cancelM" bindconfirm="confirmM">
+      {{addres.province}}{{addres.city}}{{addres.district}}{{addres.address_detail}}
+    </modal>
+  </view>
+  <view class='contents' hidden="{{currentTab!==1}}">
+    <view wx:if='{{list!=null}}' class='myList' wx:for='{{list}}' data-state='{{item.state}}' data-b_order_id='{{item.b_order_id}}' data-bargain_id='{{item.bargain_id}}' bindtap='speed'>
+      <view class='img_box'>
+        <image class='collageImg' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+        <image wx:if='{{item.state==0}}' class='wares' style='display:none'></image>
+        <image wx:if='{{item.state==1}}' class='wares' src='../../images/suc.png'></image>
+        <image wx:if='{{item.state==-1}}' class='wares' src='../../images/fail.png'></image>
+      </view>
+      <view class='collagRight'>
+        <view class='collageTitle'>{{item.product_name}}</view>
+        <block wx:if='{{value=="cut"}}'>
+          <view wx:if='{{item.state==0}}' class='SorF'>正在砍价</view>
+          <view wx:if='{{item.state==1}}' class='SorF'>砍价成功</view>
+          <view wx:if='{{item.state==-1}}' class='SorF'>砍价失败</view>
+        </block>
+      </view>
+      <!-- <block wx:if='{{value=="cut"}}'>
+        <view wx:if='{{item.state==1||item.state==-1}}' class='again' bindtap='again'>再砍一次</view>
+        <view wx:if='{{item.state==0}}' class='again' bindtap='continue'>继续砍价</view>
+      </block> -->
+      <view wx:if='{{item.state==0}}' class='countDown'>
+        <text>{{item.hour}}</text>:
+        <text>{{item.minute}}</text>:
+        <text>{{item.secondr}}</text>后结束
+      </view>
+    </view>
+    <view wx:if='{{list==null}}' class='cutOrder'>您还没有砍价订单哦~</view>
+  </view>
+</view>
+<view class='order_bar'>
+  <view class="navbar">
+    <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text>
+  </view>
+</view>
+<!-- 规则内容 -->
+<view wx:if='{{rulePage}}' class='rulePage' bindtap='know'>
+  <view class='ruleBox'>
+    <text class='iconfont icon-cha1' bindtap='closerule'></text>
+    <view class='ruleTitle'>
+      <image src='../../images/backss.png'></image>
+      <view>活动规则</view>
+    </view>
+    <view class='content'>
+      <view>1.砍到商家规定的底价，即可按照底价购买商品;</view>
+      <view>2.对于同一个砍价，您只能帮助砍价一次;</view>
+      <view>3.每次砍价金额随机，参与好友越多越容易成功</view>
+      <view> 4.砍价完成以后需要7天内在砍价页完善收货信息，逾期失效;</view>
+    </view>
+  </view>
+</view>
+<sliders></sliders>

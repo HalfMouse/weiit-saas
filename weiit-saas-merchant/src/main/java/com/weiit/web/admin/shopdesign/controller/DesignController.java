@@ -3,8 +3,10 @@ package com.weiit.web.admin.shopdesign.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.sun.org.apache.xml.internal.security.utils.*;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.resource.common.utils.WeiitFileUtil;
 import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.file.service.PictureService;
 import com.weiit.web.admin.shopdesign.service.PageService;
@@ -12,9 +14,12 @@ import com.weiit.web.admin.user.service.UserCardService;
 import com.weiit.web.admin.util.DesUtil;
 import com.weiit.web.base.AdminController;
 import com.weiit.web.base.UIview;
+import com.weiit.web.common.*;
 import com.weiit.web.common.Constants;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,11 +28,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.io.OutputStream;
+import java.util.*;
 
 /**
  * 设计页面
@@ -250,6 +258,48 @@ public class DesignController extends AdminController {
         return WeiitUtil.uploadFile(fileDate);
     }
 
+//
+//    public String upload(String[] baseFile) throws Exception {
+//
+//        String[] imageNames = new String[baseFile.length];
+//        //file 为前台隐藏域里面的字符串
+//        if(baseFile!= null && baseFile.length!=0){
+//            int index = 0;
+//            for (String base64Str : baseFile) {
+//                //base64 解码
+//                byte[] byteArray = com.sun.org.apache.xml.internal.security.utils.Base64.decode(base64Str);
+//                // 调整异常数据
+//                for (byte b : byteArray) {
+//                    if(b<0){
+//                        b+=256;
+//                    }
+//                }
+//                String path = this.getSession().getServletContext().getRealPath("resource");
+//                String imageName = getImageName();
+//                try {
+//                    OutputStream out = new FileOutputStream(path+ File.separator+imageName);
+//                    out.write(byteArray);
+//                    out.close();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    System.out.println(imageNames[0]);
+//                }
+//                imageNames[index] = path+File.separator+imageName;
+//                index ++ ;
+//            }
+//            System.out.println(imageNames[0]);
+//            String imageUrl = WeiitUtil.uploadFile(FileUtils.readFileToByteArray(new File(imageNames[0])),"png");
+//            FileUtils.forceDelete(new File(imageNames[0]));
+//
+//            return imageUrl;
+//
+//        }
+//        return null;
+//    }
+//
+//    public String getImageName(){
+//        return UUID.randomUUID().toString()+".jpg";
+//    }
 
     /**
      * 上传 图片 语音 视频

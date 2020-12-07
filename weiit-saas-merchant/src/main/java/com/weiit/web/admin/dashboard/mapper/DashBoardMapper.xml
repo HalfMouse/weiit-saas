@@ -5,33 +5,14 @@
 <mapper namespace="com.weiit.web.admin.dashboard.mapper.DashBoardMapper">
 
 	<select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
-		SELECT
-			aa.address_id,
-			aa.contact_name,
-			aa.province,
-			aa.city,
-			aa.district,
-			aa.address,
-			aa.zip_code,
-			dd.region_name proName,
-			cc.region_name cityName,
-			bb.region_name disName,
-			aa.phone,
-			aa.tel,
-			aa.create_time,
-			aa.update_time,
-			aa.shipping_type,
-			aa.return_type
-		FROM
-		weiit_shop_address aa,
-		weiit_init_region bb,
-		weiit_init_region cc,
-		weiit_init_region dd
-		WHERE
-		aa.district = bb.id
-		AND aa.city = cc.id
-		AND aa.province = dd.id
-		AND aa.is_deleted = 0
+		SELECT aa.address_id, aa.contact_name, aa.province, aa.city, aa.district, aa.address, aa.zip_code, 
+			 dd.region_name proName, cc.region_name cityName, bb.region_name disName , 
+    		 aa.phone, aa.tel,  aa.create_time, aa.update_time ,  
+    		 aa.shipping_type ,aa.return_type  
+		FROM weiit_shop_address aa  , weiit_init_region bb, weiit_init_region  cc, 
+				weiit_init_region dd  
+		where aa.district=bb.id  and aa.city=cc.id and aa.province=dd.id 
+			and aa.is_deleted =0  
 		<if test=" shop_id !=null and shop_id !='' ">
 			and aa.shop_id = #{shop_id} 
 		</if> 
@@ -42,29 +23,10 @@
 	</select> 
  
 	<select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
-		SELECT
-			address_id,
-			contact_name,
-			province,
-			city,
-			district,
-			address,
-			zip_code,
-			remark,
-			phone,
-			tel,
-			is_deleted,
-			create_time,
-			update_time,
-			create_id,
-			update_id,
-			shipping_type,
-			return_type,
-			shop_id
-		FROM
-		weiit_shop_address
-		 where is_deleted =0
-		 and address_id=#{address_id}
+		SELECT address_id, contact_name, province, city, district, address, zip_code, remark, phone, tel, 
+			is_deleted, create_time, update_time, create_id, update_id, shipping_type, return_type, shop_id 
+		FROM weiit_shop_address 
+		 where is_deleted =0  and address_id=#{address_id} 
 		<if test=" shop_id !=null and shop_id !='' ">
 			and shop_id = #{shop_id} 
 		</if> 
@@ -72,15 +34,9 @@
 	
 	<update id="edit" parameterType="map">
 		update  weiit_shop_address set 
-			contact_name=#{contact_name},
-			province=#{province},
-			city=#{city},
-			district=#{district},
-			address=#{address},
-			zip_code=#{zip_code},
-    		remark=#{remark},
-    		phone=#{phone},
-    		tel=#{tel},
+			contact_name=#{contact_name} , province=#{province} , city=#{city} , district=#{district} , 
+			address=#{address} , zip_code=#{zip_code} , 
+    		remark=#{remark}, phone=#{phone} , tel=#{tel} , 
     		update_time=now()  
 		where  address_id=#{address_id}  
 		<if test=" shop_id !=null and shop_id !='' ">

@@ -1,0 +1,68 @@
+
+.Voucher {
+  margin: 0 auto;
+  height: 121rpx;
+  padding: 20rpx 0;
+  overflow: auto;
+}
+
+.Voucher .Voucher_box {
+  height: 100%;
+}
+
+.voucher_list {
+  width: 50vw;
+  height: 121rpx;
+  color: #fff;
+  float: left;
+  overflow: hidden;
+  position: relative;
+}
+
+.voucher_list button {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.voucher_list image {
+  position: absolute;
+  width: 96%;
+  margin-left: 2%;
+  height: 121rpx;
+}
+
+.voucher_list .money {
+  position: absolute;
+  top: 6rpx;
+  left: 40%;
+  transform: translateX(-50%);
+}
+
+.voucher_list .money text {
+  font-size: 55rpx;
+  margin-right: 8rpx;
+}
+
+.voucher_list .limit {
+  font-size: 30rpx;
+  position: absolute;
+  bottom: 10rpx;
+  left: 40%;
+  transform: translateX(-50%);
+}
+
+.voucher_list .receive, .voucher_list .receives {
+  word-wrap: break-word;
+  word-break: normal;
+  width: 40rpx;
+  font-size: 34rpx;
+  position: absolute;
+  top: 18rpx;
+  right: 8%;
+}
+
+.voucher_list .receives {
+  top: 65rpx;
+}

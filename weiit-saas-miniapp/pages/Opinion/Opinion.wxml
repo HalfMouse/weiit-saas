@@ -1,0 +1,6 @@
+<!-- 意见反馈 -->
+<view>
+  <textarea bindinput='value' placeholder='请写下您宝贵的意见吧~'></textarea>
+</view>
+<button bindtap='sub' style='background-color:{{btnColor.global_bg1}}'>提交</button>
+<sliders></sliders>

@@ -1,0 +1,33 @@
+<view class='integral-rules'>
+  <view class='stage'>
+    <text class='title'>什么是积分？</text>
+    <text class='content'>定义：积分是商城用户在商城购物、评价、晒单等相关活动情况给予的奖励，积分仅可在商城相关应用（积分商城）中使用，如用户帐号被封停使用，则将取消该用户帐号内积分相关使用权益。</text>
+  </view>
+  <view class='stage'>
+    <text class='title'>如何获得积分？</text>
+    <text class='head'>一、购物:</text>
+    <text class='content'>1.积分仅支持购买积分产品；</text>
+    <text class='content'>2.订单金额是指用户实际以现金或银行卡方式支付的金额；</text>
+    <text class='content'>3.订单完成是指：订单已显示完成且未办理退货手续；</text>
+    <text class='content'>4.发放积分数量为购买产品的订单实际支付金额的100%发放积分。如：XXX产品价格为500元，符合规则完成交易则会发放500积分至您积分账户中；</text>
+    <text class='content'>5.开增值税专用发票不赠送积分。</text>
+    <text class='content'>6.商品发生退货，已发放的积分相应扣除。（如账户积分数量不足，在退款额中扣除相应现金）</text>
+  </view>
+  
+  <view class='stage'>
+    <text class='title'>如何使用积分？</text>
+    <text class='head'>一、积分查询</text>
+    <text class='content'>您可以在“个人中心-我的积分”中查询到您的积分详细情况。</text>
+    <text class='head'>二、兑换中心积分兑换商品</text>
+    <text class='content'>可前往积分商城兑换商品。</text>
+  </view>
+  <view class='stage'>
+    <text class='title'>积分有效期说明</text>
+    <text class='content'>1.积分从获得之日起，有效期为1年，商城将在每年对过期积分进行作废处理。例2018年1月1日将清空用户2017年1月1日之前获取但未使用的积分。</text>
+    <text class='content'>2.使用积分支付的商品发生退货时，如积分退回时已过有效期，则直接进行作废处理，不再返回。</text>
+  </view>
+  <view class='stage'>
+    <text class='content'>积分规则由制定并依据国家相关法律法规及规章制度予以解释和修改，规则以店铺公布为准。</text>
+  </view>
+  <sliders></sliders>
+</view>

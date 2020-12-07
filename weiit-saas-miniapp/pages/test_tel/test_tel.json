@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "验证手机号",
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

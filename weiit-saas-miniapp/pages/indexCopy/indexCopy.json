@@ -1,0 +1,23 @@
+{
+  "usingComponents": {
+    "grouping": "../../assembly/groupingNav/groupingNav",
+    "search": "../../assembly/searchInput/searchInput",
+    "advertisement": "../../assembly/advertisement/advertisement",
+    "guide": "../../assembly/guide/guide",
+    "coupon": "../../assembly/coupon/coupon",
+    "goodsList": "../../assembly/goodsList/goodsList",
+    "collage": "../../assembly/collage/collage",
+    "cutPrice": "../../assembly/cutPrice/cutPrice",
+    "serviceTel": "../../assembly/serviceTel/serviceTel",
+    "richText": "../../assembly/richText/richText",
+    "title": "../../assembly/title/title",
+    "menu": "../../assembly/menu/menu",
+    "shopSign": "../../assembly/shopSign/shopSign",
+    "bottomNav": "../../assembly/bottomNav/bottomNav",
+    "notice": "../../assembly/notice/notice",
+    "text": "../../assembly/text/text",
+    "auxiliary": "../../assembly/auxiliary/auxiliary",
+    "audio": "../../assembly/audio/audio",
+    "sliders": "../../assembly/slider/slider"
+  }
+}

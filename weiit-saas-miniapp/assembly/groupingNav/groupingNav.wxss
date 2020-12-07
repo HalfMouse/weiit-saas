@@ -1,0 +1,345 @@
+/* pages/assembly/assembly.wxss */
+
+page {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #fff;
+}
+
+.navbar {
+  flex: none;
+  display: flex;
+  display: -webkit-flex;
+  background: #fff;
+}
+
+.navbar .item {
+  position: relative;
+  flex: auto;
+  text-align: center;
+  font-size: 30rpx;
+  color: #333;
+  line-height: 80rpx;
+}
+
+.navbar .item.active {
+  color: #ec543e;
+}
+
+.navbar .item.active:after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4rpx;
+  background: #ec543e;
+}
+/* 去掉button按钮默认样式 */
+button{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;  
+  border: none !important;
+  padding: 0;
+  margin: 0;
+  border-radius: 0
+}
+button::after{
+  border: none !important;
+}
+button:hover{
+  border: none
+}
+/* 顶部导航 */
+.list{
+  width: 94vw;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.content {
+  width: 48%;
+  height: 65vw;
+  margin: 1%;
+  float: left;
+  color: #fff;
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.img {
+  width: 48vw;
+  height: 48vw;
+}
+
+.title {
+  font-size: 28rpx;
+  color: #333;
+  height: 70rpx;
+  line-height: 36rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.money {
+  position: absolute;
+  left: 10rpx;
+  bottom: 6rpx;
+  font-size: 28rpx;
+  text-align: left;
+  color: #ec543e;
+}
+
+/* 左侧导航 */
+
+.sideNav {
+  display: flex;
+  display: -webkit-flex;
+  height: 400px;
+  -webkit-box-orient: vertical;
+  margin-bottom: 20rpx;
+  font-size: 30rpx;
+}
+
+.leftNav {
+  width: 80px;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #f8f8f8;
+  border-right: 1px solid #fff;
+}
+
+.leftNav .navList {
+  height: 50px;
+  line-height: 50px;
+  padding: 0 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #333;
+  text-align: center;
+  position: relative;
+  border-bottom: 1px solid #fff;
+  font-size: 24rpx;
+}
+.leftNav .select{
+  background-color: #fff;
+  color: #000;
+  border-bottom: 1px solid #fff;
+  font-weight: bold;
+}
+.rightNav {
+  overflow: auto;
+  flex: 1;
+}
+
+.rightNav .rightTopTitle {
+  height: 35px;
+  line-height: 35px;
+  background-color: #f8f8f8;
+  padding-left: 15px;
+  font-size: 24rpx;
+}
+
+.rightNav .rightList {
+  height: 80px;
+  background-color: #fff;
+  font-size: 28rpx;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid #eee;
+}
+
+.rightNav .rightList:last-child {
+  border-bottom:1px solid #fff;
+}
+
+.rightNav .rightList .listImg {
+  width: 70px;
+  height: 70px;
+  margin: 5px;
+}
+.rightNav .rightList .listTitle {
+  position: absolute;
+  left: 80px;
+  top: 5px;
+  padding: 0 5px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.rightNav .rightList .listMoney {
+  position: absolute;
+  left: 80px;
+  bottom: 5px;
+  color: #ec543e;
+}
+.rightNav .rightList .addProduct{
+  position: absolute;
+  right: 25rpx;
+  bottom: 15rpx;
+  width: 50rpx;
+  height: 50rpx;
+  z-index: 100;
+}
+.rightNav .rightList .addProduct image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 遮罩层 */
+.mask-bg{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .7);
+  z-index: 999
+}
+/* 内容 */
+.set-content{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  min-height: 200rpx;
+}
+.set-content .close{
+  position: absolute;
+  right: 20rpx;
+  top: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
+  overflow: hidden;
+}
+.set-content .close image{
+  width: 100%;
+  height: 100%;
+}
+/* 商品信息 */
+.set-content .product-mation{
+  background-color: #fff;
+  padding-left: 40rpx;
+  min-height: 200rpx;
+}
+.set-content .product-mation .product{
+  position: relative;
+  border-bottom: 1px solid #838B8B;
+  padding: 20rpx 0;
+  overflow: hidden;
+}
+.set-content .product-mation .product .product-pic{
+  float: left;
+  width: 100rpx;
+  height: 100rpx;
+  overflow: hidden;
+}
+.set-content .product-mation .product .product-pic image{
+  width: 100%;
+  height: 100%;
+}
+.set-content .product-mation .product .product-content{
+  float: left;
+  margin-left: 20rpx;
+}
+.set-content .product-mation .product .product-content text{
+  display: block;
+  font-size: 24rpx;
+  color: #333;
+  width: 400rpx;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  overflow:hidden;
+
+}
+.set-content .product-mation .product .product-content text.product-price{
+  margin-top: 20rpx;
+  color: #EEB422;
+  font-size: 30rpx;
+}
+/* 数量控制 */
+.set-content .product-mation .nums{
+  padding: 20rpx 0;
+}
+.set-content .product-mation .nums text{
+  font-size: 30rpx;
+}
+.set-content .product-mation .nums .plus_reduce{
+  float: right;
+  margin-right: 40rpx;
+}
+.set-content .product-mation .nums .plus_reduce view{
+  float: left;
+  width: 50rpx;
+  height: 50rpx;
+  text-align: center;
+  line-height: 50rpx;
+  border: 1px solid #838B8B;
+  box-sizing: border-box;
+  font-size: 34rpx;
+  overflow: hidden;
+}
+.set-content .product-mation .nums .plus_reduce view:first-child{
+  border-right: none 0;
+ 
+}
+.set-content .product-mation .nums .plus_reduce view:last-child{
+  border-left: none 0;
+}
+/* 底部功能按钮 */
+.set-content .func-btn{
+  display: flex;
+  display: -webkit-flex;
+}
+.set-content .func-btn view{
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #fff;
+  text-align: center;
+  font-size: 30rpx;
+  background-color:#050505;
+}
+.set-content .func-btn view:last-child{
+  background-color: #EEB422
+}
+/* 规格选择 */
+.spec{
+  padding: 20rpx 0;
+  border-bottom: 1px solid #838B8B;
+
+}
+.spec-item{
+  margin-bottom: 10rpx;
+  overflow: hidden;
+}
+.spec-title{
+  font-size: 30rpx;
+  margin-bottom: 20rpx;
+}
+.spec-content .spec-value{
+  float: left;
+  margin-right: 20rpx;
+  border: 1px solid #838B8B;
+  padding: 0 20rpx;
+  line-height: 46rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+.spec-content .spec-value.select{
+  color: #fff;
+  background-color: #EEB422;
+  border-color: #EEB422;
+}

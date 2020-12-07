@@ -1,0 +1,140 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.2.5",
+	"appid": "wxc0b92fdfd205913a",
+	"projectname": "%E9%98%B1%E9%99%8C%E5%95%86%E7%8F%8D",
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "IntegralMall",
+					"pathName": "pages/IntegralMall/IntegralMall",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "IntegralDetail",
+					"pathName": "pages/IntegralDetail/IntegralDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "integral",
+					"pathName": "pages/integral/integral",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "IntegralList",
+					"pathName": "pages/IntegralList/IntegralList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "IntegralList",
+					"pathName": "pages/IntegralList/IntegralList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "commodityList",
+					"pathName": "pages/commodityList/commodityList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "shopCar",
+					"pathName": "pages/shopCar/shopCar",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "Personal",
+					"pathName": "pages/Personal/Personal",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "Forward",
+					"pathName": "pages/Forward/Forward",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "Set_up",
+					"pathName": "pages/Set_up/Set_up",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "Set_up",
+					"pathName": "pages/Set_up/Set_up",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "recharge",
+					"pathName": "pages/recharge/recharge",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "order_details",
+					"pathName": "pages/order_details/order_details",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "IntegralCar",
+					"pathName": "pages/IntegralCar/IntegralCar",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "search",
+					"pathName": "pages/search/search",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "Coupon",
+					"pathName": "pages/Coupon/Coupon",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "collageList",
+					"pathName": "pages/collageList/collageList",
+					"query": ""
+				}
+			]
+		}
+	}
+}

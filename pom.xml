@@ -12,7 +12,8 @@
 	
 	<modules>
 		<module>weiit-saas-merchant</module>
-		<!--<module>weiit-saas-platform</module>-->
+		<module>weiit-saas-platform</module>
+		<module>weiit-saas-api</module>
 	</modules>
 	
 	

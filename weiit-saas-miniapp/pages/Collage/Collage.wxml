@@ -1,0 +1,176 @@
+<!-- 商品详情 -->
+<import src="../logo/logo.wxml" />
+<import src="../../wxParse/wxParse.wxml" />
+<view class='pages' wx:if='{{Load}}'>
+  <swiper indicator-dots='true' indicator-color='#E9E7E8' indicator-active-color='#EC534E' indicator-dots='{{information.product_imgs.length>1?true:false}}'>
+    <block wx:for='{{information.product_imgs}}'>
+      <swiper-item>
+        <image bindtap='preview' mode='aspectFit' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class='detail_title'>{{information.product_name}}</view>
+  <view class='detail_box'>
+    <view class='detail_lable'>
+      <view class='Price' style='color:{{btnColor.global_bg1}}'>￥{{Price}}</view>
+      <view class='start_price'>￥{{information.sale_price}}</view>
+    </view>
+    <view class='detail_right'>
+      <view class='lable_list' style='width:{{120*information.tag_info.length}}rpx'>
+        <view class='lable' wx:for='{{information.tag_info}}'>{{item.tag_name}}</view>
+      </view>
+      <view class='single_num'>已拼{{content.hasGrouponCount}}件 | {{content.extInfo.groupon_number}}人团</view>
+    </view>
+  </view>
+  <!-- 邮费信息 -->
+  <view class='freight'>运费:{{content.productDetail.product_info.expressInfo}}</view>
+  <!-- 拼单列表 -->
+  <view class='Fight_alone' wx:if='{{collageList.length>0}}'>
+    <view class='Fight_num'>{{datas.allInGroupon}}人在拼单
+      <text class='more' bindtap='more'>查看更多<text class='iconfont icon-youjiantouda'></text></text>
+    </view>
+    <view class='fightList_box' height='{{collageList.length*113}}rpx'>
+      <view class='Fight_list' wx:for='{{collageList}}'>
+        <image class='Fight_img' src='{{item.user_img}}'></image>
+        <view class='Fight_name'>{{item.user_name}}</view>
+        <view class='Fight_Lack'>还差
+          <text class='people_num'>{{item.owe_people}}人</text>拼成</view>
+        <view class='Surplus_time'>剩余{{item.countDown}}</view>
+        <view class='go_Fight' style='background-color:{{btnColor.global_bg1}}' bindtap='go_team' data-id='{{item.g_order_id}}' data-userid='{{item.user_id}}'>去拼单</view>
+      </view>
+    </view>
+  </view>
+  <!-- 物品信息 -->
+  <!-- <block>
+    <view wx:if='{{information.attribute_info.length>0}}' class='introduce'>
+      <view class='infor_list' wx:for='{{information.attribute_info}}'>
+        <view>{{item.attribute_name}} </view>
+        <view>{{item.attribute_value}}</view>
+      </view>
+    </view>
+    <view wx:else style='height:16rpx;width:100%'></view>
+  </block> -->
+  <view class='btns' bindtap='choice_spce' data-type='choice'>
+    <view>选择</view>
+    <view>规格</view>
+    <text class='iconfont icon-youjiantouda'></text>
+  </view>
+  <view class='navbar'>
+    <text wx:for='{{navbar}}' data-index='{{index}}' class='item {{currentTab==index?"active":""}}' wx:key="unique" bindtap='navbarTap'>{{item}}</text>
+  </view>
+  <view hidden='{{currentTab!==0}}'>
+    <!-- 商品详情、信息 -->
+    <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+  </view>
+  <view hidden='{{currentTab!==1}}'>
+    <view wx:if='{{information.attribute_info.length>0}}' class='introduce'>
+      <view class='infor_list' wx:for='{{information.attribute_info}}'>
+        <view>{{item.attribute_name}} </view>
+        <view>{{item.attribute_value}}</view>
+      </view>
+    </view>
+    <view wx:else style='height:300rpx;background-color:#fff'></view>
+  </view>
+  <!-- 参与拼单弹窗 -->
+  <modal class='join' title='参与用户{{content.user_img[0].user_name}}的拼单' hidden='{{isHidden}}' no-cancel='true' confirm-text=''>
+    <text class='iconfont icon-cha1' bindtap='cancel'></text>
+    <view class='quota'>仅剩
+      <text>{{content.groupon_number-content.user_img.length}}</text>个名额,23:59:59后结束</view>
+    <view class='pic_box'>
+      <image wx:for='{{content.user_img}}' class='pics' src='{{item.user_img}}'></image>
+      <view wx:for='{{maxLength-content.user_img.length}}' class='pic_null'>
+        <text class='iconfont icon-wenhao'></text>
+      </view>
+    </view>
+    <view class='btn' style='background-color:{{btnColor.global_bg1}}' bindtap='yes' data-value='参加拼团'>参与拼单</view>
+  </modal>
+  <!-- 商品详情、信息 -->
+  <!-- <template is="wxParse" data="{{wxParseData:article.nodes}}" /> -->
+  <!-- 拼团列表遮罩层 -->
+  <modal class="modal" hidden="{{modalFlag}}" no-cancel='true' bindconfirm="modalOk" confirmText="">
+    <view class='newsTeam_box '>
+      <view class='news_team '>正在拼团
+        <view class='iconfont icon-cha' bindtap='colose'></view>
+      </view>
+      <view class='teamList_box'>
+        <view wx:for='{{collageList}}' class='newsTeam_list'>
+          <image class='newsTeam_img' src='{{item.user_img}}'></image>
+          <!-- <view class='newsTeam'> -->
+          <view class='newsTeam_name'>{{item.user_name}}</view>
+          <view class='newsTeam_time'>剩余 {{item.countDown}}</view>
+          <view class='newsTeam_people'>还差{{item.owe_people}}人</view>
+          <!-- </view> -->
+          <view class='go_cooperation' style='background-color:{{btnColor.global_bg1}}' bindtap='go_team' data-id='{{item.g_order_id}}' data-userid='{{item.user_id}}'>去拼单</view>
+        </view>
+      </view>
+    </view>
+  </modal>
+  <!-- 底部导航 -->
+  <!-- <template is='BottomNavigation' data='{{bottomMenuList:bottomMenuList}}' /> -->
+  <template is='BottomNavigation'/>
+  <view style='height:100rpx;width:100vw'></view>
+</view>
+<!-- 底部购买 -->
+<view wx:if='{{Load}}' class='purchase'>
+  <view class='purchase_right'>
+    <view class='add_car' bindtap='alone' style='background-color:{{btnColor.global_bg2}}'>
+      <view>单独购买</view>
+    </view>
+    <view class='now_buy' bindtap='launch' style='background-color:{{btnColor.global_bg1}}'>
+      <view>发起拼团</view>
+    </view>
+  </view>
+</view>
+<sliders></sliders>
+<!-- 选择规格遮罩层 -->
+<view class="commodity_screen" bindtap="hide" wx:if="{{showModalStatus}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <view class='alert_box'>
+    <view class='alert_title'>选择规格
+      <view class='iconfont icon-cha' bindtap='hide'></view>
+    </view>
+    <view class='alert_information'>
+      <image class='inform_img' src='http://wstore-1255653546.image.myqcloud.com{{information.product_img}}'></image>
+      <view class='inform_title'>{{information.product_name}}</view>
+      <view class='inform_Price' style='color:{{btnColor.global_bg1}}'>￥{{Price}}</view>
+      <view class='inform_num'>库存：{{Stock}}</view>
+    </view>
+
+    <view class='colour' wx:for='{{information.spec_info}}' data-index='{{index}}'>
+      <view class='color_title'>{{item.spec_name}}</view>
+      <view class='{{item.Choice == true ? "colorSelected" : "color_lable"}}' style='background-color:{{item.Choice?btnColor.global_bg1:""}}' data-value='{{item.spec_value}}' wx:for='{{item.values}}' data-id='{{item.spec_value_id}}' bindtap='size' data-index='{{index}}'>{{item.spec_value}}</view>
+    </view>
+    <block>
+      <view class='buy_num' wx:if='{{Stock>0}}'>购买数量
+
+        <text wx:if='{{information.max_limit>0}}' class='limit'>该商品限购{{information.max_limit}}件</text>
+        <view class='plus_reduce'>
+          <view bindtap='reduce_num'>-</view>
+          <view class='buy_nums'>{{buy_num}}</view>
+          <view bindtap='add_num'>+</view>
+        </view>
+      </view>
+      <view class='buy_num' wx:else>购买数量
+        <view class='plus_reduce'>
+          <view>-</view>
+          <view class='buy_nums'>0</view>
+          <view>+</view>
+        </view>
+      </view>
+    </block>
+    <view>
+      <view wx:if='{{choic}}' style='color:#fff'>
+        <view class='add_car' bindtap='confirm' data-value='单独购买' style='background-color:{{btnColor.global_bg2}}'>
+          <view>单独购买</view>
+        </view>
+        <view class='now_buy' bindtap='confirm' data-value='发起拼团' style='background-color:{{btnColor.global_bg1}}'>
+          <view>发起拼团</view>
+        </view>
+      </view>
+      <view wx:else>
+        <view wx:if='{{Stock>0}}' class='Determine' bindtap='confirm' style='background-color:{{btnColor.global_bg1}}'>确定</view>
+        <view wx:else class='OOS'>库存不足</view>
+      </view>
+    </view>
+  </view>
+</view>

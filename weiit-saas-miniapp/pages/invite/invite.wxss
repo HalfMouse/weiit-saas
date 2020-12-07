@@ -1,0 +1,420 @@
+/* pages/invite/invite.wxss */
+@import "../logo/logo.wxss";
+
+.pages {
+  background-color: #fafafa;
+}
+
+.comImg {
+  width: 100vw;
+  height: 100vw;
+}
+
+.title {
+  text-align: center;
+  font-size: 32rpx;
+  color: #000;
+  margin: 20rpx 0;
+}
+
+.title .peopleNum {
+  color: #f44;
+}
+
+.btn {
+  width: 90%;
+  height: 90rpx;
+  text-align: center;
+  line-height: 90rpx;
+  font-size: 36rpx;
+  background-color: #ffdc4b;
+  border-radius: 10rpx;
+  margin: 20rpx auto;
+}
+
+.times {
+  margin-left: 20rpx;
+  margin-right: 10rpx;
+  line-height: 90rpx;
+  font-size: 38rpx;
+  color: #f44;
+}
+
+/* 拼团成员 */
+
+.userList {
+  margin: 20rpx 0;
+  padding: 20rpx 0;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.list, .noTime {
+  width: 20%;
+  line-height: 70rpx;
+  text-align: center;
+  margin-bottom: 30rpx;
+  float: left;
+}
+
+.list:first-child {
+  position: relative;
+}
+
+.userImg, .borders {
+  width: 12vw;
+  height: 12vw;
+  line-height: 12vw;
+  border-radius: 6vw;
+  float: left;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.borders {
+  border: 1rpx dotted #999;
+}
+
+.master {
+  display: none;
+}
+
+.list:first-child .master {
+  display: block;
+  width: 70rpx;
+  height: 35rpx;
+  text-align: center;
+  line-height: 35rpx;
+  border-radius: 18rpx;
+  font-size: 26rpx;
+  color: #fff;
+  background-color: #eb9f29;
+  position: absolute;
+  top: -5rpx;
+  left: 10rpx;
+}
+
+.icon-wenhao, .noTime .icon-more {
+  font-size: 70rpx;
+  color: #d0d0d0;
+}
+/* 规则内容 */
+
+.rulePage {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 3;
+}
+
+.ruleBox {
+  width: 597rpx;
+  height: 730rpx;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 70rpx 0 2% 0;
+  background-color: #f4564a;
+  font-size: 32rpx;
+  border-radius: 10rpx;
+  z-index: 4;
+}
+
+.ruleBox .icon-cha1 {
+  font-size: 40rpx;
+  color: #fff;
+  position: absolute;
+  top: 10rpx;
+  right: 10rpx;
+}
+
+.ruleTitle {
+  height: 100rpx;
+  border-bottom: 1rpx solid #999;
+  text-align: center;
+}
+
+.ruleTitle image {
+  width: 278rpx;
+  height: 77rpx;
+  margin: 0 auto;
+}
+
+.ruleTitle view {
+  width: 278rpx;
+  height: 77rpx;
+  text-align: center;
+  line-height: 77rpx;
+  margin: 0 auto;
+  margin-top: -77rpx;
+  z-index: 3;
+  color: #c6000a;
+  font-size: 30rpx;
+}
+
+.ruleBox .content {
+  width: 514rpx;
+  height: 580rpx;
+  overflow: auto;
+  margin: 0 auto;
+  text-indent: 2em;
+  padding-top: 20rpx;
+  font-size: 24rpx;
+  color: #fff;
+  line-height: 40rpx;
+}
+
+/* 参与拼团选择尺码 */
+
+.alert_box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.alert_title {
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-size: 36rpx;
+  border-bottom: 1rpx solid #d9d9d9;
+}
+
+.alert_title .icon-cha {
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  position: absolute;
+  top: 20rpx;
+  right: 30rpx;
+}
+
+.alert_information {
+  height: 160rpx;
+  font-size: 26rpx;
+  border-bottom: 1rpx solid #d9d9d9;
+  position: relative;
+}
+
+.inform_img {
+  width: 130rpx;
+  height: 130rpx;
+  position: absolute;
+  top: 15rpx;
+  left: 20rpx;
+  border: 1rpx solid #d3d3d3;
+}
+
+.inform_title {
+  width: 500rpx;
+  line-height: 35rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  position: absolute;
+  left: 180rpx;
+  top: 15rpx;
+}
+
+.inform_Price {
+  color: #ff3461;
+  position: absolute;
+  left: 180rpx;
+  bottom: 10rpx;
+}
+
+.inform_num {
+  color: #999;
+  position: absolute;
+  right: 30rpx;
+  bottom: 10rpx;
+}
+
+.colour, .size {
+  min-height: 140rpx;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #d9d9d9;
+}
+
+.color_title, .size_title {
+  height: 70rpx;
+  font-size: 30rpx;
+}
+
+.color_lable, .size_lable, .colorSelected, .sizeSelected {
+  height: 45rpx;
+  font-size: 22rpx;
+  line-height: 45rpx;
+  text-align: center;
+  border-radius: 15rpx;
+  margin-right: 15rpx;
+  margin-bottom: 20rpx;
+  padding: 0 10rpx;
+  min-width: 60rpx;
+  border: 1rpx solid #d9d9d9;
+  float: left;
+  color: #333;
+}
+
+.colorSelected {
+  color: #fff;
+  height: 47rpx;
+  min-width: 62rpx;
+  line-height: 47rpx;
+  border: none;
+  background-color: #ffdc4b;
+}
+
+.sizeSelected {
+  background-color: #ccc;
+  margin-bottom: 20rpx;
+}
+
+.size {
+  height: 270rpx;
+}
+
+.size_lable {
+  margin-bottom: 20rpx;
+}
+
+.buy_num {
+  height: 90rpx;
+  line-height: 90rpx;
+  padding: 0 20rpx;
+  font-size: 30rpx;
+  position: relative;
+}
+
+.limit {
+  font-size: 28rpx;
+  color: #ec534e;
+}
+
+.plus_reduce {
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  display: flex;
+  display: -webkit-flex;
+  border: 1rpx solid #c8c8c8;
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+}
+
+.buy_nums {
+  border-left: 1rpx solid #c8c8c8;
+  border-right: 1rpx solid #c8c8c8;
+  font-weight: 500;
+}
+
+.plus_reduce view {
+  width: 55rpx;
+}
+
+.Determine, .OOS {
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  color: #fff;
+  background-color: #ffdc4b;
+}
+
+.OOS {
+  background-color: #d9d9d9;
+}
+
+/* 商品名称 */
+
+.waresName {
+  padding: 10rpx 10rpx;
+  line-height: 80rpx;
+  margin-top: 10rpx;
+  overflow: hidden;
+  font-size: 32rpx;
+  color: #333;
+  background-color: #fff;
+}
+
+.waresName text {
+  float: right;
+}
+
+.waresName text:last-child {
+  color: #666;
+  font-size: 28rpx;
+  width: 500rpx;
+  height: 60rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.waresName .con {
+  width: 400rpx;
+  text-align: right;
+  margin-right: 30rpx;
+  color: #999;
+}
+
+/* 推荐列表 */
+
+.listBox {
+  margin: 20rpx 0;
+  overflow: hidden;
+  background-color: #fafafa;
+}
+
+.waresList {
+  width: 46%;
+  margin: 0 2%;
+  padding: 10rpx 0;
+  float: left;
+  margin-top: 20rpx;
+  position: relative;
+  background-color: #fff;
+}
+
+.listImg {
+  width: 42vw;
+  height: 42vw;
+  display: block;
+  margin: 0 auto;
+}
+
+.listTitle {
+  width: 42vw;
+  margin: 0 auto;
+  font-size: 34rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.listPrice {
+  font-size: 32rpx;
+  color: #f44;
+  margin-top: 16rpx;
+  margin-left: 10rpx;
+}
+
+.listPrice text {
+  font-size: 38rpx;
+}
+
+.history {
+  font-size: 32rpx;
+  color: #999;
+  position: absolute;
+  right: 10rpx;
+  bottom: 10rpx;
+}

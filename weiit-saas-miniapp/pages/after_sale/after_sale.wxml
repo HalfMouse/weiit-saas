@@ -1,0 +1,66 @@
+<!-- 申请售后 -->
+<view>
+  <view class='babylist'>
+    <image class='bacylist_img' src='http://wstore-1255653546.image.myqcloud.com{{con.product_img}}'></image>
+    <view class='com_nums'>{{con.count}}件商品</view>
+    <view class='babylist_title'>{{con.product_name}}</view>
+    <view class='babylist_money'>
+      <view>￥{{con.sale_price}}</view>
+      <view class='baby_start'>￥{{con.smarket_price}}</view>
+    </view>
+    <view class='baby_size' wx:if='{{con.spec_content!=null}}'>{{con.spec_content}}</view>
+  </view>
+  <view class='type' bindtap='state' data-name='状态'>货品状态
+    <text class='option'>{{state}}<text class='iconfont icon-youjiantouda'></text></text>
+  </view>
+  <view class='type' bindtap='types' data-name='类型'>售后类型
+    <text class='option'>{{types}}<text class='iconfont icon-youjiantouda'></text></text>
+  </view>
+  <view class='refund_money'>退款金额:
+    <text>￥{{con.pay_price}}</text>
+  </view>
+  <!-- <view class='max'>最多￥{{con.total_price}}，含发货邮费￥0.00</view> -->
+  <view class='Explain'>
+    <view>售后说明:</view>
+    <input placeholder='选填' bindinput='get_value'></input>
+  </view>
+  <view class='evidence'>
+    <view class='upload'>上传凭证</view>
+    <view class='sub' bindtap='sub_img'>
+      <view class='iconfont icon-zhaoxiangji'></view>
+      <view>添加图片</view>
+      <view>(最多三张)</view>
+    </view>
+    <view class='preview' wx:for='{{img_list}}'>
+      <image src='{{item}}' class='preview_img'></image>
+    </view>
+  </view>
+  <view class='sub_btn' bindtap='sub'>提交</view>
+</view>
+<!-- 货品状态-->
+<view class="commodity_screen" bindtap="goodsModal" wx:if="{{goodsModalStatus}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{goodsModalStatus}}">
+  <view class='com_box'>
+    <view class='com_title'>{{goods.title}}</view>
+    <view wx:for='{{goods.list}}' class='comlist' bindtap='radioType' data-index='{{index}}'>
+      <view>{{item.listTitle}}</view>
+      <view class='{{item.bool?"selectBox":"select"}}'>
+        <view class='{{item.bool?"selectSon":"son"}}'></view>
+      </view>
+    </view>
+  </view>
+</view>
+<sliders></sliders>
+<!-- 售后类型 -->
+<view class="commodity_screen" bindtap="salesModal" wx:if="{{showModalStatus}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <view class='com_box'>
+    <view class='com_title'>{{sales.title}}</view>
+    <view wx:for='{{sales.list}}' class='comlist' bindtap='saleType' data-index='{{index}}'>
+      <view>{{item.listTitle}}</view>
+      <view class='{{item.bool?"selectBox":"select"}}'>
+        <view class='{{item.bool?"selectSon":"son"}}'></view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,90 @@
+/* 分类导航 */
+form{
+  width: 100%;
+  height: 100%;
+}
+.ification {
+  overflow: hidden;
+  font-size: 26rpx;
+  background-color: #f5f5f5;
+}
+
+.modu {
+  overflow: hidden;
+  padding-bottom: 30rpx 0;
+}
+
+.modu, .imgleft, .noimg {
+  text-align: center;
+  padding: 20rpx 0;
+  float: left;
+  background-color: #fff;
+  position: relative;
+}
+
+.modu button, .imgleft button, .noimg button {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.modu_name {
+  font-size: 26rpx;
+}
+
+/* 分类导航样式二 */
+
+.imgleft {
+  line-height: 100rpx;
+  position: relative;
+}
+
+.imgleft .modu_icon {
+  position: absolute;
+  top: 50%;
+  left: 10rpx;
+  transform: translateY(-50%);
+}
+
+.imgleft .modu_name {
+  overflow: hidden;
+  font-size: 26rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 分类导航样式三 */
+
+.noimg {
+  line-height: 100rpx;
+}
+
+/* 分类导航样式四 */
+
+.halfmodu {
+  width: 49%;
+  height: 100rpx;
+  line-height: 100rpx;
+  display: flex;
+  display: -webkit-flex;
+  float: left;
+  text-align: center;
+  align-items: center;
+  background-color: #fff;
+  margin-bottom: 10rpx;
+  position: relative;
+}
+
+.halfmodu:nth-child(odd) {
+  margin-right: 2%;
+}
+
+.halfmodu .modu_icon {
+  margin: 0 10rpx;
+  float: left;
+  position: absolute;
+  top: 50%;
+  left: 10rpx;
+  transform: translateY(-50%)
+}

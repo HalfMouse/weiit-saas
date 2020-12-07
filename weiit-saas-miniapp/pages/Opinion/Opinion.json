@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "意见反馈",
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

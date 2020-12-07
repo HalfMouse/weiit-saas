@@ -1,0 +1,50 @@
+/* pages/recharge/recharge.wxss */
+
+.recharge {
+  width: 96%;
+  padding: 20rpx 2%;
+  background-color: #fff;
+  overflow: hidden;
+  margin: 20rpx 0;
+}
+
+.symbol {
+  width: 100%;
+  height: 100rpx;
+  margin: 0 auto;
+  margin-top: 50rpx;
+  border-bottom: 1rpx solid #999;
+  display: flex;
+  display: -webkit-flex;
+  float: left;
+  position: relative;
+}
+
+.RMB {
+  position: absolute;
+  bottom: 20rpx;
+  left: 20rpx;
+  font-size: 28rpx;
+}
+
+.symbol input {
+  font-size: 40rpx;
+  height: 70rpx;
+  position: absolute;
+  left: 60rpx;
+  bottom: 7rpx;
+}
+
+button {
+  border: 0;
+  width: 96%;
+  margin: 0 auto;
+  margin-top: 50rpx;
+  background-color: #ffdc4b;
+  color: #fff;
+}
+
+button:hover {
+  background-color: #ffdc4b;
+  color: #fff;
+}

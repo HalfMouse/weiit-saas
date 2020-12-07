@@ -1,0 +1,49 @@
+{
+  "ext": {
+    "dev_name": "蜗店",
+    "version_no": "1.2.0",
+    "signature": "本着最纯真的初心，收集世间阱陌商珍，把最美味的东西奉献给您。",
+    "appid": "wxc0b92fdfd205913a",
+    "nick_name": "阱陌商珍",
+    "head_img": "http://wx.qlogo.cn/mmopen/9ph7kOuic5Ypmbkj0jWriaNqFia1tG5SAibkne82kDFksSd210CPLrsS2FU0yePb02baDiaS40xUlpHcHrOHxF2Lrm3X0T62sDxg6/0",
+    "switchTabUrl": [
+      "index",
+      "category",
+      "shopCar",
+      "Personal"
+    ],
+    "commit_time": 1533721888000,
+    "url": "https://api.ustore.wang"
+  },
+  "debug": false,
+  "extAppid": "wxc0b92fdfd205913a",
+  "tabBar": {
+    "list": [
+      {
+        "selectedIconPath": "images/homes.png",
+        "text": "首页",
+        "pagePath": "pages/index/index",
+        "iconPath": "images/home.png"
+      },
+      {
+        "selectedIconPath": "images/fenleis.png",
+        "text": "特惠",
+        "pagePath": "pages/category/category",
+        "iconPath": "images/fenlei.png"
+      },
+      {
+        "selectedIconPath": "images/carCar.png",
+        "text": "购物车",
+        "pagePath": "pages/shopCar/shopCar",
+        "iconPath": "images/gouwuCar.png"
+      },
+      {
+        "selectedIconPath": "images/gerens.png",
+        "text": "个人中心",
+        "pagePath": "pages/Personal/Personal",
+        "iconPath": "images/geren.png"
+      }
+    ]
+  },
+  "extEnable": true
+}

@@ -1,0 +1,29 @@
+/* pages/ReturnGoods/ReturnGoods.wxss */
+@import "../template/template.wxss";
+
+.refund_option, .btn {
+  background-color: #fff;
+}
+.bom{
+  position: relative;
+  height: 150rpx
+}
+.cancel_btn, .look_detail {
+  font-size: 28rpx;
+  float: left;
+  width: 150rpx;
+  height: 50rpx;
+  border-radius: 10rpx;
+  text-align: center;
+  line-height: 50rpx;
+  position: absolute;
+  border: 1rpx solid #999
+}
+.cancel_btn{
+  top: 80rpx;
+  right: 200rpx;
+}
+.look_detail{
+  right: 20rpx;
+  top: 80rpx
+}

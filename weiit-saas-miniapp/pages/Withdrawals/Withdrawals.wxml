@@ -1,0 +1,16 @@
+<!-- 提现 -->
+<view class='tixian'>
+  <view class='balance'>可提现金额(元)</view>
+  <view class='money'>￥{{money}}</view>
+  <view class="phone_one" bindtap="clickPerson">
+    <view class="phone_personal">请选择账户类型：{{firstPerson}}
+      <image class='bom' src='{{selectPerson==true?bom:top}}'></image>
+    </view>
+  </view>
+
+  <input wx:if='{{firstPerson=="支付宝"}}' placeholder='请输入需要提现的支付宝账号' bindinput='Alipay' class='money_num'></input>
+  <input placeholder='请选择需要提现的金额' bindinput='values' class='money_num' value='{{values}}' type='number'></input>
+</view>
+<button wx:if='{{true}}' class='yellow' bindtap='Progress' style='background-color:{{btnColor.global_bg1}}'>提现</button>
+<button wx:else class='gray'>提现</button>
+<sliders></sliders>

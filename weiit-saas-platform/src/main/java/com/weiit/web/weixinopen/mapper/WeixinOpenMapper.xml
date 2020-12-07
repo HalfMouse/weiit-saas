@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.weixinopen.mapper.WeixinOpenMapper">
+
+    <!-- 查询第三方平台配置信息 -->
+    <select id="selectWeixinOpenInfo" resultType="com.weiit.core.entity.E" flushCache="true" useCache="false"
+            parameterType="map">
+    	select * from weiit_weixin_open_info limit 1
+     </select>
+
+
+    <update id="editWeixinOpenInfoVerifyTicket" parameterType="map">
+        update  weiit_weixin_open_info
+        set
+        component_verify_ticket=#{component_verify_ticket},
+        update_time=now()
+    </update>
+
+    <update id="updateMiniAudit" parameterType="map">
+        update  weiit_weixin_mini_audit_log
+        set
+        status=#{status},
+        reason=#{reason},
+        update_time=now()
+        WHERE authorizer_app_id=#{appid} AND is_current_version=0
+    </update>
+
+    <select id="selectWxPublicInfo" parameterType="map" flushCache="true" useCache="false"  resultType="com.weiit.core.entity.E">
+        SELECT
+        *
+        FROM
+        weiit_weixin_public_info
+        WHERE
+        authorizer_app_id=#{appid}
+        LIMIT 1
+    </select>
+
+    <!-- 查询微信公众号自动回复配置 -->
+    <select id="selectReplyOne" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+        ww.reply_id,
+        ww.reply_type,
+        ww.rule_name,
+        ww.match_type,
+        ww.key_name,
+        ww.reply_content,
+        ww.type_id,
+        ww.authorizer_id
+        FROM
+        weiit_weixin_public_reply ww,
+        weiit_weixin_public_info wi
+        WHERE
+        authorizer_app_id = #{appid}
+        AND type_id = #{type_id}
+        AND ww.authorizer_id = wi.authorizer_id
+        <if test="key_name !=null and key_name !='' ">
+            and key_name like concat('%', #{key_name}, '%')
+        </if>
+        order by reply_id desc limit 1
+    </select>
+    <select id="selectReplyImageText" resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+            id,
+            title,
+            author,
+            cover_img,
+            main_body,
+            media_id,
+            create_time
+        FROM
+            weiit_weixin_public_media_article
+        WHERE media_id=#{media_id}
+        ORDER BY 
+            create_time DESC
+        LIMIT 1
+	</select>
+
+    <select id="selectNavInfoByShopId" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+        wp.*,wi.mini_path,wi.public_path
+        FROM
+        weiit_page_navs wp
+        LEFT JOIN weiit_init_icon wi ON wp.nav_icon_id = wi.id
+        WHERE
+        shop_id =#{shop_id}
+    </select>
+
+    <update id="updateMiniAuth" parameterType="map">
+        update  weiit_weixin_mini_audit_log set
+        is_current_version=-1,
+        update_time=now()
+        where shop_id = #{shop_id} AND authorizer_app_id=#{authorizer_app_id} AND is_current_version=0
+    </update>
+
+
+    <update id="updateVersion" parameterType="map">
+        update  weiit_weixin_mini_version set
+        is_new_version=1
+    </update>
+
+    <insert id="addMiniAuth" parameterType="map">
+        INSERT INTO weiit_weixin_mini_audit_log (
+        audit_id,
+        authorizer_app_id,
+        origin_id,
+        status,
+        create_time,
+        update_time,
+        version_no,
+        template_id,
+        shop_id
+        )
+        VALUES
+        (
+        #{audit_id},
+        #{authorizer_app_id},
+        #{origin_id},
+        2,
+        now(),
+        now(),
+        #{version_no},
+        #{template_id},
+        #{shop_id}
+        )
+    </insert>
+
+    <select id="selectMiniVersionInfo" parameterType="map" resultType="com.weiit.core.entity.E">
+        SELECT
+            template_id,
+            version_no,
+            create_time
+        FROM weiit_weixin_mini_version
+    </select>
+
+    <select id="selectMiniAuthInfo" parameterType="map" resultType="com.weiit.core.entity.E">
+        SELECT
+            *
+        FROM weiit_weixin_mini_audit_log ORDER BY template_id DESC limit
+    </select>
+
+    <select id="seleclMiniList" parameterType="map" resultType="com.weiit.core.entity.E">
+       SELECT
+            *
+        FROM
+            weiit_weixin_public_info
+        WHERE
+            service_type_info = 0
+        AND CHAR_LENGTH(principal_name) > 2
+    </select>
+</mapper>

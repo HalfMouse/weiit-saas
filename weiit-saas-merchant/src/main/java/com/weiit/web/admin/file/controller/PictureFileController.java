@@ -1,14 +1,17 @@
 package com.weiit.web.admin.file.controller;
+ 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.weiit.core.entity.E;
-import com.weiit.core.entity.FormMap;
-import com.weiit.resource.common.utils.WeiitUtil;
-import com.weiit.web.admin.file.service.PictureService;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.weiit.web.admin.util.DesUtil;
-import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -17,14 +20,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartHttpServletRequest; 
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.weiit.core.entity.E;
+import com.weiit.core.entity.FormMap; 
+import com.weiit.resource.common.utils.WeiitUtil;
+import com.weiit.web.admin.file.service.PictureService;
+import com.weiit.web.base.AdminController;
+import com.weiit.web.base.UIview;
 
 
 /**
@@ -49,6 +55,38 @@ public class PictureFileController  extends AdminController {
 	
 	private String page_source = "/center/files/source";
 
+
+
+//	@RequestMapping("/url")
+//	public void test(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//
+//		System.out.println(request.getPathTranslated());
+//		System.out.println(request.getPathInfo());
+//		System.out.println(request.getRequestURI());
+//		System.out.println(request.getRequestURL());//http://smokeman.55555.io:15235/center/file/picture/url
+//		System.out.println(request.getRemoteHost());
+//		URL urls=new URL(request.getRequestURL().toString());
+//		String shop_domain=urls.getHost();
+//		String shop_domain_prex=shop_domain.split("\\.")[0];
+//		System.out.printf(shop_domain_prex);
+//	}
+//
+//	public static void main(String[] args) throws MalformedURLException {
+////		System.out.println(request.getRequestURL());
+//		String url ="http://smokeman.55555.io:15235/center/file/picture/url";
+////		String shop_domain_prex=url.split("\\.")[0].replace("http://","").replace("https://","");
+//
+//
+//
+//
+//
+//
+//		URL urls=new URL(url);
+//		String shop_domain=urls.getHost();
+//		String shop_domain_prex=shop_domain.split("\\.")[0];
+//		System.out.printf(shop_domain_prex);
+//
+//	}
 
 
 	/**

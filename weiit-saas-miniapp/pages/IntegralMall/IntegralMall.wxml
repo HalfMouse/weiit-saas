@@ -1,0 +1,16 @@
+<import src="../template/template.wxml" />
+<view class="intergral-head fn-clear">
+  <text class='intergral-title'>积分兑换专区</text>
+  <text class='intergral-mine' bindtap='intergralDetail'>我的积分:{{integral}}</text>
+</view> 
+<!-- 积分兑换商品列表 -->
+<view class='intergral-goods' wx:if='{{intergralGoods.length > 0}}'>
+  <view class='intergral-goods-list fn-clear'>
+    <template wx:for='{{intergralGoods}}' is="intergral_of_goods" data='{{...item}}' />
+  </view>
+  <view wx:if='{{!hasNextPage}}' class='toTheEnd'>到底了~</view>
+</view>
+<view class='no-goods' wx:if='{{intergralGoods.length == 0}}'>
+  暂无积分活动商品
+</view>
+<sliders></sliders>

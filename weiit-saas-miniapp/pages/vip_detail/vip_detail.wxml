@@ -1,0 +1,14 @@
+<!-- 会员卡详情 -->
+<import src="../template/template.wxml" />
+<template is="vip" />
+<view class='interest'>
+  <view class='vip_title'>享受权益</view>
+  <view class='privilege' wx:for="{{privilege}}">
+    <image src='{{item.img_url}}'></image>
+    <view>{{item.name}}</view>
+  </view>
+  <view class='vip_title'>使用需知</view>
+  <text class='limit'>本会员卡有效期内全场通用</text>
+</view>
+<view class='go_shop' bindtap='goto_shop'>去购物<text class='iconfont icon-youjiantouda'></text></view>
+<sliders></sliders>

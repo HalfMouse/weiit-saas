@@ -9,10 +9,12 @@ import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.product.service.ProductGroupService;
 import com.weiit.web.admin.product.service.ProductService;
 import com.weiit.web.admin.product.service.ProductTagService;
+//import com.weiit.web.admin.setting.service.ShippingService;
 import com.weiit.web.admin.setting.service.ShippingService;
 import com.weiit.web.admin.util.DesUtil;
 import com.weiit.web.base.AdminController;
 import com.weiit.web.base.UIview;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -24,10 +26,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
+
 import java.net.URLDecoder;
 import java.util.*;
-
-//import com.weiit.web.admin.setting.service.ShippingService;
 
 /**
  * 商品管理
@@ -264,6 +265,10 @@ public class ProductController extends AdminController {
                     groupIdList.add(e.get("group_id"));
                 }
 
+//				for (Iterator iterator = groupDetailList.iterator(); iterator.hasNext();) {
+//					E info = (E) iterator.next();
+//					tag.add(info.get("group_id"));
+//				}
                 requestMap.put("tag_id_count", 2);
                 requestMap.put("tag_id_str", groupIdList);
             }

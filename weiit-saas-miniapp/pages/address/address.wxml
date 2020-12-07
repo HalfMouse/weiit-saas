@@ -1,0 +1,27 @@
+<!-- 收货地址 -->
+<view class='pages'>
+  <radio-group bindchange='is_default'>
+    <block wx:for='{{addres}}'>
+      <view class='information'>
+        <view bindtap='Selected' data-index="{{index}}" data-id='{{item.id}}'>
+          <view class='name'>{{item.consignee}}</view>
+          <text class='tel'>{{item.phone}}</text>
+          <view class='address'>{{item.province}}{{item.district}}{{item.city}} {{item.address_detail}}</view>
+        </view>
+        <view class='bom'>
+          <label>
+            <radio name='default' value='{{item.id}}' checked='{{item.is_default==0?true:false}}'>设为默认</radio>
+          </label>
+          <view class='edit' bindtap='edit' data-id='{{item.id}}' data-index="{{index}}">
+            <text class='iconfont icon-icon6'></text>编辑</view>
+          <view class='delete' bindtap='deletes' data-id='{{item.id}}'>
+            <text class='iconfont icon-shanchu-copy'></text>删除</view>
+        </view>
+      </view>
+    </block>
+  </radio-group>
+</view>
+<view class='adds'>
+  <view class='add' bindtap='add' style='background-color:{{btnColor.global_bg1}}'>新增收货地址</view>
+</view>
+<sliders></sliders>

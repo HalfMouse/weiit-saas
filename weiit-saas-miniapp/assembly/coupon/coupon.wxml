@@ -1,0 +1,21 @@
+<!-- 优惠券 -->
+<view class='Voucher'>
+  <scroll-view scroll-x='true' class='Voucher_box' style='width:{{coupon.length*50}}vw;overflow: hidden'>
+    <view wx:for='{{coupon}}' class='voucher_list'>
+      <form bindsubmit='receives' report-submit='true'>
+        <button plain='true' form-type='submit' data-id='{{item.coupon_id}}' data-type='{{item.type}}' data-index='{{index}}'></button>
+        <image src='{{item.imgUrl}}'></image>
+        <view class='money' wx:if='{{item.type==1}}'>￥
+          <text>{{item.coupon_price}}</text>
+        </view>
+        <view class='money' wx:if='{{item.type==2}}'>
+          <text>{{item.coupon_discount}}</text>折
+        </view>
+        <view class='limit' wx:if='{{item.is_condition==-1}}'>无门槛使用</view>
+        <view class='limit' wx:if='{{item.is_condition==1}}'>满{{item.condition_price}}可用</view>
+        <view class='receive'>领</view>
+        <view class='receives'>取</view>
+      </form>
+    </view>
+  </scroll-view>
+</view>

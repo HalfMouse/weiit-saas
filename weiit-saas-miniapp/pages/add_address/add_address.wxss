@@ -1,0 +1,97 @@
+/* pages/add_address/add_address.wxss */
+
+.edit {
+  background-color: #fff;
+  width: 90%;
+  margin: 3%;
+  border-radius: 10rpx;
+  box-shadow: 0px 0px 10px #888;
+  padding: 2%;
+}
+
+.information {
+  width: 100%;
+  line-height: 120rpx;
+  display: flex;
+  display: -webkit-flex;
+  float: left;
+  color: #222;
+  border-bottom: 1rpx solid #d3d3d3;
+  position: relative
+}
+
+input {
+  font-size: 28rpx;
+  height: 120rpx;
+  color: #666;
+}
+
+.correct {
+  display: none;
+}
+
+.error {
+  font-size: 24rpx;
+  color: red;
+  position: absolute;
+  right: 30rpx
+}
+
+.space {
+  font-size: 30rpx;
+  color: #333;
+  width: 180rpx;
+}
+
+.picker {
+  font-size: 40rpx;
+  color: #000;
+}
+
+.Space {
+  font-size: 28rpx;
+  color: #808080;
+  display: block;
+  float: left;
+  width: 150rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* .picker .Space:first-child {
+  font-size: 28rpx;
+  color: #999;
+} */
+
+.Preservation {
+  width: 92%;
+  margin-top: 50rpx;
+  color: #fff;
+  background-color: #ffdc4b;
+}
+
+.Preservation:hover {
+  color: #fff;
+}
+
+.Preservation::after {
+  border: 0;
+}
+
+.default {
+  width: 90%;
+  padding: 2%;
+  font-size: 30rpx;
+  margin: 0 auto;
+  line-height: 70rpx;
+  color: #333;
+  position: relative;
+  background-color: #fff;
+}
+
+switch {
+  position: absolute;
+  top: 10rpx;
+  right: 20rpx;
+}

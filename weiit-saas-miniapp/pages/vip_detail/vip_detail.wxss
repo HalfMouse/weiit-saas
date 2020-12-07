@@ -1,0 +1,39 @@
+/* pages/vip_detail/vip_detail.wxss */
+@import "../template/template.wxss";
+.interest{
+  background-color: #fff;
+  padding: 10rpx 30rpx;
+}
+.vip_title{
+  line-height: 60rpx;
+  border-bottom: 4rpx solid #f0f0f0
+}
+.privilege{
+  width: 33%;
+  text-align: center;
+  float: left;
+  padding:30rpx 0 
+}
+.privilege image{
+  width: 130rpx;
+  height: 130rpx;
+}
+.limit{
+  color: #999;
+  font-size: 32rpx;
+  line-height: 50rpx;
+}
+.go_shop{
+  margin-top: 30rpx;
+  line-height: 100rpx;
+  font-size: 36rpx;
+  padding-left: 30rpx;
+  position: relative;
+  background-color: #fff
+}
+.icon-youjiantouda{
+  position: absolute;
+  top: 5rpx;
+  right: 30rpx;
+  font-size: 50rpx;
+}

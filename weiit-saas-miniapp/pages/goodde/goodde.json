@@ -1,0 +1,5 @@
+{
+    "usingComponents": {
+        "sliders": "../../assembly/slider/slider"
+      }
+}

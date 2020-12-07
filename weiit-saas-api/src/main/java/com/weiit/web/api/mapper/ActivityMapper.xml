@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.api.mapper.ActivityMapper">
+	<select id="couponList" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+			coupon_id,
+			coupon_num,
+			coupon_name,
+			type,
+			coupon_price,
+			coupon_discount,
+			random_min_price,
+			random_max_price,
+			is_condition,
+			condition_price,
+			coupon_desc,
+			use_type,
+			from_day,
+			to_day,
+			start_time,
+			end_time,
+			number,
+			product_range_type,
+			product_ids,
+			state,
+			max_limit,
+			shop_id
+		from
+			weiit_ump_coupon
+		where shop_id=#{shop_id} 	
+	</select>
+
+
+	<select id="couponListByIds" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+			coupon_id,
+			coupon_num,
+			coupon_name,
+			type,
+			coupon_price,
+			coupon_discount,
+			random_min_price,
+			random_max_price,
+			is_condition,
+			condition_price,
+			coupon_desc,
+			use_type,
+			from_day,
+			to_day,
+			start_time,
+			end_time,
+			number,
+			product_range_type,
+			product_ids,
+			state,
+			max_limit,
+			shop_id
+		from
+			weiit_ump_coupon
+		where state=1
+		<if test="shop_id != null">
+			AND shop_id=#{shop_id}
+		</if>
+		<if test="coupon_ids!=null and coupon_ids!=''">
+			AND coupon_id IN
+			<foreach collection="coupon_ids" index="index" item="coupon_id" open="(" separator="," close=")">
+				#{coupon_id}
+			</foreach>
+		</if>
+		order by coupon_id DESC
+
+	</select>
+
+	<select id="couponNumber" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+				number,
+				max_limit,
+				use_type,
+				start_time,
+				end_time,
+				from_day,
+				to_day
+		from
+			weiit_ump_coupon
+		where coupon_id=#{coupon_id} 	
+	</select>
+	
+	<select id="userCouponReceiveNum" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+			count(1) as count
+		from
+			weiit_ump_coupon_user
+		where coupon_id=#{coupon_id} and user_id=#{user_id}	
+	</select>
+	
+	
+	<insert id="couponGet" parameterType="map" >
+		insert into weiit_ump_coupon_user 
+		(
+			coupon_id, 
+			user_id, 
+			state,
+			create_time,  
+			start_time,
+			end_time,
+			shop_id
+		)
+		values
+		(
+			#{coupon_id},
+			#{user_id},
+			#{state},
+			now(),
+			#{start_time},
+			#{end_time},
+			#{shop_id}
+		);
+	</insert>
+	
+	
+	
+	
+</mapper>

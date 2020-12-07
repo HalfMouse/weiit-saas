@@ -1,0 +1,118 @@
+<!-- 商品列表 -->
+<view class='wares_list'>
+  <!-- 商品列表模板 -->
+  <view class='list-box'>
+    <block wx:for='{{list}}'>
+      <!-- 大图模式 -->
+      <view wx:if='{{pageParam.listStyle=="big"}}' class='big_list'>
+        <form bindsubmit='go_detail' report-submit='true'>
+          <button plain='true' form-type='submit' data-product_id='{{item.product_id}}'></button>
+          <view class='Box_img'>
+            <image class='list_img' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}' mode='widthFix'></image>
+          </view>
+          <view class='list_title'>{{item.product_name}}</view>
+          <view class='list_money'>￥{{item.sale_price}}</view>
+          <view class='Corner_mark' wx:if="{{pageParam.cornerMark}}">
+            <image wx:if='{{pageParam.corner=="news"}}' src='../../images/new.png'></image>
+            <image wx:if='{{pageParam.corner=="hot"}}' src='../../images/remai.png'></image>
+            <image wx:if='{{pageParam.corner=="new"}}' src='../../images/xinpin.png'></image>
+            <image wx:if='{{pageParam.corner=="hots"}}' src='../../images/hot.png'></image>
+          </view>
+        </form>
+      </view>
+      <!-- 小图模式 -->
+      <view wx:if='{{pageParam.listStyle=="small"}}' class='small_lsit'>
+        <form bindsubmit='go_detail' report-submit='true'>
+          <button plain='true' form-type='submit' data-product_id='{{item.product_id}}'></button>
+          <view class='Box_img '>
+            <image class='list_img' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}' mode='widthFix'></image>
+          </view>
+          <view class='list_title'>{{item.product_name}}</view>
+          <view class='list_money'>￥{{item.sale_price}}</view>
+          <view class='Corner_mark' wx:if="{{pageParam.cornerMark}}">
+            <image wx:if='{{pageParam.corner=="news"}}' src='../../images/new.png'></image>
+            <image wx:if='{{pageParam.corner=="hot"}}' src='../../images/remai.png'></image>
+            <image wx:if='{{pageParam.corner=="new"}}' src='../../images/xinpin.png'></image>
+            <image wx:if='{{pageParam.corner=="hots"}}' src='../../images/hot.png'></image>
+          </view>
+        </form>
+      </view>
+      <!-- 一大两小模式 -->
+      <view wx:if='{{pageParam.listStyle=="zigzag"}}' class='zigzag_list'>
+        <form bindsubmit='go_detail' report-submit='true'>
+          <button plain='true' form-type='submit' data-product_id='{{item.product_id}}'></button>
+          <view class='Box_img'>
+            <image class='list_img' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}' mode='widthFix'></image>
+          </view>
+          <view class='list_title'>{{item.product_name}}</view>
+          <view class='list_money'>￥{{item.sale_price}}</view>
+          <view class='Corner_mark' wx:if="{{pageParam.cornerMark}}">
+            <image wx:if='{{pageParam.corner=="news"}}' src='../../images/new.png'></image>
+            <image wx:if='{{pageParam.corner=="hot"}}' src='../../images/remai.png'></image>
+            <image wx:if='{{pageParam.corner=="new"}}' src='../../images/xinpin.png'></image>
+            <image wx:if='{{pageParam.corner=="hots"}}' src='../../images/hot.png'></image>
+          </view>
+        </form>
+      </view>
+      <!-- 多行列表模式 -->
+      <view wx:if='{{pageParam.listStyle=="detailed"}}' class='detailed_list'>
+        <form report-submit='true' bindsubmit='go_detail'>
+          <button plain='true' form-type='submit' data-product_id='{{item.product_id}}'></button>
+          <view class='Box_img'>
+            <image class='list_img' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}' mode='widthFix'></image>
+          </view>
+          <view class='list_title'>{{item.product_name}}</view>
+          <view class='list_money'>￥{{item.sale_price}}</view>
+          <!-- <view class='describe'>这是描述</view> -->
+          <view class='add_car'>
+            <text class='iconfont icon-gouwuche'></text>
+          </view>
+          <view class='Corner_mark' wx:if="{{pageParam.cornerMark}}">
+            <image wx:if='{{pageParam.corner=="news"}}' src='../../images/new.png'></image>
+            <image wx:if='{{pageParam.corner=="hot"}}' src='../../images/remai.png'></image>
+            <image wx:if='{{pageParam.corner=="new"}}' src='../../images/xinpin.png'></image>
+            <image wx:if='{{pageParam.corner=="hots"}}' src='../../images/hot.png'></image>
+          </view>
+        </form>
+      </view>
+      <!-- 一行三个模式 -->
+      <view wx:if='{{pageParam.listStyle=="more"}}' class='more_list'>
+        <form report-submit='true' bindsubmit='go_detail'>
+          <button plain='true' form-type='submit' data-product_id='{{item.product_id}}'></button>
+          <view class='Box_img '>
+            <image class='list_img' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}' mode='widthFix'></image>
+          </view>
+          <view class='list_title'>{{item.product_name}}</view>
+          <view class='list_money'>￥{{item.sale_price}}</view>
+          <view class='Corner_mark' wx:if="{{pageParam.cornerMark}}">
+            <image wx:if='{{pageParam.corner=="news"}}' src='../../images/new.png'></image>
+            <image wx:if='{{pageParam.corner=="hot"}}' src='../../images/remai.png'></image>
+            <image wx:if='{{pageParam.corner=="new"}}' src='../../images/xinpin.png'></image>
+            <image wx:if='{{pageParam.corner=="hots"}}' src='../../images/hot.png'></image>
+          </view>
+        </form>
+      </view>
+    </block>
+  </view>
+  <!-- 横向滚动模式 -->
+  <view wx:if='{{pageParam.listStyle=="scroll"}}' class='box'>
+    <scroll-view scroll-x class='scroll_box' style='width:{{list.length*31}}vw;height:360rpx;'>
+      <view wx:for='{{list}}' class='list_num scroll_list'>
+        <form report-submit='submit' bindsubmit='go_detail' class="formData">
+          <button plain='true' form-type='submit' data-product_id='{{item.product_id}}'></button>
+          <view class='Box_img'>
+            <image class='list_img' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}' mode='widthFix'></image>
+          </view>
+          <view class='scrollList_title'>{{item.product_name}}</view>
+          <view class='scrollList_money'>￥{{item.sale_price}}</view>
+          <view class='Corner_mark' wx:if="{{pageParam.cornerMark}}">
+            <image wx:if='{{pageParam.corner=="news"}}' src='../../images/new.png'></image>
+            <image wx:if='{{pageParam.corner=="hot"}}' src='../../images/remai.png'></image>
+            <image wx:if='{{pageParam.corner=="new"}}' src='../../images/xinpin.png'></image>
+            <image wx:if='{{pageParam.corner=="hots"}}' src='../../images/hot.png'></image>
+          </view>
+        </form>
+      </view>
+    </scroll-view>
+  </view>
+</view>

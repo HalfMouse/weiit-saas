@@ -3,24 +3,35 @@ package com.weiit.web.admin.weixin.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
-import com.weiit.core.entity.FormMap;
+import com.weiit.core.entity.FormMap; 
 import com.weiit.web.admin.user.service.UserSignService;
+import com.weiit.web.admin.weixin.service.WeixinMediaImagesService;
+import com.weiit.web.admin.weixin.service.WeixinMediaArticleService;
 import com.weiit.web.admin.weixin.service.WeixinPublicBatchSendingService;
+import com.weiit.web.admin.weixin.service.WeixinPublicReplyService;
 import com.weiit.web.base.AdminController;
 import com.weiit.web.base.UIview;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
+
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.mp.api.WxMpService;
-import me.chanjar.weixin.mp.bean.WxMpMassOpenIdsMessage;
+import me.chanjar.weixin.mp.bean.WxMpMassOpenIdsMessage; 
 import me.chanjar.weixin.mp.bean.result.WxMpMassSendResult;
-import me.chanjar.weixin.open.api.WxOpenService;
+import me.chanjar.weixin.open.api.WxOpenConfigStorage;
+import me.chanjar.weixin.open.api.WxOpenService; 
+
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMapping; 
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 

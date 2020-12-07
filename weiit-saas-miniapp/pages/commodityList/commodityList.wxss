@@ -1,0 +1,27 @@
+@import "../template/template.wxss";
+
+.searchBox {
+  overflow: hidden;
+}
+.top_bar{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10
+}
+.aa{
+  margin-top: 80rpx
+}
+.toTheEnd {
+  width: 100%;
+  height: 80rpx;
+  margin-bottom: 10rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #999;
+}
+
+.navbar .item:first-child .iconfont {
+  display: none;
+}

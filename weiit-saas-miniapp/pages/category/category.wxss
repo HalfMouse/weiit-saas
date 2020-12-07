@@ -1,0 +1,5 @@
+/* pages/category/category.wxss */
+/* @import "../indexTemplate/indexTemplate.wxss"; */
+a{
+  position: relative
+}

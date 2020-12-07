@@ -1,0 +1,108 @@
+<!--pages/chopPage/chopPage.wxml-->
+<import src="../logo/logo.wxml" />
+<!-- 砍价免费拿 -->
+<view wx:if='{{load}}'>
+  <view class='pages' style='overflow:{{YorN}}'>
+    <view class='rule' bindtap='rule'>活动规则</view>
+    <view class='pageCon'>
+      <!-- 整体背景图 -->
+      <image class='back' src='../../images/bargain.jpg'></image>
+      <!-- 用户头像 -->
+      <image class='user_pic' src='{{cutCon.bargainProduct.user_img}}'></image>
+      <!-- 顶部用户和宝贝信息 -->
+      <view class='top'>
+        <view class='user_name'>{{cutCon.name}}</view>
+        <view class='find'>我发现了一件好货，来一起砍价吧</view>
+        <view class='baby_list'>
+          <image class='baby_img' src='http://wstore-1255653546.image.myqcloud.com{{cutCon.bargainProduct.product_img}}'></image>
+          <view class='baby_title'>{{cutCon.bargainProduct.product_name}}</view>
+          <view class='baby_price'>￥
+            <text>{{cutCon.bargainProduct.max_price}}</text>
+          </view>
+          <view class='people_num' wx:if='{{cutCon.bargainProduct.total>0}}'>{{cutCon.bargainProduct.total}}人已{{cutCon.bargainProduct.min_price}}元拿到</view>
+          <view class='freight'>运费:{{cutCon.expressPrice}}元</view>
+        </view>
+      </view>
+      <!-- 已经砍了多少，还剩多少 -->
+      <view class='rest'>已砍
+        <text>{{(100*cutCon.alreadyBargain)/100}}</text>元，还能砍
+        <text>{{((cutCon.bargainProduct.max_price*100)-(100*cutCon.bargainProduct.min_price)-(100*cutCon.alreadyBargain))/100}}</text>元</view>
+      <!-- 分享按钮 -->
+      <button wx:if='{{cutCon.is_bargain_owner&&((cutCon.bargainProduct.max_price-cutCon.bargainProduct.min_price-cutCon.alreadyBargain)>0)}}' class='share' open-type='share'>分享给好友</button>
+      <button wx:if='{{!cutCon.is_bargain_owner&&((cutCon.bargainProduct.max_price-cutCon.bargainProduct.min_price-cutCon.alreadyBargain)>0)}}' class='share' bindtap='cut'>帮他砍一刀</button>
+      <button wx:if='{{!cutCon.is_bargain_owner&&((cutCon.bargainProduct.max_price-cutCon.bargainProduct.min_price-cutCon.alreadyBargain)<=0)}}' class='share'>来晚了,已经结束了。。。</button>
+      <!-- 还剩多少时间 -->
+      <view class='remainingTime'>还剩{{downTime}}结束，快来砍价吧~</view>
+    </view>
+    <!-- 参与砍价的用户列表 -->
+    <view class='user_list'>
+      <view class='list_top'>
+        <image class='top_back' src='../../images/bargain_line.png'></image>
+        砍价帮
+      </view>
+      <view class='list' wx:for='{{cutCon.userBargainlog}}'>
+        <image class='users_img' src='{{item.user_img}}'></image>
+        <view class='users_name'>{{item.user_name}}</view>
+        <view class='users_title'>{{item.remark}}</view>
+        <view class='num'>砍掉{{item.bargain_price}}元</view>
+      </view>
+    </view>
+    <!-- 宝贝列表 -->
+    <!-- <view class='list_box'>
+    <view class='product' wx:for='{{3}}'>
+      <image class='product_img' mode='aspectFit' src='http://img0.imgtn.bdimg.com/it/u=1621594874,1585448284&fm=27&gp=0.jpg'></image>
+      <view class='product_title'>红酒牌红酒大甩卖了，走过路过不要错过啊</view>
+      <view class='product_price'>￥
+        <text>299</text>
+      </view>
+      <view class='product_num'>已砍999</view>
+    </view>
+  </view> -->
+    <button wx:if='{{cutCon.is_bargain_owner}}' class='nowBuy' bindtap='purchase'>立即购买</button>
+  </view>
+  <!-- 砍价发起者首次进入该页面时显示 -->
+  <!-- <view wx:if='{{cloce&&cutCon.is_bargain_owner&&cutCon.hasBargain=="false"}}' class='mask'>
+    <view class='prompt'>
+      <text class='iconfont icon-cha1' bindtap='close'></text>你已砍了
+      <text>{{cutCon.alreadyBargain}}</text>元啦，赶快分享给好友吧
+    </view>
+  </view> -->
+  <!-- 支付方式选择 -->
+  <view class="commodity_screen" bindtap="hide" wx:if="{{showModalStatus}}"></view>
+  <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+    <view class='alert_box'>
+      <!-- 支付方式 -->
+      <view class='paymentBox'>
+        <view class='wechat' wx:for='{{payment_method}}' bindtap='getValue' data-index='{{index}}'>
+          <view class='{{item.is_radio?"selectRadio":"radios"}}'></view>
+          <view class='iconfont icon-icon-test'></view>
+          <image class='img' src='{{item.imgs}}'></image>
+          <view class='titles'>{{item.name}}</view>
+          <text>{{item.title}}</text>
+        </view>
+      </view>
+      <view class='Determine' bindtap='confirm'>确定</view>
+    </view>
+  </view>
+
+  <!-- 规则内容 -->
+  <view wx:if='{{rulePage}}' class='rulePage' bindtap='know'>
+    <view class='ruleBox'>
+      <text class='iconfont icon-cha1' bindtap='closerule'></text>
+      <view class='ruleTitle'>
+        <image src='../../images/backss.png'></image>
+        <view>活动规则</view>
+      </view>
+      <view class='content'>
+        <view>1.砍到商家规定的底价，即可按照底价购买商品;</view>
+        <view>2.对于同一个砍价，您只能帮助砍价一次;</view>
+        <view>3.每次砍价金额随机，参与好友越多越容易成功</view>
+        <view> 4.砍价完成以后需要7天内在砍价页完善收货信息，逾期失效;</view>
+      </view>
+    </view>
+  </view>
+  <!-- 底部导航 -->
+  <!-- <template is='BottomNavigation' data='{{bottomMenuList:bottomMenuList}}' /> -->
+  <template is='BottomNavigation' />
+  <sliders></sliders>
+</view>

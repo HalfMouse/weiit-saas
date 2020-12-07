@@ -1,0 +1,13 @@
+<!-- 钱包 -->
+<!--pages/Withdrawals/Withdrawals.wxml-->
+<import src="../template/template.wxml" />
+<view class='wallet'>
+  <image src='../../images/yue.png' class='img'></image>
+  <view class='my_money'>我的余额</view>
+  <view class='money_num'>￥{{money}}</view>
+  <button class='Withdrawals' bindtap='tixian' data-money='{{money}}' style='background-color:{{btnColor.global_bg1}}'>提现</button>
+  <button class='Recharge' bindtap='recharge'>充值</button>
+  <view class='detail' bindtap='jump_Record'>收支明细</view>
+</view>
+<template is="explain" data='{{title:"余额"}}' />
+<sliders></sliders>

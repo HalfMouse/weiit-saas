@@ -1,0 +1,34 @@
+<!-- 提现进展 -->
+<view class='tx_title'>余额提现</view>
+<view class='pages'>
+  <view class='Apply'>
+    <view class='Box'>
+      <image wx:if='' class='Size' src=''></image>
+      <view wx:else class='{{true?"red_min":"min"}}'></view>
+    </view>
+    <view>发起余额提现申请</view>
+  </view>
+  <view class='Handle'>
+    <view class='Box'>
+      <image wx:if='true' class='max' src='../../images/time.png'></image>
+      <view wx:else class='{{true?"red_min":"min"}}'></view>
+    </view>
+    <view class='two black'>后台处理中</view>
+    <view class='two_time'>预计2018-3-26 11：10到账</view>
+  </view>
+  <view class='Result'>
+    <view class='Box'>
+      <image wx:if='' class='max'></image>
+      <view wx:else class='{{false?"red_min":"min"}}'></view>
+    </view>
+    <view>提现成功</view>
+  </view>
+</view>
+<view class='tx_money'>提现金额
+  <text class='money_num'>￥{{data.cash_money}}</text>
+</view>
+<view class='account'>到账账户
+  <text class='money_num'>{{data.account}}</text>
+</view>
+<view class='Got_it' bindtap='success'>完成</view>
+<sliders></sliders>

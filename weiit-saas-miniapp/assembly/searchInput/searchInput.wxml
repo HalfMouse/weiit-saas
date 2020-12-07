@@ -1,0 +1,15 @@
+<!-- 搜索框 -->
+<view class='searchs'>
+  <!-- 有样式搜索框 -->
+  <view wx:if='{{types=="ordinary"}}' class='search' bindtap='go_serach'>
+    <view class='search_ipt'>
+      <text class='iconfont icon-sousuo'></text>搜索品牌、商家或商品
+    </view>
+  </view>
+  <view wx:if='{{types=="top"}}' class='search1' bindtap='go_serach' style='background-color:{{backColor.searchColor_outside}}'>
+    <view class='search_ipt' style='background-color:{{backColor.searchColor_inside}}'>
+      <text class='iconfont icon-sousuo'></text>搜索品牌、商家或商品
+    </view>
+    <!-- <text class='iconfont icon-personnone'></text> -->
+  </view>
+</view>

@@ -1,0 +1,25 @@
+/* pages/Opinion/Opinion.wxss */
+
+view {
+  border: 20rpx solid #fff;
+  margin-bottom: 20rpx;
+}
+
+textarea {
+  width: 98%;
+  font-size: 30rpx;
+  color: #333;
+  padding: 15rpx;
+}
+
+button {
+  width: 92%;
+  margin: 20rpx auto;
+  color: #fff;
+  background-color: #ffdc48;
+}
+
+button:hover {
+  background-color: #ffdc48;
+  color: #000;
+}

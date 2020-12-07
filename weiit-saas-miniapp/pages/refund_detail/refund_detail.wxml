@@ -1,0 +1,23 @@
+<!-- 退款详情 -->
+<view wx:if='{{load}}'>
+  <view class='Progress' style='background-color:{{btnColor.global_bg1}}'>
+    <view class='state'>{{refund_detail.states}}</view>
+    <view class='RGtime'>2010年1月1日</view>
+  </view>
+  <view class='information'>退款信息</view>
+  <view class='Box'>
+    <image class='baby_img' src='http://wstore-1255653546.image.myqcloud.com{{refund_detail.product_img}}'></image>
+    <view class='com_nums'>{{refund_detail.count}}件商品</view>
+    <view class='title'>{{refund_detail.product_name}}</view>
+    <text decode='true' class='size'>{{refund_detail.spec_content}}</text>
+  </view>
+  <view class='Reason'>
+    <text>退款原因：{{refund_detail.refund_reason}}</text>
+    <text>退款金额：￥{{refund_detail.refund_money}}</text>
+    <text>申请时间：{{refund_detail.create_time}}</text>
+    <text>退款编号：{{refund_detail.refund_num}}</text>
+    <view wx:if='{{refund_detail.state==2||refund_detail.state==3}}' class='look_logistics' bindtap='look_logistics'>查看物流</view>
+    <view wx:if='{{refund_detail.state==1}}' class='add_info' bindtap='add_info'>补充物流信息</view>
+  </view>
+  <sliders></sliders>
+</view>

@@ -1,0 +1,22 @@
+<!-- 我的积分 -->
+<import src="../template/template.wxml" />
+<view class='Current_integral'>当前积分:
+  <text class='integral_num' decode='true'>&nbsp;&nbsp;{{options.integral}}</text>
+  <text class='integral_rule' bindtap='integralRule'>积分规则</text>
+</view>
+<!-- <view wx:if='{{integral==""}}'>
+  <template is="explain" data='{{title:"积分"}}' />
+</view> -->
+<view class='bottom-btn'>
+  <view class='exchangeBtn' bindtap='toExchange'>前往兑换中心</view>
+  <view class='listBtn' bindtap='toIntegralList'>前往积分列表</view>
+</view>
+<view wx:if='{{integral!=""}}' wx:for='{{integral}}' class='category'>
+  <view class='mode'>{{item.remark}}</view>
+  <text decode='true' class='time'>{{time[index]}}</text>
+  <view class='{{item.state == 0?"green":"red"}}'>
+    <text wx:if='{{item.state == 0}}'>+</text>
+    <text wx:if='{{item.state == -1}}'>-</text>{{item.integral}}
+  </view>
+</view>
+<sliders></sliders>

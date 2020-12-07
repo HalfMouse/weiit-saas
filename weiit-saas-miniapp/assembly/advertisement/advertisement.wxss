@@ -1,0 +1,89 @@
+/* assembly/advertisement/advertisement.wxss */
+
+.adBox {
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* .head_banner {
+  height: 330rpx;
+} */
+
+.slide-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.tr_one {
+  width: 100%;
+  margin-bottom: 20rpx;
+}
+
+.tr_one:last-child {
+  margin-bottom: -10rpx;
+}
+
+.tran {
+  width: 100%;
+  height: 300rpx;
+}
+.adBox scroll-view {
+  white-space: nowrap;
+  display: flex;
+  display: -webkit-flex;
+}
+.threeImg {
+  width: 46%;
+  height: 265rpx;
+  display: block;
+  margin-bottom: 20rpx;
+  margin: 0 2%;
+  float: left;
+}
+
+.threeImg:first-child {
+  height: 550rpx;
+  margin-bottom: 0;
+}
+
+.threeImg:last-child {
+  margin-top: 20rpx;
+  margin-bottom: 0;
+}
+
+.slideImg {
+  width: 31%;
+  height: 30vw;
+  margin: 0 1%;
+}
+.doubleImgBox{
+  width: 100%;
+  display: flex;
+  display: -webkit-flex;
+}
+.doubleImgBox-item{
+  width: 50%;
+  float: left;
+}
+.doubleImgBox-item image{
+  float: left;
+  width: 100%;
+}
+.doubleImg{
+  float: left;
+  width: 100%;
+  overflow: hidden;
+}
+
+.tripleImg-item{
+  width: 33.3%;
+  float: left;
+}
+.tripleImg{
+  float: left;
+  width: 100%
+}
+.haveBlock{
+  padding: 0 30rpx;
+}

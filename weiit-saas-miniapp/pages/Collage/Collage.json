@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "拼团商品详情",
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

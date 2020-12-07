@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.init.mapper.TemplateMapper">
+ 
+	<select id="selectList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+      SELECT te.template_id, te.template_id as validate_id, tc.cate_name,
+    		te.template_name, te.template_img, te.template_cate_id,
+    		te.create_manager_id, te.create_time, te.update_manager_id, te.update_time, te.state 
+		FROM  weiit_init_template te left join weiit_init_template_cate tc  on te.template_cate_id=tc.cate_id 
+        where 1=1 
+        <if test="template_name !=null and template_name !='' ">
+			and template_name like concat('%', #{template_name}, '%')
+		</if>
+		<if test="template_cate_id !=null and template_cate_id !=''">
+       	 	and te.template_cate_id=#{template_cate_id}
+        </if>
+        <if test="state !=null and state !=''">
+       	 	and te.state=#{state}
+        </if>
+        order by te.create_time desc 
+    </select> 
+    	 
+ 	<select id="selectOne"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        SELECT te.template_id, te.template_id as validate_id, tc.cate_name,
+    		te.template_name, te.template_img, te.template_cate_id,  te.template_json, 
+    		te.create_manager_id, te.create_time, te.update_manager_id, te.update_time, te.state 
+		FROM  weiit_init_template te left join weiit_init_template_cate tc  on te.template_cate_id=tc.cate_id 
+        where te.template_id=#{validate_id} 
+    </select>
+      
+	 <insert id="insert"  parameterType="map" >
+        insert into weiit_init_template 
+        (
+			template_name, template_img, template_cate_id, template_json, 
+    		create_manager_id, create_time, update_manager_id, update_time, state 
+        )
+        values
+        (
+			#{template_name},
+			#{template_img},
+			#{template_cate_id},
+			#{template_json},
+			#{manager_id},
+			now(),
+			#{manager_id},
+			now(),
+			#{state}
+        )
+     </insert>
+      
+     <update id="edit"   parameterType="map">
+        update weiit_init_template 
+        set  
+	        template_name=#{template_name},
+	        template_img=#{template_img},
+	        template_cate_id=#{template_cate_id},
+	        template_json=#{template_json},
+	        state=#{state},
+	        update_manager_id=#{manager_id},
+	        update_time=now()
+        where template_id=#{validate_id} 
+     </update>
+      
+     <update id="editState"   parameterType="map">
+        update weiit_init_template 
+        set 
+	        state=#{state},
+	        update_manager_id=#{manager_id},
+	        update_time=now()
+        where template_id=#{validate_id} 
+     </update>
+ 	
+ 	  <!-- 删除 -->
+     <delete id="remove"   parameterType="map">
+        delete from weiit_init_template 
+        where  template_id=#{validate_id} 
+     </delete>
+ 
+</mapper>

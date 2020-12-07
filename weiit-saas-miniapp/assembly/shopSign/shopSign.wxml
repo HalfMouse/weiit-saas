@@ -1,0 +1,37 @@
+<block>
+  <view wx:if='{{pageParam.showStyle=="type1"}}' class='shop type1'>
+    <image class='shop_back' src='{{pageParam.bgPic === "" ? "http://img2.imgtn.bdimg.com/it/u=621249446,3783396964&fm=26&gp=0.jpg" : pageParam.bgPic}}' mode='widthFix'></image>
+    <image class='shop_pic' src='http://wstore-1255653546.image.myqcloud.com{{shop_logo}}'></image>
+    <view class='shop_title'>{{pageParam.shopName}}</view>
+    <view class='shop_con'>{{pageParam.signature}}</view>
+  </view>
+  <view wx:if='{{pageParam.showStyle=="type2"}}' class='shop type2'>
+    <view class='back-bg'>
+      <image class='shop_back' src='{{pageParam.bgPic === "" ? "http://img2.imgtn.bdimg.com/it/u=621249446,3783396964&fm=26&gp=0.jpg" : pageParam.bgPic}}' mode='widthFix'></image>
+    </view>
+   
+    <image class='shop_pic' src='http://wstore-1255653546.image.myqcloud.com{{shop_logo}}'></image>
+    <view class='shop_title'>{{pageParam.shopName}}</view>
+    <view class='orr'>{{pageParam.signature}}</view>
+  </view>
+  <view wx:if='{{pageParam.showStyle=="type3"}}' class='shop type3'>
+    <image class='shop_back' src='{{pageParam.bgPic === "" ? "http://img2.imgtn.bdimg.com/it/u=621249446,3783396964&fm=26&gp=0.jpg" : pageParam.bgPic}}' mode='widthFix'></image>
+    <image class='shop_pic' src='http://wstore-1255653546.image.myqcloud.com{{shop_logo}}'></image>
+    <view class='shop_title'>{{pageParam.shopName}}</view>
+    <view class='orr'>{{pageParam.signature}}</view>
+  </view>
+  <view wx:if='{{pageParam.showStyle=="type4"}}' class='shop type4'>
+    <view class='type-bg'>
+      <image class='shop_back' src='{{pageParam.bgPic === "" ? "http://img2.imgtn.bdimg.com/it/u=621249446,3783396964&fm=26&gp=0.jpg" : pageParam.bgPic}}' mode='widthFix'></image>
+    </view>
+    <image class='shop_pic' src='http://wstore-1255653546.image.myqcloud.com{{shop_logo}}'></image>
+    <view class='shop_title'>{{pageParam.shopName}}</view>
+    <view class='orr'>{{pageParam.signature}}</view>
+  </view>
+  <view wx:if='{{pageParam.showStyle=="type5"}}' class='shop type5'>
+    <image class='shop_back' src='{{pageParam.bgPic === "" ? "http://img2.imgtn.bdimg.com/it/u=621249446,3783396964&fm=26&gp=0.jpg" : pageParam.bgPic}}' mode='widthFix'></image>
+    <image class='shop_pic' src='http://wstore-1255653546.image.myqcloud.com{{shop_logo}}'></image>
+    <view class='shop_title'>{{pageParam.shopName}}</view>
+    <view class='orr'>{{pageParam.signature}}</view>
+  </view>
+</block>

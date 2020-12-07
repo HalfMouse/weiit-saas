@@ -1,0 +1,31 @@
+<!-- 优惠券 -->
+<import src="../template/template.wxml" />
+<view class="navbar" wx:if='{{Load}}'>
+  <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text>
+</view>
+<block wx:if='{{coupon != ""&&Load}}'>
+  <!--全部-->
+  <view hidden="{{currentTab!==0}}">
+    <block wx:for="{{coupon}}">
+      <template is="Coupons" data="{{...item}}" />
+    </block>
+  </view>
+  <!--已使用-->
+  <view hidden="{{currentTab!==1}}">
+    <block wx:if='{{Use.length>0}}'>
+      <template wx:for="{{Use}}" is="Coupons" data="{{...item}}" />
+    </block>
+    <view wx:else class='noCoupons'>没有使用过的优惠券哦~</view>
+  </view>
+  <!--已过期-->
+  <view hidden="{{currentTab!==2}}">
+    <block wx:if='{{overdue.length>0}}'>
+      <template wx:for="{{overdue}}" is="Coupons" data="{{...item}}" />
+    </block>
+    <view wx:else class='noCoupons'>没有过期的优惠券哦~</view>
+  </view>
+</block>
+<block wx:if='{{coupon == ""&&Load}}'>
+  <template is='empty' data='{{...emptys,btnColor:btnColor}}' />
+</block>
+<sliders></sliders>

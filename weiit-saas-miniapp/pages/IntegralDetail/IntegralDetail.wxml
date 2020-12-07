@@ -1,0 +1,94 @@
+<import src="../logo/logo.wxml" />
+<!-- 商品详情 -->
+<import src="../../wxParse/wxParse.wxml" />
+<view class='pages' wx:if='{{load}}'>
+  <swiper indicator-dots='true' indicator-color='#E9E7E8' indicator-active-color='#EC534E' indicator-dots='{{information.product_imgs.length>1?true:false}}'>
+    <block wx:for='{{information.product_imgs}}'>
+      <swiper-item>
+        <image bindtap='preview' mode='aspectFit' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class='detail_title'>{{information.product_name}}</view>
+  <view class='detail_box'>
+    <view class='detail_lable'>
+      <view class='Price' style='color:{{btnColor.global_bg1}}'>￥{{integralInfo.integral_price}} + {{integralInfo.integral}}积分</view>
+      <view class='start_price'>￥{{information.sale_price}}</view>
+    </view>
+    <view class='lable_list' style='width:{{120*information.tag_info.length}}rpx'>
+      <view class='lable ' wx:for='{{information.tag_info}}'>{{item.tag_name}}</view>
+    </view>
+    <view class='express'>运费:{{information.expressInfo}}</view>
+    <view class='single_num'>库存{{information.stock}} | 已售{{information.sale_count}}</view>
+  </view>
+  <view class='btn' bindtap='choice_spce' data-type='choice'>
+    <view>选择</view>
+    <view>规格</view>
+    <text class='iconfont icon-youjiantouda'></text>
+  </view>
+  <view class='navbar'>
+    <text wx:for='{{navbar}}' data-index='{{index}}' class='item {{currentTab==index?"active":""}}' wx:key="unique" bindtap='navbarTap'>{{item}}    </text>
+  </view>
+  <view hidden='{{currentTab!==0}}'>
+    <!-- 商品详情、信息 -->
+    <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+  </view>
+  <view hidden='{{currentTab!==1}}'>
+    <view wx:if='{{information.attribute_info.length>0}}' class='introduce'>
+      <view class='infor_list' wx:for='{{information.attribute_info}}'>
+        <view>{{item.attribute_name}} </view>
+        <view>{{item.attribute_value}}</view>
+      </view>
+    </view>
+    <view wx:else style='height:300rpx;background-color:#fff'></view>
+  </view>
+  <bottomNav></bottomNav>
+  <view style='height:100rpx;width:100vw'></view>
+</view>
+<!-- 底部购买 -->
+<view wx:if='{{load}}' class='purchase'>
+  <view class='purchase_right'>
+    <view class='add_car' bindtap='ADD' data-value='add_car' style='background-color:{{btnColor.global_bg1}}'>立即兑换</view>
+  </view>
+</view>
+<!-- 选择规格遮罩层 -->
+<view class="commodity_screen" bindtap="hide" wx:if="{{showModalStatus}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <view class='alert_box'>
+    <view class='alert_title'>选择规格
+      <view class='iconfont icon-cha' bindtap='hide'></view>
+    </view>
+    <view class='alert_information'>
+      <image class='inform_img' src='http://wstore-1255653546.image.myqcloud.com{{information.product_img}}'></image>
+      <view class='inform_title'>{{information.product_name}}</view>
+      <view class='inform_Price' style='color:{{btnColor.global_bg1}}'>￥{{integralInfo.integral_price}} + {{integralInfo.integral}}积分</view>
+      <view class='inform_num'>库存：{{Stock}}</view>
+    </view>
+    <view class='colour' wx:for='{{information.spec_info}}' data-index='{{index}}'>
+      <view class='color_title'>{{item.spec_name}}</view>
+      <view class='{{item.Choice == true ? "colorSelected" : "color_lable"}}' style='background-color:{{item.Choice?btnColor.global_bg1:""}}' data-value='{{item.spec_value}}' wx:for='{{item.values}}' data-id='{{item.spec_value_id}}' bindtap='size' data-index='{{index}}'>{{item.spec_value}}</view>
+    </view>
+    <block>
+      <view class='buy_num' wx:if='{{Stock>0}}'>购买数量
+        <text wx:if='{{information.max_limit>0}}' class='limit'>该商品限购{{information.max_limit}}件</text>
+        <view class='plus_reduce'>
+          <view bindtap='reduce_num'>-</view>
+          <view class='buy_nums'>{{buy_num}}</view>
+          <view bindtap='add_num'>+</view>
+        </view>
+      </view>
+      <view class='buy_num' wx:else>购买数量
+        <view class='plus_reduce'>
+          <view>-</view>
+          <view class='buy_nums'>0</view>
+          <view>+</view>
+        </view>
+      </view>
+    </block>
+    <view>
+      <view wx:if='{{Stock>0}}' class='Determine' bindtap='confirm' style='background-color:{{btnColor.global_bg1}}'>确定</view>
+      <view wx:else class='OOS'>库存不足</view>
+    </view>
+  </view>
+</view>
+<sliders></sliders>

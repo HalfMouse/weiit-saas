@@ -1,0 +1,27 @@
+<!--pages/userInfo/userInfo.wxml-->
+<!-- 获取用户信息 -->
+<!-- <view class='Prompt'>
+  <image class='shopPic' src='{{pages.head_img}}'></image>
+  <view class='shopName'>{{pages.nick_name}}</view>
+  <view class='shopBox'>
+    <view class='shopList'>
+      <view class='shopLeft'>技术支持</view>
+      <view class='shopRight'>{{pages.dev_name}}</view>
+    </view>
+    <view class='shopList'>
+      <view class='shopLeft'>版本号</view>
+      <view class='shopRight'>{{pages.version_no}}</view>
+    </view>
+    <view class='shopList'>
+      <view class='shopLeft'>更新时间</view>
+      <view class='shopRight'>{{newTime}}</view>
+    </view>
+    <view class='shopList'>
+      <view class='shopLeft'>描述</view>
+      <view class='shopRight'>{{pages.signature}}</view>
+    </view>
+  </view>
+</view> -->
+<image src='{{backsImg}}' class='backs'></image>
+<!-- <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class='userInfo' style='background-color:{{btnColor}}'>马上进入</button> -->
+<button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class='userInfo' style='background:rgba(0, 0, 0, .4);color:#fff'>马上进入</button>

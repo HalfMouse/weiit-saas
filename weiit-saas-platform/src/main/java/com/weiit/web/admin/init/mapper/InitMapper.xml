@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.init.mapper.InitMapper">
+
+	 <!-- 行业  查询 -->
+     <select id="selectList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT business_id, business_name, is_deleted  
+		FROM weiit_saas_init.weiit_init_business  
+		order by business_id asc 
+     </select> 
+     
+     <!-- 插入默认余额支付  -->
+     <insert id="insertShopPayment" parameterType="map">
+        insert into weiit_shop_payment
+         ( 
+			type, state, create_time, update_time, shop_id
+        ) values 
+        ( 
+			2, -1, now(), now(), #{shop_id}
+        )
+    </insert>
+	
+	<!-- 微页面  查询 -->
+     <select id="selectPageList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT page_id, page_name, page_desc, bgcolor, page_layout, page_cover, is_deleted, 
+    		is_default, create_time, update_time, demo_id  
+		FROM weiit_saas_init.weiit_page 
+		where demo_id=#{demo_id} 
+		order by page_id asc 
+     </select> 
+ 
+      <!--微页面 新增 -->
+	 <insert id="insertPage"  parameterType="map">
+        insert into weiit_page 
+        (
+			page_name, page_desc, bgcolor, page_layout, page_cover, 
+    		is_default, is_deleted, create_time, update_time, shop_id
+        ) values 
+		<foreach collection="pageList" item="obj" index="index" separator=",">
+			(#{obj.page_name},#{obj.page_desc}, #{obj.bgcolor},#{obj.page_layout},#{obj.page_cover},
+			#{obj.is_default}, 0 ,now() , now() ,#{shop_id})
+		</foreach> 
+     </insert>
+ 
+ 	 <!-- 店铺协议表 查询 -->
+     <select id="selectProtocolList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT id, protocol_title, protocol_content, type 
+		FROM weiit_saas_init.weiit_init_protocol 
+		order by id asc 
+     </select> 
+ 
+      <!--店铺协议表 新增 -->
+	 <insert id="insertProtocol"  parameterType="map">
+        insert into weiit_shop_protocol 
+        (
+			protocol_title, protocol_content, type , is_deleted , create_time , update_time , shop_id
+        ) values 
+		<foreach collection="protocolList" item="obj" index="index" separator=",">
+			(#{obj.protocol_title},#{obj.protocol_content},#{obj.type}, 0 ,now() , now() ,#{shop_id})
+		</foreach> 
+     </insert>
+     
+     <!-- 底部菜单表 查询 -->
+	<select id="selectPageBottomList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT id, nav_name, target_type, target_id, target_url 
+		FROM weiit_saas_init.weiit_page_bottom_menu 
+		order by id asc 
+	</select> 
+ 
+     <!-- 底部菜单表  新增 -->
+	 <insert id="insertPageBottom"  parameterType="map">
+        insert into weiit_page_bottom_menu 
+        (
+			nav_name, target_type, target_id, target_url ,state ,create_time , update_time , shop_id
+        ) values 
+		<foreach collection="bottomList" item="obj" index="index" separator=",">
+			(#{obj.nav_name},#{obj.target_type},#{obj.target_id},#{obj.target_url}, 0 ,now() , now() ,#{shop_id})
+		</foreach>
+     </insert>
+ 
+	<!-- 全店风格表  查询 -->
+	<select id="selectPageGlobalList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT id, global_type, global_bg1, global_bg2 
+		FROM weiit_saas_init.weiit_page_global  
+		order by id asc 
+	</select> 
+ 
+     <!-- 全店风格表  新增 -->
+	 <insert id="insertPageGlobal"  parameterType="map">
+        insert into weiit_page_global 
+        (
+			global_type, global_bg1, global_bg2,create_time , update_time , shop_id
+        ) values 
+		<foreach collection="globalList" item="obj" index="index" separator=",">
+			(#{obj.global_type},#{obj.global_bg1},#{obj.global_bg2},now() , now() ,#{shop_id})
+		</foreach> 
+     </insert>
+     
+    <!-- 导航  查询 -->
+	<select id="selectPageNavsList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT nav_id, nav_name, nav_url, nav_value, nav_icon_id  
+		FROM weiit_saas_init.weiit_page_navs 
+		order by nav_id asc 
+	</select> 
+     <!-- 导航  新增 -->
+	 <insert id="insertPageNavs"  parameterType="map">
+        insert into weiit_page_navs 
+        (
+			nav_name, nav_url, nav_value, nav_icon_id , shop_id
+        ) values 
+		<foreach collection="navsList" item="obj" index="index" separator=",">
+			(#{obj.nav_name},#{obj.nav_url},#{obj.nav_value},#{obj.nav_icon_id},#{shop_id})
+		</foreach> 
+     </insert>
+     
+	<!-- 商品属性与规格表  查询 -->
+	<select id="selectProductCustomList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT key_id as old_key_id, key_name, cate_id, token, type, parent_id 
+		FROM weiit_saas_init.weiit_product_custom_key 
+		where demo_id=#{demo_id} 
+		order by key_id asc 
+	</select> 
+ 
+     <!-- 商品属性与规格表  新增 -->
+	 <insert id="insertProductCustom"  parameterType="map">
+        insert into weiit_product_custom_key 
+        (
+			key_name, cate_id, token, type, parent_id , is_deleted,create_time , update_time , shop_id
+        ) values (
+			#{key_name},#{cate_id},#{token},#{type},#{parent_id}, 0,now() , now() ,#{shop_id}
+		);
+        <selectKey resultType="int" keyProperty="key_id" >  
+        	select LAST_INSERT_ID()  key_id 
+        </selectKey>
+     </insert>
+     
+	<!-- 商品  查询 -->
+	<select id="selectProductList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT product_id as old_product_id, product_num, brand_id, cate_id_level1, cate_id_level2, cate_id_level3, 
+    		product_name, supply_price, smarket_price, sale_price, stock, product_img, sale_count, 
+    		purchase, spec_config, attribute_custom, spec_custom, integral, express_config, 
+    		express_money, express_template_id, weight, volume, is_on_sale, sort_num
+		FROM weiit_saas_init.weiit_product 
+		where demo_id=#{demo_id} 
+		order by product_id asc 
+	</select> 
+ 
+     <!-- 商品  新增 -->
+	 <insert id="insertProduct"  parameterType="map">
+        insert into weiit_product  
+        (
+			product_num, brand_id, cate_id_level1, cate_id_level2, cate_id_level3, product_name, 
+			supply_price, smarket_price, sale_price, stock, product_img, sale_count, purchase, 
+			spec_config, attribute_custom, spec_custom, integral, express_config, express_money, 
+			express_template_id, weight, volume, is_on_sale, sort_num,create_time , update_time , shop_id
+        ) values (
+			 #{product_num},#{brand_id},#{cate_id_level1},#{cate_id_level2},#{cate_id_level3},#{product_name},
+			 #{supply_price},#{smarket_price},#{sale_price},#{stock},#{product_img},#{sale_count},#{purchase},
+			 #{spec_config},#{attribute_custom},#{spec_custom},#{integral},#{express_config},#{express_money},
+			 #{express_template_id},#{weight},#{volume},#{is_on_sale},#{sort_num},now() , now() ,#{shop_id}
+        );
+        <selectKey resultType="int" keyProperty="product_id" >  
+        	select LAST_INSERT_ID()  product_id 
+        </selectKey>
+     </insert>
+     
+     	<!-- 商品描述  查询 -->
+	<select id="selectProductDescOne" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT id, product_id, product_desc, is_deleted, create_time, update_time 
+		FROM weiit_saas_init.weiit_product_desc 
+		where product_id=#{product_id} 
+			and demo_id=#{demo_id} 
+	</select> 
+ 
+     <!-- 商品描述  新增 -->
+	 <insert id="insertProductDesc"  parameterType="map">
+        insert into weiit_product_desc  
+        (
+			product_id, product_desc, is_deleted, create_time, update_time , shop_id
+        ) values (
+			 #{product_id},#{product_desc},0 ,now() , now() ,#{shop_id}
+        )
+     </insert>
+     
+          	<!-- 商品图片  查询 -->
+	<select id="selectProductImagesList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT id, product_id, product_img, type, is_deleted, create_time, update_time, demo_id  
+		FROM weiit_saas_init.weiit_product_images 
+		where product_id=#{product_id} 
+			and demo_id=#{demo_id} 
+		order by id asc 
+	</select> 
+ 
+     <!-- 商品图片 新增 -->
+	 <insert id="insertProductImages"  parameterType="map">
+        insert into weiit_product_images  
+        (
+			product_id, product_img, type, is_deleted, create_time, update_time , shop_id
+        ) values 
+		<foreach collection="imagesList" item="obj" index="index" separator=",">
+			(#{product_id},#{obj.product_img},#{obj.type}, 0,now() , now() ,#{shop_id})
+		</foreach>
+     </insert>
+     
+	<!-- 商品规格  查询 -->
+	<select id="selectProductItemList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT item_id as old_item_id, item_num, product_id, bar_code, bar_code_pic, qr_code_pic, spec_custom, 
+    		supply_price, smarket_price, sale_price, stock, is_disabled, is_deleted, create_time, update_time, demo_id  
+		FROM weiit_saas_init.weiit_product_item 
+		where product_id=#{product_id} 
+			and demo_id=#{demo_id} 
+		order by item_id asc 
+	</select> 
+ 
+     <!-- 商品规格  新增 -->
+	 <insert id="insertProductItem"  parameterType="map">
+        insert into weiit_product_item  
+        (
+			item_num, product_id, bar_code, bar_code_pic, qr_code_pic, spec_custom, supply_price,
+    		smarket_price, sale_price, stock, is_disabled, is_deleted, create_time, update_time, shop_id 
+        ) values (
+			 #{item_num},#{product_id}, #{bar_code},#{bar_code_pic},#{qr_code_pic},#{spec_custom},#{supply_price},
+			 #{smarket_price},#{sale_price},#{stock}, 0, 0 ,now() , now() ,#{shop_id}
+        );
+        <selectKey resultType="int" keyProperty="item_id" >  
+        	select LAST_INSERT_ID()  item_id 
+        </selectKey>
+     </insert> 
+
+     
+    <!-- 砍价  查询 -->
+	<select id="selectUmpBargainList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT bargain_id, product_id, bargain_name, start_time, end_time, max_price, min_price, 
+    		cut_price_min, cut_price_max, item_id, bargain_hour, state, create_time, update_time, demo_id  
+		FROM weiit_saas_init.weiit_ump_bargain 
+		where product_id=#{product_id} 
+			and demo_id=#{demo_id} 
+		order by bargain_id asc 
+	</select> 
+ 
+     <!-- 砍价  新增 -->
+	 <insert id="insertUmpBargain"  parameterType="map">
+        insert into weiit_ump_bargain  
+        (
+			product_id, bargain_name, start_time, end_time, max_price, min_price, 
+    		cut_price_min, cut_price_max, item_id, bargain_hour, state, create_time, update_time, shop_id 
+        ) values (
+			 #{product_id},#{bargain_name}, now() , DATE_ADD(now(),INTERVAL 7 DAY) ,#{max_price},#{min_price},
+			 #{cut_price_min},#{cut_price_max},#{item_id},#{bargain_hour},#{state}, now() , now() ,#{shop_id}
+        )
+     </insert>     
+     
+         <!-- 优惠券  查询 -->
+	<select id="selectUmpCouponList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT coupon_id, coupon_num, coupon_name, type, coupon_price, coupon_discount, random_min_price, 
+    		random_max_price, is_condition, condition_price, coupon_desc, use_type, from_day, to_day, 
+    		start_time, end_time, number, product_range_type, product_ids, state, max_limit, create_time, update_time, demo_id  
+		FROM weiit_saas_init.weiit_ump_coupon  
+		order by coupon_id asc 
+	</select> 
+ 
+     <!-- 优惠券  新增 -->
+	 <insert id="insertUmpCoupon"  parameterType="map">
+        insert into weiit_ump_coupon   
+        (
+			coupon_num, coupon_name, type, coupon_price, coupon_discount, random_min_price, 
+    		random_max_price, is_condition, condition_price, coupon_desc, use_type, from_day, to_day, 
+    		start_time, end_time, number, product_range_type, product_ids, state, max_limit, create_time, update_time, shop_id 
+        ) values (
+			 #{coupon_num},#{coupon_name}, #{type},#{coupon_price},#{coupon_discount},#{random_min_price},
+			 #{random_max_price},#{is_condition}, #{condition_price},#{coupon_desc},#{use_type},#{from_day},#{to_day},
+			 now() , DATE_ADD(now(),INTERVAL 7 DAY) ,#{number},#{product_range_type},#{product_ids}, #{state}, #{max_limit},now() , now() ,#{shop_id}
+        )
+     </insert>   
+     
+    <!-- 拼团  查询 -->
+	<select id="selectUmpGrouponList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT groupon_id, product_id, groupon_price, groupon_name, start_time, end_time, expire_time, 
+    		groupon_number, max_limit, virtual_groupon, head_discount, state, 
+    		create_time, update_time, is_delete, is_morespec, demo_id  
+		FROM weiit_saas_init.weiit_ump_groupon 
+		where product_id=#{product_id} 
+			and demo_id=#{demo_id} 
+		order by groupon_id asc 
+	</select> 
+ 
+     <!-- 拼团  新增 -->
+	 <insert id="insertUmpGroupon"  parameterType="map">
+        insert into weiit_ump_groupon  
+        (
+			product_id, groupon_price, groupon_name, start_time, end_time, expire_time, 
+    		groupon_number, max_limit, virtual_groupon, head_discount, state, 
+    		create_time, update_time, is_delete, is_morespec, shop_id 
+        ) values (
+			 #{product_id},#{groupon_price}, #{groupon_name}, now() , DATE_ADD(now(),INTERVAL 7 DAY) ,#{expire_time},
+			 #{groupon_number},#{max_limit}, #{virtual_groupon},#{head_discount},#{state},
+			  now() , now() , 0 , 0 ,#{shop_id} 
+        )
+     </insert>
+          
+    <!-- 商家物流   查询 -->
+	<select id="selectShopExpressList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT id, express_name, express_logo, type, create_time, update_time, express_id, is_deleted, demo_id  
+		FROM weiit_saas_init.weiit_shop_express 
+		order by id asc 
+	</select> 
+ 
+     <!-- 商家物流   新增 -->
+	 <insert id="insertShopExpress"  parameterType="map">
+        insert into weiit_shop_express  
+        (
+			express_name, express_logo, type, create_time, update_time, express_id, is_deleted, shop_id 
+        ) values 
+        <foreach collection="expressList" item="obj" index="index" separator=",">
+			(#{obj.express_name},#{obj.express_logo},#{obj.type}, now() , now() , #{obj.express_id}, 0 ,#{shop_id})
+		</foreach>
+     </insert>
+     
+</mapper>
+
+

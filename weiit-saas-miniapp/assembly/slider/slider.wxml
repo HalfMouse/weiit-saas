@@ -1,0 +1,16 @@
+<view class='slider-nav'>
+  <view class='slider-list'>
+    <view class="slider {{isShow && 'move'}}">
+      <navigator url="/pages/index/index" open-type="switchTab">
+        <image src='/images/slider-home.png' class='slider-nav'></image>
+      </navigator>
+      <navigator url="/pages/Personal/Personal" open-type="switchTab">
+        <image src='/images/slider-person.png' class='slider-nav'></image>
+      </navigator>
+    </view>
+  </view>
+  
+  <view class='slider-arrow' catchtap='showSlider'>
+    <image class="{{isShow&&'change'}}" src='{{arrowImg}}'></image>
+  </view>
+</view>

@@ -1,0 +1,7 @@
+<view class='text_box' style='background-color:{{pageParam.bgColor}};color:{{pageParam.fontColor}}'>
+  <view style='text-align: {{pageParam.fontPos}}'>
+    <view wx:if='{{pageParam.font=="big"}}' class='text_ipt' style='font-size:46rpx'>{{pageParam.textarea}}</view>
+    <view wx:if='{{pageParam.font=="middle"}}' class='text_ipt' style='font-size:36rpx'>{{pageParam.textarea}}</view>
+    <view wx:if='{{pageParam.font=="small"}}' class='text_ipt' style='font-size:26rpx'>{{pageParam.textarea}}</view>
+  </view>
+</view>

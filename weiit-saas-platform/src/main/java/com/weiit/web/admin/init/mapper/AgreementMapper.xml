@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.init.mapper.AgreementMapper">
+    <!-- 订单列表查询    -->
+    <select id="selectAgreementList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        select
+            id,
+            protocol_title,
+            protocol_content,
+            create_time
+        from weiit_init_protocol
+    </select>
+
+    <insert id="insert" parameterType="map">
+        insert into weiit_init_protocol
+        (
+            protocol_title,
+            protocol_content,
+            is_deleted,
+            create_time,
+            update_time
+        )
+        VALUE
+        (
+            #{protocol_title},
+            #{editorValue},
+            0,
+			now(),
+			now()
+        )
+    </insert>
+
+
+    <select id="selectOne"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        select
+            id,
+            protocol_title,
+            protocol_content,
+            create_time
+        from weiit_init_protocol
+        where id=#{id}
+    </select>
+
+    <update id="edit" parameterType="map">
+        update weiit_init_protocol
+        set
+            protocol_title= #{protocol_title},
+            protocol_content= #{editorValue},
+            create_time=now(),
+            update_time=now()
+        where id=#{agreementId}
+    </update>
+
+</mapper>

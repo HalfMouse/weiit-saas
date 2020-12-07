@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "退款详情",
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

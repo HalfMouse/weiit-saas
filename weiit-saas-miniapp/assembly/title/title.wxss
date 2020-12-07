@@ -1,0 +1,75 @@
+/* assembly/title/title.wxss */
+
+/* 标题 */
+
+.list_head {
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  color: #000;
+  background-color: #fff;
+  text-align: center;
+  position: relative;
+}
+
+.list_left {
+  text-align: left;
+  padding-left: 20rpx;
+}
+
+.more {
+  position: absolute;
+  right: 20rpx;
+  top: 0rpx;
+  font-size: 28rpx;
+  color: #ec534e;
+}
+
+.icon-youjiantouda {
+  font-size: 30rpx;
+  font-weight: bold;
+}
+
+.list_num {
+  width: 98%;
+  overflow: hidden;
+  margin-top: 20rpx !important;
+  position: relative;
+  background-color: #fff;
+  float: left;
+}
+
+.Box_img {
+  width: 100%;
+  border-bottom: 1rpx solid #f1f1f1;
+}
+
+.small_lsit .Corner_mark image {
+  width: 60rpx !important;
+  height: 45rpx !important; 
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* iconfont */
+
+@font-face {
+  font-family: 'iconfont'; /* project id 655959 */
+  src: url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.eot');
+  src: url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.eot?#iefix') format('embedded-opentype'),
+         url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.woff') format('woff'),
+         url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.ttf') format('truetype'),
+         url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-youjiantouda:before {
+  content: "\e607";
+}

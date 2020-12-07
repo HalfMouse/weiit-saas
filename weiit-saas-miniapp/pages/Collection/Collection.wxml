@@ -1,0 +1,19 @@
+<!-- 我的收藏 -->
+<import src="../template/template.wxml" />
+<block wx:if='{{CollectionList != ""&&Load}}'>
+  <view class='box'>
+    <view class='Collection' wx:for='{{CollectionList}}' bindtap='go_detail' data-product_id='{{item.product_id}}'>
+      <image src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}' class='baby'></image>
+      <view class='title'>{{item.product_name}}</view>
+      <view class='money'>￥{{item.sale_price}}</view>
+    </view>
+    <view bindtap='detele' class='delete' data-id='{{item.product_id}}'>
+      <text class='iconfont icon-shanchu-copy'></text>
+    </view>
+  </view>
+  <text class='no_more'>没有更多了~</text>
+</block>
+<block wx:if='{{CollectionList == ""&&Load}}'>
+  <template is='empty' data='{{...emptys,btnColor:btnColor}}' />
+</block>
+<sliders></sliders>

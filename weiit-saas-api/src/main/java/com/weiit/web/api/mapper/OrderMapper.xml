@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.api.mapper.OrderMapper">
+	
+	
+	<!-- 订单查询 -->
+	<select id="selectOrderList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+			oo.order_id,
+			oo.order_num,
+			oo.total_price,
+			oo.check_num,
+			oo.pay_price,
+			oo.user_name,
+			oo.create_time,
+			oo.update_time,
+			oo.state,
+			oo.remark, 
+			oo.payment_type,
+			oo.express_num,
+			oo.express_type,
+			oo.express_money,
+			oo.consignee,
+			oo.address,
+			oo.phone,  
+			oc.express_name as express_name,
+			ex.express_code
+		from
+			weiit_order oo left join  weiit_shop_express oc on oo.express_template_id = oc.id 
+				left join weiit_init_express_ali ex  on oc.express_id = ex.express_id and ex.express_type = 0
+		where  oo.is_deleted=0  and oo.user_id=#{user_id}
+		<if test="state!=null and state != ''">
+			and oo.state=#{state} 
+		</if>
+		order BY order_id DESC
+	</select>
+
+
+	<select id="selectExpressInfoByCode"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+			*
+		from
+			weiit_init_express_ali
+		where  express_code=#{express_code}
+	</select>
+
+	
+	<select id="selectOrderOne"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+			oo.order_id,
+			oo.order_num,
+			oo.total_price,
+			oo.check_num,
+			oo.pay_price,
+			oo.user_name,
+			oo.create_time,
+			oo.update_time,
+			oo.pay_time,
+			oo.deliver_time,
+			oo.state,
+			oo.remark, 
+			oo.payment_type,
+			oo.express_num,
+			oo.express_type,
+			oo.express_money,
+			oo.consignee,
+			oo.address,
+			oo.phone, 
+			oc.express_name as express_name,
+			ex.express_code
+		from  weiit_order oo
+		left join  weiit_shop_express oc on oo.express_template_id = oc.id
+		left join weiit_init_express_ali ex  on oc.express_id = ex.express_id and ex.express_type = 0
+		where  oo.is_deleted=0  
+		and oo.order_num=#{order_num}
+	</select>
+	
+	<select id="selectOrderDetails"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		  select
+		  	od.id,
+			od.product_id,
+			od.product_name,
+			od.product_img,
+			od.smarket_price,
+			od.sale_price,
+			od.spec_content,
+			od.count,
+			od.pay_price,
+			(od.count * od.sale_price) as total_price,
+			rd.state 
+		from
+			weiit_order_item od left join weiit_order_refund rd 
+				on od.id = rd.order_item_id  
+		where od.order_num=#{order_num}
+	</select>
+	
+	<update id="updateOrderState" parameterType="map">
+	   update  weiit_order
+		set
+
+			<if test="state!=null">
+				state=#{state},
+			</if>
+			<if test="payment_type!=null and payment_type!=''">
+				payment_type=#{payment_type},
+			</if>
+			<if test="check_num!=null">
+				check_num=#{check_num},
+			</if>
+		update_time=now()
+		where order_num=#{order_num} and user_id=#{user_id}
+	</update>
+	
+	<!-- 新增售后订单 -->
+	<insert id="insertOrderRefund" parameterType="map">
+		insert into weiit_order_refund
+		(
+			refund_num,
+			<if test="refund_imgs!=null and refund_imgs != ''">
+			refund_imgs,
+			</if>
+			refund_money,
+			state,
+			order_num,
+			order_item_id,
+			user_id,
+			user_name,
+			refund_type,
+			refund_reason,
+			remark,
+			create_time,
+			update_time,
+			is_deleted,
+			shop_id
+
+		)
+		values
+		(
+			#{refund_num},
+			<if test="refund_imgs!=null and refund_imgs != ''">
+			#{refund_imgs},
+			</if>
+			#{refund_money},
+			0,
+			#{order_num},
+			#{order_item_id},
+			#{user_id},
+			#{user_name},
+			#{refund_type},
+			#{refund_reason},
+			#{remark},
+			now(),
+			now(),
+			0,
+			#{shop_id}
+		)
+	</insert>
+	
+	<select id="selectOrderRefundList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			r.refund_id,
+			r.refund_num,
+			r.refund_type,
+			r.state,
+			r.create_time,
+			o.product_name,
+			o.product_img,
+			o.smarket_price,
+			o.sale_price,
+			o.count,
+			o.spec_content 
+		from weiit_order_refund r inner join weiit_order_item o on r.order_item_id=o.id 
+		where 
+			r.user_id=#{user_id}
+			order by r.create_time DESC
+	</select>
+
+	<select id="selectOrderRefundCount"  resultType="java.lang.Integer"  parameterType="map">
+		select
+			count(*)
+		from weiit_order_refund r
+		where
+			r.user_id=#{user_id}
+	</select>
+
+	<select id="selectOrderRefundDetail"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			r.refund_id,
+			r.refund_num,
+			r.refund_type,
+			r.state,
+			r.refund_money,
+			r.refund_reason,
+			r.remark,
+			r.create_time,
+			o.product_name,
+			o.product_img,
+			o.smarket_price,
+			o.sale_price,
+			o.count,
+			ie.express_code,
+			r.express_num,
+			o.spec_content 
+		from weiit_order_refund r
+		left join weiit_order_item o on r.order_item_id=o.id
+		left join weiit_shop_express ex on r.express_template_id=ex.id
+		left join weiit_init_express_ali ie on ex.express_id=ie.express_id
+		where 
+			r.refund_id=#{refund_id}
+	</select>
+	
+	<select id="selectExpressCompanyList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			id as express_template_id,
+			express_name as express_company
+		from weiit_shop_express  
+		where 
+			shop_id=#{shop_id}
+	</select>
+
+
+	<select id="getOrderInfoByOrderNum"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			order_id,
+			order_num,
+			check_num,
+			total_price,
+			pay_price,
+			address_id,
+			payment_type,
+			state
+		FROM
+			weiit_order
+		WHERE
+			order_num = #{_parameter}
+	</select>
+
+	<select id="getMchkeyByOrderNum"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			ww.partner_key,
+			wu.user_id,
+			wo.order_id
+		FROM
+			weiit_order wo,
+			weiit_user wu,
+			weiit_shop_payment ww
+		WHERE
+		 wo.order_num=#{_parameter}
+		AND wo.user_id=wu.user_id
+		AND wu.open_id_type = ww.type
+		AND wo.shop_id=ww.shop_id
+	</select>
+
+	<select id="getOrderItemByOrderNum"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			order_id,
+			order_num,
+			product_id,
+			item_id,
+			count,
+			product_name
+		FROM
+			weiit_order_item
+		WHERE
+			order_num = #{_parameter}
+	</select>
+
+	<select id="getShipItemByShipId"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			ws.shipping_config,
+			si.start_standard,
+			si.start_fee,
+			si.add_standard,
+			add_fee,
+			si.areas_names
+		FROM
+			weiit_shop_shipping ws join
+			weiit_shop_shipping_item si ON ws.shipping_id=si.shipping_id
+		WHERE
+			si.shipping_id = #{shipping_id} order BY  sort_num
+	</select>
+
+	<!-- 售后-填写物流 -->
+	<update id="updateOrderRefundExpress" parameterType="map">
+	   update  weiit_order_refund 
+			set
+				express_template_id=#{express_template_id},
+				state=#{state},
+				express_num=#{express_num}
+			
+		where refund_id=#{refund_id}
+	</update>
+	
+	<update id="updateOrderRefundState" parameterType="map">
+	   update  weiit_order_refund 
+			set
+				state=#{state}
+			
+		where refund_id=#{refund_id}
+	</update>
+	
+	<!-- 添加订单-->
+	<insert id="insertOrder" parameterType="map" useGeneratedKeys="true" keyProperty="order_id">
+		insert into weiit_order
+		(
+			order_num,
+			check_num,
+			total_price,
+			pay_price,
+			user_id,
+			user_name,
+			address_id,
+			payment_type,
+			consignee,
+			address,
+			phone,
+			order_type,
+			remark,
+			express_type,
+			express_money,
+			express_template_id,
+			state,
+			create_time,
+			update_time,
+			pay_time,
+			deliver_time,
+			shop_id
+		)
+		values
+		(
+			#{order_num},
+			#{check_num},
+			#{total_price},
+			#{pay_price},
+			#{user_id},
+			#{user_name},
+			#{address_id},
+			#{payment_type},
+			#{consignee},
+			#{address},
+			#{phone},
+			#{order_type},
+			#{remark},
+			#{express_type},
+			#{express_money},
+			#{express_template_id},
+			#{state},
+			now(),
+			now(),
+			now(),
+			now(),
+			#{shop_id}
+		)
+	</insert>
+	
+	<!-- 添加订单详情记录 -->
+	<insert id="insertOrderItem" parameterType="map">
+		insert into weiit_order_item
+		(
+			product_id,
+			product_name,
+			product_img,
+			<!-- supply_price, -->
+			smarket_price,
+			sale_price,
+			pay_price,
+			count,
+			spec_content,
+			item_id,
+			order_id,
+			order_num,
+			create_time,
+			update_time,
+			shop_id
+		)
+		values
+		(
+			#{product_id},
+			#{product_name},
+			#{product_img},
+			<!-- #{supply_price}, -->
+			#{smarket_price},
+			#{sale_price},
+			#{pay_price},
+			#{count},
+			#{spec_content},
+			#{item_id},
+			#{order_id},
+			#{order_num},
+			now(),
+			now(),
+			#{shop_id}
+		)
+	</insert>
+	
+
+	
+	<select id="selectUserAddressById" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			id,
+			consignee,
+			province,
+			city,
+			district,
+			address_detail,
+			zip_code,
+			tel,
+			phone,
+			is_default 
+		from weiit_user_address
+		where id=#{address_id}
+	</select>
+
+
+	<select id="selectOrderInfoByOrderNum" resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			wo.pay_price,
+			wo.pay_time,
+			ws.shop_name
+		FROM
+			weiit_order wo
+		LEFT JOIN weiit_shop ws ON wo.shop_id = ws.shop_id
+		WHERE
+			wo.order_num = #{order_num}
+	</select>
+
+
+	<select id="selectUserCouponById" resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			wu.state,
+			uc.type,
+			uc.coupon_price,
+			uc.coupon_discount,
+			is_condition,
+			condition_price,
+			product_range_type,
+			product_ids
+		FROM
+			weiit_ump_coupon_user wu
+		LEFT JOIN weiit_ump_coupon uc ON wu.coupon_id = uc.coupon_id
+		WHERE
+		<!--购物车下单  前端传coupon_id -->
+			wu.id=#{coupon_id} AND wu.start_time &lt; now() AND wu.end_time &gt;now() AND wu.user_id=#{user_id}
+	</select>
+
+	<update id="updateUserCouponById"   parameterType="map">
+		UPDATE weiit_ump_coupon_user
+			SET order_num=#{order_num},
+			coupon_price=#{coupon_price},
+			state=1,
+			update_time=now()
+		WHERE
+			id=#{coupon_id}
+	</update>
+
+	<select id="selectUserCartList" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			p.product_id,
+			p.product_name, 
+			p.product_img,
+            p.express_config,
+            p.express_money,
+            p.express_template_id,
+            p.weight,
+            p.volume,
+			p.purchase max_limit,
+			i.smarket_price,
+			i.sale_price, 
+			i.stock, 
+			c.cart_id,
+			c.count, 
+			c.item_id,
+			c.spec_content
+		from weiit_user_cart c join weiit_product p on c.product_id = p.product_id join weiit_product_item i on c.item_id = i.item_id 
+		where c.user_id = #{user_id}
+		<if test="cart_ids!=null and cart_ids!=''">
+			and c.cart_id in (${cart_ids})
+		</if>
+	</select>
+
+	<delete id="clearUserCart" parameterType="map">
+		delete from weiit_user_cart
+		where  user_id=#{user_id} AND  cart_id in (${cart_ids})
+	</delete>
+
+	<select id="selectOrderItemOne"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			oi.id,
+			oi.product_id,
+			oi.product_name,
+			oi.product_img,
+			oi.product_desc,
+			oi.supply_price,
+			oi.smarket_price,
+			oi.sale_price,
+			oi.pay_price,
+			oi.count,
+			oi.spec_content,
+			o.express_money,
+			oi.item_id,
+			oi.order_id,
+			oi.order_num,
+			oi.create_time,
+			oi.update_time,
+			oi.shop_id
+		FROM
+			weiit_order_item oi join weiit_order o on oi.order_id = o.order_id
+		WHERE
+			id=#{id}
+	</select>
+
+	<select id="selectUserCouponInfoByOrderNum"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			product_range_type,
+			wu.coupon_price
+		FROM
+			weiit_ump_coupon_user wu
+		LEFT JOIN weiit_ump_coupon uc ON wu.coupon_id = uc.coupon_id
+		WHERE
+			order_num = #{order_num}
+	</select>
+
+	<select id="selectPaymentTypeInfo"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			*
+		FROM
+			weiit_shop_payment
+		WHERE
+			shop_id = #{shop_id} AND type=#{payment_type}
+	</select>
+
+	<select id="selectOrderProductCount"  resultType="java.lang.Integer"  parameterType="map">
+		SELECT
+			count(*)
+		FROM
+			weiit_order wo
+		LEFT JOIN weiit_order_item oi ON wo.order_num = oi.order_num
+		WHERE
+			wo.user_id = #{user_id}
+		AND wo.is_deleted = 0
+		AND product_id = #{product_id}
+	</select>
+
+	<select id="selectOrderRefundOne"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+			order_num,
+			state,
+			remark,
+  			order_item_id
+		from weiit_order_refund
+		where
+			  order_item_id=#{id}
+	</select>
+
+
+
+
+</mapper>

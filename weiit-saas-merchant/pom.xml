@@ -415,7 +415,7 @@
 		<dependency>
 			<groupId>com.weiit</groupId>
 			<artifactId>weiit-resource-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.1-SNAPSHOT</version> 
 		</dependency>
 		<!-- weiit-frame封装的定时任务标准依赖包 -->
 		<dependency>

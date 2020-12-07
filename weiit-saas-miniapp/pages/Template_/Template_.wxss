@@ -1,0 +1,407 @@
+/* pages/Template_/Template_.wxss */
+
+.Bargain_introduce {
+  height: 268rpx;
+  padding: 20rpx;
+  font-size: 32rpx;
+  position: relative;
+  background-color: #ffd929;
+  color: #a27507;
+}
+
+.back_img {
+  width: 90%;
+  height: 20rpx;
+  margin: 0 auto;
+  position: absolute;
+  top: 134rpx;
+  left: 60rpx;
+}
+
+.Bargaun_rule {
+  position: absolute;
+  right: 14rpx;
+  top: 20rpx;
+}
+
+.step {
+  width: 33%;
+  float: left;
+  margin-top: 20rpx;
+  text-align: center;
+}
+
+.step .iconfont {
+  font-size: 80rpx;
+  line-height: 120rpx;
+  color: #fff;
+}
+
+.step .icon-songhuo {
+  font-size: 120rpx;
+}
+
+/* 中奖消息 */
+
+.news {
+  height: 80rpx;
+  margin: 10rpx 0;
+  line-height: 80rpx;
+  overflow: hidden;
+  background-color: #fff;
+  position: relative;
+}
+
+.news swiper {
+  width: 98%;
+  padding: 0 1%;
+  height: 80rpx;
+}
+
+.news .back {
+  width: 100%;
+  height: 80rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: 2;
+}
+
+.userImg_box {
+  min-width: 8%;
+  float: left;
+}
+
+.news_UserImg {
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: middle;
+  border-radius: 35rpx;
+}
+
+.news_content {
+  max-width: 92%;
+  overflow: hidden;
+  font-size: 30rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 可以砍价 || 拼团的商品列表 */
+
+.commodityList {
+  width: 100%;
+  padding: 14rpx;
+  height: 196rpx;
+  margin-top: 20rpx;
+  display: flex;
+  display: -webkit-flex;
+  float: left;
+  background-color: #fff;
+}
+
+.commodityList:last-child {
+  margin-bottom: 20rpx;
+}
+
+.commodity_img {
+  width: 186rpx;
+  float: left;
+  text-align: center;
+}
+
+.commodity_img image {
+  border: 1rpx dashed #999;
+  width: 184rpx;
+  height: 184rpx;
+}
+
+.commodity_right {
+  margin-left: 16rpx;
+  position: relative;
+}
+
+.commodity_title {
+  width: 510rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  padding-top: 4rpx;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.people_num {
+  font-size: 26rpx;
+  color: #aaa;
+  position: absolute;
+  bottom: 44rpx;
+}
+
+.Price {
+  color: #ec534e;
+  position: absolute;
+  bottom: 4rpx;
+  font-size: 28rpx;
+}
+
+.cut {
+  width: 176rpx;
+  height: 53rpx;
+  line-height: 53rpx;
+  text-align: center;
+  border-radius: 10rpx;
+  background-color: #ffdc4b;
+  color: #fff;
+  font-size: 30rpx;
+  position: absolute;
+  right: 0rpx;
+  bottom: 4rpx;
+}
+
+/* 购物车 */
+
+.shopcar_list {
+  background-color: #fff;
+}
+
+.shop_title {
+  line-height: 90rpx;
+  padding: 0 20rpx;
+}
+
+.carlist {
+  position: relative;
+  background-color: #fafafa;
+  height: 180rpx;
+  border-bottom: 1rpx solid #f1f1f1;
+  padding-bottom: 10rpx;
+}
+
+.carlist:first-child {
+  border-top: 1rpx solid #f1f1f1;
+}
+
+.carlist_radio {
+  transform: scale(0.8);
+  position: absolute;
+  top: 60rpx;
+  left: 20rpx;
+}
+
+.carlist_img {
+  width: 140rpx;
+  height: 140rpx;
+  position: absolute;
+  left: 80rpx;
+  top: 20rpx;
+}
+
+.carlist_title {
+  position: absolute;
+  top: 10rpx;
+  left: 250rpx;
+  width: 400rpx;
+  font-size: 26rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.carlist_size {
+  position: absolute;
+  left: 250rpx;
+  top: 90rpx;
+  color: #666;
+  font-size: 22rpx;
+}
+
+.carlist_money {
+  color: #ec534e;
+  font-size: 26rpx;
+  position: absolute;
+  top: 130rpx;
+  left: 250rpx;
+}
+
+.car_error {
+  width: 50rpx;
+  line-height: 30rpx;
+  padding-left: 14rpx;
+  border-top-left-radius: 20rpx;
+  border-bottom-left-radius: 20rpx;
+  position: absolute;
+  right: 0;
+  top: 10rpx;
+  background-color: #d7d7d7;
+  color: #fff;
+}
+
+.car_error .icon-cha {
+  font-size: 24rpx;
+}
+
+.carlist_num {
+  width: 150rpx;
+  border: 1rpx solid #ddd;
+  position: absolute;
+  right: 30rpx;
+  top: 120rpx;
+  height: 40rpx;
+  color: #666;
+  border-radius: 5rpx;
+}
+
+.carlist_num view {
+  float: left;
+  width: 48rpx;
+  line-height: 40rpx;
+  text-align: center;
+}
+
+.car_num {
+  color: #444;
+  font-size: 26rpx;
+  border-left: 1rpx solid #ddd;
+  border-right: 1rpx solid #ddd;
+}
+
+.Distribution, .Postage {
+  line-height: 80rpx;
+  font-size: 28rpx;
+  color: #333;
+  background-color: #fff;
+  padding: 0 30rpx;
+  margin-bottom: 14rpx;
+}
+.Distribution{
+  padding-right: 25rpx;
+}
+.Distribution text, .Postage text {
+  float: right;
+  font-weight: 500;
+  font-size: 26rpx;
+  color: #999;
+}
+
+.Postage text {
+  color: #ec534e;
+}
+
+.dis_money {
+  color: #ec534e;
+}
+
+.address_people {
+  background-color: #fff;
+  min-height: 100rpx;
+  margin-bottom: 14rpx;
+  font-size: 28rpx;
+  color: #333;
+  position: relative;
+  overflow: hidden;
+  padding: 10rpx 30rpx;
+}
+
+.address_name, .address_phone {
+  float: left;
+  height: 45rpx;
+  line-height: 45rpx;
+  margin-right: 30rpx;
+}
+
+.adress_content {
+  width: 92%;
+  line-height: 45rpx;
+  position: absolute;
+  left: 30rpx;
+  bottom: 20rpx;
+}
+
+.icon-youjiantouda {
+  float: right;
+}
+
+.invoice, .Addressee, .fill_in, .message {
+  line-height: 80rpx;
+  background-color: #fff;
+  padding: 0 30rpx;
+}
+
+.invoice text, .message text, .fill_in text, .address_people text {
+  float: right;
+  color: #999;
+}
+
+.invoice, .Addressee {
+  font-size: 28rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.invoice, .fill_in {
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+}
+
+.message {
+  position: relative;
+  font-size: 28rpx;
+}
+
+.message input {
+  height: 80rpx;
+  font-size: 26rpx;
+  position: absolute;
+  left: 180rpx;
+  top: 0;
+}
+
+/* 底部付款 */
+
+.payment {
+  padding-left: 28rpx;
+  width: 100%;
+  background-color: #fff;
+  height: 90rpx;
+  position: fixed;
+  bottom: 0;
+}
+
+.Actual {
+  font-size: 30rpx;
+  line-height: 90rpx;
+  color: #333
+}
+.Actual text{
+  color: #ec534e;
+}
+/* .total {
+  font-size: 28rpx;
+  color: #999;
+} */
+
+.sub_Order, .replace {
+  width: 180rpx;
+  height: 90rpx;
+  font-size: 30rpx;
+  line-height: 90rpx;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+}
+
+.replace {
+  background-color: #fc8c35;
+  right: 180rpx;
+}
+
+.sub_Order {
+  background-color: #ffdc4b;
+  color: #fff;
+  right: 0;
+}

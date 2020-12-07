@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.init.mapper.WeixinMediaImageMapper">
+ 
+	<select id="selectList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+      	SELECT
+      		id,
+			cate_name,
+			sort_num,
+			create_time,
+			update_time
+		FROM
+			weiit_init_weixin_media_image_cate
+		WHERE
+			1 = 1
+		ORDER BY
+			sort_num DESC
+    </select>
+
+	<select id="selectOne"  resultType="com.weiit.core.entity.E"  parameterType="map">
+       SELECT
+       		id,
+       		cate_name,
+  			sort_num
+       FROM  weiit_init_weixin_media_image_cate
+       where id=#{cate_id}
+   </select>
+      
+	 <insert id="insert"  parameterType="map" >
+        insert into weiit_init_weixin_media_image_cate
+        (
+			cate_name,
+			sort_num,
+			create_time,
+			update_time
+        )
+        values
+        (
+			#{cate_name},
+			#{sort_num},
+			now(),
+			now()
+        )
+     </insert>
+
+
+	<select id="selectSort"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			MAX(sort_num) AS sort_num
+		FROM
+			weiit_init_weixin_media_image_cate
+	</select>
+
+
+
+	<update id="edit"   parameterType="map">
+       update weiit_init_weixin_media_image_cate
+       set
+			<if test="cate_name != null and cate_name != ''">
+			   cate_name=#{cate_name},
+			</if>
+			<if test="sort_num != null and sort_num != ''">
+				sort_num=#{sort_num},
+			</if>
+            update_time=now()
+       where id=#{cate_id}
+    </update>
+
+
+	<select id="selectImageCateList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			id,
+			cate_name
+		FROM
+			weiit_init_weixin_media_image_cate
+	</select>
+
+	<select id="selectImageList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			image_id,
+			image_url,
+			media_cate_id,
+			sort_num,
+			create_time,
+			update_time
+		FROM
+			weiit_init_weixin_media_image
+		<if test="media_cate_id !=null and media_cate_id !=''">
+			where media_cate_id=#{media_cate_id}
+		</if>
+		ORDER BY
+		create_time DESC
+	</select>
+
+
+	<insert id="insertImage"  parameterType="map" >
+		insert into weiit_init_weixin_media_image
+		(
+			image_url,
+			media_cate_id,
+			<if test="sort_num !=null and sort_num !=''">
+				sort_num,
+			</if>
+			create_time,
+			update_time
+		)
+		values
+		(
+			#{image_url},
+			#{cate_id},
+			<if test="sort_num !=null and sort_num !=''">
+				#{sort_num},
+			</if>
+			now(),
+			now()
+		)
+	</insert>
+
+    <delete id="remove"   parameterType="map">
+       delete from weiit_init_weixin_media_image
+       where  image_id=#{image_id}
+    </delete>
+ 
+</mapper>

@@ -1,0 +1,86 @@
+<!-- 我的订单 -->
+
+<import src="../template/template.wxml" />
+<!--导航条-->
+
+<view class='order_bar' wx:if='{{Load}}'>
+  <view class="navbar">
+    <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text>
+  </view>
+</view>
+<!--全部-->
+<view class='contents' wx:if='{{Load}}' hidden="{{currentTab!==0}}">
+  <block wx:if='{{order_list != ""}}'>
+    <view wx:for='{{order_list}}'>
+      <template is="my_Order" data='{{...item}}' />
+      <block wx:for='{{item.item}}'>
+        <template is='list' data='{{...item}}' />
+      </block>
+      <template is="bottom" data='{{...item,btnColor:btnColor}}' />
+    </view>
+  </block>
+  <block wx:else>
+    <template is="empty" data='{{...emptys,btnColor:btnColor}}' />
+  </block>
+</view>
+<!--待付款-->
+<view class='contents' hidden="{{currentTab!==1}}">
+  <block wx:if='{{payment != ""}}'>
+    <view wx:for='{{payment}}'>
+      <template is="my_Order" data='{{...item}}' />
+      <block wx:for='{{item.item}}'>
+        <template is='list' data='{{...item}}' />
+      </block>
+      <template is="bottom" data='{{...item,btnColor:btnColor}}' />
+    </view>
+  </block>
+  <block wx:else>
+    <template is="empty" data='{{...emptys,btnColor:btnColor}}' />
+  </block>
+</view>
+<!--待发货-->
+<view class='contents' hidden="{{currentTab!==2}}">
+  <block wx:if='{{Deliver_goods != ""}}'>
+    <view wx:for='{{Deliver_goods}}'>
+      <template is="my_Order" data='{{...item}}' />
+      <block wx:for='{{item.item}}'>
+        <template is='list' data='{{...item}}' />
+      </block>
+      <template is="bottom" data='{{...item}}' />
+    </view>
+  </block>
+  <block wx:else>
+    <template is="empty" data='{{...emptys,btnColor:btnColor}}' />
+  </block>
+</view>
+<!--待收货-->
+<view class='contents' hidden="{{currentTab!==3}}">
+  <block wx:if='{{receipt != ""}}'>
+    <view wx:for='{{receipt}}'>
+      <template is="my_Order" data='{{...item}}' />
+      <block wx:for='{{item.item}}'>
+        <template is='list' data='{{...item}}' />
+      </block>
+      <template is="bottom" data='{{...item,btnColor:btnColor}}' />
+    </view>
+  </block>
+  <block wx:else>
+    <template is="empty" data='{{...emptys,btnColor:btnColor}}' />
+  </block>
+</view>
+<!-- 继续购买 -->
+<view class="commodity_screen" bindtap="hide" wx:if="{{showModalStatus}}"></view>
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <!-- 支付方式 -->
+  <view class='paymentBox'>
+    <view class='wechat' wx:for='{{payment_method}}' bindtap='getValue' data-index='{{index}}'>
+      <view class='{{item.is_radio?"selectRadio":"radios"}}'></view>
+      <view class='iconfont icon-icon-test'></view>
+      <image class='img' src='{{item.imgs}}'></image>
+      <view class='titles'>{{item.name}}</view>
+      <text>{{item.title}}</text>
+    </view>
+  </view>
+  <view class='confirmBtn' bindtap='confirmBtn' style='background-color:{{btnColor.global_bg1}}'>确定</view>
+</view>
+<sliders></sliders>

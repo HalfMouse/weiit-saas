@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.api.mapper.ProductMapper">
+
+    <!-- 商品搜索查询 -->
+    <select id="selectProductSearch" resultType="com.weiit.core.entity.E" parameterType="map">
+        select
+        p.product_id,
+        p.product_name,
+        p.smarket_price,
+        p.sale_price,
+        p.stock,
+        p.product_img,
+        p.sale_count,
+        p.create_time,
+        p.update_time,
+        p.express_template_id,
+        p.express_money,
+        p.express_config,
+        p.integral,
+        p.purchase,
+        p.product_num,
+        p.shop_id
+        from weiit_product p
+        where
+        shop_id = #{shop_id} AND p.is_on_sale=0
+        <if test="key!=null and key!=''">
+            and p.product_name like concat('%', #{key}, '%')
+        </if>
+        <if test="cate_id!=null and cate_id!=''">
+            and (p.cate_id_level1=#{cate_id} or p.cate_id_level2=#{cate_id} or p.cate_id_level3=#{cate_id})
+        </if>
+        <if test="type==1">
+            order by update_time
+            <if test="sort !=null and sort== 'desc'">
+                DESC
+            </if>
+            <if test="sort !=null and sort== 'asc'">
+                ASC
+            </if>
+        </if>
+        <if test="type==2">
+            order by sale_count
+            <if test="sort !=null and sort== 'desc'">
+                DESC
+            </if>
+            <if test="sort !=null and sort== 'asc'">
+                ASC
+            </if>
+        </if>
+        <if test="type==3">
+            order by sale_price
+            <if test="sort !=null and sort== 'desc'">
+                DESC
+            </if>
+            <if test="sort !=null and sort== 'asc'">
+                ASC
+            </if>
+        </if>
+        <if test="type==null or type==''">
+            order by update_time desc
+        </if>
+    </select>
+
+    <select id="getItemInfoByProductId" resultType="com.weiit.core.entity.E" parameterType="map">
+		  select
+			*
+          from weiit_product_item
+          where
+          product_id=#{product_id} limit 1
+	</select>
+
+
+    <select id="selectProductById" resultType="com.weiit.core.entity.E" parameterType="map">
+        select
+        p.product_id,
+        p.product_num,
+        p.product_name,
+        p.smarket_price,
+        p.sale_price,
+        p.stock,
+        p.product_img,
+        p.sale_count,
+        p.purchase max_limit,
+        p.spec_config,
+        p.attribute_custom,
+        p.spec_custom,
+        p.integral,
+        p.express_config,
+        p.express_money,
+        p.express_template_id,
+        p.weight,
+        p.volume,
+        <if test="user_id!=null and user_id!=''">
+            (select count(1) from weiit_user_product_collection where user_id=#{user_id} and product_id=p.product_id) as
+            is_collection,
+        </if>
+        d.product_desc
+        from weiit_product p inner join weiit_product_desc d on p.product_id=d.product_id where 1=1
+        and p.product_id=#{product_id}
+    </select>
+
+    <select id="selectProductInfoById" resultType="com.weiit.core.entity.E" parameterType="map">
+		select
+			p.product_id,
+			p.product_num,
+	 		p.product_name,
+	 		p.smarket_price,
+	 		p.sale_price,
+	 		p.stock,
+	 		p.product_img,
+	 		p.sale_count,
+	 		p.purchase,
+	 		p.spec_config,
+	 		p.attribute_custom,
+	 		p.spec_custom,
+	 		p.integral,
+	 		p.express_config,
+	 		p.express_money,
+	 		p.express_template_id,
+	 		p.weight,
+	 		p.volume
+		from weiit_product p
+		 where p.product_id=#{product_id}
+	</select>
+
+    <select id="selectProductImgs" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			product_img,
+			type
+		from weiit_product_images
+		where product_id=#{product_id}	
+	</select>
+
+    <select id="selectSpecList" resultType="com.weiit.core.entity.E" parameterType="map">
+        select 
+	        k2.key_name as spec_name,
+	        k2.key_id as spec_id,
+	        k1.key_name as spec_value,
+	        k1.key_id as spec_value_id
+        from weiit_product_custom_key k1 inner join 
+        (
+        
+        select
+            key_id,
+            key_name 
+        from weiit_product_custom_key k 
+        where key_id in (${spec_custom})
+        
+        ) k2 
+        on k1.parent_id=k2.key_id
+    </select>
+
+    <select id="selectItemSpecList" resultType="com.weiit.core.entity.E" parameterType="map">
+       SELECT
+			spec_custom,sale_price
+		FROM
+			weiit_product_item
+		WHERE
+			product_id = #{product_id} and stock>0
+    </select>
+
+
+    <select id="getProductItemById" resultType="com.weiit.core.entity.E" parameterType="map">
+       SELECT
+			spec_custom
+		FROM
+			weiit_product_item
+		WHERE
+			item_id = #{item_id}
+    </select>
+
+    <select id="getSpecInfoByIds" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+        *
+        FROM
+        weiit_product_custom_key
+        WHERE
+        key_id IN
+        <foreach collection="keyIds" index="index" item="key_id" open="(" separator="," close=")">
+            #{key_id}
+        </foreach>
+    </select>
+
+    <select id="selectCartInfoById" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			product_id,
+			item_id
+		FROM
+			weiit_user_cart
+		WHERE
+			cart_id = #{cart_id}
+    </select>
+
+    <select id="selectItemSpec" resultType="com.weiit.core.entity.E" parameterType="map">
+      select 
+            pi.product_id,
+		    pi.item_id,
+		    pi.smarket_price,
+			pi.sale_price,
+			pi.stock,
+			wp.purchase max_limit
+		from weiit_product_item pi
+		LEFT JOIN  weiit_product wp ON pi.product_id = wp.product_id
+		where 
+			pi.product_id = #{product_id}
+			and pi.spec_custom = #{spec_custom}
+    </select>
+
+    <select id="selectProductItemByItemId" resultType="com.weiit.core.entity.E" parameterType="map">
+       select * from weiit_product_item where item_id = #{item_id}
+    </select>
+
+    <select id="selectUserCartByProductIdAndItemId" resultType="com.weiit.core.entity.E" parameterType="map">
+       select * from weiit_user_cart where product_id=#{product_id} and item_id=#{item_id} and user_id=#{user_id}
+    </select>
+
+    <insert id="insertUserCart" parameterType="map">
+		insert into weiit_user_cart
+		(
+			user_id, 
+			product_id,
+			count, 
+    		spec_content, 
+    		item_id, 
+    		state, 
+    		create_time, 
+    		update_time, 
+    		shop_id 
+		)
+		values
+		(
+			#{user_id},
+			#{product_id},
+			#{count},
+			#{spec_content},
+			#{item_id},
+			0,
+			now(),
+			now(),
+			#{shop_id}
+		)
+	</insert>
+
+    <update id="editUserCart" parameterType="map">
+	    update weiit_user_cart 
+	    set 
+	    	count=count+#{count},spec_content=#{spec_content}
+	    where 
+	    	product_id=#{product_id} and item_id=#{item_id} and user_id = #{user_id} 
+	</update>
+
+
+    <update id="updateProductStock" parameterType="map">
+	    update weiit_product
+	    set
+	    	stock=stock-#{count},
+	    	sale_count=sale_count+#{count}
+	    where
+	    	product_id=#{product_id}
+	</update>
+
+    <update id="updateItemStock" parameterType="map">
+	    update weiit_product_item
+	    set
+	    	stock=stock-#{count}
+	    where
+	    	item_id	= #{item_id}
+	</update>
+
+    <select id="selectUserCartList" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			p.product_id,
+			p.product_name, 
+			p.product_img,
+			i.sale_price, 
+			i.stock, 
+			c.cart_id,
+			c.count, 
+			c.item_id,
+			c.spec_content
+		from weiit_user_cart c join weiit_product p on c.product_id = p.product_id join weiit_product_item i on c.item_id = i.item_id 
+		where c.user_id = #{user_id} 
+		order by c.create_time desc
+	</select>
+
+    <select id="selectUserAddressDefault" resultType="com.weiit.core.entity.E" parameterType="map">
+		select 
+			id,
+			consignee,
+			province,
+			city,
+			district,
+			address_detail,
+			zip_code,
+			tel,
+			phone,
+			is_default 
+		from weiit_user_address
+		where user_id=#{user_id} and is_default=0 limit 1
+	</select>
+
+    <select id="selectUserCouponList" resultType="com.weiit.core.entity.E" parameterType="map">
+        select
+            c.coupon_id,
+            c.coupon_name,
+            c.type,
+            c.coupon_price,
+            c.coupon_discount,
+            c.random_min_price,
+            c.random_max_price,
+            c.is_condition,
+            c.condition_price,
+            c.coupon_desc,
+            c.use_type,
+            c.from_day,
+            c.to_day,
+            c.start_time,
+            c.end_time,
+            c.number,
+            c.product_range_type,
+            c.product_ids,
+            cu.state,
+            c.max_limit,
+            cu.start_time startTime,
+            cu.end_time endTime,
+            cu.id
+        from
+        weiit_ump_coupon c inner join weiit_ump_coupon_user cu on c.coupon_id = cu.coupon_id
+        where
+        cu.state=0 AND c.state=1 and cu.user_id=#{user_id}
+        <!-- 打折不一定 比指定金额 便宜  后面算法排序-->
+
+    </select>
+
+    <select id="getProductTagById" resultType="com.weiit.core.entity.E" parameterType="map">
+		SELECT
+			pt.tag_name
+		FROM
+			weiit_product_tag_item ti
+		LEFT JOIN weiit_product_tag pt ON ti.tag_id = pt.tag_id
+		WHERE
+			product_id = #{product_id}
+
+	</select>
+
+    <update id="editUserCartCount" parameterType="map">
+	    update weiit_user_cart set 
+	    count=#{count} 
+	    where 
+	    cart_id=#{cart_id}
+	</update>
+
+    <delete id="deleteUserCartById" parameterType="map">
+		delete from weiit_user_cart where cart_id=#{cart_id}
+	</delete>
+
+    <!-- 添加商品收藏 -->
+    <insert id="insertProductcollection" parameterType="map">
+		insert into weiit_user_product_collection
+		(
+			user_id,
+			product_id,
+			product_img,
+			product_name,
+			smarket_price,
+			sale_price,
+			create_time,
+			update_time,
+			shop_id
+			
+
+		)
+		values
+		(
+			#{user_id},
+			#{product_id},
+			#{product_img},
+			#{product_name},
+			#{smarket_price},
+			#{sale_price},
+			now(),
+			now(),
+			#{shop_id}
+		)
+	</insert>
+
+
+    <select id="autoGetProduct" resultType="com.weiit.core.entity.E" parameterType="map">
+        select
+        pd.product_id,
+        pd.product_id as validate_id,
+        pd.product_name,
+        pd.product_img,
+        pd.smarket_price,
+        pd.sale_price,
+        pd.stock,
+        pd.sale_count,
+        pd.is_on_sale,
+        pd.update_time
+        from
+        weiit_product pd
+        where
+        pd.is_deleted =0 AND  pd.is_on_sale= 0
+        <if test=" shop_id !=null and shop_id !='' ">
+            and pd.shop_id = #{shop_id}
+        </if>
+        order by pd.update_time desc
+    </select>
+
+
+    <select id="getProductListByIds" resultType="com.weiit.core.entity.E" parameterType="map">
+
+        <foreach collection="productIds" index="index" item="productId" open="" separator="union all" close="">
+            select
+            pd.product_id,
+            pd.product_id as validate_id,
+            pd.product_name,
+            pd.product_img,
+            pd.smarket_price,
+            pd.sale_price,
+            pd.stock,
+            pd.sale_count,
+            pd.is_on_sale,
+            pd.update_time
+            from
+            weiit_product pd
+            where
+            pd.is_deleted =0 AND  pd.is_on_sale= 0 AND pd.product_id=#{productId}
+            <if test=" shop_id !=null and shop_id !='' ">
+                and pd.shop_id = #{shop_id}
+            </if>
+        </foreach>
+    </select>
+
+</mapper>

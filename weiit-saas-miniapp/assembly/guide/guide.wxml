@@ -1,0 +1,2 @@
+<!-- 辅助空白 -->
+<view class='blank' style='height:{{pageParam.value}}rpx'></view>

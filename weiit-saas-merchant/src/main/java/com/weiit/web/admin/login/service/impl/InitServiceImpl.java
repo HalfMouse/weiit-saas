@@ -1,19 +1,21 @@
 package com.weiit.web.admin.login.service.impl;
+  
+import java.util.Calendar;
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service; 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.mapper.BaseMapper;
-import com.weiit.core.service.impl.AbstractService;
+import com.weiit.core.service.impl.AbstractService; 
 import com.weiit.web.admin.login.mapper.InitMapper;
 import com.weiit.web.admin.login.service.InitService;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
 
 /**
  *  数据初始化 Mapper

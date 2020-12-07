@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.init.mapper.ServiceMapper">
+ 
+     <select id="selectList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT 
+    		service_id, 
+    		service_id as validate_id , 
+    		service_num, 
+    		service_name, 
+    		service_smarket_price, 
+    		service_price, 
+    		remark,
+    		service_desc, 
+    		service_icon,
+    		service_logo,
+    		state,
+    		type,
+    		create_time, 
+    		update_time,
+    		sort_num,
+    		link_url,
+    		create_manager_id, 
+    		update_manager_id ,
+		    ( select manager_name from system_manager where manager_id=se.create_manager_id) as create_manager_name,
+		    ( select manager_name from system_manager where manager_id=se.update_manager_id) as update_manager_name
+		FROM weiit_init_service se 
+		where 1=1 
+		<if test="service_name !=null and service_name !='' ">
+			and service_name like concat('%', #{service_name}, '%')
+		</if> 
+		<if test="state !=null and state !='' ">
+			and state = #{state} 
+		</if>
+		order by sort_num desc  
+     </select>
+     
+     <select id="selectOne" resultType="com.weiit.core.entity.E"  parameterType="map">   
+        SELECT 
+       		service_id, 
+        	service_id as validate_id , 
+        	service_num, 
+        	service_name, 
+        	service_smarket_price, 
+        	service_price, 
+        	service_icon,
+        	service_logo,
+        	remark,
+        	service_desc, 
+        	link_url,
+        	sort_num,
+        	state,
+        	type
+    	FROM weiit_init_service se 
+		where  1=1  
+		<if test="validate_id !=null and validate_id !='' ">
+			and service_id=#{validate_id}
+		</if>
+		<if test="service_num !=null and service_num !='' ">
+			and service_num=#{service_num}
+		</if>
+		limit 1 
+     </select>
+      
+      <!-- 新增 -->
+	 <insert id="insert"  parameterType="map">
+        insert into weiit_init_service 
+        (
+			service_num, 
+			service_name, 
+			service_smarket_price, 
+			service_price, 
+			service_icon,
+			service_logo,
+			remark,
+			service_desc, 
+    		state, 
+    		type,
+    		link_url,
+    		sort_num,
+    		create_time, 
+    		update_time, 
+    		create_manager_id, 
+    		update_manager_id
+        )
+        values
+        (
+			#{service_num},
+			#{service_name},
+			#{service_smarket_price},
+			#{service_price},
+			#{service_icon},
+			#{service_logo},
+			#{remark},
+			#{editorValue},
+			#{state}, 
+			#{type},
+			#{link_url},
+			#{sort_num},
+			now(), 
+			now(), 
+			#{manager_id}, 
+			#{manager_id} 
+        )
+     </insert>
+     
+     <!-- 删除 -->
+     <delete id="remove" parameterType="map">
+        delete from weiit_init_service where  service_id=#{validate_id} 
+     </delete>
+     
+     <select id="selectMaxSortNum" resultType="com.weiit.core.entity.E"  parameterType="map">   
+        SELECT 
+       		max(sort_num) as sort_num
+    	FROM weiit_init_service se 
+     </select>
+     
+     <!-- 修改 -->
+     <update id="edit"   parameterType="map">
+        update weiit_init_service  
+        set 
+        	update_manager_id= #{manager_id} , 
+        	update_time=now() 
+        <if test="service_name !=null and service_name !=''">
+       	 	,service_name=#{service_name}
+        </if>
+        <if test="service_smarket_price !=null and service_smarket_price !=''">
+       	 	,service_smarket_price=#{service_smarket_price}
+        </if>
+        <if test="service_price !=null and service_price !=''">
+       	 	,service_price=#{service_price}
+        </if>
+        <if test="type !=null and type !=''">
+       	 	,type=#{type}
+        </if>
+        <if test="service_logo !=null and service_logo !=''">
+       	 	,service_logo=#{service_logo}
+        </if>
+        <if test="service_icon !=null and service_icon !=''">
+       	 	,service_icon=#{service_icon}
+        </if>
+        <if test="remark !=null and remark !=''">
+       	 	,remark=#{remark}
+        </if>
+        <if test="link_url !=null and link_url !=''">
+       	 	,link_url=#{link_url}
+        </if>
+        <if test="sort_num !=null and sort_num !=''">
+       	 	,sort_num=#{sort_num}
+        </if>
+        <if test="editorValue !=null and editorValue !=''">
+       	 	,service_desc=#{editorValue}
+        </if>
+        <if test="state !=null and state !=''">
+       	 	,state=#{state}
+        </if> 
+        where service_id=#{validate_id} 
+     </update>
+     
+     <select id="selectOrderTimeList" resultType="com.weiit.core.entity.E"  parameterType="map">   
+        SELECT 
+       		*
+    	FROM weiit_init_order_time
+     </select>
+     
+     <select id="selectOrderTimeConfigByName" resultType="com.weiit.core.entity.E"  parameterType="map">   
+        SELECT 
+       		*
+    	FROM weiit_init_order_time
+		where order_time_name=#{order_time_name}
+     </select>
+     
+     <update id="editOrderTimeConfig"   parameterType="map">
+        update weiit_init_order_time  
+        set 
+        	order_time_discount=#{order_time_discount}, 
+        	state=#{state} 
+        where order_time_name=#{order_time_name} 
+     </update>
+     
+     
+     <!-- 版本配置管理 -->
+     <select id="selectVersionList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT 
+    		version_id, 
+    		version_id as validate_id , 
+    		version_num, 
+    		version_name, 
+    		version_logo,
+    		smarket_price, 
+    		sale_price, 
+    		supply_price,
+    		version_desc, 
+    		state,
+    		create_time, 
+    		update_time, 
+    		create_manager_id, 
+    		update_manager_id ,
+		    ( select manager_name from system_manager where manager_id=v.create_manager_id) as create_manager_name,
+		    ( select manager_name from system_manager where manager_id=v.update_manager_id) as update_manager_name
+		FROM weiit_init_version v 
+		
+     </select>
+     
+     <select id="selectVersionOne" resultType="com.weiit.core.entity.E"  parameterType="map">   
+        SELECT 
+       		version_id, 
+    		version_id as validate_id , 
+    		version_num, 
+    		version_name, 
+    		version_logo,
+    		smarket_price, 
+    		sale_price, 
+    		supply_price,
+    		version_desc, 
+    		state
+    	FROM weiit_init_version v 
+		where  1=1  
+		<if test="validate_id !=null and validate_id !='' ">
+			and version_id=#{validate_id}
+		</if>
+		<if test="version_num !=null and version_num !='' ">
+			and version_num=#{version_num}
+		</if>
+		limit 1 
+     </select>
+      
+	 <insert id="insertVersion"  parameterType="map">
+        insert into weiit_init_version 
+        (
+			version_num, 
+			version_name, 
+			version_logo, 
+			smarket_price,
+			sale_price, 
+			supply_price,
+			version_desc, 
+    		state, 
+    		create_time, 
+    		update_time, 
+    		create_manager_id, 
+    		update_manager_id
+        )
+        values
+        (
+			#{version_num},
+			#{version_name},
+			#{version_logo},
+			#{smarket_price},
+			#{sale_price},
+			#{supply_price},
+			#{editorValue},
+			#{state}, 
+			now(), 
+			now(), 
+			#{manager_id}, 
+			#{manager_id} 
+        )
+     </insert>
+     
+     <update id="editVersion"   parameterType="map">
+        update weiit_init_version  
+        set 
+        	update_manager_id= #{manager_id} , 
+        	update_time=now() 
+        <if test="version_name !=null and version_name !=''">
+       	 	,version_name=#{version_name}
+        </if>
+        <if test="smarket_price !=null and smarket_price !=''">
+       	 	,smarket_price=#{smarket_price}
+        </if>
+        <if test="sale_price !=null and sale_price !=''">
+       	 	,sale_price=#{sale_price}
+        </if>
+         <if test="supply_price !=null and supply_price !=''">
+       	 	,supply_price=#{supply_price}
+        </if>
+        <if test="version_logo !=null and version_logo !=''">
+       	 	,version_logo=#{version_logo}
+        </if>
+        <if test="editorValue !=null and editorValue !=''">
+       	 	,version_desc=#{editorValue}
+        </if>
+        <if test="state !=null and state !=''">
+       	 	,state=#{state}
+        </if> 
+        where version_id=#{validate_id} 
+     </update>
+     
+     <select id="selectVersionServiceList" resultType="com.weiit.core.entity.E"  parameterType="map">
+    	SELECT 
+    		id,
+    		id as validate_id,
+    		service_num,
+    		(select service_name from weiit_init_service where service_num=vs.service_num) as service_name,
+    		version_num
+		FROM weiit_init_version_service vs
+		where vs.version_num=#{version_num} 
+     </select>
+     
+     <insert id="insertVersionService"  parameterType="map">
+        insert into weiit_init_version_service 
+        (
+			service_num, 
+			version_num
+        )
+        values
+        (
+			#{service_num},
+			#{version_num}
+        )
+     </insert>
+     
+      <delete id="removeVersionService" parameterType="map">
+        delete from weiit_init_version_service where  version_num=#{validate_id} 
+     </delete>
+</mapper>

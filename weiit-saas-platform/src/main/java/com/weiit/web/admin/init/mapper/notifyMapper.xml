@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.init.mapper.notifyMapper">
+    <select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            id,
+            notify_phone,
+            business_type,
+            remark
+        FROM
+            system_notify_phone
+    </select>
+
+    <select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            id,
+            notify_phone,
+            business_type,
+            remark
+        FROM
+        system_notify_phone
+        where id=#{id}
+    </select>
+
+
+    <update id="edit" parameterType="map">
+        update system_notify_phone
+        set
+            notify_phone=#{notify_phone},
+            remark=#{remark}
+        where id=#{notifyId}
+    </update>
+
+</mapper>

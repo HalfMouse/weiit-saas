@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.api.mapper.PlatformMapper">
+	<!--登录  -->
+	<select id="login" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+		    user_id,
+			user_account,
+			user_name,
+			user_phone,
+			user_img,
+			user_sex,
+			user_email,
+			balance,
+			integral,
+			user_birthday,
+			shop_id,
+			(select count(1) from weiit_order oo where oo.user_id = u.user_id) as myOrderCount,
+			(select count(1) from weiit_ump_coupon_user cu where cu.user_id = u.user_id) as myCouponCount
+		from
+			weiit_user u
+		where u.user_account=#{user_account}
+	</select>
+	
+	<!-- 微信登录 -->
+	<select id="weixinLogin" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+		    user_id,
+			user_account,
+			user_name,
+			user_phone,
+			user_img,
+			user_sex,
+			user_email,
+			balance,
+			integral,
+			user_birthday,
+			shop_id,
+			wx_open_id,
+			open_id_type,
+			(select count(1) from weiit_order oo where oo.user_id = u.user_id) as myOrderCount,
+			(select count(1) from weiit_ump_coupon_user cu where cu.user_id = u.user_id) as myCouponCount
+		from
+			weiit_user u
+		where u.wx_open_id=#{wx_open_id}
+	</select>
+
+
+	<select id="selectBlogInfoById" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+		  title,
+		  content
+		from
+			weiit_blog
+		where id=#{blogId}
+	</select>
+
+
+	<select id="selectShopTemplateMsg" resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			t2.wx_template_id
+		FROM
+			weiit_weixin_public_template_msg t2,
+			weiit_weixin_public_info t3
+		WHERE
+			t3.authorizer_app_id = #{authorizer_app_id} AND t2.authorizer_id=t3.authorizer_id AND t2.state=1
+		AND t2.business_type = #{business_type} limit 1
+	</select>
+
+	<select id="selectShopInfoById" resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			shop_domain_prex,shop_tel,shop_logo
+		FROM
+			weiit_shop
+			WHERE shop_id= #{shop_id}
+	</select>
+
+	<select id="getArea" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+		   region_name,id
+		from
+			weiit_init_region
+		where parent_id=#{parent_id}
+	</select>
+
+	<!-- 注册用户 -->
+	<insert id="register" parameterType="map">
+		insert into weiit_user
+		(
+			user_account,
+			user_name,
+			user_nike,
+			user_phone,
+			user_img,
+			user_sex,
+			region,
+			balance,
+			integral,
+			user_birthday,
+			wx_union_id,
+			wx_open_id,
+			parent_id,
+			create_time,
+			update_time,
+			open_id_type,
+			shop_id
+		)
+		values
+		(
+			#{user_account},
+			#{user_name},
+			#{user_nike},
+			#{user_phone},
+			#{user_img},
+			#{user_sex},
+			#{region},
+			#{balance},
+			#{integral},
+			#{user_birthday},
+			#{wx_union_id},
+			#{wx_open_id},
+			#{parent_id},
+			now(),
+			now(),
+			#{open_id_type},
+			#{shop_id}
+		)
+	</insert>
+
+
+	<insert id="insertExpress" parameterType="map">
+		insert into test_express_url
+		(
+			id,express_code,express_name,express_url
+		)
+		values
+		(
+			#{id},
+			#{express_code},
+			#{express_name},
+			#{express_url}
+		)
+	</insert>
+
+	<!-- 查询店铺信息 -->
+	<select id="selectShopInfoByShopDomainPrex" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+		    *
+		from
+			weiit_shop s
+		where s.shop_domain_prex=#{shop_domain_prex}
+	</select>
+	
+	<!-- 查询店铺绑定的公众号信息 -->
+	<select id="selectWeixinPublicInfoByShopId" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+		    *
+		from
+			weiit_weixin_public_info p
+		where p.shop_id=#{shop_id}  AND p.service_type_info=#{type}
+	</select>
+
+	<!-- 查询店铺绑定的公众号信息 -->
+	<select id="selectWeixinPublicInfoByAppId" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+		    *
+		from
+			weiit_weixin_public_info p
+		where p.authorizer_app_id=#{appid}
+	</select>
+
+	<select id="selectShopIntroPage" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+		    *
+		from
+			weiit_weixin_mini_intropage
+		where shop_id=#{shop_id} AND is_use=1 limit 1
+	</select>
+
+	<insert id="saveIntroPage" parameterType="map">
+ 		INSERT INTO
+        	weiit_weixin_mini_intropage
+        	(
+				intro_page_url,
+				intro_page_desc,
+				create_time,
+				is_use,
+				shop_id
+
+			)
+		VALUES
+			(
+				#{intro_page_url},
+				#{intro_page_desc},
+				now(),
+				#{is_use},
+				#{shop_id}
+			)
+	</insert>
+
+	<select id="getPayInfoByOpenId" resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			ww.partner_id,
+			ww.partner_key,
+			wu.user_id,
+			wu.shop_id
+		FROM
+			weiit_user wu,
+			weiit_shop_payment ww
+		WHERE
+			wu.wx_open_id =#{wx_open_id}
+		AND wu.open_id_type = ww.type
+		AND wu.shop_id = ww.shop_id
+	</select>
+
+	<select id="selectUserAndAuthInfoByUserId" resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			wu.user_id,
+			wu.user_name,
+			wu.wx_open_id,
+			wu.open_id_type,
+		  	pi.authorizer_app_id,
+		  	wu.shop_id
+		FROM
+			weiit_user wu
+		LEFT JOIN weiit_weixin_public_info pi ON wu.shop_id = pi.shop_id
+		WHERE
+			user_id = #{user_id}
+		AND pi.service_type_info = (IF(wu.open_id_type = 1, 2, 0))
+	</select>
+
+
+
+</mapper>

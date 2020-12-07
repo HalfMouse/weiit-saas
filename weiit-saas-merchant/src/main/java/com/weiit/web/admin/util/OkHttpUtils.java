@@ -2,7 +2,6 @@ package com.weiit.web.admin.util;
 
 import com.google.common.base.Joiner;
 import okhttp3.*;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

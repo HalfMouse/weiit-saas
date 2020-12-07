@@ -1,0 +1,223 @@
+/* pages/order_details/order_details.wxss */
+
+.state {
+  width: 100%;
+  height: 160rpx;
+  position: relative;
+  background-color: #fff;
+  margin-bottom: 10rpx;
+}
+
+.back_img {
+  width: 100%;
+  height: 100%;
+}
+
+.state-name {
+  color: #333;
+  position: absolute;
+  top: 54rpx;
+  left: 20rpx;
+}
+
+.state-icon {
+  color: red;
+  font-size: 150rpx;
+  position: absolute;
+  top: 5rpx;
+  right: 0rpx;
+}
+
+.address {
+  /* padding: 10rpx 30rpx; */
+  line-height: 60rpx;
+  font-size: 30rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.tel {
+  float: right;
+}
+
+.commodity_list {
+  margin-bottom: 20rpx;
+}
+
+/* .top {
+  padding-left: 30rpx;
+  line-height: 90rpx;
+  border-bottom: 1rpx solid #d0d0d0;
+} */
+
+.babylist {
+  position: relative;
+  height: 210rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.bacylist_img {
+  width: 155rpx;
+  height: 155rpx;
+  position: absolute;
+  left: 30rpx;
+  top: 30rpx;
+}
+
+.com_nums {
+  width: 155rpx;
+  height: 40rpx;
+  text-align: center;
+  line-height: 40rpx;
+  background-color: #000;
+  opacity: 0.6;
+  color: #fff;
+  font-size: 30rpx;
+  position: absolute;
+  left: 30rpx;
+  top: 155rpx;
+}
+
+.babylist_title {
+  font-size: 30rpx;
+  color: #333;
+  width: 370rpx;
+  position: absolute;
+  top: 30rpx;
+  left: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.babylist_money {
+  font-size: 30rpx;
+  position: absolute;
+  right: 30rpx;
+  top: 30rpx;
+}
+
+.baby_start {
+  text-align: center;
+  text-decoration: line-through;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.baby_size {
+  font-size: 28rpx;
+  color: #333;
+  position: absolute;
+  top: 150rpx;
+  left: 200rpx;
+}
+
+.After-sale {
+  width: 130rpx;
+  height: 40rpx;
+  z-index: 10;
+  border-radius: 10rpx;
+  line-height: 40rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #666;
+  border: 1rpx solid #999;
+  position: absolute;
+  right: 20rpx;
+  top: 140rpx;
+}
+
+.Actual {
+  padding: 20rpx 30rpx;
+  background-color: #fff;
+  font-size: 30rpx;
+  line-height: 50rpx;
+}
+
+.right {
+  float: right;
+}
+
+.money .right {
+  font-size: 32rpx;
+  color: #e75453;
+  font-weight: bold;
+}
+
+.btn {
+  height: 100rpx;
+  padding: 2% 30rpx;
+  margin: 10rpx 0;
+  background-color: #fff;
+}
+
+.seller {
+  margin-right: 2%;
+}
+
+.btn view {
+  width: 48%;
+  float: left;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  border: 1rpx solid #999;
+  border-radius: 10rpx;
+}
+
+.btn .iconfont {
+  font-size: 70rpx;
+  vertical-align: middle;
+  padding-right: 20rpx;
+  color: #0084ff;
+}
+
+.order_message {
+  font-size: 30rpx;
+  color: #666;
+  line-height: 60rpx;
+  overflow: hidden;
+  margin: 20rpx 0;
+}
+
+.look_logistics {
+  width: 140rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  color: #666;
+  border-radius: 10rpx;
+  border: 1rpx solid #bbb;
+  float: right;
+}
+.title{
+  font-size: 32rpx;
+  color: #333;
+  padding: 10rpx 30rpx;
+  background-color: #fff;
+  border-bottom: 1px solid rgb(223, 221, 221);
+}
+.content{
+  padding: 0 30rpx;
+  background-color: #fff;
+}
+.content view text{
+  display: inline-block;
+}
+.content view .name{
+  width: 150rpx;
+  color: #333;
+}
+.content view .value{
+  color: #999;
+}
+.order_message .content,
+.address .content{
+  padding: 10rpx 30rpx;
+}
+.bord{
+  border-top: 1px solid rgb(223, 221, 221);
+  border-bottom: 1px solid rgb(223, 221, 221);
+}

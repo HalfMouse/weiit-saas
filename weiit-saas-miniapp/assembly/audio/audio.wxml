@@ -1,0 +1,22 @@
+<block wx:if='{{pageParam.voiceStyle=="simulation"}}'>
+  <view wx:if='{{pageParam.pos=="left"}}' class='audios'>
+    <image class='pic' src='{{pageParam.portrait}}'></image>
+    <view class='imgs_box' bindtap='play' data-url='{{pageParam.voiceData.file_url}}'>
+      <image class='dialogue' src='../../images/white.png'></image>
+      <image class='back_img' src='{{plays==true?"../../images/player.gif":"../../images/play_left.png"}}'></image>
+    </view>
+    <text wx:if='{{plays==true}}' class='audios_time'>{{second}}S</text>
+  </view>
+  <view wx:if='{{pageParam.pos=="right"}}' class='right_audios'>
+    <image class='pic' src='{{pageParam.portrait}}'></image>
+    <view class='imgs_box' bindtap='play' data-url='{{pageParam.voiceData.file_url}}'>
+      <image class='dialogue' src='../../images/green.png'></image>
+      <image class='back_img' src='{{plays==true?"../../images/gif.gif":"../../images/play_right.png"}}'></image>
+    </view>
+    <text wx:if='{{plays==true}}' class='audios_time'>{{second}}</text>
+  </view>
+</block>
+<view wx:if='{{pageParam.voiceStyle=="simple"}}' class='simple_audios'>
+  <view bindtap='play' class='iconfont {{plays==true?"icon-zantingbofang":"icon-bofang1"}}' data-url='{{pageParam.voiceData.file_url}}'></view>
+  <slider class='slider' value='{{progress}}' block-size='16' block-color='#1aad19' bindchange='sliders' data-id='{{id}}' data-index='{{index}}'></slider>
+</view>

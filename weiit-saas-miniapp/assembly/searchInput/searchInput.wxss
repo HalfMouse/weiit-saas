@@ -1,0 +1,78 @@
+/* assembly/searchInput/searchInput.wxss */
+
+/* 无样式搜索 */
+
+.search {
+  width: 92vw;
+  height: 80rpx;
+  margin: 1vw auto;
+  border-radius: 6rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  padding-left: 10rpx;
+  color: #666;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.search .icon-sousuo {
+  margin: 0 10rpx;
+  font-size: 30rpx;
+}
+
+/* 有样式搜索 */
+
+.search1 {
+  padding: 20rpx;
+  height: 80rpx;
+  z-index: 10;
+  line-height: 80rpx;
+  position: relative;
+  overflow: hidden;
+  background-color: #999;
+}
+
+.search1 .search_ipt {
+  height: 80rpx;
+  border-radius: 50rpx;
+  color: #fff;
+  padding: 0 20rpx;
+  font-size: 30rpx;
+  background-color: #666;
+  overflow: hidden;
+}
+
+.search1 .icon-personnone {
+  display: block;
+  font-size: 80rpx;
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  right: 10rpx;
+  transform: translateY(-40%);
+}
+
+@font-face {
+  font-family: 'iconfont'; /* project id 655959 */
+  src: url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.eot');
+  src: url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.eot?#iefix') format('embedded-opentype'),
+         url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.woff') format('woff'),
+         url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.ttf') format('truetype'),
+         url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-sousuo:before {
+  content: "\e62a";
+}
+
+.icon-personnone:before {
+  content: "\e64e";
+}

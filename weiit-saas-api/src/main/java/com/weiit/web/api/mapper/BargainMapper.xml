@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.api.mapper.BargainMapper">
+    <select id="selectBargainList" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            ub.bargain_id,
+            ub.product_id,
+            ub.shop_id,
+            ub.max_price,
+            min_price,
+            pi.stock,
+            p.product_name,
+            p.product_img,
+            /*多少人正在拼团*/
+            (
+                SELECT
+                    COUNT(*)
+                FROM
+                    weiit_ump_bargain_order bd
+                WHERE
+                    bd.bargain_id = ub.bargain_id
+                AND bd.state = 0
+            ) count,
+            /*用户是否在拼团 在返回*/
+			(
+                SELECT
+                    b_order_id
+                FROM
+                    weiit_ump_bargain_order bd
+                WHERE
+                    bd.bargain_id = ub.bargain_id
+                AND bd.state = 0
+				AND bd.user_id=#{user_id}
+            ) b_order_id
+        FROM
+            weiit_ump_bargain ub
+				INNER JOIN weiit_product p ON ub.product_id = p.product_id
+				LEFT JOIN weiit_product_item pi ON ub.item_id =pi.item_id
+        WHERE
+            ub.shop_id = #{shop_id} AND state =0
+    </select>
+
+
+    <select id="getProductByBargainIds" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            ub.bargain_id,
+            ub.bargain_name,
+            ub.end_time,
+            pi.stock,
+            ub.max_price,
+            ub.min_price,
+            wp.product_img,
+            wp.product_name,
+            wp.sale_count
+        FROM
+        weiit_ump_bargain ub
+        LEFT JOIN weiit_product wp ON ub.product_id = wp.product_id
+        LEFT JOIN weiit_product_item pi ON ub.item_id =pi.item_id
+        WHERE wp.is_on_sale=0 AND ub.state=0 and ub.shop_id=#{shop_id}
+        <if test="bargain_ids !=null and bargain_ids !='' ">
+            and ub.bargain_id IN
+            <foreach collection="bargain_ids" index="index" item="bargain_id" open="(" separator="," close=")">
+                #{bargain_id}
+            </foreach>
+        </if>
+    </select>
+
+
+    <select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            p.product_id,
+            p.product_name,
+            p.product_img,
+            ub.bargain_id,
+            end_time,
+            ub.max_price,
+            ub.min_price,
+            ub.cut_price_min,
+            ub.cut_price_max,
+            ub.item_id,
+            ub.shop_id,
+            ub.bargain_hour
+        FROM
+        weiit_ump_bargain ub
+        LEFT JOIN weiit_product p ON ub.product_id = p.product_id
+        WHERE
+        ub.shop_id=#{shop_id} and
+        <if test="bargain_id != null and bargain_id !=''">
+            ub.bargain_id=#{bargain_id}
+        </if>
+    </select>
+
+
+    <select id="selectBargainInfo" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            u.user_name,
+            u.user_img,
+            p.product_id,
+            p.product_name,
+            p.product_img,
+            ub.bargain_id,
+            ub.address_id,
+            wu.max_price,
+            wu.min_price,
+            (SELECT count(*) FROM weiit_ump_bargain_order bo WHERE bo.bargain_id=ub.bargain_id AND bo.state=1) total ,
+            ub.shop_id,
+            ub.end_time
+        FROM
+        weiit_ump_bargain_order ub
+        LEFT JOIN weiit_product p ON ub.product_id = p.product_id
+        LEFT JOIN weiit_ump_bargain wu ON ub.bargain_id = wu.bargain_id
+        LEFT JOIN weiit_user u ON ub.user_id = u.user_id
+        WHERE
+        ub.b_order_id=#{b_order_id}
+    </select>
+
+
+    <select id="selectBargainLogOne" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            ub.bargain_id,
+            ub.min_price,
+            ub.cut_price_min,
+            ub.cut_price_max,
+            wp.product_name,
+            ub.max_price
+        FROM
+            weiit_ump_bargain ub
+        LEFT JOIN weiit_product wp ON ub.product_id = wp.product_id
+        WHERE
+        1 = 1
+        <if test="bargain_id != null and bargain_id !=''">
+            AND bargain_id=#{bargain_id}
+        </if>
+        <if test="shop_id != null and shop_id !=''">
+            AND ub.shop_id=#{shop_id}
+        </if>
+    </select>
+
+
+    <select id="SelectBargainLogList" resultType="com.weiit.core.entity.E" parameterType="map">
+
+        SELECT
+            bl.log_id,
+            bl.user_id,
+            bl.bargain_price,
+            bl.after_price,
+            bl.remark,
+            wu.user_name,
+            wu.user_img
+        FROM
+        weiit_ump_bargain_order_log bl LEFT JOIN weiit_user wu ON bl.user_id = wu.user_id
+        WHERE
+        b_order_id = #{b_order_id}
+
+
+    </select>
+
+
+    <select id="selectLastBargain" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            bl.log_id,
+            user_id,
+            bargain_price,
+            after_price,
+            remark,
+            bargain_id
+        FROM
+          weiit_ump_bargain_order_log bl
+        WHERE
+          b_order_id = #{b_order_id} order BY  log_id DESC limit 1
+    </select>
+
+    <select id="getBargainOrderById" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            ub.order_num,
+            ub.user_id,
+            ub.end_time,
+            ub.state,
+            ub.pay_time,
+            ub.start_time,
+            ub.payment_type,
+            ub.address_id,
+            ub.item_id,
+            wp.product_id,
+            ub.bargain_id,
+            wp.smarket_price,
+            wp.product_img,
+            wp.product_name,
+            wp.sale_price,
+            ub.pay_price,
+            ub.b_order_id,ub.shop_id
+        FROM
+          weiit_ump_bargain_order ub
+        LEFT JOIN weiit_product wp ON ub.product_id=wp.product_id
+        WHERE
+        1=1
+        <if test="b_order_id !=null">
+            AND b_order_id = #{b_order_id}
+        </if>
+        <if test="order_num !=null">
+            AND order_num = #{order_num}
+        </if>
+
+    </select>
+
+    <select id="getMchKeyBybargainOrderNo" resultType="com.weiit.core.entity.E" parameterType="java.lang.String">
+        SELECT
+          wp.partner_key
+        FROM
+            weiit_ump_bargain_order bo,
+            weiit_user wu,
+            weiit_shop_payment wp
+        WHERE
+            bo.user_id = wu.user_id
+            AND wu.open_id_type = wp.type
+            AND bo.shop_id = wp.shop_id
+            AND bo.order_num = #{_parameter}
+
+    </select>
+
+    <select id="selectOpenIdbyBOrderId" resultType="com.weiit.core.entity.E" parameterType="java.lang.String">
+          SELECT
+                wu.wx_open_id,
+                wu.open_id_type,
+                wu.user_name,
+                pi.authorizer_app_id
+            FROM
+                weiit_ump_bargain_order bo
+            LEFT JOIN weiit_user wu ON bo.user_id = wu.user_id
+            LEFT JOIN weiit_weixin_public_info pi ON bo.shop_id = pi.shop_id
+            WHERE
+                bo.b_order_id = #{b_order_id}
+            AND pi.service_type_info = (IF(wu.open_id_type = 1, 2, 0))
+
+    </select>
+
+
+    <insert id="insertBargainLog" parameterType="map" useGeneratedKeys="true" keyProperty="log_id">
+        INSERT INTO weiit_ump_bargain_order_log (
+            user_id,
+            bargain_id,
+            bargain_price,
+            share_user_id,
+            after_price,
+            remark,
+            create_time,
+            b_order_id,
+            shop_id
+        )
+        VALUES
+        (
+            #{user_id},
+            #{bargain_id},
+            #{bargain_price},
+            #{share_user_id},
+            #{after_price},
+            #{remark},
+            now(),
+            #{b_order_id},
+            #{shop_id}
+        )
+    </insert>
+
+    <insert id="insertBargainOrder" parameterType="map" useGeneratedKeys="true" keyProperty="b_order_id">
+        INSERT INTO weiit_ump_bargain_order (
+            user_id,
+            bargain_id,
+            pay_price,
+            product_id,
+            item_id,
+            address_id,
+            start_time,
+            end_time,
+            order_num,
+            state,
+            shop_id
+        )
+        VALUES
+        (
+            #{user_id},
+            #{bargain_id},
+            #{pay_price},
+            #{product_id},
+            #{item_id},
+            #{address_id},
+            now(),
+            #{end_time},
+            #{order_num},
+            #{state},
+            #{shop_id}
+        )
+    </insert>
+
+
+    <select id="selectUserBargainLog" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            ub.bargain_id,
+            ub.min_price,
+            ub.cut_price_min,
+            ub.cut_price_max,
+            ub.shop_id,
+            ubl.after_price,
+            ubl.bargain_price,
+            ubl.log_id,
+            ubl.b_order_id
+        FROM
+        weiit_ump_bargain ub
+        LEFT JOIN weiit_ump_bargain_order_log ubl ON ubl.bargain_id = ub.bargain_id
+        WHERE ub.shop_id=#{shop_id}
+        <if test="user_id != null and user_id !=''">
+            AND ubl.user_id=#{user_id}
+        </if>
+        <if test="b_order_id != null and b_order_id !=''">
+            AND ubl.b_order_id=#{b_order_id}
+        </if>
+    </select>
+
+
+    <select id="SelectUserBargain" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            bo.b_order_id,
+            bo.bargain_id,
+            bo.end_time,
+            bo.state,
+            wp.product_name,
+            wp.product_img
+        FROM
+          weiit_ump_bargain_order bo
+        LEFT JOIN weiit_product wp ON bo.product_id = wp.product_id
+        WHERE
+        user_id = #{user_id}
+    </select>
+
+    <select id="hasBargainCount" resultType="com.weiit.core.entity.E" parameterType="map">
+            SELECT
+              b_order_id
+            FROM
+                weiit_ump_bargain_order
+            WHERE
+             state = 0
+            AND
+            user_id = #{user_id}
+            AND bargain_id =#{bargain_id} limit 1
+    </select>
+
+    <select id="hasBargainByLogId" resultType="java.lang.Integer" parameterType="map">
+        SELECT
+        COUNT(*) count
+        FROM
+        weiit_ump_bargain_order_log
+        WHERE
+        user_id = #{user_id}
+        AND b_order_id=#{b_order_id}
+        <if test="is_bargain_owner !=null">
+            AND share_user_id=-1
+        </if>
+    </select>
+
+
+    <select id="getBargainSumPrice" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+          SUM(bl.bargain_price) bargainPrice
+        FROM
+          weiit_ump_bargain_order_log bl
+        WHERE
+          b_order_id=#{b_order_id}
+    </select>
+
+    <select id="bargainMessage" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            bo.pay_price,
+            wu.user_img,
+            wu.user_name,
+            wp.product_name
+        FROM
+            weiit_ump_bargain_order bo
+        LEFT JOIN weiit_user wu ON bo.user_id = wu.user_id
+        LEFT JOIN weiit_product wp ON bo.product_id = wp.product_id
+        WHERE
+            bo.shop_id = #{shop_id}
+        AND state = 1
+        AND pay_time &gt; #{pay_time} ORDER BY pay_time DESC
+    </select>
+
+
+    <update id="updateBargainOrderById" parameterType="map">
+        update weiit_ump_bargain_order
+        <set>
+            <if test="state !=null and state !='' ">
+                state=#{state},
+            </if>
+            <if test="payment_type !=null and payment_type !='' ">
+                payment_type=#{payment_type},
+            </if>
+            <if test="pay_time !=null and pay_time !='' ">
+                pay_time=#{pay_time},
+            </if>
+            <if test="pay_price !=null and pay_price !='' ">
+                pay_price=#{pay_price},
+            </if>
+            <if test="address_id !=null and address_id !='' ">
+                address_id=#{address_id},
+            </if>
+        </set>
+
+        where b_order_id=#{b_order_id} AND shop_id =#{shop_id}
+    </update>
+
+</mapper>

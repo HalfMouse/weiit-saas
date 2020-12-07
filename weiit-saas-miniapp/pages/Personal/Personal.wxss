@@ -1,0 +1,184 @@
+/* pages/Personal/Personal.wxss */
+
+page {
+  /* height: 100%; */
+  /* overflow: hidden; */
+}
+
+.Personal {
+  padding-top: 50rpx;
+}
+
+button[plain]:hover {
+  color: #000;
+}
+
+/* 登录注册部分 */
+
+.login {
+  width: 682rpx;
+  height: 265rpx;
+  margin-left: 34rpx;
+  background-color: #fff;
+  border-radius: 15rpx;
+  position: relative;
+  /* border: 1rpx solid #989898; */
+}
+
+.package {
+  height: 145rpx;
+}
+
+.user_img {
+  width: 145rpx;
+  height: 145rpx;
+  border-radius: 50%;
+  position: absolute;
+  left: 14rpx;
+  top: -41rpx;
+}
+
+.user_name {
+  position: absolute;
+  left: 200rpx;
+  top: 20rpx;
+  font-size: 34rpx;
+}
+
+.icon-erweima {
+  font-size: 70rpx;
+  color: #333;
+  position: absolute;
+  right: 35rpx;
+  top: 16rpx;
+}
+
+.personal {
+  width: 32%;
+  text-align: center;
+  font-size: 30rpx;
+  float: left;
+  border-right: 1rpx solid #f1f1f1;
+}
+
+.personal:last-child {
+  border-right: 0;
+}
+
+/* 支付操作选项 */
+
+.payment {
+  margin: 22rpx 0;
+  overflow: hidden;
+}
+
+.menu {
+  width: 25%;
+  height: 100rpx;
+  font-size: 26rpx;
+  text-align: center;
+  background-color: #fff;
+  padding: 5rpx 0;
+  float: left;
+  color: #333;
+}
+
+.menu .iconfont {
+  font-size: 38rpx;
+  padding-top: 16rpx;
+}
+
+.menu_btn {
+  width: 25%;
+  height: 110rpx;
+  position: absolute;
+}
+
+/* 功能操作选项 */
+
+.functions {
+  overflow-y: auto;
+  background-color: #fff;
+}
+
+.option {
+  width: 100%;
+  height: 90rpx;
+}
+
+.option_btn {
+  width: 100%;
+  height: 90rpx;
+  position: absolute;
+}
+
+.option_fun {
+  width: 100%;
+  height: 84rpx;
+  line-height: 84rpx;
+  color: #333;
+  display: flex;
+  display: -webkit-flex;
+  float: left;
+  border-bottom: 1rpx solid #d3d3d3;
+  font-size: 26rpx;
+  background-color: #fff;
+}
+
+.option:last-child .option_fun{
+  border-bottom: 0;
+}
+
+.option_img {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 18rpx;
+  margin: 25rpx 20rpx 0 31rpx;
+}
+
+.option_name {
+  font-size: 30rpx;
+}
+
+.right_arrow {
+  position: absolute;
+  right: 27rpx;
+}
+/* 二维码 */
+.bg{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .5);
+}
+.code{
+  width: 380rpx;
+  height: 380rpx;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+
+}
+.code image{
+  width: 100%;
+  height: 100%;
+}
+.option_fight{
+  width: 42rpx;
+  height: 42rpx;
+  margin-left: 28rpx;
+  margin-top: 22rpx;
+}
+.option_fight1{
+  width: 38rpx;
+  height: 38rpx;
+  margin-left: 32rpx;
+  margin-top: 24rpx;
+}
+.functions .option_fun.cut_btns{
+  border: none 0;
+}

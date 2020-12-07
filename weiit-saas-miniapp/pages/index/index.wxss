@@ -1,0 +1,8 @@
+/**index.wxss**/
+/* @import "../indexTemplate/indexTemplate.wxss";
+@import "../logo/logo.wxss"; */
+page{
+  background-color: #fff
+}
+
+

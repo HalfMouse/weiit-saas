@@ -3,12 +3,14 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
-        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     
     <!-- 扫描controller（controller层注入） -->
@@ -36,6 +38,19 @@
                     </list>
                 </property>
             </bean>
+ 
+           <!-- &lt;!&ndash; 避免IE执行AJAX时,返回JSON出现下载文件 &ndash;&gt;
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"
+                  id="fastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+                &lt;!&ndash;<property name="serializerFeature">&ndash;&gt;
+                &lt;!&ndash;这个地方加上这个功能吧，能自己配置一些东西，比如时间的格式化，null输出""等等&ndash;&gt;
+                &lt;!&ndash;</property>&ndash;&gt;
+            </bean>-->
 
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="objectMapper">

@@ -1,0 +1,26 @@
+/* pages/Forward/Forward.wxss */
+.foward-box{
+  height: 100%;
+}
+.show-pic{
+  position: relative;
+  width: 85%;
+  margin: 30rpx auto 0;
+
+}
+.show-pic image{
+  width: 100%;
+}
+/* 保存按钮 */
+.save-btn{
+  position: fixed;
+  left: 50%;
+  bottom: 30rpx;
+  width: 85%;
+  text-align: center;
+  line-height: 80rpx;
+  color: #fff;
+  background-color: #1D211B;
+  border-radius: 40rpx;
+  transform: translateX(-50%);
+}

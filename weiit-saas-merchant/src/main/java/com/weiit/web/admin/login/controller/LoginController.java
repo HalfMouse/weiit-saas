@@ -1,23 +1,22 @@
 package com.weiit.web.admin.login.controller;
 
 
-import com.github.binarywang.wxpay.bean.order.WxPayNativeOrderResult;
-import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
-import com.github.binarywang.wxpay.exception.WxPayException;
-import com.weiit.core.entity.E;
-import com.weiit.core.entity.FormMap;
-import com.weiit.core.utils.MD5Util;
-import com.weiit.resource.common.utils.RedisUtil;
-import com.weiit.resource.common.utils.WeiitQrCodeUtil;
-import com.weiit.web.admin.login.service.InitService;
-import com.weiit.web.admin.login.service.LoginService;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.weiit.web.admin.publics.service.LogService;
 import com.weiit.web.admin.util.VerifyCodeUtils;
-import com.weiit.web.admin.weixin.service.WeixinPublicService;
-import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
-import com.weiit.web.weixin.util.XMLUtil;
-import com.weiit.web.weixinopen.service.WeixinOpenService;
+import com.weiit.web.common.RedisKey;
+
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -28,15 +27,27 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import com.github.binarywang.wxpay.bean.order.WxPayNativeOrderResult;
+import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
+import com.github.binarywang.wxpay.exception.WxPayException;
+import com.weiit.core.entity.E;
+import com.weiit.core.entity.FormMap;
+import com.weiit.core.utils.MD5Util;
+import com.weiit.resource.common.utils.DateUtil;
+import com.weiit.resource.common.utils.RedisUtil;
+import com.weiit.resource.common.utils.WeiitQrCodeUtil;
+import com.weiit.resource.common.utils.WeiitUtil;
+import com.weiit.web.admin.login.service.InitService;
+import com.weiit.web.admin.login.service.LoginService;
+import com.weiit.web.admin.weixin.service.WeixinPublicService;
+import com.weiit.web.base.AdminController;
+import com.weiit.web.base.UIview;
+import com.weiit.web.weixin.util.XMLUtil;
+import com.weiit.web.weixinopen.service.WeixinOpenService;
 
 /**
  * 商户控制器

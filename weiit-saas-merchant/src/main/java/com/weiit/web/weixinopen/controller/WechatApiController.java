@@ -1,21 +1,28 @@
 package com.weiit.web.weixinopen.controller;
 
 
+
 import com.weiit.core.entity.FormMap;
-import com.weiit.web.weixinopen.service.WeixinOpenService;
+import com.weiit.resource.common.utils.WeiitUtil;
 import me.chanjar.weixin.common.error.WxErrorException;
+import me.chanjar.weixin.open.api.WxOpenService;
 import me.chanjar.weixin.open.bean.result.WxOpenAuthorizerInfoResult;
 import me.chanjar.weixin.open.bean.result.WxOpenQueryAuthResult;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.weiit.web.weixinopen.service.WeixinOpenService;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 /**
  * @author <a href="https://github.com/007gzs">007</a>

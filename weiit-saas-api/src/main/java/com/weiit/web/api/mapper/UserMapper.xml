@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.api.mapper.UserMapper">
+	<!--个人中心  -->
+	<select id="userInfo" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+		    user_id,
+			user_account,
+			user_name,
+			user_phone,
+			user_img,
+			user_sex,
+			user_email,
+			balance,
+			integral,
+			user_birthday,
+			(select count(1) from weiit_order oo where oo.user_id = u.user_id) as myOrderCount,
+			(select count(1) from weiit_ump_coupon_user cu where cu.user_id = u.user_id) as myCouponCount
+		from
+			weiit_user u
+		where u.user_id=#{user_id}
+	</select>
+
+	<select id="selectOne" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+		    user_id,
+			user_account,
+			user_name,
+			user_phone,
+			user_img,
+			user_sex,
+			user_email,
+			balance,
+			integral,
+			user_birthday
+		from
+			weiit_user u
+		where u.user_id=#{user_id}
+	</select>
+
+	<select id="selectUserInfoByOpenId" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+		    user_id,
+			user_account,
+			user_name,
+			user_phone,
+			user_img,
+			user_sex,
+			user_email,
+			balance,
+			integral,
+			user_birthday
+			open_id_type,
+			wx_open_id
+		from
+			weiit_user u
+		where u.wx_open_id=#{wx_open_id}
+	</select>
+
+	<!-- 修改会员信息 -->
+	<update id="updateUserInfo" parameterType="map">
+		update  weiit_user 
+			set
+			<if test="user_account !=null and user_account !='' "> 
+				user_account=#{user_account},user_phone=#{user_phone},
+			</if>
+			<if test="user_birthday !=null and user_birthday !='' "> 
+				user_birthday=#{user_birthday},
+			</if>
+			<if test="balance !=null and balance !='' ">
+				balance=#{balance},
+			</if>
+			update_time=now()
+		where user_id=#{user_id} AND shop_id =#{shop_id}
+	</update>
+
+
+	<!-- 修改会员信息 -->
+	<update id="updateUserIntegral" parameterType="map">
+		update  weiit_user
+			set
+			<if test="updateIntegral !=null and updateIntegral !='' ">
+				integral=#{updateIntegral},
+			</if>
+			update_time=now()
+		where user_id=#{user_id} AND shop_id =#{shop_id}
+	</update>
+
+	<!-- 修改会员信息 -->
+	<update id="updateUserPhone" parameterType="map">
+		update  weiit_user
+			set
+			<if test="user_phone !=null and user_phone !='' ">
+				user_phone=#{user_phone},
+			</if>
+			update_time=now()
+		where user_id=#{user_id} AND shop_id =#{shop_id}
+	</update>
+
+	<insert id="myAddressSave" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+		insert into weiit_user_address
+		(
+			user_id,
+			user_name,
+			consignee,
+			province,
+			city,
+			district,
+			address_detail,
+			phone,
+			create_time,
+			update_time,
+			is_default,
+			is_deleted,
+			shop_id
+							
+		)
+		values
+		(
+			#{user_id},
+			#{user_name},
+			#{consignee},
+			#{province},
+			#{city},
+			#{district},
+			#{address_detail},
+			#{phone},
+			now(),
+			now(),
+			#{is_default},
+			0,
+			#{shop_id}	
+		)
+	</insert>
+	
+	<select id="myAddressList" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			id,
+			consignee,
+			province,
+			city,
+			district,
+			address_detail,
+			zip_code,
+			tel,
+			phone,
+			is_default 
+		from weiit_user_address
+		where user_id=#{user_id}
+	</select>
+
+	<select id="getShopInfo" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+			*
+		from weiit_shop
+		where shop_id=#{shop_id}
+	</select>
+
+	<update id="myAddressUpdate" parameterType="map">
+		update  weiit_user_address 
+			set
+			<if test="consignee !=null and consignee !='' "> 
+				consignee=#{consignee},
+			</if>
+			<if test="province !=null and province !='' "> 
+				province=#{province},
+			</if>
+			<if test="city !=null and city !='' "> 
+				city=#{city},
+			</if>	
+			<if test="district !=null and district !='' "> 
+				district=#{district},
+			</if>	
+			<if test="address_detail !=null and address_detail !='' ">
+				address_detail=#{address_detail},
+			</if>
+			<if test="phone !=null and phone !='' ">
+				phone=#{phone},
+			</if>
+			<if test="is_default !=null and is_default !='' ">
+				is_default=#{is_default}, 
+			</if>
+			update_time=now()
+		where id=#{id}
+	</update>
+	
+	<delete id="myAddressDelete" parameterType="map">
+		delete from weiit_user_address where id=#{id}
+	</delete>
+	
+	<update id="myAddressCancelAllDefault" parameterType="map">
+		update  weiit_user_address 
+			set
+			is_default=-1, 
+			update_time=now()
+		where user_id=#{user_id}
+	</update>
+	
+	<select id="myCoupons" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select
+			c.coupon_id,
+			c.coupon_name,
+			c.type,
+			c.coupon_price,
+			c.coupon_discount,
+			c.random_min_price,
+			c.random_max_price,
+			c.is_condition,
+			c.condition_price,
+			c.coupon_desc,
+			c.use_type,
+			c.from_day,
+			c.to_day,
+			c.start_time,
+			c.end_time,
+			c.number,
+			c.product_range_type,
+			c.product_ids,
+			cu.state,
+			cu.start_time startTime,
+			cu.end_time endTime,
+			c.max_limit
+		from
+			weiit_ump_coupon c inner join  weiit_ump_coupon_user cu on c.coupon_id = cu.coupon_id
+		where 1=1 
+			and cu.user_id=#{user_id}
+		<if test="state !=null and state !='' ">
+			and cu.state=#{state}, 
+		</if>
+		ORDER BY FIELD(cu.state,0,-2,1,-1),cu.create_time DESC
+	</select>
+	
+	
+	<select id="myCollectionList" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			collection_id,
+			user_id,
+			product_id,
+			product_img,
+			product_name,
+			smarket_price,
+			sale_price,
+			create_time,
+			update_time,
+			shop_id
+		from weiit_user_product_collection
+		where user_id=#{user_id}
+	</select>
+
+	<select id="myCollectionCount" resultType="java.lang.Integer"  parameterType="map">
+		select
+			count(*)
+		from weiit_user_product_collection
+		where user_id=#{user_id}
+	</select>
+
+	<delete id="myCollectionDelete" parameterType="map">
+		delete from weiit_user_product_collection where product_id=#{product_id} and user_id=#{user_id}
+	</delete>
+	
+	<insert id="addSuggest" parameterType="map">
+		insert into weiit_user_suggest
+		(
+			suggest,
+			user_id,
+			create_time,
+			user_name
+		)
+		values
+		(
+			#{suggest},
+			#{user_id},
+			now(),
+			#{user_name}
+		)
+	</insert>
+	
+	
+	<select id="myIntegralLog" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			integral,
+			create_time,
+			remark,
+			last_integral,
+			state
+		from weiit_user_integral_log
+		where user_id=#{user_id}
+	</select>
+	
+	<select id="myBalanceLog" resultType="com.weiit.core.entity.E"  parameterType="map">
+		select 
+			balance,
+			create_time,
+			last_balance,
+			remark
+		from weiit_user_balance_log
+		where user_id=#{user_id} 
+		<if test="state != null and state !=''">
+
+		</if>
+		ORDER BY create_time DESC
+	</select>
+
+	<select id="selectMerchantInfoByShopId" resultType="com.weiit.core.entity.E"  parameterType="map">
+		SELECT
+			*
+		FROM
+			weiit_merchant
+		WHERE
+			mrch_id = (
+				SELECT
+					mrch_id
+				FROM
+					weiit_shop
+				WHERE
+					shop_id = #{shop_id}
+	)
+	</select>
+
+	<update id="myBalanceExtract" parameterType="map">
+		update  weiit_user 
+			set
+			balance=#{balance}
+		where user_id=#{user_id}
+	</update>
+	
+	<insert id="insertBalance" parameterType="map">
+		insert into weiit_user_balance_log
+		(
+			user_id,
+			user_name,
+			balance,
+			last_balance,
+			origin_id,
+			remark,
+			type,
+			state,
+			create_time,
+			update_time,
+			shop_id
+		)
+		values
+		(
+			#{user_id},
+			#{user_name},
+			#{balance},
+			#{last_balance},
+			#{origin_id},
+			#{logRemark},
+			#{type},
+			#{state},
+			now(),
+			now(),
+			#{shop_id}
+		)
+	</insert>
+
+
+	<insert id="addCashLog" parameterType="map">
+		insert into weiit_user_cash_log
+		(
+			user_id,
+			cash_num,
+			cash_type,
+			bank_name,
+			cash_name,
+			cash_account,
+			cash_money,
+			remark,
+			create_time,
+			update_time,
+			shop_id
+		)
+		values
+		(
+			#{user_id},
+			#{cash_num},
+			#{cash_type},
+			#{bank_name},
+			#{cash_name},
+			#{cash_account},
+			#{cash_money},
+			#{remark},
+			now(),
+			now(),
+			#{shop_id}
+		)
+	</insert>
+
+	<insert id="addUserPageViewLog" parameterType="map">
+		insert into weiit_user_page_log
+		(
+			user_id,
+			page_type,
+			type_id,
+			create_time,
+			shop_id
+		)
+		values
+		(
+			#{user_id},
+			#{page_type},
+			#{type_id},
+			now(),
+			#{shop_id}
+		)
+	</insert>
+
+	<insert id="addUserShopViewLog" parameterType="map">
+		insert into weiit_user_log
+		(
+			user_id,
+			create_time,
+			shop_id
+		)
+		values
+		(
+			#{user_id},
+			now(),
+			#{shop_id}
+		)
+	</insert>
+
+
+	<insert id="addUserIntegralLog" parameterType="map">
+		insert into weiit_user_integral_log
+		(
+			user_id,
+			user_name,
+			integral,
+			last_integral,
+			remark,
+			origin_id,
+			type,
+			state,
+			create_time,
+			update_time,
+			shop_id
+		)
+		values
+		(
+			#{user_id},
+			#{user_name},
+			#{i_integral},
+			#{i_last_integral},
+			#{i_remark},
+			#{i_origin_id},
+			#{i_type},
+			#{i_state},
+			now(),
+			now(),
+			#{shop_id}
+		)
+	</insert>
+
+	
+</mapper>

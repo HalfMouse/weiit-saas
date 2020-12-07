@@ -1,14 +1,19 @@
 package com.weiit.web.admin.file.service.impl;
+ 
+import javax.annotation.Resource;
+
 
 import com.weiit.core.entity.E;
+import org.springframework.stereotype.Service;
+ 
+
+
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.mapper.BaseMapper;
 import com.weiit.core.service.impl.AbstractService;
 import com.weiit.web.admin.file.mapper.PictureMapper;
 import com.weiit.web.admin.file.service.PictureService;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 

@@ -1,0 +1,14 @@
+<!-- 测试手机号 -->
+<view class='box'>
+  <input class='user_tel' placeholder='请输入新的手机号码' bindinput='get_tel'></input>
+  <view class='shu'></view>
+  <view class='Obtain' wx:if='{{_tel==""}}'>获取验证码</view>
+  <view wx:else>
+    <view class='Obtain' wx:if='{{code==true}}' bindtap='obtain'>获取验证码</view>
+    <view class='down' wx:else>过{{time}}秒获取</view>
+  </view>
+</view>
+<input placeholder='请输入验证码' class='Obtain_ipt' bindinput='ipt'></input>
+<view wx:if='{{ipt_con!="" && _tel!=""}}' class='next yellow_btn' bindtap='next'>确定</view>
+<view wx:else class='next gray_btn'>确定</view>
+<sliders></sliders>

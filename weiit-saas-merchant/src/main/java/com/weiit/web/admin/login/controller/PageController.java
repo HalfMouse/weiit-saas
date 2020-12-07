@@ -1,16 +1,18 @@
 package com.weiit.web.admin.login.controller;
+ 
 
 
-import com.weiit.core.entity.E;
-import com.weiit.core.entity.FormMap;
-import com.weiit.web.admin.login.service.LoginService;
-import com.weiit.web.base.AdminController;
+import javax.annotation.Resource;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
+import com.weiit.core.entity.E;
+import com.weiit.core.entity.FormMap;
+import com.weiit.web.admin.login.service.LoginService;
+import com.weiit.web.base.AdminController;
 
 /**
  * 相关静态页面控制器

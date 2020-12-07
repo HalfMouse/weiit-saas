@@ -1,0 +1,94 @@
+<!-- 邀请好友 -->
+<import src="../logo/logo.wxml" />
+<view class='pages'>
+  <image class='comImg' src='http://wstore-1255653546.image.myqcloud.com{{resultCon.productInfo.product_img}}'></image>
+  <!-- 参与拼团人数列表 -->
+  <view class='userList'>
+    <block>
+      <view class='list' wx:for='{{resultCon.headImgList}}'>
+        <image class='userImg' src='{{item.user_img}}'></image>
+        <view class='master'>团长</view>
+      </view>
+    </block>
+    <view class='noTime' wx:for='{{imgNum}}'>
+      <view class='borders'>
+        <text class='iconfont icon-wenhao'></text>
+      </view>
+    </view>
+    <view class='noTime' wx:if='{{more}}'>
+      <text class='iconfont icon-more'></text>
+    </view>
+  </view>
+  <view class='title' wx:if='{{userNum>0&&resultCon.isOriginator}}'>还差
+    <text class='peopleNum'>{{userNum}}</text>人，赶快邀请好友拼单吧</view>
+  <view class='title' wx:if='{{!resultCon.isOriginator}}'>就差
+    <text class='peopleNum'>{{userNum}}</text>人了，赶快参与拼团吧</view>
+  <button class='btn' wx:if='{{userNum>0&&resultCon.isOriginator}}' open-type='share'>邀请好友拼单
+    <text class='times'>{{times}}</text>后到期</button>
+  <view class='btn' wx:if='{{userNum==0}}'>恭喜拼单成功！</view>
+  <button class='btn' bindtap='join' wx:if='{{userNum>0&&!resultCon.isOriginator}}'>参加拼团</button>
+  <view class='waresName'>商品名称
+    <text class='iconfont icon-youjiantouda'></text>
+    <text>{{resultCon.productInfo.product_name}}</text>
+  </view>
+  <view class='waresName' bindtap='rule'>拼单须知
+    <text class='iconfont icon-youjiantouda'></text>
+    <text class='con'>•好友拼单•人满发货•人不满退款</text>
+  </view>
+  <view wx:if='{{rulePage}}' class='rulePage' bindtap='know'>
+    <view class='ruleBox' style='background-color:{{backgroundColor}}'>
+      <text class='iconfont icon-cha1' bindtap='closerule'></text>
+      <view class='ruleTitle'>
+        <image src='../../images/backss.png'></image>
+        <view>活动规则</view>
+      </view>
+      <view class='content'>
+        <view>1.发起拼单或参加别人的拼单;</view>
+        <view>2.在规定的时间内，邀请好友参加拼单;</view>
+        <view>3.未达拼单人数，款项将自动退还余额;</view>
+      </view>
+    </view>
+  </view>
+  <!-- 选择规格遮罩层 -->
+  <view class="commodity_screen" bindtap="hide" wx:if="{{showModalStatus}}"></view>
+  <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+    <view class='alert_box'>
+      <view class='alert_title'>选择规格
+        <view class='iconfont icon-cha' bindtap='hide'></view>
+      </view>
+      <view class='alert_information'>
+        <image class='inform_img' src='http://wstore-1255653546.image.myqcloud.com{{information.product_img}}'></image>
+        <view class='inform_title'>{{information.product_name}}</view>
+        <view class='inform_Price'>￥{{Price}}</view>
+        <view class='inform_num'>库存：{{Stock}}</view>
+      </view>
+
+      <view class='colour' wx:for='{{information.spec_info}}' data-index='{{index}}'>
+        <view class='color_title'>{{item.spec_name}}</view>
+        <view class='{{item.Choice == true ? "colorSelected" : "color_lable"}}' data-value='{{item.spec_value}}' wx:for='{{item.values}}' data-id='{{item.spec_value_id}}' bindtap='size' data-index='{{index}}'>{{item.spec_value}}</view>
+      </view>
+      <view class='buy_num '>购买数量
+        <view class='plus_reduce'>
+          <view bindtap='reduce_num'>-</view>
+          <view class='buy_nums'>{{buy_num}}</view>
+          <view bindtap='add_num'>+</view>
+        </view>
+      </view>
+      <view class='Determine' bindtap='confirm'>确定</view>
+    </view>
+  </view>
+  <sliders></sliders>
+  <!-- <view class='listBox'>
+    <view class='waresList' wx:for='{{3}}'>
+      <image class='listImg' src='http://img1.imgtn.bdimg.com/it/u=911448708,1322942815&fm=27&gp=0.jpg'></image>
+      <view class='listTitle'>红酒牌红酒大甩卖了</view>
+      <view class='listPrice'>￥
+        <text>299</text>
+      </view>
+      <view class='history'>已拼12345件</view>
+    </view>
+  </view> -->
+  <!-- 底部导航 -->
+  <!-- <template is='BottomNavigation' data='{{bottomMenuList:bottomMenuList}}' /> -->
+  <template is='BottomNavigation'/>
+</view>

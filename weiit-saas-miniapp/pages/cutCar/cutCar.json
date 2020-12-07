@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "拼团支付",
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

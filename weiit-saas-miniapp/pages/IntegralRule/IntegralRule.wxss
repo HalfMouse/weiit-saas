@@ -1,0 +1,16 @@
+.integral-rules{
+  padding: 0 40rpx;
+  padding-top: 16rpx;
+}
+.integral-rules .stage{
+  margin-bottom: 40rpx;
+}
+.integral-rules .stage text{
+  display: block;
+  font-size: 30rpx;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+.integral-rules .stage text.title{
+  font-weight: bold;
+}

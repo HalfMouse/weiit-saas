@@ -1,0 +1,111 @@
+/* pages/logistics/logistics.wxss */
+
+.commodity {
+  background-color: #fff;
+  position: relative;
+  height: 130rpx;
+  font-size: 30rpx;
+  overflow: hidden;
+  margin-bottom: 10rpx;
+}
+
+.commodity_img {
+  width: 190rpx;
+  height: 62rpx;
+  position: absolute;
+  top: 38rpx;
+  left: 10rpx;
+  border: 1rpx solid #f5f5f5
+}
+
+.commodity_state {
+  font-size: 32rpx;
+  color: #fa871c;
+  position: absolute;
+  top: 30rpx;
+  left: 230rpx;
+}
+
+.express_num {
+  position: absolute;
+  bottom: 20rpx;
+  left: 230rpx;
+}
+
+.message_list {
+  padding-top: 30rpx;
+  background-color: #fff;
+}
+
+.message {
+  font-size: 32rpx;
+  overflow: hidden;
+  min-height: 100rpx;
+  padding-bottom: 30rpx;
+  color: #666;
+  background-color: #fff;
+}
+
+.message:first-child {
+  color: #fa871c;
+  padding-top: 20rpx;
+}
+
+.message_left, .Middle, .message_right {
+  float: left;
+}
+
+.message_left {
+  text-align: center;
+  width: 180rpx;
+  font-size: 26rpx;
+}
+
+.Middle {
+  width: 50rpx;
+  text-align: center;
+  position: relative;
+}
+
+.icon-iconcorrect {
+  position: relative;
+  z-index: 1;
+  font-size: 36rpx;
+}
+
+.line {
+  width: 2rpx;
+  height: 120rpx;
+  background-color: #999;
+  position: absolute;
+  left: 25rpx;
+  top: 35rpx;
+  z-index: 0;
+}
+
+.message:last-child .Middle .line {
+  display: none;
+}
+
+.message_right {
+  width: 65%;
+  padding: 0 2%;
+}
+
+.people {
+  font-size: 26rpx;
+  line-height: 30rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* 暂无物流 */
+
+.logistics {
+  text-align: center;
+  line-height: 900rpx;
+  font-size: 30rpx;
+  color: #666;
+}

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.api.mapper.RegisterMapper">
+    <!-- 根据商户的账户查询 -->
+    <select id="selectMerchantByAccount" resultType="com.weiit.core.entity.E" parameterType="map">
+    SELECT
+        mrch_id,
+        mrch_id as validate_id,
+        account,
+        password,
+        description,
+        type,
+        locked,
+        state,
+        is_deleted,
+        version_num,
+        version_begin_time,
+        version_expire_time,
+        create_manager_id,
+        update_manager_id,
+        create_time,
+        update_time
+    FROM weiit_merchant
+    where
+    is_deleted=0 and account=#{account}
+    </select>
+
+    <insert id="insetMerch" parameterType="map" useGeneratedKeys="true" keyProperty="mrch_id">
+    insert into weiit_merchant
+    (
+        account,
+        password,
+        description,
+        type,
+        locked,
+        state,
+        is_deleted,
+        version_num,
+        version_begin_time,
+        version_expire_time,
+        create_manager_id,
+        update_manager_id,
+        create_time,
+        update_time
+    )
+    values
+    (
+        #{account},
+        #{password},
+        #{description},
+        #{type},
+        0,
+        0,
+        0,
+        #{version_num},
+        now(),
+        #{version_expire_time},
+        #{create_manager_id},
+        #{update_manager_id},
+        now(),
+        now()
+        );
+    </insert>
+
+    <!-- 查询需要待通知的运营中心的手机号码 -->
+    <select id="selectNotifyPhoneByBusinessType" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+        *
+        FROM system_notify_phone v
+        where business_type=#{business_type} limit 1
+    </select>
+</mapper>

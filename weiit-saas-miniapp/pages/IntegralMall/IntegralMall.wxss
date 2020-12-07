@@ -1,0 +1,30 @@
+@import "../template/template.wxss";
+.intergral-head{
+  padding: 20rpx;
+  background-color: #fff;
+}
+.intergral-head text{
+  font-size: 30rpx;
+  color: #666;
+}
+.intergral-title{
+  float: left;
+}
+.intergral-mine{
+  float: right;
+}
+.toTheEnd {
+  width: 100%;
+  height: 80rpx;
+  margin-bottom: 10rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #999;
+}
+.no-goods{
+  text-align: center;
+  font-size: 32rpx;
+  color: #999;
+  line-height: 180rpx;
+}

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "积分商品支付",
+  "usingComponents": {
+    "bottomNav": "../../assembly/bottomNav/bottomNav",
+    "sliders": "../../assembly/slider/slider"
+  }
+}

@@ -1,10 +1,10 @@
 package com.weiit.web.admin.publics.service;
+ 
+import java.util.List;
 
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.service.BaseService;
-
-import java.util.List;
 
 /**
  * 公共服务Service

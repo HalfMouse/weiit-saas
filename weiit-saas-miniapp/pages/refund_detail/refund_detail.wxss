@@ -1,0 +1,108 @@
+/* pages/refund_detail/refund_detail.wxss */
+
+.Progress {
+  height: 100rpx;
+  padding: 10rpx 0;
+  color: #fff;
+  background-color: red;
+}
+
+.Progress .state {
+  font-size: 30rpx;
+  line-height: 50rpx;
+  padding-left: 20rpx;
+}
+
+.Progress .RGtime {
+  font-size: 28rpx;
+  padding-left: 20rpx;
+  color: #fff;
+  line-height: 50rpx;
+}
+
+.information {
+  background-color: #fff;
+  line-height: 80rpx;
+  padding-left: 20rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.Box {
+  height: 200rpx;
+  position: relative;
+}
+
+.com_nums {
+  width: 150rpx;
+  height: 40rpx;
+  text-align: center;
+  line-height: 40rpx;
+  background-color: #000;
+  opacity: 0.6;
+  color: #fff;
+  font-size: 26rpx;
+  position: absolute;
+  left: 30rpx;
+  top: 140rpx;
+}
+
+.baby_img {
+  width: 150rpx;
+  height: 150rpx;
+  position: absolute;
+  top: 28rpx;
+  left: 30rpx;
+}
+
+.title {
+  width: 520rpx;
+  position: absolute;
+  top: 30rpx;
+  left: 210rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.size {
+  position: absolute;
+  bottom: 30rpx;
+  left: 210rpx;
+  color: rgba(102, 102, 102, 1);
+  font-size: 28rpx;
+}
+
+/* 退款原因 */
+
+.Reason {
+  height: 300rpx;
+  padding-top: 10rpx;
+  padding-left: 20rpx;
+  background-color: #fff;
+  position: relative;
+}
+
+.Reason text {
+  display: block;
+  line-height: 50rpx;
+  font-size: 30rpx;
+  color: #666;
+}
+
+.look_logistics, .add_info {
+  width: 138rpx;
+  height: 58rpx;
+  border: 1rpx solid #999;
+  text-align: center;
+  line-height: 58rpx;
+  font-size: 26rpx;
+  color: #333;
+  border-radius: 6rpx;
+  position: absolute;
+  right: 30rpx;
+  bottom: 20rpx;
+}
+
+.add_info {
+  width: 178rpx;
+}

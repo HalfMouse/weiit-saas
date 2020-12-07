@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.task.mapper.GrouponMapper">
+
+    <select id="selectGrouponList" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+          groupon_id
+        FROM
+        weiit_ump_groupon
+        WHERE state=#{state}
+        <if test="end_time!=null and end_time!=''">
+           AND end_time &lt; #{end_time}
+        </if>
+        <if test="create_time!=null and create_time!=''">
+           AND create_time &gt; #{create_time}
+        </if>
+    </select>
+
+    <select id="selectGrouponById" resultType="com.weiit.core.entity.E" parameterType="java.lang.String">
+        SELECT
+          groupon_id,virtual_groupon 
+        FROM
+        weiit_ump_groupon
+        WHERE groupon_id=#{_parameter}
+    </select>
+
+    <select id="selectGrouponOrderList" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            ugo.groupon_id,
+            ugo.order_num,
+            ugo.check_num,
+            ugo.item_id,
+            ugo.count,
+            ugo.g_order_id,
+            ugo.pay_price,
+            ugo.pay_time,
+            ugo.user_id,
+            ugo.shop_id,
+            ugo.address_id,
+            ugo.payment_type,
+            ugo.product_id,
+            wp.product_name,
+            wp.smarket_price,
+            wp.product_img,
+            wp.sale_price,
+            wu.user_name , wu.wx_open_id ,
+            info.authorizer_id ,info.authorizer_app_id, info.service_type_info
+        FROM 
+        	weiit_ump_groupon_order ugo, weiit_product wp , weiit_user wu, weiit_weixin_public_info info  
+        WHERE ugo.product_id = wp.product_id and  ugo.user_id=wu.user_id 
+        	and wu.shop_id=info.shop_id and wu.open_id_type=info.service_type_info  
+         	and ugo.state=#{state} 
+        <if test="end_time!=null and end_time!=''">
+           AND ugo.end_time &lt; #{end_time}
+        </if>
+        <if test="groupon_id!=null and groupon_id!=''">
+          AND  ugo.groupon_id = #{groupon_id}
+        </if>
+        <if test="parent_id!=null and parent_id!=''">
+           AND ugo.parent_id = #{parent_id}
+        </if>
+        <if test="g_order_id!=null and g_order_id!=''">
+           AND (ugo.g_order_id = #{g_order_id} OR ugo.parent_id=#{g_order_id})
+        </if>
+    </select>
+    
+    <select id="selectTemplateOne" resultType="com.weiit.core.entity.E" parameterType="map">
+		select ms.template_msg_id , ms.wx_template_id 
+		from 
+    		weiit_weixin_public_template_type tt , weiit_weixin_public_template_msg ms 
+		where tt.template_type_id=ms.template_type_id 
+			AND ms.state=1 and tt.business_type= #{business_type} 
+            AND tt.template_type = #{template_type} 
+            AND ms.authorizer_id = #{authorizer_id} 
+        order by template_msg_id desc limit 1
+    </select>
+
+
+    <update id="updateGrouponState" parameterType="map">
+		update weiit_ump_groupon
+			SET  state=#{state},update_time=now()
+			WHERE groupon_id=#{groupon_id}
+	</update>
+
+
+    <update id="updateGrouponOrderState" parameterType="map">
+		update weiit_ump_groupon_order
+			SET  state=#{update_state}
+			WHERE 1=1
+			<if test="g_order_id !=null and g_order_id!=''">
+                AND g_order_id=#{g_order_id}
+            </if>
+			<if test="state !=null and state!=''">
+                AND state=#{state}
+            </if>
+			<if test="create_time !=null and create_time!=''">
+                AND create_time=#{create_time}
+            </if>
+
+	</update>
+
+</mapper>

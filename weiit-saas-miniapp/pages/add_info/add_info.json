@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "选择退换物流",
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

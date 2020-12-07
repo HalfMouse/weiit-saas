@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "收支明细",
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

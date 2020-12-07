@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.admin.init.mapper.ArticleMapper">
+
+   <select id="selectList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        select
+            id,
+            title,
+            cover_img,
+            media_cate_id
+        from weiit_init_weixin_media_article
+        <if test="media_cate_id !=null and media_cate_id !=''">
+            where media_cate_id=#{media_cate_id}
+        </if>
+        ORDER BY
+        create_time DESC
+   </select>
+
+
+   <select id="selectSortList"  resultType="com.weiit.core.entity.E"  parameterType="map">
+      select
+          id,
+          cate_name
+      from weiit_init_weixin_media_article_cate
+   </select>
+
+
+
+    <insert id="insert" parameterType="map">
+        INSERT INTO weiit_init_weixin_media_article
+        (
+            title,
+            author,
+            cover_img,
+            model,
+            main_body,
+            create_time,
+            update_time,
+            start_time,
+            end_time,
+            original_link,
+            is_original_link,
+            state,
+            media_cate_id
+        )
+        VALUE
+        (
+            #{title},
+            #{author},
+            #{cover_img},
+            #{model},
+            #{editorValue},
+            now(),
+            now(),
+            #{start_time},
+            #{end_time},
+            #{original_link},
+            #{is_original_link},
+            #{state},
+            #{media_cate_id}
+        )
+    </insert>
+
+
+    <select id="selectArticleInfo"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        select
+            id,
+            title,
+            author,
+            cover_img,
+            main_body,
+            create_time,
+            original_link
+        from weiit_init_weixin_media_article
+        where id=#{articleId}
+    </select>
+
+    <select id="selectOne"  resultType="com.weiit.core.entity.E"  parameterType="map">
+        select
+            id,
+            title,
+            author,
+            cover_img,
+            model,
+            main_body,
+            start_time,
+            end_time,
+            original_link,
+            is_original_link,
+            state,
+            media_cate_id
+        from weiit_init_weixin_media_article
+        where id=#{articleId}
+    </select>
+
+    <delete id="remove" parameterType="map">
+        DELETE FROM weiit_init_weixin_media_article
+        where id=#{articleId}
+    </delete>
+
+    <update id="edit" parameterType="map">
+        update weiit_init_weixin_media_article
+        set
+            title=#{title},
+            cover_img=#{cover_img},
+            author=#{author},
+            model=#{model},
+            start_time=#{start_time},
+            main_body=#{editorValue},
+            end_time=#{end_time},
+            original_link=#{original_link},
+            is_original_link=#{is_original_link},
+            state=#{state},
+            media_cate_id=#{media_cate_id},
+            update_time=now()
+        WHERE id=#{articleId}
+    </update>
+
+    <update id="editSort"   parameterType="map">
+        UPDATE weiit_init_weixin_media_article_cate
+        SET
+        sort_num = #{sort_num}
+        where id=#{cate_id}
+    </update>
+
+
+</mapper>

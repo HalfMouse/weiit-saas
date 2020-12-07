@@ -1,0 +1,7 @@
+<view class='navBoxBox fn-clear'>
+  <!-- <view class='navBox'>
+    <view wx:for='{{bottomMenuList}}' class='bottomNavList' data-url='{{item.target_url}}' data-type='{{item.target_type}}' data-target_id='{{item.target_id}}' bindtap='goPage'>{{item.nav_name}}</view>
+  </view> -->
+  <image class='logoImg' src='../../images/logo.png'></image>
+  <view class='support'>蜗店提供技术支持</view>
+</view>

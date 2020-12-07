@@ -1,26 +1,50 @@
 package com.weiit.web.weixinopen.controller;
 
 
-import cn.binarywang.wx.miniapp.bean.WxMaTemplateMessage;
-import com.github.binarywang.wxpay.bean.order.WxPayNativeOrderResult;
-import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
-import com.github.binarywang.wxpay.exception.WxPayException;
-import com.weiit.resource.common.utils.WeiitQrCodeUtil;
-import com.weiit.web.base.AdminController;
-import com.weiit.web.weixin.util.XMLUtil;
-import com.weiit.web.weixinopen.service.WeixinOpenService;
-import me.chanjar.weixin.common.error.WxErrorException;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import java.io.IOException;
+import java.util.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
+import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import cn.binarywang.wx.miniapp.bean.WxMaMessage;
+import cn.binarywang.wx.miniapp.bean.WxMaTemplateMessage;
+import cn.binarywang.wx.miniapp.bean.template.WxMaTemplateLibraryGetResult;
+import cn.binarywang.wx.miniapp.bean.template.WxMaTemplateLibraryListResult;
+import cn.binarywang.wx.miniapp.bean.template.WxMaTemplateListResult;
+
+import com.github.binarywang.wxpay.bean.notify.WxScanPayNotifyResult;
+import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
+import com.github.binarywang.wxpay.bean.order.WxPayNativeOrderResult;
+import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
+import com.github.binarywang.wxpay.exception.WxPayException;
+import com.github.binarywang.wxpay.util.SignUtils;
+import com.google.gson.Gson;
+import com.weiit.core.entity.E;
+import com.weiit.core.entity.FormMap;
+import com.weiit.resource.common.utils.WeiitQrCodeUtil;
+import com.weiit.web.admin.util.JsonUtil;
+import com.weiit.web.base.AdminController;
+import com.weiit.web.base.FrontController;
+import com.weiit.web.weixin.util.XMLUtil;
+import com.weiit.web.weixinopen.service.WeixinOpenService;
+
+import me.chanjar.weixin.common.error.WxErrorException;
+import me.chanjar.weixin.mp.bean.kefu.WxMpKefuMessage;
+import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
+import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
+import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
+import me.chanjar.weixin.mp.bean.result.WxMpUser;
+import me.chanjar.weixin.open.api.WxOpenService;
+import me.chanjar.weixin.open.bean.message.WxOpenXmlMessage;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author <a href="https://github.com/007gzs">007</a>
@@ -94,11 +118,42 @@ public class WeixinPayController extends AdminController{
          }
    	}
 
+//    @ResponseBody
+//   	@RequestMapping(value = "/findTemplateLibraryKeywordList")
+//   	public List<WxMaTemplateLibraryGetResult.KeywordInfo> findTemplateLibraryKeywordList(String id)  {
+//		try {
+//			WxMaTemplateLibraryGetResult wxMaTemplateListResult =wxOpenService.getOpenConfig().getWxOpenComponentService().getWxMaServiceByAppid("wxdde6d44348f138ca").getTemplateService().findTemplateLibraryKeywordList(id);
+//
+//			List<WxMaTemplateLibraryGetResult.KeywordInfo> list = wxMaTemplateListResult.getKeywordList();
+//			for (WxMaTemplateLibraryGetResult.KeywordInfo keywordInfo :list){
+//				System.out.println("ID:"+keywordInfo.getKeywordId());
+//				System.out.println("名称"+keywordInfo.getName());
+//				System.out.println("示例"+keywordInfo.getExample());
+//			}
+//			return list;
+//		} catch (WxErrorException e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
+//
+//
+//    @ResponseBody
+//   	@RequestMapping(value = "/addTemplate")
+//   	public void addTemplate(String id)  {
+//		try {
+//
+//			String string ="[2,4,6,19,15]";
+//
+//			List<Integer> list = JsonUtil.convertValue(string,List.class);
+//			wxOpenService.getOpenConfig().getWxOpenComponentService().getWxMaServiceByAppid("wxdde6d44348f138ca").getTemplateService().addTemplate("AT0310",list);
+//
+//
+//		} catch (WxErrorException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
-   	/**
-	 * 发送模板消息
-	 *
-	 * */
     @ResponseBody
    	@RequestMapping(value = "/sendTemplateMsg")
    	public void sendTemplateMsg() throws WxErrorException {
@@ -116,6 +171,19 @@ public class WeixinPayController extends AdminController{
 				.data(list).build();
 		wxOpenService.getInstance(null).getWxOpenComponentService().getWxMaServiceByAppid("wxdde6d44348f138ca").getMsgService().sendTemplateMsg(wxMaTemplateMessage);
 	}
+
+//	public static void main(String[] args) {
+//		Map param = new HashMap();
+//		param.put("keyword1","x");
+//		param.put("keyword2","xxx");
+////		Set set = param.keySet();
+////		System.out.printf("===");
+//		for (Object key : param.keySet()) {
+//			System.out.println(key + ":" + param.get(key));
+//		}
+//
+//	}
+
 
 
 }

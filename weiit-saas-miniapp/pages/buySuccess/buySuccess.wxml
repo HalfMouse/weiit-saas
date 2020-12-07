@@ -1,0 +1,16 @@
+<view class='viewBox'>
+  <view class='iconfont icon-xuanzhong'></view>
+  <view class='buySuccess'>购买成功</view>
+  <view class='amount'>￥{{data.pay_price}}</view>
+  <view class='orderAmount'>订单金额:{{data.pay_price}}</view>
+</view>
+<view class='list'>
+  <view class='listLeft'>付款方式</view>
+  <view class='listRight'>{{data.payment_type}}</view>
+</view>
+<view class='list'>
+  <view class='listLeft'>付款金额</view>
+  <view class='listRight'>￥{{data.pay_price}}</view>
+</view>
+<view class='confirm' bindtap='confirm' style='background-color:{{btnColor.global_bg1}}'>确定</view>
+<sliders></sliders>

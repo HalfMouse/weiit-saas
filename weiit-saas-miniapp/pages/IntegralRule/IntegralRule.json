@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "积分规则",
+  "usingComponents": {
+    "sliders": "../../assembly/slider/slider"
+  }
+}

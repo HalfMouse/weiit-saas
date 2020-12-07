@@ -1,0 +1,169 @@
+.mint-checkbox-input:checked + .mint-checkbox-core {
+    background-color: #FFDC4B;
+    border-color: #FFDC4B;
+}
+.mint-checkbox-input:checked + .mint-checkbox-core::after{
+    border-color: #333;
+}
+.mint-checkbox-core{
+    width: 0.36rem;
+    height: 0.36rem;
+}
+.mint-checklist-label{
+    padding: 0;
+}
+.mint-checklist-title{
+    margin:0;
+}
+.picker-item{
+    color:#666;
+    font-size: 0.32rem;
+}
+.mint-cell{
+    min-height: 0.72rem;
+}
+.mint-cell-text{
+    font-size: 0.32rem;
+    color: #666;
+    line-height: 0.30rem;
+}
+.mint-cell-wrapper{
+    border:none 0;
+    // min-height: 5rem;
+    background-image: none;
+    padding: 0 0.2rem;
+}
+.picker-item.picker-selected{
+    color: #666;
+}
+.picker-slot.picker-slot-divider{
+    color: #666;
+}
+.picker-selected{
+    font-size:0.44rem;
+    color: #333;
+}
+.mint-navbar .mint-tab-item{
+    font-size: 0.3rem;
+}
+/* TabContainer */
+.mint-navbar .mint-tab-item.is-selected {
+    border-bottom: 3px solid #EC534E;
+    color: #EC534E;
+    margin-bottom: -3px;
+}
+.mint-cell:last-child{
+    background-image: none; 
+    background-image: none; 
+}
+/* msgbox */
+.mint-msgbox-content{
+    border:none 0
+}
+.mint-msgbox{
+    width: 4.6rem;
+}
+.mint-msgbox-btns{
+    height: auto;
+    line-height: auto;
+    display: table;
+    margin: 0 auto 0.28rem;
+}
+.cancelButton1,.cancelButton{
+    float: left;
+    text-align: center;
+    width: 1.88rem;
+    height: 0.63rem;
+    border: 1px solid #666;
+    border-radius: 0.1rem;
+    color: #333;
+    font-size: 0.3rem;
+    margin-right: 0.2rem;
+    line-height: 0.63rem;
+}
+.cancelButton1{
+    border: 1px solid #EC534E;
+    color: #EC534E;
+}
+.confirmButton{
+    float:left;
+    text-align: center;
+    width: 1.88rem;
+    height: 0.63rem;
+    background: #ffdc4b;
+    border-radius: 0.1rem;
+    color: #333;
+    font-size: 0.3rem;
+    line-height: 0.63rem;
+}
+// switch
+.mint-switch{
+    position: absolute;
+    right: 0.1rem;
+    top: 0.18rem;
+    transform: scale(0.9);
+}
+.mint-switch-input:checked + .mint-switch-core{
+    border-color: #09BB07;
+    background-color: #09BB07;
+}
+
+.mint-msgbox-confirm{
+    color: #333;
+}
+.mint-tab-item-label{
+    font-size: 0.28rem;
+    color: #666;
+    .icon{
+        font-size: 0.2rem;
+    }
+}
+.mint-swipe-indicator{
+    width: 0.1rem;
+    height: 0.1rem;
+    background-color: #fff;
+    opacity: 1;
+}
+.mint-swipe-indicator.is-active{
+    background-color: #EC534E;
+}
+.mint-checkbox-label{
+    float: left;
+    font-size: 0.28rem;
+    color: #666;
+}
+.mint-checkbox{
+    float: left;
+    margin-top: -0.55rem;
+}
+
+.mint-popup-bottom{
+    width: 100%;
+}
+// radio
+.mint-radio-core{
+    width: 0.4rem;
+    height: 0.4rem;
+}
+.mint-radio-core::after{
+    width: 0.28rem;
+    height: 0.28rem;
+    left: 0.04rem;
+    top: 0.04rem;
+}
+.mint-radio-input:checked + .mint-radio-core {
+    background-color: #fff;
+    border:1px solid #FFDC4B;
+}
+.mint-radio-input:checked + .mint-radio-core::after{
+    background-color: #FFDC4B;
+}
+.mint-swipe-item img{
+    width: 100%;
+}
+.mint-toast{
+    z-index: 100000;
+}
+.mint-tab-container-item{
+    height: 100%;
+}

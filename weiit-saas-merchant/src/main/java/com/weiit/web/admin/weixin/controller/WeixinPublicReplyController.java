@@ -4,15 +4,28 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.web.admin.weixin.service.WeixinMediaImagesService;
+import com.weiit.web.admin.weixin.service.WeixinMediaArticleService;
 import com.weiit.web.admin.weixin.service.WeixinPublicReplyService;
+import com.weiit.web.admin.weixin.util.WeixinImagesTextConstant;
+import com.weiit.web.admin.weixin.util.WeixinPublicReplyConstant;
 import com.weiit.web.base.AdminController;
+
+import net.sf.json.JSONObject;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 微信公众号自动回复控制器

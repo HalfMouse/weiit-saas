@@ -1,0 +1,47 @@
+
+/* 客服电话 */
+
+.tel {
+  width: 96%;
+  padding: 20rpx 1%;
+  margin: 0 auto;
+  background-color: #fff;
+  line-height: 60rpx;
+  font-size: 30rpx;
+  color: #999;
+}
+
+.tel .iconfont {
+  margin: 0 10rpx;
+}
+.icon-dianhua1{
+  margin-top: 6rpx;
+}
+.tel .icon-you {
+  float: right;
+}
+
+/* iconfont */
+
+@font-face {
+  font-family: 'iconfont'; /* project id 655959 */
+  src: url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.eot');
+  src: url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.eot?#iefix') format('embedded-opentype'),
+         url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.woff') format('woff'),
+         url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.ttf') format('truetype'),
+         url('//at.alicdn.com/t/font_655959_jqqpwaadg6ojq0k9.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-dianhua1:before {
+  content: "\e64a";
+}
+.icon-you:before {
+  content: "\e641";
+}

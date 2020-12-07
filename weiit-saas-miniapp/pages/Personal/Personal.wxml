@@ -1,0 +1,63 @@
+<!--pages/Personal/Personal.wxml-->
+<!-- 个人中心 -->
+<view class='Personal' wx:if='{{load}}'>
+  <!-- 登录注册 -->
+  <view class='login'>
+    <view class='package'>
+      <image src='{{content.user_img}}' class="user_img" bindtap='setup'></image>
+      <!-- <image src='{{content.user_img}}' class="user_img"></image> -->
+      <view class='user_name'>{{content.user_name}}</view>
+      <view class='iconfont icon-erweima'></view>
+      <!-- <view class='iconfont icon-erweima' bindtap='toForward'></view> -->
+    </view>
+    <view class='personal' data-index='0' bindtap='my_btn' data-name='订单'>
+      <view>{{content.myOrderCount}}</view>
+      <view>我的订单</view>
+    </view>
+    <view class='personal' data-index='1' bindtap='my_btn'>
+      <view>{{content.balance}}</view>
+      <view>我的钱包</view>
+    </view>
+    <view class='personal' data-index='2' bindtap='my_btn'>
+      <view>{{content.integral}}</view>
+      <view>我的积分</view>
+    </view>
+  </view>
+  <!-- 支付操作选项 -->
+  <view class='payment'>
+    <block wx:for='{{menus}}'>
+      <form bindsubmit='click_menu' report-submit='true' class='menu'>
+        <button plain='true' form-type='submit' class='menu_btn' data-id='{{index}}'></button>
+        <view class='iconfont {{item.icon}}'></view>
+        <view>{{item.name}}</view>
+      </form>
+    </block>
+  </view>
+  <!-- 功能操作选项 -->
+  <view class='functions'>
+    <block wx:for="{{option_btn}}">
+      <form bindsubmit='option_btn' report-submit='true' class='option'>
+        <view class='option_fun'>
+          <button plain='true' form-type='submit' class='option_btn' data-id='{{index}}'></button>
+          <image class='option_img' src='{{item.icon}}'></image>
+          <view class='option_name'>{{item.name}}</view>
+          <view class='right_arrow iconfont icon-youjiantouda'></view>
+        </view>
+      </form>
+    </block>
+    <block>
+        <view class='option_fun' bindtap='option_btns' data-type="fight" wx:if="{{haveFight}}">
+          <image class='option_img option_fight' src='/images/fight.png'></image>
+          <view class='option_name'>我的拼团</view>
+          <view class='right_arrow iconfont icon-youjiantouda'></view>
+        </view>
+    </block>
+    <block>
+        <view class='option_fun cut_btns' bindtap='option_btns' data-type="cut" wx:if="{{haveCut}}">
+          <image class='option_img option_fight1' src='/images/cutdown.png'></image>
+          <view class='option_name'>我的砍价</view>
+          <view class='right_arrow iconfont icon-youjiantouda'></view>
+        </view>
+    </block>
+  </view>
+</view>

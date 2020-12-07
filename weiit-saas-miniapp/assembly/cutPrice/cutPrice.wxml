@@ -1,0 +1,38 @@
+<!-- <view class='cut_title' wx:if="{{pageParam.haveTitle=="yes"}}">一
+  <text class='title_title'>限时砍价</text>一
+  <view class='cut_more' bindtap='look_orr' data-value='cut'>更多
+    <text class='iconfont icon-youjiantouda'></text>
+  </view>
+</view> -->
+<view class='cut_title' wx:if="{{pageParam.haveTitle == 'yes'}}">一
+  <text class='title_title'>限时砍价</text>一
+  <view class='cut_more' bindtap='look_orr' data-value='cut'>更多
+    <text class='iconfont icon-youjiantouda'></text>
+  </view>
+</view>
+<!-- <block wx:if='{{pageParam.goodStyle=="big"}}'> -->
+  <view class='cut_list' wx:for='{{cutContent}}' bindtap='helpMe' data-id='{{item.bargain_id}}' data-value='helpMe'>
+    <image class='cutList_img' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+    <view class='cutList_title'>{{item.product_name}}</view>
+    <view class='cutList_money'>￥{{item.min_price}}</view>
+    <block>
+      <view class='cut_surplus' wx:if='{{item.stock>999}}'>剩余999件</view>
+      <view class='cut_surplus' wx:else>剩余{{item.stock}}件</view>
+    </block>
+    <view class='{{pageParam.btnStyle=="style1"?"cut_price":"cut_prices"}}'>砍价</view>
+  </view>
+<!-- </block>
+<block wx:if='{{pageParam.goodStyle=="detail"}}'>
+  <view class='cutList_list' wx:for='{{cutContent}}'>
+    <image class='cut_list_img' src='http://wstore-1255653546.image.myqcloud.com{{item.product_img}}'></image>
+    <view class='cut_time_box'>
+      <text>{{item.hour}}</text>:
+      <text>{{item.minute}}</text>:
+      <text>{{item.secondr}}</text>
+    </view>
+    <view class='cut_list_title'>{{item.product_name}}</view>
+    <view class='cut_list_money'>￥{{item.max_price}}</view>
+    <view class='cut_list_surplus'>剩余{{item.stock}}件</view>
+    <view class='cut_list_btn' bindtap='helpMe' data-id='{{item.bargain_id}}' data-value='helpMe'>帮我砍价</view>
+  </view>
+</block> -->

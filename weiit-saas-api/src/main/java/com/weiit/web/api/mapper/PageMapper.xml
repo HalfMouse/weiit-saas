@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.weiit.web.api.mapper.PageMapper">
+
+    <!-- 装修微页面  -->
+    <select id="selectList" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            page_id AS validate_id,
+            page_name,
+            page_desc,
+            bgcolor,
+            create_time,
+            update_time,
+            shop_id
+        FROM
+          weiit_page
+        WHERE
+          is_deleted = 0
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+        <if test="page_name !=null and page_name !='' ">
+            and page_name  like concat('%', #{page_name}, '%')
+        </if>
+        order by create_time desc
+    </select>
+
+
+    <!-- 装修微页面  -->
+    <select id="selectById" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            page_id AS validate_id,
+            page_name,
+            page_desc,
+            bgcolor,
+            create_time,
+            update_time,
+            shop_id,
+            page_layout
+        FROM
+          weiit_page
+        WHERE
+          is_deleted = 0
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+        <if test="page_id !=null and page_id !='' ">
+            and page_id  =#{page_id}
+        </if>
+        <if test="is_default !=null and is_default !='' and page_id ==null and page_id == ''">
+            and is_default  =#{is_default}
+        </if>
+        <if test="is_default !=null and is_default !=''">
+            and is_default  =#{is_default}
+        </if>
+        order by create_time desc limit 1
+    </select>
+
+    <select id="selectOne" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            page_id AS validate_id,
+            page_name,
+            page_desc,
+            bgcolor,
+            create_time,
+            update_time,
+            shop_id
+        FROM
+          weiit_page
+        where page_id = #{validate_id}
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+    </select>
+
+    <update id="edit" parameterType="map">
+        UPDATE weiit_page
+        SET
+            page_name = #{page_name},
+            page_desc = #{page_desc},
+            bgcolor = #{bgcolor},
+            update_time = now()
+        WHERE
+            page_id = #{validate_id}
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+    </update>
+
+    <insert id="insert" parameterType="map">
+        INSERT INTO weiit_page (
+            page_name,
+            page_desc,
+            bgcolor,
+            is_deleted,
+            create_time,
+            update_time,
+            shop_id
+        )
+        VALUES
+        (
+        #{page_name}, #{page_desc},#{bgcolor},0,now(),now(),#{shop_id}
+        );
+        <selectKey resultType="int" keyProperty="page_id" >
+            select LAST_INSERT_ID()  page_id
+        </selectKey>
+    </insert>
+
+    <delete id="remove" parameterType="map">
+        delete from weiit_page
+        where  page_id=#{validate_id}
+        <if test=" shop_id !=null and shop_id !='' ">
+            and shop_id = #{shop_id}
+        </if>
+    </delete>
+
+    <select id="selectPageBottomMenuByShopId" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            nav_name,
+            wi.url_pattern target_url,
+            target_id,
+            target_url AS link,
+            target_type
+        FROM
+            weiit_page_bottom_menu bm
+        LEFT JOIN weiit_init_url wi ON bm.target_type = wi.url_type
+        WHERE
+            shop_id =#{shop_id}
+    </select>
+
+    <select id="selectNavInfoByShopId" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+          wp.*,wi.public_path
+        FROM
+        weiit_page_navs wp
+        LEFT JOIN weiit_init_icon wi ON wp.nav_icon_id = wi.id
+        WHERE
+        shop_id =#{shop_id}
+    </select>
+
+    <select id="selectGlobalStyle" resultType="com.weiit.core.entity.E" parameterType="map">
+        SELECT
+            *
+        FROM
+            weiit_page_global
+        WHERE
+            shop_id =#{shop_id}
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,177 @@
+/* pages/IntegralList/IntegralList.wxss */
+.title{
+  background-color: #fff;
+  line-height: 80rpx;
+  font-size: 36rpx;
+  text-align: center;
+}
+.integralList{
+  padding-bottom: 10rpx;
+}
+.integral-item{
+  background-color: #fff;
+  margin-top: 10rpx;
+}
+.order-num{
+  font-size: 30rpx;
+  height: 50rpx;
+  border-bottom: 1px solid #f5f5f5;
+  padding: 0 10rpx;
+}
+.order-num text{
+  line-height: 50rpx;
+}
+.order-num text.order{
+  float: left
+}
+.order-num text.state{
+  float: right;
+  margin-right: 10rpx;
+  color: #999;
+}
+.item-goods{
+  padding: 10rpx;
+}
+.item-pic{
+  float: left;
+  width: 180rpx;
+  height: 180rpx;
+}
+.item-pic image{
+  width: 100%;
+  height: 100%
+}
+.item-mations{
+  float: left;
+  margin-left: 20rpx;
+  width: 510rpx;
+}
+.item-mations .item-title{
+  font-size: 32rpx;
+  line-height: 50rpx;
+  margin-top: 10rpx;
+}
+.item-mations .goods-pays{
+  margin-top: 20rpx;
+}
+.item-mations .goods-pays text{
+  font-size: 30rpx;
+  float: left;
+}
+.item-mations .goods-pays text.integral{
+  margin-left: 20rpx;
+  color: #ec534e;
+}
+.item-mations .goods-pays text.smarket_price{
+  float: right;
+  color: #bbb;
+  margin-right: 10rpx;
+}
+.pay-btn{
+  padding: 15rpx 10rpx;
+  border-top: 1px solid #f5f5f5;
+}
+.go-pay{
+  float: right;
+  font-size: 28rpx;
+  color: #ec534e;
+  border: 1px solid #ec534e;
+  padding: 5rpx 15rpx;
+  border-radius: 10rpx;
+  margin-right: 10rpx;
+}
+
+/* 支付方式 */
+.commodity_attr_box {
+  height: 400rpx
+}
+.wechat {
+  height: 100rpx;
+  position: relative;
+  background-color: #fff;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.radios {
+  width: 34rpx;
+  height: 34rpx;
+  border-radius: 50%;
+  border: 1rpx solid #d5d5d5;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 20rpx;
+  transform: translateY(-50%);
+}
+
+.selectRadio {
+  width: 34rpx;
+  height: 34rpx;
+  border-radius: 50%;
+  border: 1rpx solid #09bb07;
+  background-color: #09bb07;
+  position: absolute;
+  top: 50%;
+  left: 20rpx;
+  transform: translateY(-50%);
+}
+
+.icon-icon-test {
+  font-size: 28rpx;
+  color: #fff;
+  position: absolute;
+  left: 25rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.wechat:last-child {
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.wechat radio {
+  position: absolute;
+  top: 45%;
+  left: 20rpx;
+  transform: scale(0.8) translateY(-50%);
+}
+
+.wechat .img {
+  width: 70rpx;
+  height: 70rpx;
+  position: absolute;
+  left: 90rpx;
+  top: 15rpx;
+}
+
+.wechat .titles {
+  font-size: 30rpx;
+  color: #333;
+  position: absolute;
+  top: 11rpx;
+  left: 180rpx;
+}
+
+.wechat text {
+  font-size: 24rpx;
+  color: #999;
+  position: absolute;
+  bottom: 14rpx;
+  left: 180rpx;
+}
+
+
+/* 确定*/
+
+.confirmBtn {
+  width: 90%;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  background-color: #ffdc4b;
+  border-radius: 10rpx;
+  position: absolute;
+  bottom: 20rpx;
+  left: 5%;
+  color: #fff
+}

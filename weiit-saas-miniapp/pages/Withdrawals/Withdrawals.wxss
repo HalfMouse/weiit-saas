@@ -1,0 +1,74 @@
+/* pages/Withdrawals/Withdrawals.wxss */
+
+.tixian {
+  padding: 20rpx 20rpx 0 20rpx;
+  font-size: 30rpx;
+  color: #333;
+  background-color: #fff;
+}
+
+.money {
+  color: red;
+  font-size: 34rpx;
+  line-height: 90rpx;
+}
+
+input[class=money_num] {
+  height: 100rpx;
+  border-top: 1rpx solid #d3d3d3;
+}
+
+button {
+  width: 92%;
+  margin: 50rpx auto;
+  background-color: #d4d4d4;
+  border: 0;
+}
+
+.gray {
+  background-color: #d4d4d4;
+  color: #000;
+}
+
+.yellow {
+  background-color: #ffdc4b;
+  color: #fff;
+}
+
+.gray:hover {
+  background-color: #d4d4d4;
+  color: #000;
+}
+
+.yellow:hover {
+  background-color: #ffdc4b;
+  color: #fff;
+}
+
+button::after {
+  border: 0;
+}
+
+.phone_one {
+  width: 100%;
+  line-height: 90rpx;
+  border-top: 1rpx solid #d3d3d3;
+}
+
+.phone_personal {
+  position: relative;
+}
+
+.bom {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  top: 50%;
+  right: 30rpx;
+  transform: translateY(-50%);
+}
+
+.select_one {
+  line-height: 90rpx;
+  border-top: 1rpx solid #d3d3d3;
+}

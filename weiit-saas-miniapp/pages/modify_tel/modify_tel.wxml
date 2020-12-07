@@ -1,0 +1,14 @@
+<!-- 修改手机号码 -->
+<view class='Prompt'>修改手机号码前需要先进性身份验证</view>
+<view class='box'>
+  <view class='user_tel'>{{tel}}</view>
+  <view class='shu'></view>
+  <view class='Obtain' wx:if='{{code==true}}' bindtap='obtain'>获取验证码</view>
+  <view class='down' wx:else>过{{time}}秒获取</view>
+</view>
+<input placeholder='请输入验证码' class='Obtain_ipt' bindinput='ipt'></input>
+<view wx:if='{{ipt_con==""}}' class='next gray_btn'>下一步</view>
+<view wx:else class='next yellow_btn' bindtap='next'>下一步</view>
+<view class='prompt'>若原有手机号不能接收验证码，请拨打客服电话
+  <text class='sever_tel' bindtap='dial'>12345678943</text>由客服协助您进行修改</view>
+  <sliders></sliders>

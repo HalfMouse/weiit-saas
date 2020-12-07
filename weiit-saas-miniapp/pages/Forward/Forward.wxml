@@ -1,0 +1,8 @@
+<!--pages/Forward/Forward.wxml-->
+<view class='foward-box'>
+  <view class='show-pic'>
+    <image src="/images/test.jpg" mode="widthFix"></image>
+  </view>
+  <view class='save-btn' bindtap='saveImg'>保存图片</view>
+  <sliders></sliders>
+</view>
