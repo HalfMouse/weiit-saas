@@ -1,13 +1,11 @@
 package com.weiit.web.api.mapper;
 
 
-import java.util.List;
-import java.util.Map;
-
-import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * 登录相关Mapper

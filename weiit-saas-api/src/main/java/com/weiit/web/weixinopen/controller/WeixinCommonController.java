@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,22 +52,6 @@ public class WeixinCommonController extends FrontController{
         }
     }
 
-
-//    @ResponseBody
-//    @RequestMapping(value = "/getTicket")
-//    public String getTicket() {
-//        logger.info("WeixinCommonController-getTicket,【getTicket】");
-//        try {
-//            FormMap formMap = getFormMap();
-//            WxOpenService wxOpenService = weixinOpenService.getInstance(formMap);
-//            String ticket =wxOpenService.getWxOpenComponentService().getWxMpServiceByAppid(formMap.getStr("appid")).getJsapiTicket();
-//
-//            return ticket;
-//        } catch (Exception e) {
-//            this.logger.error(e.getStackTrace().toString());
-//            return toJsonAPI("", "JSSDK环境装载失败", "1008");
-//        }
-//    }
 
 
 }

@@ -6,12 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.resource.common.utils.RedisUtil;
-import com.weiit.web.api.service.GrouponService;
-import com.weiit.web.api.service.MessageService;
-import com.weiit.web.api.service.OrderService;
-import com.weiit.web.api.service.PlatformService;
-import com.weiit.web.api.service.ProductService;
-import com.weiit.web.api.service.UserService;
+import com.weiit.web.api.service.*;
 import com.weiit.web.base.FrontController;
 import com.weiit.web.common.ApiResponseCode;
 import com.weiit.web.common.Constants;
@@ -21,11 +16,7 @@ import com.weiit.web.weixinopen.util.XMLUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +30,7 @@ import java.util.Map;
 
 
 /**
- * 秒杀 活动
+ * 拼团 活动
  *
  * @author tangjian
  * @version 1.0

@@ -1,17 +1,15 @@
 package com.weiit.web.api.service.impl;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import com.weiit.web.api.mapper.BargainMapper;
-import com.weiit.web.api.service.BargainService;
-import org.springframework.stereotype.Service;
-
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.mapper.BaseMapper;
 import com.weiit.core.service.impl.AbstractService;
+import com.weiit.web.api.mapper.BargainMapper;
+import com.weiit.web.api.service.BargainService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 
 /**

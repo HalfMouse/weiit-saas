@@ -41,7 +41,7 @@ public class MessageServiceImpl implements MessageService {
 
     /**
      *
-     *小程序
+     *小程序消息推送
      *
      * */
     public String maPush(String templateId, E keywords, List<String> openIds, FormMap formMap, String page,String emphasisKeyword){
@@ -80,6 +80,8 @@ public class MessageServiceImpl implements MessageService {
 
 
     /**
+     * 公众号消息推送
+     *
      * 参数	是否必填	说明
      * touser	是	接收者openid
      * template_id	是	模板ID
@@ -118,8 +120,6 @@ public class MessageServiceImpl implements MessageService {
                 continue;
             }
         }
-
-
         return null;
     }
 
@@ -153,15 +153,5 @@ public class MessageServiceImpl implements MessageService {
         return validFormId;
     }
 
-
-    public static void main(String[] args) {
-        String ss = "撒谎那个破|weiitSplitsdajkshdk";
-        if (ss.contains(Constants.WEIITSPLIT)){
-            System.out.println("true");
-        }
-        String [] s = ss.split(Constants.WEIITSPLIT);
-        System.out.println(s[1]);
-        System.out.println(s[0]);
-    }
 
 }

@@ -41,9 +41,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * @author <a href="https://github.com/007gzs">007</a>
- */
+
 @RestController
 @RequestMapping("/weixinopen/pay")
 public class WeixinPayController extends AdminController{

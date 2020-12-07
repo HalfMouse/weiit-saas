@@ -1,17 +1,13 @@
 package com.weiit.web.util;
 
-  
-import java.util.HashMap;  
-import java.util.Map;  
-  
 
-
-
-import com.auth0.jwt.JWTSigner;  
-import com.auth0.jwt.JWTVerifier;  
-import com.auth0.jwt.internal.com.fasterxml.jackson.databind.ObjectMapper;  
-import com.weiit.core.entity.E;
+import com.auth0.jwt.JWTSigner;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.internal.com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.binary.Base64;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * JWT工具类

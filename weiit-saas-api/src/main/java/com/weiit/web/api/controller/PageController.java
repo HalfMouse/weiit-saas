@@ -7,18 +7,18 @@ import com.weiit.web.api.service.UserService;
 import com.weiit.web.base.FrontController;
 import com.weiit.web.common.ApiResponseCode;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
 /**
- * 微页面相关
+ * 微页面
  *
+ * @author tangjian
  * @version 1.0
- * @company http://www.wei-it.com 微邦互联
+ * @date：2018年5月7日 上午2:01:43
+ * @company http://www.wei-it.com
  */
 @RestController
 @RequestMapping(value = "api/page")

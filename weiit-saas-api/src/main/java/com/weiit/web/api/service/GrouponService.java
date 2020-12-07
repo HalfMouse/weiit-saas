@@ -3,7 +3,6 @@ package com.weiit.web.api.service;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.service.BaseService;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

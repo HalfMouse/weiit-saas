@@ -6,11 +6,9 @@ import com.weiit.core.mapper.BaseMapper;
 import com.weiit.core.service.impl.AbstractService;
 import com.weiit.web.api.mapper.GrouponMapper;
 import com.weiit.web.api.service.GrouponService;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import javax.annotation.Resource;
 import java.util.List;

@@ -1,8 +1,10 @@
 package com.weiit.web.weixinopen.controller;
 
 
+import com.weiit.core.entity.FormMap;
+import com.weiit.resource.common.utils.RedisUtil;
 import com.weiit.web.common.RedisKey;
-//import me.chanjar.weixin.common.error.WxErrorException;
+import com.weiit.web.weixinopen.service.WeixinOpenService;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.bean.kefu.WxMpKefuMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
@@ -12,30 +14,19 @@ import me.chanjar.weixin.open.api.WxOpenService;
 import me.chanjar.weixin.open.bean.message.WxOpenXmlMessage;
 import me.chanjar.weixin.open.bean.result.WxOpenAuthorizerInfoResult;
 import me.chanjar.weixin.open.bean.result.WxOpenQueryAuthResult;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.weiit.core.entity.FormMap;
-import com.weiit.resource.common.utils.RedisUtil;
-import com.weiit.web.weixinopen.service.WeixinOpenService;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 
+
 /**
- * @author <a href="https://github.com/007gzs">007</a>
  *
  *
  * demo

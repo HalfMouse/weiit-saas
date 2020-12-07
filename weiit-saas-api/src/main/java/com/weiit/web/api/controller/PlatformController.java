@@ -8,11 +8,7 @@ import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.resource.common.utils.RedisUtil;
 import com.weiit.resource.common.utils.WeiitUtil;
-import com.weiit.web.api.service.IntegralService;
-import com.weiit.web.api.service.MessageService;
-import com.weiit.web.api.service.PageService;
-import com.weiit.web.api.service.PlatformService;
-import com.weiit.web.api.service.UserService;
+import com.weiit.web.api.service.*;
 import com.weiit.web.base.FrontController;
 import com.weiit.web.common.ApiResponseCode;
 import com.weiit.web.common.FormTemplateVO;
@@ -27,12 +23,7 @@ import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import me.chanjar.weixin.open.api.WxOpenService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,12 +32,16 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+/**
+ * 小程序控制
+ *
+ * @author tangjian
+ * @version 1.0
+ * @date：2018年5月7日 上午2:01:43
+ * @company http://www.wei-it.com
+ */
 
 @Controller
 @RequestMapping(value = "/api")

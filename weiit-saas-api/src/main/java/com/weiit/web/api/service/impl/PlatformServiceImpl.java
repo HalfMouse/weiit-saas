@@ -1,31 +1,27 @@
 package com.weiit.web.api.service.impl;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.binarywang.wxpay.exception.WxPayException;
+import com.weiit.core.entity.E;
+import com.weiit.core.entity.FormMap;
+import com.weiit.core.mapper.BaseMapper;
+import com.weiit.core.service.impl.AbstractService;
 import com.weiit.resource.common.utils.RedisUtil;
 import com.weiit.resource.common.utils.WeiitUtil;
+import com.weiit.web.api.mapper.PlatformMapper;
 import com.weiit.web.api.service.PlatformService;
 import com.weiit.web.api.service.UserService;
 import com.weiit.web.common.RedisKey;
-
 import com.weiit.web.weixinopen.service.WeixinOpenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.weiit.core.entity.E;
-import com.weiit.core.entity.FormMap;
-import com.weiit.core.mapper.BaseMapper;
-import com.weiit.core.service.impl.AbstractService;
-import com.weiit.web.api.mapper.PlatformMapper;
+import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 @Transactional(readOnly=false)//需要事务操作必须加入此注解
@@ -98,15 +94,6 @@ public class PlatformServiceImpl extends AbstractService implements PlatformServ
 
 	@Override
 	public E getPayInfoByOpenId(FormMap formMap) {
-//		//获取用户信息
-//		E userInfo = userService.selectUserInfoByOpenId(formMap);
-//		if (userInfo==null){
-//			return null;
-//		}
-//		if (userInfo.getInt("open_id_type")==1){
-//			//服务号
-//			formMap.put("service_type_info",2);
-//		}
 
 		return platformMapper.getPayInfoByOpenId(formMap);
 	}

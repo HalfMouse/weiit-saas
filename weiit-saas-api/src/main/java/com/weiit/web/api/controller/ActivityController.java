@@ -20,8 +20,14 @@ import java.util.List;
 import java.util.Map;
 
 
+
 /**
- * 活动接口
+ * 活动
+ *
+ * @author tangjian
+ * @version 1.0
+ * @date：2018年5月7日 上午2:01:43
+ * @company http://www.wei-it.com
  */
 
 @Controller

@@ -108,11 +108,6 @@ public class FrontController extends BaseController {
 		return formMap;
 	}
 		
-	//验证jwt token是否合法，合法返回user对象
-//	public E getUserInfo(String token){
-//		E user=JWTUtil.unsign(token, E.class);
-//		return user;
-//	}
 
 	public  <T> T convertJson(String json,Class clazz){
 		return (T) JSON.parseObject(json,clazz);

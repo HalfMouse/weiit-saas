@@ -1,26 +1,35 @@
 package com.weiit.web.api.controller;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.weiit.core.entity.E;
+import com.weiit.core.entity.FormMap;
+import com.weiit.web.api.service.*;
+import com.weiit.web.base.FrontController;
+import com.weiit.web.common.ApiResponseCode;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.annotation.Resource;
 
-import com.github.pagehelper.PageInfo;
-import com.weiit.web.api.service.*;
-import com.weiit.web.common.ApiResponseCode;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import com.github.pagehelper.PageHelper;
-import com.weiit.core.entity.E;
-import com.weiit.core.entity.FormMap;
-import com.weiit.web.base.FrontController;
-
+/**
+ * 商品相关接口
+ *
+ * @author tangjian
+ * @version 1.0
+ * @date：2018年5月7日 上午2:01:43
+ * @company http://www.wei-it.com
+ */
 
 @Controller
 @RequestMapping(value = "/api/product")

@@ -1,24 +1,22 @@
 package com.weiit.web.api.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.weiit.core.entity.E;
+import com.weiit.core.entity.FormMap;
+import com.weiit.core.mapper.BaseMapper;
+import com.weiit.core.service.impl.AbstractService;
 import com.weiit.resource.common.utils.DateUtil;
 import com.weiit.resource.common.utils.WeiitUtil;
+import com.weiit.web.api.mapper.OrderMapper;
 import com.weiit.web.api.mapper.ProductMapper;
 import com.weiit.web.api.service.OrderService;
 import com.weiit.web.api.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.weiit.core.entity.E;
-import com.weiit.core.entity.FormMap;
-import com.weiit.core.mapper.BaseMapper;
-import com.weiit.core.service.impl.AbstractService;
-import com.weiit.web.api.mapper.OrderMapper;
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -154,6 +152,7 @@ public class OrderServiceImpl extends AbstractService implements OrderService {
 
 
     /**
+     * 计算邮费
      * address_id  cart_ids
      */
     @Override

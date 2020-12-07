@@ -16,6 +16,7 @@ import java.util.List;
  */
 public interface GrouponMapper extends BaseMapper {
    List<E> selectGrouponDetailList(FormMap formmap);
+
    List<E> selectGrouponNancyList(FormMap formmap);
 
    List<E> grouponListByIds(FormMap formMap);

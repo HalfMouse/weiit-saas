@@ -24,9 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-/**
- * @author <a href="https://github.com/007gzs">007</a>
- */
+
 @Controller
 @RequestMapping("/weixinopen")
 public class WechatApiController {

@@ -18,11 +18,7 @@ import com.weiit.web.weixinopen.util.XMLUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +28,15 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * 用户相关接口
+ *
+ * @author tangjian
+ * @version 1.0
+ * @date：2018年5月7日 上午2:01:43
+ * @company http://www.wei-it.com
+ */
 @Controller
 @RequestMapping(value = "api/user")
 public class UserController extends FrontController {

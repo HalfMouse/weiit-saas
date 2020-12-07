@@ -228,7 +228,6 @@ public class UserServiceImpl extends AbstractService implements UserService {
 //			return;
 //		}
 		userMapper.addUserShopViewLog(formMap);
-//		redisUtil.set(RedisKey.USERVIEWLOG+formMap.getStr("user_id"),formMap.getStr("user_id"), DateUtil.getSurplusSecond());
 	}
 
 	@Override

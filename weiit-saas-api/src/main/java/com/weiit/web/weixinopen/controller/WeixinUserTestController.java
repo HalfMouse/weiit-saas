@@ -1,33 +1,24 @@
 package com.weiit.web.weixinopen.controller;
 
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
-
 import com.weiit.web.base.FrontController;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
-
-//import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.error.WxErrorException;
-import me.chanjar.weixin.mp.bean.kefu.WxMpKefuMessage;
-import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
-import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import me.chanjar.weixin.open.api.WxOpenService;
-import me.chanjar.weixin.open.bean.message.WxOpenXmlMessage;
-
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @author <a href="https://github.com/007gzs">007</a>
- */
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+
+
 @RestController
 @RequestMapping("/weixinopen/notify")
 public class WeixinUserTestController extends FrontController{

@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
 /**
- * Created by 罗鸿强 on 2018/8/15.
- *
- *
- *小程序注册接口
+ * Created by 罗鸿强
+ * 小程序注册引流接口
+ * @version 1.0
+ * @date：2018年5月7日 上午2:01:43
+ * @company http://www.wei-it.com
  */
 @RestController
 @RequestMapping(value = "/api/mini")
@@ -67,17 +67,11 @@ public class RegisterController extends FrontController{
 
 
         String [] msg ={code,"10"};
-        boolean sendState= WeiitUtil.sendMobileMessage(formMap.getStr("mobilePhone"), "174854", msg);
+        WeiitUtil.sendMobileMessage(formMap.getStr("mobilePhone"), "174854", msg);
 
         return toJsonAPI(ApiResponseCode.SUCCESS);
     }
 
-
-    public static void main(String[] args) throws UnsupportedEncodingException {
-        String [] msg ={"123456"};
-        boolean sendState= WeiitUtil.sendMobileMessage("18520852017", "174942", msg);
-
-    }
 
     /**
      * 注册开通15天的商户
@@ -107,28 +101,11 @@ public class RegisterController extends FrontController{
         formMap.set("description",formMap.getStr("type")==null?"小程序官网注册":"服务号官网注册");
         formMap.set("version_expire_time", DateUtil.addDate(5,new Date(),15));
         formMap.set("version_num", "JCB001");
-
-
         registerService.insetMerch(formMap);
 
-
         String [] msg ={password};
-        boolean sendState= WeiitUtil.sendMobileMessage(formMap.getStr("mobilePhone"), "174942", msg);
+        WeiitUtil.sendMobileMessage(formMap.getStr("mobilePhone"), "174942", msg);
 
-
-        //发送运营中心
-//        redisUtil.lSet(RedisKey.MERCHINFO,formMap.getStr("mobilePhone"));
-
-        //五个一组发送
-//        if(redisUtil.lGetListSize(RedisKey.MERCHINFO)>4){
-//            formMap.put("business_type","5");
-//            E notifyPhone = registerService.selectNotifyPhoneByBusinessType(formMap);
-//            String [] notifyMsg={"官网注册商户开通,商户账户为:"+redisUtil.lGet(RedisKey.MERCHINFO,0,-1).toString()};
-//            WeiitUtil.sendMobileMessage(notifyPhone.getStr("notify_phone"), "147671", notifyMsg);
-//
-//            //清空list
-//            redisUtil.ltrim(RedisKey.MERCHINFO,1,0);
-//        }
         formMap.put("business_type","5");
         E notifyPhone = registerService.selectNotifyPhoneByBusinessType(formMap);
         String [] notifyMsg={"官网注册商户开通,商户账户为:"+formMap.getStr("mobilePhone")};
@@ -138,34 +115,5 @@ public class RegisterController extends FrontController{
 
         return toJsonAPI(ApiResponseCode.SUCCESS);
     }
-
-
-//    @RequestMapping("/test")
-//    public void test(){
-//        redisUtil.lSet(RedisKey.MERCHINFO,RandomStringUtils.randomNumeric(6));
-//
-//        if(redisUtil.lGetListSize(RedisKey.MERCHINFO)>4){
-//            String [] notifyMsg={"小程序官网注册商户开通,商户账户为:"+redisUtil.lGet(RedisKey.MERCHINFO,0,-1).toString()};
-//
-//            System.out.println(redisUtil.lGet(RedisKey.MERCHINFO,0,-1).toString());
-//            //清空list
-//            redisUtil.ltrim(RedisKey.MERCHINFO,1,0);
-//        }
-//    }
-
-
-
-    /**
-     * 事务测试 ok
-     *
-     * */
-//    @RequestMapping("transaction")
-//    public void transaction(){
-//        FormMap formMap = new FormMap();
-//        testService.insertUser(formMap);
-//
-//        accountService.insertAccount();
-//    }
-
 
 }
