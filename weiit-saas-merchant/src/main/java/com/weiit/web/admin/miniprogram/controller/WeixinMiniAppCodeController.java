@@ -7,11 +7,13 @@ import cn.binarywang.wx.miniapp.bean.code.*;
 import cn.binarywang.wx.miniapp.config.WxMaConfig;
 import cn.binarywang.wx.miniapp.config.WxMaInMemoryConfig;
 import cn.binarywang.wx.miniapp.util.json.WxMaGsonBuilder;
+
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sun.imageio.plugins.common.ImageUtil;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.core.view.UIview;
 import com.weiit.resource.common.utils.RedisUtil;
 import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.resource.common.utils.XlsExcelUtil;
@@ -21,9 +23,9 @@ import com.weiit.web.admin.weixin.mapper.WeixinPublicMapper;
 import com.weiit.web.admin.weixin.service.WeixinPublicService;
 import com.weiit.web.base.AdminController;
 import com.weiit.web.base.FrontController;
-import com.weiit.web.base.UIview;
 import com.weiit.web.common.Constants;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
+
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -32,6 +34,7 @@ import me.chanjar.weixin.mp.bean.WxMpMassOpenIdsMessage;
 import me.chanjar.weixin.open.api.WxOpenService;
 import me.chanjar.weixin.open.bean.result.WxOpenAuthorizerInfoResult;
 import me.chanjar.weixin.open.bean.result.WxOpenQueryAuthResult;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -49,6 +52,7 @@ import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;

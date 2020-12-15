@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.weiit.web.admin.util.DesUtil;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -27,10 +28,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap; 
+import com.weiit.core.view.UIview;
 import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.file.service.PictureService;
 import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
 
 
 /**

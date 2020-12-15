@@ -4,13 +4,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap; 
+import com.weiit.core.view.UIview;
 import com.weiit.web.admin.user.service.UserSignService;
 import com.weiit.web.admin.weixin.service.WeixinMediaImagesService;
 import com.weiit.web.admin.weixin.service.WeixinMediaArticleService;
 import com.weiit.web.admin.weixin.service.WeixinPublicBatchSendingService;
 import com.weiit.web.admin.weixin.service.WeixinPublicReplyService;
 import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
 
 import me.chanjar.weixin.common.api.WxConsts;

@@ -106,19 +106,6 @@ public class AdminController extends BaseController {
 				SerializerFeature.DisableCircularReferenceDetect);
 	}
 
-	// 自定义视图,默认方法
-	public UIview UIView(String viewName,boolean isRedirect) {
-		if(isRedirect){
-			RedirectAttributes attr=getRedirectAttribute();
-			UIview view=new UIview(attr);
-			view.setViewName("redirect:"+viewName);
-			return view;
-		}else{
-		    UIview view=new UIview();
-		    view.setViewName(viewName);
-		    return view;
-		}
-	}
 	
 	//重写BaseController的方法。在原有获取的参数集合里面，统一加上shop_id、app_id参数
 	@Override

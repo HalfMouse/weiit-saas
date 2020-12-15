@@ -7,6 +7,7 @@ import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.pagehelper.PageHelper;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.core.view.UIview;
 import com.weiit.resource.common.utils.RedisUtil;
 import com.weiit.resource.common.utils.WeiitQrCodeUtil;
 import com.weiit.web.admin.analyse.service.AnalyseService;
@@ -17,7 +18,6 @@ import com.weiit.web.admin.ump.service.GrouponService;
 import com.weiit.web.admin.ump.service.UmpService;
 import com.weiit.web.admin.util.DesUtil;
 import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
 import com.weiit.web.weixin.util.XMLUtil;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
 

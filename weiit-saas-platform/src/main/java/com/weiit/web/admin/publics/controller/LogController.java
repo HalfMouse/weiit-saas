@@ -13,9 +13,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo; 
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.core.view.UIview;
 import com.weiit.web.admin.publics.service.LogService;
 import com.weiit.web.common.AdminController;
-import com.weiit.web.common.UIview;
 
 /**
  * 日志管理控制器

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.weiit.resource.common.utils.RedisUtil;
 import com.weiit.web.admin.miniprogram.service.WxMiniProgramService;
 import com.weiit.web.admin.setting.service.SettingService;
+
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.open.api.WxOpenService;
 import me.chanjar.weixin.open.bean.result.WxOpenAuthorizerInfoResult;
@@ -26,9 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageHelper;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap; 
+import com.weiit.core.view.UIview;
 import com.weiit.web.admin.weixin.service.WeixinPublicService;
 import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
 
 

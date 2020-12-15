@@ -3,9 +3,10 @@ package com.weiit.web.admin.shopdesign.controller;
 
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.core.view.UIview;
 import com.weiit.web.admin.shopdesign.service.GlobalStyleService;
 import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

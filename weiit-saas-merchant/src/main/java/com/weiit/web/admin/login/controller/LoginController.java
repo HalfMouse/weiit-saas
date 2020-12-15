@@ -37,6 +37,7 @@ import com.github.binarywang.wxpay.exception.WxPayException;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.utils.MD5Util;
+import com.weiit.core.view.UIview;
 import com.weiit.resource.common.utils.DateUtil;
 import com.weiit.resource.common.utils.RedisUtil;
 import com.weiit.resource.common.utils.WeiitQrCodeUtil;
@@ -45,7 +46,6 @@ import com.weiit.web.admin.login.service.InitService;
 import com.weiit.web.admin.login.service.LoginService;
 import com.weiit.web.admin.weixin.service.WeixinPublicService;
 import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
 import com.weiit.web.weixin.util.XMLUtil;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
 

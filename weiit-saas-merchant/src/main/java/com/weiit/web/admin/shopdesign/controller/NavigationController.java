@@ -4,6 +4,7 @@ package com.weiit.web.admin.shopdesign.controller;
 import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.core.view.UIview;
 import com.weiit.resource.common.utils.RedisUtil;
 import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.miniprogram.service.WxMiniProgramService;
@@ -15,9 +16,8 @@ import com.weiit.web.admin.shopdesign.service.PageNavService;
 import com.weiit.web.admin.shopdesign.service.PageService;
 import com.weiit.web.admin.util.JsonUtil;
 import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
-
 import com.weiit.web.common.RedisKey;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;

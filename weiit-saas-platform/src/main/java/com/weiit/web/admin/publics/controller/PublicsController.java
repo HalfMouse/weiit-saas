@@ -33,7 +33,6 @@ import com.weiit.core.entity.FormMap;
 import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.publics.service.PublicsService;
 import com.weiit.web.common.AdminController;
-import com.weiit.web.common.UIview;
  
 /**
  * 公共服务控制器

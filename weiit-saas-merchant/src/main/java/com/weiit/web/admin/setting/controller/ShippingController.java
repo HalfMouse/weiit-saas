@@ -12,10 +12,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap; 
+import com.weiit.core.view.UIview;
 import com.weiit.web.admin.publics.service.PublicsService;
 import com.weiit.web.admin.setting.service.ShippingService;
 import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
 
 /**
  * 

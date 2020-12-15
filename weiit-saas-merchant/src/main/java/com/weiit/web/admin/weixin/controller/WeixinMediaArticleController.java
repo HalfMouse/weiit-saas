@@ -7,6 +7,7 @@ import com.github.pagehelper.PageInfo;
 import com.mysql.fabric.xmlrpc.base.Array;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.core.view.UIview;
 import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.user.service.UserService;
 import com.weiit.web.admin.user.service.UserSignService;
@@ -14,7 +15,6 @@ import com.weiit.web.admin.weixin.service.WeixinMediaArticleService;
 import com.weiit.web.admin.weixin.service.WeixinMediaImagesService;
 import com.weiit.web.admin.weixin.service.WeixinPublicService;
 import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
 
 import me.chanjar.weixin.common.api.WxConsts;

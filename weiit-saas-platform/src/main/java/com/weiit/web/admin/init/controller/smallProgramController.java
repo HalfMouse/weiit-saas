@@ -2,10 +2,11 @@ package com.weiit.web.admin.init.controller;
 
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.core.view.UIview;
 import com.weiit.web.admin.init.service.smallProgramService;
 import com.weiit.web.common.AdminController;
-import com.weiit.web.common.UIview;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.core.view.UIview;
 import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.product.service.ProductGroupService;
 import com.weiit.web.admin.product.service.ProductService;
@@ -13,7 +14,6 @@ import com.weiit.web.admin.product.service.ProductTagService;
 import com.weiit.web.admin.setting.service.ShippingService;
 import com.weiit.web.admin.util.DesUtil;
 import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;

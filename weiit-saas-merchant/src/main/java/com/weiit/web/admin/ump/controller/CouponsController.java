@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.core.view.UIview;
 import com.weiit.resource.common.utils.WeiitQrCodeUtil;
 import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.publics.mapper.ParameterMapper;
@@ -13,7 +14,6 @@ import com.weiit.web.admin.ump.service.CouponService;
 import com.weiit.web.admin.util.DateUtil;
 import com.weiit.web.admin.util.DesUtil;
 import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
 import com.weiit.web.common.Constants;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
 

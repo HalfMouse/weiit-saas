@@ -2,6 +2,8 @@ package com.weiit.web.common;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.weiit.core.view.UIview;
+
 
 /**
  * @author 半个鼠标

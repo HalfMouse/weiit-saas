@@ -5,15 +5,16 @@ import cn.binarywang.wx.miniapp.api.WxMaTemplateService;
 import cn.binarywang.wx.miniapp.bean.WxMaTemplateMessage;
 import cn.binarywang.wx.miniapp.bean.template.WxMaTemplateAddResult;
 import cn.binarywang.wx.miniapp.bean.template.WxMaTemplateListResult;
+
 import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.core.view.UIview;
 import com.weiit.web.admin.util.JsonUtil;
 import com.weiit.web.admin.weixin.service.WeixinPublicMenuService;
 import com.weiit.web.admin.weixin.service.WeixinPublicService;
 import com.weiit.web.admin.weixin.service.WeixinPublicTemplateMessageService;
 import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
 
 import me.chanjar.weixin.mp.bean.template.WxMpTemplate;

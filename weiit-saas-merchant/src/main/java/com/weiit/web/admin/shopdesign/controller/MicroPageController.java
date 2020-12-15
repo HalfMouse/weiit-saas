@@ -4,10 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.core.view.UIview;
 import com.weiit.web.admin.shopdesign.service.PageService;
 import com.weiit.web.admin.ump.service.UmpService;
 import com.weiit.web.base.AdminController;
-import com.weiit.web.base.UIview;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
+
 import java.util.ArrayList;
 import java.util.List;
 
