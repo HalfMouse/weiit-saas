@@ -487,7 +487,34 @@
 		   <version>2.9.0</version>
 		</dependency>
 
-	</dependencies> 
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>nexus</id>
+			<name>weiit nexus</name>
+			<url>http://nexus.wei-it.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>nexus</id>
+			<name>weiit nexus</name>
+			<url>http://nexus.wei-it.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 
 
    <build>
