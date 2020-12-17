@@ -1,12 +1,4 @@
 package com.weiit.web.admin.init.controller;
-   
-import java.util.List; 
-
-import javax.annotation.Resource;
-
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -15,6 +7,12 @@ import com.weiit.core.entity.FormMap;
 import com.weiit.core.view.UIview;
 import com.weiit.web.admin.init.service.TemplateCateService;
 import com.weiit.web.common.AdminController;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 模板分类

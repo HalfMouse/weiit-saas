@@ -1,15 +1,14 @@
 package com.weiit.web.admin.task.executor;
 
-import java.util.Date; 
 import com.weiit.core.entity.FormMap;
 import com.weiit.task.core.biz.model.ReturnT;
 import com.weiit.task.core.handler.Task;
-import com.weiit.task.core.handler.annotation.TaskHandler; 
+import com.weiit.task.core.handler.annotation.TaskHandler;
 import com.weiit.web.admin.task.service.UserCouponService;
-
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * Created by 罗鸿强 on 2018/7/10.

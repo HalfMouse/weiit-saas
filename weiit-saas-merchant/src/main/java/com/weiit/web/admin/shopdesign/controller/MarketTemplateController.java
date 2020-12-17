@@ -3,7 +3,6 @@ package com.weiit.web.admin.shopdesign.controller;
 
 import com.weiit.core.view.UIview;
 import com.weiit.web.base.AdminController;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

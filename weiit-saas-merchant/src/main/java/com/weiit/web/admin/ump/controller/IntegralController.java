@@ -9,16 +9,13 @@ import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.product.service.ProductService;
 import com.weiit.web.admin.publics.service.ParameterService;
 import com.weiit.web.admin.ump.service.IntegralService;
-import com.weiit.web.admin.util.DateUtil;
 import com.weiit.web.base.AdminController;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-
 import java.util.ArrayList;
 import java.util.List;
 

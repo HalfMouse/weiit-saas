@@ -6,14 +6,10 @@ import com.weiit.core.mapper.BaseMapper;
 import com.weiit.core.service.impl.AbstractService;
 import com.weiit.web.admin.weixin.mapper.WeixinMediaArticleMapper;
 import com.weiit.web.admin.weixin.service.WeixinMediaArticleService;
-
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 微信公众号图文素材接口实现类

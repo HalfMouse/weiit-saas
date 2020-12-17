@@ -1,6 +1,5 @@
 package com.weiit.web.admin.setting.mapper;
- 
-import com.weiit.core.entity.FormMap;
+
 import com.weiit.core.mapper.BaseMapper;
  /**
   * 商品横幅活动接口类

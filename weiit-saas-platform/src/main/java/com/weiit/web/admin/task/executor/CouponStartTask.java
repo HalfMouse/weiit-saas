@@ -1,6 +1,5 @@
 package com.weiit.web.admin.task.executor;
 
-import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.task.core.biz.model.ReturnT;
 import com.weiit.task.core.handler.Task;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by 罗鸿强 on 2018/7/9.

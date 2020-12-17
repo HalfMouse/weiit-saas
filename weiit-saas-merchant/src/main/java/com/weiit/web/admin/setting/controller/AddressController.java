@@ -5,16 +5,13 @@ import com.github.pagehelper.PageInfo;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.view.UIview;
+import com.weiit.web.admin.publics.service.PublicsService;
 import com.weiit.web.admin.setting.service.AddressService;
 import com.weiit.web.base.AdminController;
-import com.weiit.web.admin.publics.service.PublicsService;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
-
-import java.net.URLEncoder;
 import java.util.List;
 
 /**

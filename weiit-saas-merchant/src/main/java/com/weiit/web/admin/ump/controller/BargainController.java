@@ -12,7 +12,6 @@ import com.weiit.web.admin.ump.service.BargainService;
 import com.weiit.web.admin.util.DateUtil;
 import com.weiit.web.admin.util.DesUtil;
 import com.weiit.web.base.AdminController;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -21,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

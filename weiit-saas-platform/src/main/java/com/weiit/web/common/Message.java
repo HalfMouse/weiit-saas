@@ -1,8 +1,7 @@
 package com.weiit.web.common;
 
-import org.springframework.web.servlet.ModelAndView;
-
 import com.weiit.core.view.UIview;
+import org.springframework.web.servlet.ModelAndView;
 
 
 /**

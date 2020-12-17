@@ -1,15 +1,14 @@
 package com.weiit.web.admin.init.controller;
-    
-import javax.annotation.Resource;
 
+import com.weiit.core.entity.FormMap;
+import com.weiit.core.view.UIview;
+import com.weiit.web.admin.init.service.InitService;
+import com.weiit.web.common.AdminController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.weiit.core.entity.FormMap;
-import com.weiit.core.view.UIview;
-import com.weiit.web.admin.init.service.InitService; 
-import com.weiit.web.common.AdminController;
+import javax.annotation.Resource;
 
 /**
  * 店铺 初始化 数据 

@@ -7,13 +7,8 @@ import com.weiit.core.service.impl.AbstractService;
 import com.weiit.resource.common.utils.RedisUtil;
 import com.weiit.task.core.log.TaskLogger;
 import com.weiit.web.admin.init.service.OrderService;
-import com.weiit.web.admin.task.mapper.GrouponMapper;
 import com.weiit.web.admin.task.mapper.OrderConfirmMapper;
-import com.weiit.web.admin.task.service.GrouponService;
 import com.weiit.web.admin.task.service.OrderConfirmService;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.Date;
 import java.util.List;
 
 /**

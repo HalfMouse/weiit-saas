@@ -1,12 +1,10 @@
-package com.weiit.web.common; 
-
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+package com.weiit.web.common;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.weiit.core.controller.BaseController;
 import com.weiit.core.entity.E;
-import com.weiit.core.entity.FormMap; 
+import com.weiit.core.entity.FormMap;
 import com.weiit.web.admin.system.constant.Constant;
 
 

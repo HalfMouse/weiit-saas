@@ -1,19 +1,17 @@
 package com.weiit.web.admin.task.executor;
 
 import com.weiit.core.entity.E;
-import com.weiit.task.core.handler.Task;
 import com.weiit.task.core.biz.model.ReturnT;
+import com.weiit.task.core.handler.Task;
 import com.weiit.task.core.handler.annotation.TaskHandler;
 import com.weiit.task.core.log.TaskLogger;
 import com.weiit.web.admin.task.service.HelloWorldService;
-
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Resource;
 
 
 /**

@@ -1,45 +1,22 @@
 package com.weiit.web.weixinopen.controller;
 
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import com.github.binarywang.wxpay.bean.order.WxPayNativeOrderResult;
+import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
+import com.github.binarywang.wxpay.exception.WxPayException;
+import com.weiit.resource.common.utils.WeiitQrCodeUtil;
+import com.weiit.web.base.AdminController;
+import com.weiit.web.weixin.util.XMLUtil;
+import com.weiit.web.weixinopen.service.WeixinOpenService;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
-
-import com.github.binarywang.wxpay.bean.notify.WxScanPayNotifyResult;
-import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
-import com.github.binarywang.wxpay.bean.order.WxPayNativeOrderResult;
-import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
-import com.github.binarywang.wxpay.exception.WxPayException;
-import com.github.binarywang.wxpay.util.SignUtils;
-import com.google.gson.Gson;
-import com.weiit.core.entity.E;
-import com.weiit.core.entity.FormMap;
-import com.weiit.resource.common.utils.WeiitQrCodeUtil;
-import com.weiit.web.base.AdminController;
-import com.weiit.web.base.FrontController;
-import com.weiit.web.weixin.util.XMLUtil;
-import com.weiit.web.weixinopen.service.WeixinOpenService;
-
-import me.chanjar.weixin.common.error.WxErrorException;
-import me.chanjar.weixin.mp.bean.kefu.WxMpKefuMessage;
-import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
-import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
-import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
-import me.chanjar.weixin.mp.bean.result.WxMpUser;
-import me.chanjar.weixin.open.api.WxOpenService;
-import me.chanjar.weixin.open.bean.message.WxOpenXmlMessage;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import java.io.IOException;
+import java.util.Map;
 
 
 @RestController

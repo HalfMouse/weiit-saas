@@ -1,19 +1,17 @@
 package com.weiit.web.admin.init.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.mapper.BaseMapper;
-import com.weiit.core.service.impl.AbstractService;  
+import com.weiit.core.service.impl.AbstractService;
 import com.weiit.web.admin.init.mapper.ProductCateMapper;
 import com.weiit.web.admin.init.service.ProductCateService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 商品分类Mapper

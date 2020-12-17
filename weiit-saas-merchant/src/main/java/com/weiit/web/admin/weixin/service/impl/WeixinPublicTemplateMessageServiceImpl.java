@@ -1,20 +1,16 @@
 package com.weiit.web.admin.weixin.service.impl;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.mapper.BaseMapper;
 import com.weiit.core.service.impl.AbstractService;
-import com.weiit.web.admin.weixin.mapper.WeixinPublicMapper;
 import com.weiit.web.admin.weixin.mapper.WeixinPublicTemplateMessageMapper;
-import com.weiit.web.admin.weixin.service.WeixinPublicService;
 import com.weiit.web.admin.weixin.service.WeixinPublicTemplateMessageService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 
 

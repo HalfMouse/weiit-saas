@@ -10,7 +10,6 @@ import com.weiit.core.entity.FormMap;
 import com.weiit.core.view.UIview;
 import com.weiit.resource.common.utils.RedisUtil;
 import com.weiit.resource.common.utils.WeiitQrCodeUtil;
-import com.weiit.web.admin.analyse.service.AnalyseService;
 import com.weiit.web.admin.login.service.LoginService;
 import com.weiit.web.admin.publics.service.ParameterService;
 import com.weiit.web.admin.ump.service.BargainService;
@@ -20,10 +19,8 @@ import com.weiit.web.admin.util.DesUtil;
 import com.weiit.web.base.AdminController;
 import com.weiit.web.weixin.util.XMLUtil;
 import com.weiit.web.weixinopen.service.WeixinOpenService;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,15 +29,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 设计页面

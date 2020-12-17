@@ -5,7 +5,6 @@ import com.github.binarywang.wxpay.service.WxPayService;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.service.BaseService;
-
 import me.chanjar.weixin.open.api.WxOpenService;
 import me.chanjar.weixin.open.api.impl.WxOpenMessageRouter;
 

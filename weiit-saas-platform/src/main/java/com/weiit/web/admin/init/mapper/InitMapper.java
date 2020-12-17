@@ -1,11 +1,11 @@
 package com.weiit.web.admin.init.mapper;
- 
-import java.util.List;
-import java.util.Map;
 
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.mapper.BaseMapper;
+
+import java.util.List;
+import java.util.Map;
  
 /**
  * 数据初始化Mapper

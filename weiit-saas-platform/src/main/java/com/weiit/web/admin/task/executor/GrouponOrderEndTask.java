@@ -9,11 +9,9 @@ import com.weiit.task.core.log.TaskLogger;
 import com.weiit.web.admin.task.service.GrouponService;
 import com.weiit.web.admin.util.DateUtil;
 import com.weiit.web.weixinopen.service.MessageService;
-
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

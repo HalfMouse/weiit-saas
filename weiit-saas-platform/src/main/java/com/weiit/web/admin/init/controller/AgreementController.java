@@ -8,12 +8,10 @@ import com.weiit.core.entity.FormMap;
 import com.weiit.core.view.UIview;
 import com.weiit.web.admin.init.service.AgreementService;
 import com.weiit.web.common.AdminController;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
-
 import java.util.List;
 
 /**

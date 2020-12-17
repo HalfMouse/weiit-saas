@@ -9,11 +9,8 @@ import com.weiit.web.admin.file.service.PictureService;
 import com.weiit.web.admin.product.service.ProductGroupService;
 import com.weiit.web.admin.product.service.ProductService;
 import com.weiit.web.admin.publics.service.PublicsService;
-//import com.weiit.web.admin.ump.service.BargainService;
-//import com.weiit.web.admin.ump.service.GrouponService;
 import com.weiit.web.admin.util.DesUtil;
 import com.weiit.web.base.AdminController;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -24,11 +21,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+//import com.weiit.web.admin.ump.service.BargainService;
+//import com.weiit.web.admin.ump.service.GrouponService;
 
 /**
  * 商品分组

@@ -1,15 +1,13 @@
 package com.weiit.web.admin.publics.service.impl;
 
 
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import com.weiit.core.mapper.BaseMapper;
 import com.weiit.core.service.impl.AbstractService;
 import com.weiit.web.admin.publics.mapper.LogMapper;
 import com.weiit.web.admin.publics.service.LogService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 /**
  * 日志管理实现类
  * @author 半个鼠标

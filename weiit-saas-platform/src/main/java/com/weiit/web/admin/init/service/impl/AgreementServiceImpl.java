@@ -8,6 +8,7 @@ import com.weiit.web.admin.init.mapper.AgreementMapper;
 import com.weiit.web.admin.init.service.AgreementService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
 import java.util.List;
 

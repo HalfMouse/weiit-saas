@@ -10,11 +10,9 @@ import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.product.service.ProductGroupService;
 import com.weiit.web.admin.product.service.ProductService;
 import com.weiit.web.admin.product.service.ProductTagService;
-//import com.weiit.web.admin.setting.service.ShippingService;
 import com.weiit.web.admin.setting.service.ShippingService;
 import com.weiit.web.admin.util.DesUtil;
 import com.weiit.web.base.AdminController;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -26,9 +24,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
-
 import java.net.URLDecoder;
 import java.util.*;
+
+//import com.weiit.web.admin.setting.service.ShippingService;
 
 /**
  * 商品管理

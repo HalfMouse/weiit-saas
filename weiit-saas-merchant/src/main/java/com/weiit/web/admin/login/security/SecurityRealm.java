@@ -1,9 +1,8 @@
 package com.weiit.web.admin.login.security;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.weiit.core.entity.E;
+import com.weiit.core.entity.FormMap;
+import com.weiit.web.admin.login.service.LoginService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -15,9 +14,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
 
-import com.weiit.core.entity.E;
-import com.weiit.core.entity.FormMap;
-import com.weiit.web.admin.login.service.LoginService;
+import javax.annotation.Resource;
 
 
 

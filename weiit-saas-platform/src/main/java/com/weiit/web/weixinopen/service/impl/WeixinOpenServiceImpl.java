@@ -1,38 +1,32 @@
 package com.weiit.web.weixinopen.service.impl;
 
 
-import javax.annotation.Resource;
-
 import cn.binarywang.wx.miniapp.api.WxMaService;
-import cn.binarywang.wx.miniapp.bean.WxMaDomainAction;
 import cn.binarywang.wx.miniapp.bean.code.WxMaCategory;
 import cn.binarywang.wx.miniapp.bean.code.WxMaCodeSubmitAuditRequest;
 import cn.binarywang.wx.miniapp.util.json.WxMaGsonBuilder;
+import com.github.binarywang.wxpay.config.WxPayConfig;
+import com.github.binarywang.wxpay.service.WxPayService;
+import com.github.binarywang.wxpay.service.impl.WxPayServiceImpl;
+import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
+import com.weiit.core.mapper.BaseMapper;
+import com.weiit.core.service.impl.AbstractService;
 import com.weiit.resource.common.utils.RedisUtil;
-import com.weiit.web.admin.util.JsonUtil;
 import com.weiit.web.common.Constants;
-import com.weiit.web.common.RedisKey;
+import com.weiit.web.weixinopen.mapper.WeixinOpenMapper;
+import com.weiit.web.weixinopen.service.WeixinOpenService;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.open.api.WxOpenService;
 import me.chanjar.weixin.open.api.impl.WxOpenInMemoryConfigStorage;
 import me.chanjar.weixin.open.api.impl.WxOpenMessageRouter;
 import me.chanjar.weixin.open.api.impl.WxOpenServiceImpl;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.github.binarywang.wxpay.config.WxPayConfig;
-import com.github.binarywang.wxpay.service.WxPayService;
-import com.github.binarywang.wxpay.service.impl.WxPayServiceImpl;
-import com.weiit.core.entity.E;
-import com.weiit.core.mapper.BaseMapper;
-import com.weiit.core.service.impl.AbstractService;
-import com.weiit.web.weixinopen.mapper.WeixinOpenMapper;
-import com.weiit.web.weixinopen.service.WeixinOpenService;
-
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 

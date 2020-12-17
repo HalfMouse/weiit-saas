@@ -1,24 +1,17 @@
 package com.weiit.web.admin.init.service.impl;
 
 
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.mapper.BaseMapper;
 import com.weiit.core.service.impl.AbstractService;
 import com.weiit.web.admin.init.mapper.OrderMapper;
-import com.weiit.web.admin.init.mapper.ShopMapper;
 import com.weiit.web.admin.init.service.OrderService;
-import com.weiit.web.admin.init.service.ShopService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 订单相关Service 实现类

@@ -1,13 +1,12 @@
 package com.weiit.web.admin.init.service.impl;
-  
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service; 
 
 import com.weiit.core.mapper.BaseMapper;
-import com.weiit.core.service.impl.AbstractService;   
+import com.weiit.core.service.impl.AbstractService;
 import com.weiit.web.admin.init.mapper.TemplateCateMapper;
 import com.weiit.web.admin.init.service.TemplateCateService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * 模板分类Mapper

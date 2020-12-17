@@ -1,9 +1,11 @@
 package com.weiit.web.admin.init.controller;
-  
-import java.util.List; 
 
-import javax.annotation.Resource;
-
+import com.weiit.core.entity.E;
+import com.weiit.core.entity.FormMap;
+import com.weiit.core.view.UIview;
+import com.weiit.resource.common.utils.WeiitUtil;
+import com.weiit.web.admin.init.service.ProductCateService;
+import com.weiit.web.common.AdminController;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,12 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.weiit.core.entity.E;
-import com.weiit.core.entity.FormMap;  
-import com.weiit.core.view.UIview;
-import com.weiit.resource.common.utils.WeiitUtil;
-import com.weiit.web.admin.init.service.ProductCateService;
-import com.weiit.web.common.AdminController;
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 商品分类

@@ -7,13 +7,10 @@ import com.weiit.core.entity.FormMap;
 import com.weiit.core.view.UIview;
 import com.weiit.resource.common.utils.DateUtil;
 import com.weiit.resource.common.utils.RedisUtil;
-import com.weiit.resource.common.utils.WeiitQrCodeUtil;
-import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.dashboard.service.DashBoardService;
 import com.weiit.web.admin.order.service.OrdersService;
 import com.weiit.web.admin.setting.service.SettingService;
 import com.weiit.web.base.AdminController;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;

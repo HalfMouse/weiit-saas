@@ -6,14 +6,11 @@ import com.weiit.core.mapper.BaseMapper;
 import com.weiit.core.service.impl.AbstractService;
 import com.weiit.web.admin.weixin.mapper.WeixinPublicBatchSendingMapper;
 import com.weiit.web.admin.weixin.service.WeixinPublicBatchSendingService;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /** 

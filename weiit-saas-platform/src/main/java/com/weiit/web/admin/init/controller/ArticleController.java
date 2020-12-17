@@ -8,14 +8,12 @@ import com.weiit.core.view.UIview;
 import com.weiit.resource.common.utils.WeiitUtil;
 import com.weiit.web.admin.init.service.ArticleService;
 import com.weiit.web.common.AdminController;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
-
 import java.util.List;
 
 /**

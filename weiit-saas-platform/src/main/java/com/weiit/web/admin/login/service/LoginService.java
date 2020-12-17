@@ -1,12 +1,10 @@
 package com.weiit.web.admin.login.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.service.BaseService;
+
+import java.util.List;
 
 /**
  * 

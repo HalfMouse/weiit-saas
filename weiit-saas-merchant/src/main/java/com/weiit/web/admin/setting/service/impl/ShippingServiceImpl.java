@@ -1,17 +1,5 @@
 package com.weiit.web.admin.setting.service.impl;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
- 
-
-import org.springframework.stereotype.Service; 
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
 import com.weiit.core.mapper.BaseMapper;
@@ -19,6 +7,13 @@ import com.weiit.core.service.impl.AbstractService;
 import com.weiit.resource.common.utils.DateUtil;
 import com.weiit.web.admin.setting.mapper.ShippingMapper;
 import com.weiit.web.admin.setting.service.ShippingService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
 /**
  * 商品横幅活动实现类
  * Title: ShipmentsServiceImpl.java

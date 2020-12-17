@@ -1,31 +1,11 @@
 package com.weiit.web.base;
 
 
-
-
-
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
-import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.weiit.core.controller.BaseController;
 import com.weiit.core.entity.E;
 import com.weiit.core.entity.FormMap;
-import com.weiit.resource.common.utils.WeiitUtil;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
 
 
 /**
