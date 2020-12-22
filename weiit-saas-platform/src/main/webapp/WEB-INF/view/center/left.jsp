@@ -18,7 +18,7 @@
 						<ul class="navigation navigation-main navigation-accordion">
 							
 							<!-- 显示概况 --> 
-							<li><a href="javascript:openOnRight('${pageContext.request.contextPath}/center/order/dashboard');" target="rightIframe"><i class="icon-home4"></i> <span>概况</span></a></li>
+							<li><a onclick="openOnRight('${pageContext.request.contextPath}/center/order/dashboard');" target="rightIframe"><i class="icon-home4"></i> <span>概况</span></a></li>
 							
 							<c:forEach items="${sessionScope.menuList }" var="menu">
 								<weiyun:hasAnyRoles name="${menu.resource_sign }">
@@ -33,7 +33,7 @@
 																<a href="#"><i class="${second.css_icon }"></i> ${second.resource_name }</a>
 																<ul>
 																	<c:forEach items="${second.children }" var="third"><weiyun:hasAnyRoles name="${third.resource_sign }">
-																	<li><a href="javascript:openOnRight('${pageContext.request.contextPath}${third.rest_url}');" target="rightIframe"><i class="${third.css_icon }"></i>${third.resource_name }</a></li>
+																	<li><a onclick="openOnRight('${pageContext.request.contextPath}${third.rest_url}');" target="rightIframe"><i class="${third.css_icon }"></i>${third.resource_name }</a></li>
 																	</weiyun:hasAnyRoles></c:forEach>
 																</ul>
 															</li>
@@ -41,7 +41,7 @@
 														</c:when>
 														<c:otherwise>
 														<weiyun:hasAnyRoles name="${second.resource_sign }">
-															<li><a href="javascript:openOnRight('${pageContext.request.contextPath}${second.rest_url}');" target="rightIframe"><i class="${second.css_icon }"></i>${second.resource_name }</a></li>
+															<li><a onclick="openOnRight('${pageContext.request.contextPath}${second.rest_url}');" target="rightIframe"><i class="${second.css_icon }"></i>${second.resource_name }</a></li>
 														</weiyun:hasAnyRoles>
 														</c:otherwise>
 													</c:choose>	
