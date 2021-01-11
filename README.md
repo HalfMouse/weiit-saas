@@ -149,7 +149,7 @@ weiit-saas系统依赖jar支持3：
 ## 七、技术支持
 
 
-![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2021-01-04/ab7d7162-6312-43fb-b20d-f4f25208fe3d.png)
+![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2021-01-11/a919a900-3dbc-4383-a8c2-ac3a74e76ca4.png)
 
 
 
