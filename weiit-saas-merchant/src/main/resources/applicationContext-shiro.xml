@@ -66,8 +66,9 @@
                 /center/ump/servicePayFinish=anon
                 /center/weixin/public/auth_result=anon
                 /center/weixin/public/go_auth=anon
+                /center/weixinopen/goto_auth_url_show=anon
                 
-                 /center/weixinopen/goto_auth_url_show=anon
+                 /center/miniprogram/auth_result=anon
                  /center/weixinopen/goto_auth_url=anon
                  /center/weixinopen/portal=anon
                 /center/weixinopen/pay/findTemplateLibraryKeywordList =anon
