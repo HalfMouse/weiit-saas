@@ -107,6 +107,6 @@
           
      <import resource="classpath*:redis.xml" />
      
-     <!-- 集成task支持 -->
-     <import resource="classpath*:weiit-task.xml" />
+     <!-- 集成task支持 
+     <import resource="classpath*:weiit-task.xml" />-->
 </beans>
