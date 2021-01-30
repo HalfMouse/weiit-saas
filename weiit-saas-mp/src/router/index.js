@@ -50,8 +50,8 @@ import payments from '@/views/person/payments'
 import goodsDetail from '@/views/sort/goodsDetail'
 // 引入砍价列表
 import bargain from '@/views/active/bargain'
-// 引入拼图列表
-import fightList from '@/views/active/fightList'
+// // 引入拼图列表
+// import fightList from '@/views/active/fightList'
 // 引入砍价免费拿
 import freeGet from '@/views/home/freeGet'
 // 引入订单详情页
@@ -154,7 +154,7 @@ const router = new Router({
     path: '/Personal',
     name: 'Personal',
     // component: person,
-    component: resolve => require(['@/views/person'],resolve),     
+    component: resolve => require(['@/views/person'],resolve),
     meta:{
         title:'个人中心',
         keepAlive: false
@@ -164,7 +164,7 @@ const router = new Router({
     name: 'returnGoods',
     // component: returnGoods,
     // component: r => require.ensure([], () => r(require('../views/person/returnGoods')), 'returnGoods'),
-    component: resolve => require(['@/views/person/returnGoods'],resolve),   
+    component: resolve => require(['@/views/person/returnGoods'],resolve),
     meta:{
         title:'退货管理',
         keepAlive: false
@@ -195,7 +195,7 @@ const router = new Router({
     name: 'integral',
     // component: integral,
     // component: r => require.ensure([], () => r(require('../views/person/integral')), 'wallet'),
-    component: resolve => require(['@/views/person/integral'],resolve),   
+    component: resolve => require(['@/views/person/integral'],resolve),
     meta:{
         title:'我的积分',
         keepAlive: false
@@ -232,7 +232,7 @@ const router = new Router({
     name:'Collection',
     // component:collection,
     // component: r => require.ensure([], () => r(require('../views/person/collection')), 'collection'),
-    component: resolve => require(['@/views/person/collection'],resolve),    
+    component: resolve => require(['@/views/person/collection'],resolve),
     meta:{
         title:'我的收藏',
         keepAlive: false
@@ -242,7 +242,7 @@ const router = new Router({
     name:'address',
     // component:address,
     // component: r => require.ensure([], () => r(require('../views/person/address')), 'address'),
-    component: resolve => require(['@/views/person/address'],resolve),    
+    component: resolve => require(['@/views/person/address'],resolve),
     meta:{
         title:'收件地址管理',
         keepAlive: false
@@ -357,17 +357,19 @@ const router = new Router({
       title:'砍价',
       keepAlive: false
     }
-  },{
-    path:'/collageList',
-    name:'collageList',
-    // component:bargain,
-    // component: r => require.ensure([], () => r(require('../views/active/bargain')), 'bargain'),
-    component: resolve => require(['@/views/active/fightList'],resolve),
-    meta:{
-      title:'拼团',
-      keepAlive: false
-    }
-  },{
+  },
+// {
+//     path:'/collageList',
+//     name:'collageList',
+//     // component:bargain,
+//     // component: r => require.ensure([], () => r(require('../views/active/bargain')), 'bargain'),
+//     component: resolve => require(['@/views/active/fightList'],resolve),
+//     meta:{
+//       title:'拼团',
+//       keepAlive: false
+//     }
+//   },
+{
     path:'/freeGet',
     name:'freeGet',
     // component:freeGet,
@@ -611,7 +613,7 @@ router.beforeEach((to,from,next) => {
     localStorage.setItem('userId',share_user_id);
   }
   if(!cookie.get('token') && to.path != '/formData'){
-   
+
     localStorage.setItem('fromUrl',to.fullPath);
     next('/formData');
     return false
