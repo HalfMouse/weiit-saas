@@ -150,7 +150,9 @@ weiit-saas系统依赖jar支持3：
 
 weiit开源技术1群（已满）
 
-![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2021-01-25/d61de4d8-66c1-4c53-8335-191bdfe69b3c.png)
+加的时候请备注一下，我拉你进1群。
+
+![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2021-01-30/a4085ed6-eed8-40b0-b473-f2d77438f846.png)
 
 
 
