@@ -44,7 +44,7 @@ import member from '@/views/person/member'
 import memberDetails from '@/views/person/memberDetails'
 // 引入优惠券
 import coupon from '@/views/person/coupon'
-// 引入收支明细
+// 引入收支 明细
 import payments from '@/views/person/payments'
 // 引入商品详情
 import goodsDetail from '@/views/sort/goodsDetail'
