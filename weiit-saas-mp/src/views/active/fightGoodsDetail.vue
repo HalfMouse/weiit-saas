@@ -7,7 +7,7 @@
                 <!-- 头部图片展示 -->
                 <div class="goods">
                     <mt-swipe :auto="0">
-                        <mt-swipe-item v-for="item in productInfo.product_imgs">
+                        <mt-swipe-item v-for="(item, index) in productInfo.product_imgs" :key="index">
                             <div class="show">
                                 <img :src="$url + item.product_img" alt="">
                             </div>
