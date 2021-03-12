@@ -152,7 +152,7 @@ weiit开源技术1群（已满）
 
 加的时候请备注一下，我拉你进1群。
 
-![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2021-01-30/a4085ed6-eed8-40b0-b473-f2d77438f846.png)
+![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2021-03-12/08917164-20ad-4e5e-933f-a9dc339693fe.jpeg)
 
 
 
