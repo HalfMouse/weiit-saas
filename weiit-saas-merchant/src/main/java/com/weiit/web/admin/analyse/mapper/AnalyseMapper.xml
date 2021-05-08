@@ -96,7 +96,7 @@
 		WHERE
 			(o.state != 0 OR o.state !=- 1)
 		GROUP BY
-			product_id
+			product_id,d.shop_id
 		) temp ON (
 			p.product_id = temp.product_id
 		)
