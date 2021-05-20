@@ -152,7 +152,7 @@ weiit开源技术1群（已满）
 
 加的时候请备注一下，我拉你进1群。
 
-![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2021-01-30/a4085ed6-eed8-40b0-b473-f2d77438f846.png)
+![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2021-03-12/08917164-20ad-4e5e-933f-a9dc339693fe.jpeg)
 
-
-
+## 八、常见问题
+[常见问题](https://thoughts.teambition.com/share/608bd239af84f3004757a5e1#title=%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)

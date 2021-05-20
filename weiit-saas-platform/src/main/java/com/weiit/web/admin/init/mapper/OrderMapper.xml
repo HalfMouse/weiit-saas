@@ -85,7 +85,7 @@
     <!-- 查询 交易排名 前10 -->
     <select id="selectShopOrderList" resultType="com.weiit.core.entity.E" parameterType="map">
 		select 
-			oo.order_id,
+			oo.shop_id,
 			si.shop_name, 
 			count(*) payCount, 
 			sum(oo.pay_price) paySum
