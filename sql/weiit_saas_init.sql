@@ -12,8 +12,12 @@ File Encoding         : 65001
 
 Date: 2020-12-03 16:09:04
 */
+DROP DATABASE IF EXISTS `weiit_saas_init`;
+create database `weiit_saas_init` default character set utf8mb4 collate utf8mb4_general_ci;
 
-SET FOREIGN_KEY_CHECKS=0;
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+USE `weiit_saas_init`;
 
 -- ----------------------------
 -- Table structure for weiit_init_business
