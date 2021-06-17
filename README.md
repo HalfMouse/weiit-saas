@@ -148,9 +148,9 @@ weiit-saas系统依赖jar支持3：
 
 ## 七、技术支持
 
-weiit开源技术1群（已满）
+weiit开源技术群
 
-加的时候请备注一下，我拉你进1群。
+加的时候请备注一下，我拉你进群。
 
-![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2021-03-12/08917164-20ad-4e5e-933f-a9dc339693fe.jpeg)
+![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2021-06-17/a9cefbcf-a9a3-4c8e-ac9b-c28f5ed84230.jpeg)
 
