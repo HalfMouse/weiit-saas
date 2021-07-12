@@ -150,5 +150,5 @@ weiit-saas系统依赖jar支持3：
 
 weiit开源支持
 
-![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2021-06-30/64bc2b8d-ee4f-428a-9d2a-3181fcf36907.jpeg)
+![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2021-07-12/9a83243d-ed8f-42da-812c-3da5aca9be98.jpeg)
 
