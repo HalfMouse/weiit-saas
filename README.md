@@ -3,9 +3,8 @@
 
 weiit-saas是一款Java开源项目，属于weiit团队自研产品，意在通过技术封装，让企业无需代码开发，帮助企业一键生成小程序、公众号，让企业拥有独立品牌的自营商城。产品竞争对手《有赞》、《微盟》。
 
-## 最新下载
--  gitee开源地址：[https://gitee.com/wei-it/weiit-saas](https://gitee.com/wei-it/weiit-saas)
--  github开源地址：[https://github.com/HalfMouse/weiit-saas](https://github.com/HalfMouse/weiit-saas)
+## weiit新版saas已经上线
+-  访问地址：https://www.wei-it.com/
 ## 一、引言
 
  
@@ -15,7 +14,8 @@ weiit-saas是一款Java开源项目，属于weiit团队自研产品，意在通�
  -  **2018年5月** weiit团队研发成功并上线SAAS电商2.0版本，快速获得200多家企业使用与支持；
  -  **2018年到2019年**weiit团队研发经费无法持续，放弃SAAS系统持续迭代，转型做技术服务商；
  -  **2020年** weiit团队宣布，SAAS电商产品免费开源，让圈内的技术大佬一起学习与交流；
- - weiit团队承诺“weiit-saas”系统完全开源，跟喜欢研究SAAS概念的技术大佬交流与学习成长。
+ -  **2021年** weiit新版saas发布上线。欢迎技术朋友们一起探讨和学习。
+
  
  
  
