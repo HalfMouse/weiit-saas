@@ -5,6 +5,8 @@ weiit-saas是一款Java开源项目，属于weiit团队自研产品，意在通�
 
 ## weiit新版saas已经上线
 -  访问地址：https://www.wei-it.com/
+
+      
 ## 一、引言
 
  
@@ -22,17 +24,20 @@ weiit-saas是一款Java开源项目，属于weiit团队自研产品，意在通�
 ## 二、主要特点
 
 
- - 项目采用**Spring+SpringMVC+Mybatis**主流开源框架，遵循MVC架构，设计轻巧，使用简单，开发人员接手与二次开发简单易懂；
- - 项目依赖的**核心支持jar包**，都已经完全开源
+ - 项目采用**SpringCloud **主流开源框架，，设计轻巧，使用简单，开发人员接手与二次开发简单易懂；
  - 项目完成了对阿里云、腾讯云、微信生态的快速接入与代码示例，并成功运用到了商业中，方便大家学习对**OSS/COS/短信服务/快递服务/公众号/小程序/微信开放平台/微信支付**的技术点与应用场景的学习。
  - 小程序与公众号第三方授权集成，让开发者与企业省去繁琐的配置，对**AppId/AppSecret**集成彻底告别。
  - 微信支付**第三方授权**集成，让开发者与企业省去繁琐的配置，让企业服务成本大大降低。
  - 小程序**代码自动push与升级**，公众号基本常规功能（**自定义菜单、图文、素材，群发**）全部接管，让企业无需登录微信官方入口，统一化管理企业信息与数据。
  - 微信**消息通知与模板**自动同步与管理，让企业场景融合无障碍。
  - 像**淘宝装修**一样的自定义装修功能，实现企业电商场景多元化，解决不同行业不同模板，让企业需求得到真正解决。
- - 丰富的**营销工具**，解决企业微营销需求，并集中化管理。拼团活动、积分活动、砍价活动等等，方便二次开发。
+ - 丰富的**营销工具**，解决企业微营销需求，并集中化管理。拼团活动、积分活动、砍价，优惠券，卡券，礼品卡，邀请有礼等营销活动，方便二次开发。
  - 不同企业数据隔离，真正实现SAAS数据隔离模型，让企业数据互不干扰。
  - 不同企业不同域名自动分配，让企业小程序、公众号前端隔离，避免因为公众号或者小程序推广时导致域名被检测导致的封号问题出现，即不同企业不同域，意在防止saas平台中的企业受到其他企业的影响。
+ - 技术栈：SpringCloud + Oauth2.0 + ShiroRedis + JWT + Gateway + Nacos + Nginx 
+ -  前端： ant-design-vue
+
+  
 
 
 
@@ -41,58 +46,20 @@ weiit-saas是一款Java开源项目，属于weiit团队自研产品，意在通�
  - maven仓库依赖的核心jar包项目，gitee开源地址：[https://gitee.com/wei-it/weiit-frame](https://gitee.com/wei-it/weiit-frame)
  - maven仓库依赖的核心jar包项目，github开源地址：[https://github.com/HalfMouse/weiit-frame](https://github.com/HalfMouse/weiit-frame)
 
-weiit-saas系统依赖jar支持1：
-```maven
- <dependency>
-    <groupId>com.weiit</groupId>
-    <artifactId>weiit-support-core</artifactId>
-    <version>1.0.0</version>
-</dependency>
-```
-
-weiit-saas系统依赖jar支持2：
-```maven
- <dependency>
-    <groupId>com.weiit</groupId>
-    <artifactId>weiit-resource-common</artifactId>
-    <version>1.0.0</version>
-</dependency>
-```
-
-weiit-saas系统依赖jar支持3：
-```maven
- <dependency>
-    <groupId>com.weiit</groupId>
-    <artifactId>weiit-suppor-task</artifactId>
-    <version>1.0.0</version>
-</dependency>
-```
-
 
 
 ## 四、演示地址
 
 
-一、测试环境演示：
-
-| 用户端 | 演示地址 |测试账户 |
-|--|--|--|
-| 商家端|http://saasmerchant.wei-it.com/  |18306668080   123456 |
-| 渠道端|http://saasplatform.wei-it.com/  |qudao  123456 |
-| 平台端|http://saasplatform.wei-it.com/  |pingtai 123456 |
+一、项目测试环境演示地址：https://www.wei-it.com/  开通试用即可体验。
+    
 
 
-二、生产环境演示：
-
-| 用户端 | 演示地址 |测试账户 |
-|--|--|--|
-| 商家端|http://www.wstore.me  |18339835117   123456 |
-| 渠道端|  |不提供演示|
-| 平台端|  |不提供演示|
-| 用户端|  |小程序搜索“衣家好店” |
 
 
-三、成功案例：
+
+
+二、成功案例：
 
 <img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/a2f7387e-29ff-4890-8917-64a174f1dc85.png"  width="150" height="150"  />
 <img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/2c7b2c24-ca20-4cd7-8d23-a06b7c216ba8.png"  width="150" height="150"  />
@@ -103,7 +70,7 @@ weiit-saas系统依赖jar支持3：
 
 
 
-## 五、系统功能
+## 三、系统功能
 
 
 
@@ -142,11 +109,11 @@ weiit-saas系统依赖jar支持3：
 
 
 
-## 六、系统核心
+## 四、系统核心
 ![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2020-12-07/1d247d67-a6b4-4c0b-a87c-9f7f318ab499.jpg)
 详情：[系统核心](https://www.processon.com/view/link/5fca03875653bb7d2b2b1c11)
 
-## 七、技术支持
+## 五、技术支持
 
 weiit开源支持
 
