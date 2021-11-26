@@ -61,11 +61,11 @@ weiit-saas是一款Java开源项目，属于weiit团队自研产品，意在通�
 
 二、成功案例：
 
-<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/a2f7387e-29ff-4890-8917-64a174f1dc85.png"  width="150" height="150"  />
-<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/2c7b2c24-ca20-4cd7-8d23-a06b7c216ba8.png"  width="150" height="150"  />
-<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/4e4b1d4c-1459-4acb-b7e1-f70862768edb.jpg"  width="150" height="150"  />
-<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/a0621572-8c28-4a20-8746-97d8a3096e1d.jpg"  width="150" height="150"  />
-<img src="https://weiit.oss-cn-shenzhen.aliyuncs.com//weiit/2020-12-01/f3301cbe-7272-44c4-bb1e-98d771d80c02.jpg"  width="150" height="150"  />
+<img src="https://cdn.tikcos.cn/saas/tikcos731109726187/aopinhui_1637914071592.jpg"  width="150" height="150"/>
+<img src="https://cdn.tikcos.cn/saas/tikcos731109726187/haohaoxiansheng_1637914230515.jpg"  width="150" height="150"  />
+<img src="https://cdn.tikcos.cn/saas/tikcos731109726187/bianjiaju_1637914274365.jpg"  width="150" height="150"  />
+<img src="https://cdn.tikcos.cn/saas/tikcos731109726187/zhijing_1637914306159.jpeg"  width="150" height="150"  />
+
 
 
 
