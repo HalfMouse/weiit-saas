@@ -93,5 +93,5 @@ weiit-saas是一款Java开源项目，属于weiit团队自研产品，意在通�
 
 weiit开源支持
 
-![avatar](https://cdn.tikcos.cn/saas/tikcos731109726187/haibo_1644462446488.png)
+![avatar](https://cdn.tikcos.cn/saas/weiit5613741909255/237-237_1653999214682.jpeg)
 
