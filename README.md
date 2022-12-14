@@ -92,9 +92,7 @@
 ![avatar](https://weiit.oss-cn-shenzhen.aliyuncs.com/weiit/2020-12-07/1d247d67-a6b4-4c0b-a87c-9f7f318ab499.jpg)
 详情：[系统核心](https://www.processon.com/view/link/5fca03875653bb7d2b2b1c11)
 
-## 七、技术支持
+## 七、技术支持（项目属于完全开源、免费开源，因团队经费无法持续维持支持与升级，望理解万岁）
 
-weiit开源支持
 
-![avatar](https://cdn.tikcos.cn/saas/weiit5613741909255/237-237_1653999214682.jpeg)
 
